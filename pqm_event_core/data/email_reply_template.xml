@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="email_reply_comment" model="mail.template">
+        <field name="name">Reply Comment from ${object.name}</field>
+        <field name="email_from">${object.event_id.company_id.name} &lt;${user.email}&gt;</field>
+        <field name="subject">${ctx['data']['comment'].event_id.name}</field>
+        <field name="email_to">${ctx['data']['comment'].email if ctx['data']['comment'].email or '-'}</field>
+        <field name="model_id" ref="pqm_event_core.model_event_comment"/>
+        <field name="notification" eval="True"/>
+        <field name="auto_delete" eval="False"/>
+        <field name="body_html">
+            <![CDATA[
+                <br/>
+                <p>Hi <b>${ctx['data']['comment'].name if ctx['data'].get('comment') else '-'}</b>,</p>
+                <br/>
+                <p>
+                    Balasan dari Comment anda pada Event kami <b>${ctx['data']['comment'].event_id.name}</b> <br/>
+                </p>
+                <div style='background-color:#bdbdbd;width: 80%;margin-left: 5%;'>
+                    <i>${ctx['data']['comment'].comment}</i>
+                </div>
+                <p>${ctx['data']['reply']}</p>
+                <br/>
+                <br/>
+                <p>Regards,</p>
+                <p><b>PT PROQUAMAN KONSULTAN</b></p>
+            ]]>
+        </field>
+    </record>
+
+</odoo>

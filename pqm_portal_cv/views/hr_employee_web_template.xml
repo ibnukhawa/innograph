@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <link href="/pqm_portal_cv/static/src/css/cv.css" rel="stylesheet" type="text/css"/>
+        </xpath>
+    </template>
+
+
+    <template id="portal_cv_menu" inherit_id="pqm_portal_base.portal_menu" priority="15">
+        <xpath expr="//t[@name='additional_menu']/t[last()]" position="after">
+            <t t-if="request.env.user.has_group('base.group_user')">
+                <li>
+                    <a href="/my/profiles">Profile</a>
+                </li>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="my_profiles" name="My Profiles">
+        <t t-call="website_portal.portal_layout">
+            <script src="/pqm_portal_cv/static/lib/momentjs/src/js/moment.min.js"></script>
+            <style>
+               .table-custom{
+                    table-layout: unset !important;
+               }
+            </style>
+            <t t-foreach="employees" t-as="employee">
+                <div class="row o_website_portal_details">
+                <h3 class="page-header">Your Profile</h3>
+                    <div class="col-md-12">
+                        <div t-if="error_message" class="alert alert-danger">
+                            <t t-if="success != None">
+                                <div t-if="success" class="alert alert-success"><t t-esc="message"/></div>
+                                <div t-if="not success" class="alert alert-danger"><t t-esc="message"/></div>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="text-align:center">
+                        <div style="width:200px;display:inline-block">
+                            <img id="image_holder" t-attf-src="#{employee.get('image')}" style="background:#f5f5f5;border:1px solid #ddd"/>
+                            <input type="file" name="image" style="margin-bottom:15px;border:1px solid #ddd;width:100%"/>
+                            <button class="btn btn-danger" style="margin-bottom:15px;">Upload</button>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <form action="/my/profiles/submit" method="post">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="row">
+                            <h5 class="page-header" style="margin-top:0px">ID Information</h5>
+                            <div class="col-lg-6">
+                                <label class="control-label" for="name">Name</label>
+                                <input type="text" name="identification_id" class="form-control" t-att-value="employee['name']" readonly="True"/>
+                            </div>
+                            <!-- <div class="col-lg-6">
+                                <label class="control-label" for="image">Image</label>
+                                <input type="text" name="identification_id" class="form-control" readonly="True"/>
+                            </div> -->
+                            <div class="col-lg-6">
+                                <label class="control-label" for="identification_id">Identification ID</label>
+                                <input type="text" name="identification_id" class="form-control" t-att-value="employee['identification_id']" />
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="control-label" for="country_id">Nationality</label>
+                                <select class="form-control" id="country_id" name="country_id">
+                                    <option></option>
+                                    <t t-foreach="country_obj" t-as="country">
+                                        <t t-if="country.id == employee['country_id']">
+                                            <option t-att-value="country.id" selected="selected">
+                                                <t t-esc="country.name"/>
+                                            </option>
+                                        </t>
+                                        <t t-if="country.id != employee['country_id']">
+                                            <option t-att-value="country.id">
+                                                <t t-esc="country.name"/>
+                                            </option>
+                                        </t>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="control-label" for="passport_id">Passport ID</label>
+                                <input type="text" name="passport_id" class="form-control" t-att-value="employee['passport_id']" />
+                            </div>
+                            <div class="clearfix" />
+
+                            <h5 class="page-header">Birth</h5>
+                            <div class="col-lg-6">
+                                <label class="control-label" for="birthday">Date Of Birth</label>
+                                <input type="text" name="birthday" id="datetimepicker_birth" class="form-control" t-att-value="employee['birthday']" required="required"/>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#datetimepicker_birth').datetimepicker({
+                                            format: 'YYYY-MM-DD',
+                                            icons: {
+                                                time: "fa fa-clock-o",
+                                                date: "fa fa-calendar",
+                                                up: "fa fa-arrow-up",
+                                                down: "fa fa-arrow-down"
+                                            }
+                                        });
+                                    });
+                                </script>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="control-label" for="place_of_birth">Place Of Birth</label>
+                                <input type="text" name="place_of_birth" class="form-control" t-att-value="employee['place_of_birth']" />
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="control-label" for="age">Age</label>
+                                <input type="text" name="age" id="age" class="form-control" t-att-value="employee['age']"/>
+                                <script type="text/javascript">
+                                    function calc_age() {
+                                        var birth = moment($('#datetimepicker_birth').val(), 'YYYY-MM-DD');
+                                        var today = moment();
+                                        var age = today.diff(birth, 'years');
+                                        $('#age').val((age || 0));
+                                    }
+                                    $('#datetimepicker_birth').on('change', calc_age);
+                                </script>
+                            </div>
+                            <div class="clearfix" />
+                            
+                            <h5 class="page-header">Contact Information</h5>
+                            <div class="col-lg-6">
+                                <label class="control-label" for="personal_mobile">Mobile Phone</label>
+                                <input type="tel" name="personal_mobile" class="form-control" t-att-value="employee['personal_mobile']" />
+                            </div>
+                            <div class="clearfix" />
+                            
+                            <h5 class="page-header">Status</h5>
+                            <div class="col-lg-6">
+                                <label class="control-label" for="gender">Gender</label>
+                                <select class="form-control" id="gender" name="gender">
+                                    <option></option>
+                                    <t t-foreach="zip(gender_obj.keys(), gender_obj.values())" t-as="gender">
+                                        <t t-if="gender[0] == employee['gender']">
+                                            <option t-att-value="gender[0]" selected="selected">
+                                                <t t-esc="gender[1]"/>
+                                            </option>
+                                        </t>
+                                        <t t-if="gender[0] != employee['gender']">
+                                            <option t-att-value="gender[0]">
+                                                <t t-esc="gender[1]"/>
+                                            </option>
+                                        </t>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="control-label" for="marital">Marital Status</label>
+                                <select class="form-control" id="marital" name="marital">
+                                    <option></option>
+                                    <t t-foreach="zip(marital_obj.keys(), marital_obj.values())" t-as="marital">
+                                        <t t-if="marital[0] == employee['marital']">
+                                            <option t-att-value="marital[0]" selected="selected">
+                                                <t t-esc="marital[1]"/>
+                                            </option>
+                                        </t>
+                                        <t t-if="marital[0] != employee['marital']">
+                                            <option t-att-value="marital[0]">
+                                                <t t-esc="marital[1]"/>
+                                            </option>
+                                        </t>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="control-label" for="children">Number of Children</label>
+                                <input type="text" name="children" class="form-control" t-att-value="employee['children']" />
+                            </div>
+                            <div class="clearfix" />
+                        </div>
+                        <div class="clearfix">
+                            <button class="btn btn-default btn-primary pull-right mb32 ">
+                                Update Profile
+                                <span class="fa fa-long-arrow-right" />
+                            </button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
+                <h3 class="page-header">Emergency Contact</h3>
+                <div class="row o_website_portal_details">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-custom">
+                                    <thead>
+                                        <tr>
+                                            <th>Number</th>
+                                            <th>Contact</th>
+                                            <th width="25%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <form action="/my/profiles/submit/emergency" method="post">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <td>
+                                                    <input type="tel" placeholder="Add Number..." name="new_emergency_number" class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" placeholder="Add Contact..." name="new_emergency_relation" class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <button name="action" value="add" class="btn btn-xs btn-primary"><i class="fa fa-check"/>ADD</button>
+                                                </td>
+                                            </form>
+                                        </tr>
+                                        <t t-foreach="emergency_obj" t-as="emergency">
+                                        <tr>
+                                            <form action="/my/profiles/submit/emergency" method="post">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <input type="hidden" name="emergency_id" t-att-value="emergency['id']"/>
+                                                <td>
+                                                    <input type="tel" name="emergency_number" class="form-control" t-att-value="emergency['number']" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="emergency_relation" class="form-control" t-att-value="emergency['relation']" />
+                                                </td>
+                                                <td>
+                                                    <button name="action" value="save" class="btn btn-xs btn-success"><i class="fa fa-check"/>SAVE</button>
+                                                    <button name="action" value="remove" class="btn btn-xs btn-danger"><i class="fa fa-check"/>DELETE</button>
+                                                </td>
+                                            </form>
+                                        </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <h3 class="page-header">Family Information</h3> -->
+
+                <h3 class="page-header">Academic Experiences</h3>
+                <div class="row o_website_portal_details">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-custom">
+                                    <thead>
+                                        <tr>
+                                            <th>Academic</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Institution</th>
+                                            <th>Diploma</th>
+                                            <th>Field of Study</th>
+                                            <th width="16%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <form action="/my/profiles/submit/academic" method="post">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <td>
+                                                    <input type="text" placeholder="Add Name..." name="new_academic_name" class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" placeholder="Add Start Date..." id="new_academic_start" name="new_academic_start" class="form-control" />
+                                                    <script type="text/javascript">
+                                                        $(function () {
+                                                            $('#new_academic_start').datetimepicker({
+                                                                format: 'YYYY-MM-DD',
+                                                                icons: {
+                                                                    time: "fa fa-clock-o",
+                                                                    date: "fa fa-calendar",
+                                                                    up: "fa fa-arrow-up",
+                                                                    down: "fa fa-arrow-down"
+                                                                }
+                                                            });
+                                                        });
+                                                    </script>
+                                                </td>
+                                                <td>
+                                                    <input type="text" placeholder="Add End Date..." id="new_academic_end" name="new_academic_end" class="form-control" />
+                                                    <script type="text/javascript">
+                                                        $(function () {
+                                                            $('#new_academic_end').datetimepicker({
+                                                                format: 'YYYY-MM-DD',
+                                                                icons: {
+                                                                    time: "fa fa-clock-o",
+                                                                    date: "fa fa-calendar",
+                                                                    up: "fa fa-arrow-up",
+                                                                    down: "fa fa-arrow-down"
+                                                                }
+                                                            });
+                                                        });
+                                                    </script>
+                                                </td>
+                                                <td>
+                                                    <!-- <input type="text" placeholder="Add Institution..." name="new_academic_partner_id" class="form-control" /> -->
+                                                </td>
+                                                <td>
+                                                    <input type="text" placeholder="Add Diploma..." name="new_academic_diploma" class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" placeholder="Add Field of Study..." name="new_academic_study_field" class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <button name="action" value="add" class="btn btn-xs btn-primary"><i class="fa fa-check"/>ADD</button>
+                                                </td>
+                                            </form>
+                                        </tr>
+                                        <t t-set="academic_counter" t-value="0"/>
+                                        <t t-foreach="academic_obj" t-as="academic">
+                                            <t t-set="academic_counter" t-value="academic_counter + 1"/>
+                                            <tr>
+                                                <form action="/my/profiles/submit/academic" method="post">
+                                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                    <input type="hidden" name="academic_id" t-att-value="academic['id']"/>
+                                                    <td>
+                                                        <input type="text" name="academic_name" class="form-control" t-att-value="academic['name']" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="academic_start_date" t-attf-id="#{'academic_start_' + str(academic_counter)}" class="form-control" t-att-value="academic['start_date']" />
+                                                        <script type="text/javascript">
+                                                            $(function () {
+                                                                $('#academic_start_<t t-esc="academic_counter"/>').datetimepicker({
+                                                                    format: 'YYYY-MM-DD',
+                                                                    icons: {
+                                                                        time: "fa fa-clock-o",
+                                                                        date: "fa fa-calendar",
+                                                                        up: "fa fa-arrow-up",
+                                                                        down: "fa fa-arrow-down"
+                                                                    }
+                                                                });
+                                                            });
+                                                        </script>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="academic_end_date" t-attf-id="#{'academic_end_' + str(academic_counter)}" class="form-control" t-att-value="academic['end_date']" />
+                                                        <script type="text/javascript">
+                                                            $(function () {
+                                                                $('#academic_end_<t t-esc="academic_counter"/>').datetimepicker({
+                                                                    format: 'YYYY-MM-DD',
+                                                                    icons: {
+                                                                        time: "fa fa-clock-o",
+                                                                        date: "fa fa-calendar",
+                                                                        up: "fa fa-arrow-up",
+                                                                        down: "fa fa-arrow-down"
+                                                                    }
+                                                                });
+                                                            });
+                                                        </script>
+                                                    </td>
+                                                    <td>
+                                                        <!-- <input type="text" name="academic_partner_id" class="form-control" t-att-value="academic['partner_id']" /> -->
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="academic_diploma" class="form-control" t-att-value="academic['diploma']" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="academic_study_field" class="form-control" t-att-value="academic['study_field']" />
+                                                    </td>
+                                                    <td>
+                                                        <button name="action" value="save" class="btn btn-xs btn-success"><i class="fa fa-check"/>SAVE</button>
+                                                        <button name="action" value="remove" class="btn btn-xs btn-danger"><i class="fa fa-check"/>DELETE</button>
+                                                    </td>
+                                                </form>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <h3 class="page-header">Professional Experiences</h3> -->
+
+                <h3 class="page-header">Certifications</h3>
+                <div class="row o_website_portal_details">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-custom">
+                                    <thead>
+                                        <tr>
+                                            <th>Certification</th>
+                                            <th>Certification #</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Issued By</th>
+                                            <th width="16%">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <form action="/my/profiles/submit/certification" method="post">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <td>
+                                                    <input type="text" placeholder="Add Name..." name="new_certification_name" class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" placeholder="Add Number..." name="new_certification_number" class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" placeholder="Add Start Date..." id="new_certification_start" name="new_certification_start" class="form-control" />
+                                                    <script type="text/javascript">
+                                                        $(function () {
+                                                            $('#new_certification_start').datetimepicker({
+                                                                format: 'YYYY-MM-DD',
+                                                                icons: {
+                                                                    time: "fa fa-clock-o",
+                                                                    date: "fa fa-calendar",
+                                                                    up: "fa fa-arrow-up",
+                                                                    down: "fa fa-arrow-down"
+                                                                }
+                                                            });
+                                                        });
+                                                    </script>
+                                                </td>
+                                                <td>
+                                                    <input type="text" placeholder="Add End Date..." id="new_certification_end" name="new_certification_end" class="form-control" />
+                                                    <script type="text/javascript">
+                                                        $(function () {
+                                                            $('#new_certification_end').datetimepicker({
+                                                                format: 'YYYY-MM-DD',
+                                                                icons: {
+                                                                    time: "fa fa-clock-o",
+                                                                    date: "fa fa-calendar",
+                                                                    up: "fa fa-arrow-up",
+                                                                    down: "fa fa-arrow-down"
+                                                                }
+                                                            });
+                                                        });
+                                                    </script>
+                                                </td>
+                                                <td>
+                                                    <!-- <input type="text" placeholder="Add Issued By..." name="new_certification_partner_id" class="form-control" /> -->
+                                                </td>
+                                                <td>
+                                                    <button name="action" value="add" class="btn btn-xs btn-primary"><i class="fa fa-check"/>ADD</button>
+                                                </td>
+                                            </form>
+                                        </tr>
+                                        <t t-set="certification_counter" t-value="0"/>
+                                        <t t-foreach="certification_obj" t-as="certification">
+                                            <t t-set="certification_counter" t-value="certification_counter + 1"/>
+                                            <tr>
+                                                <form action="/my/profiles/submit/certification" method="post">
+                                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                    <input type="hidden" name="certification_id" t-att-value="certification['id']"/>
+                                                    <td>
+                                                        <input type="text" name="certification_name" class="form-control" t-att-value="certification['name']" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="certification_number" class="form-control" t-att-value="certification['certification']" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="certification_start_date" t-attf-id="#{'certification_start_' + str(certification_counter)}" class="form-control" t-att-value="certification['start_date']" />
+                                                        <script type="text/javascript">
+                                                            $(function () {
+                                                                $('#certification_start_<t t-esc="certification_counter"/>').datetimepicker({
+                                                                    format: 'YYYY-MM-DD',
+                                                                    icons: {
+                                                                        time: "fa fa-clock-o",
+                                                                        date: "fa fa-calendar",
+                                                                        up: "fa fa-arrow-up",
+                                                                        down: "fa fa-arrow-down"
+                                                                    }
+                                                                });
+                                                            });
+                                                        </script>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" name="certification_end_date" t-attf-id="#{'certification_end_' + str(certification_counter)}" class="form-control" t-att-value="certification['end_date']" />
+                                                        <script type="text/javascript">
+                                                            $(function () {
+                                                                $('#certification_end_<t t-esc="certification_counter"/>').datetimepicker({
+                                                                    format: 'YYYY-MM-DD',
+                                                                    icons: {
+                                                                        time: "fa fa-clock-o",
+                                                                        date: "fa fa-calendar",
+                                                                        up: "fa fa-arrow-up",
+                                                                        down: "fa fa-arrow-down"
+                                                                    }
+                                                                });
+                                                            });
+                                                        </script>
+                                                    </td>
+                                                    <td>
+                                                        <!-- <input type="text" name="certification_partner_id" class="form-control" t-att-value="certification['partner_id']" /> -->
+                                                    </td>
+                                                    <td>
+                                                        <button name="action" value="save" class="btn btn-xs btn-success"><i class="fa fa-check"/>SAVE</button>
+                                                        <button name="action" value="remove" class="btn btn-xs btn-danger"><i class="fa fa-check"/>DELETE</button>
+                                                    </td>
+                                                </form>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="redirect" t-att-value="redirect"/>
+            </t>
+        </t>
+    </template>
+</odoo>

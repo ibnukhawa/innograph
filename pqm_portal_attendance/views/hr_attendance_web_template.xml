@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_attendance_menu" inherit_id="pqm_portal_base.portal_menu" priority="1">
+        <xpath expr="//t[@name='additional_menu']/t[last()]" position="after">
+            <t t-if="request.env.user.has_group('base.group_user')">
+                <li>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" id="dropdown_attendance" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Attendance
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown_attendance">
+                            <li t-if="request.env.user.has_group('base.group_user')"><a href="/my/attendance">Attendance List</a></li>
+                            <li t-if="request.env.user.has_group('hr_attendance.group_hr_attendance_user')" role="separator" class="divider hidden-xs"></li>
+                            <li t-if="request.env.user.has_group('hr_attendance.group_hr_attendance_user')"><a href="/my/reason">Reason Approval</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="my_attendance" name="My Attendance">
+        <t t-call="website_portal.portal_layout">
+            <t t-if="success != None">
+                <div t-if="success" class="alert alert-success"><t t-esc="message"/></div>
+                <div t-if="not success" class="alert alert-danger"><t t-esc="message"/></div>
+            </t>
+            <h3 class="page-header">Your Attendance</h3>
+            <div style="padding-bottom: 15px">
+                <script>
+                    function filter_result() {
+                        var month_data = document.getElementById("month_data").value;
+                        var year_data = document.getElementById("year_data").value;
+                        window.location = window.location.href.split('?')[0] + '?month=' + month_data + '&amp;year=' + year_data
+                    }
+                </script>
+                <style>
+                    .table-custom{
+                        min-width: 900px;
+                    }
+                    .table-custom th{
+                        font-size: 13px;
+                    }
+                    .table-custom td{
+                        font-size: 12px;
+                    }
+                    .table-custom td, .table-custom th{
+                        white-space: normal !important;
+                    }
+                </style>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label for="month_data">Month :</label>
+                        <select name="Month" id="month_data" class="form-control">
+                        <t t-foreach="list(range(1,13))" t-as="x">
+                            <t t-if="x == month">
+                                <option t-att-value="x" selected="selected" t-esc="list_month[x-1]"/>
+                            </t>
+                            <t t-if="x != month">
+                                <option t-att-value="x" t-esc="list_month[x-1]"/>
+                            </t>
+                        </t>
+                    </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="year_data">Year :</label>
+                        <select name="Year" id="year_data" class="form-control">
+                        <t t-foreach="list_year" t-as="x">
+                            <t t-if="x == year">
+                                <option t-att-value="x" selected="selected" t-esc="year"/>
+                            </t>
+                            <t t-if="x != year">
+                                <option t-att-value="x" t-esc="year"/>
+                            </t>
+                        </t>
+                    </select>
+                    </div>
+                    <button style="margin-left: 10px" onclick="filter_result()" class="btn btn-success" >Filter</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-custom">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" style="width:90px">Date</th>
+                            <th colspan="2">Planned</th>
+                            <th colspan="3">Actual</th>
+                            <th colspan="5" style="width:470px">Analyze</th>
+                            <th rowspan="2" style="width:110px">Exception</th>
+                        </tr>
+                        <tr>
+                            <th class="sub-header">In</th>
+                            <th class="sub-header">Out</th>
+                            <th class="sub-header">In</th>
+                            <th class="sub-header">Out</th>
+                            <th class="sub-header">Work</th>
+                            <th class="sub-header">In Late</th>
+                            <th class="sub-header">Out Early</th>
+                            <th class="sub-header">Timesheet</th>
+                            <th class="sub-header">Status</th>
+                            <th class="sub-header">Punishment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="attendants" t-as="row">
+                            <tr t-attf-style="#{'font-weight:bold' if row.get('today', False) else ''}" t-attf-class="#{'danger' if row.get('status', False) != 'normal' and row.get('reason_status', False) != 'accept' and row.get('rules', False) and not row.get('tomorrow', False)  else '' }">
+                                <td t-if="row.get('reason_status', False) or row.get('work_outside', False)" rowspan="2">
+                                    <t t-esc="row.get('date', False)"/>
+                                </td>
+                                <td t-if="not (row.get('reason_status', False) or row.get('work_outside', False))">
+                                    <t t-esc="row.get('date', False)"/>
+                                </td>
+                                <td><t t-esc="row.get('plan_in', False)"/></td>
+                                <td><t t-esc="row.get('plan_out', False)"/></td>
+                                <td><t t-esc="row.get('actual_in', False)"/></td>
+                                <td><t t-esc="row.get('actual_out', False)"/></td>
+                                <td><t t-esc="row.get('actual_work', False)" widget="float_time"/></td>
+                                <td><t t-esc="row.get('in_late', False)" widget="float_time"/></td>
+                                <td><t t-esc="row.get('out_early', False)" widget="float_time"/></td>
+                                <td><t t-esc="row.get('timesheet', False)"/></td>
+                                <td><t t-esc="row.get('status_text', False)"/></td>
+                                <td><t t-esc="row.get('punishment', False)"/></td>
+                                <td>
+                                    <t t-set="show_dinas" t-value="True"/>
+                                    <t t-if="row.get('status', False) != 'normal' and not row.get('reason_status', False) and row.get('rules', False)">
+                                        <button t-if="not row.get('tomorrow', False)" class="create_reason btn btn-xs btn-danger" t-attf-data-id="#{row.get('id', False)}" t-attf-data-check_in="#{row.get('actual_in', False)}"  t-attf-data-check_out="#{row.get('actual_out', False)}" t-attf-data-date="#{row.get('date', False)}" t-attf-data-employee_id="#{row.get('employee_id', False)}" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 100%"><i class="fa fa-pencil"/> reason</button>
+                                        <t t-set="show_dinas" t-value="False"/>
+                                    </t>
+                                    <t t-if="show_dinas and not row.get('work_outside', False) and row.get('id', False)">
+                                        <button t-if="not row.get('tomorrow', False)" class="submit_dinas btn btn-xs btn-warning" t-attf-data-id="#{row.get('id', False)}" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 100%">DINAS ?</button>
+                                    </t>
+                                    <t t-if="row.get('id', False) and not row.get('rules', False)">No Attendance Rule</t>
+                                </td>
+                            </tr>
+                            <tr t-if="row.get('reason_status', False) or row.get('work_outside', False)" t-attf-style="#{'font-weight:bold' if row.get('today', False) else ''}" t-attf-class="#{'danger' if row.get('status', False) != 'normal' and row.get('reason_status', False) != 'accept' and row.get('rules', False) and not row.get('tomorrow', False) else ''}">
+                                <td colspan="7">Reason : <t t-esc="row.get('reason', False)"/></td>
+                                <td colspan="2">Reason Approval : <t t-esc="row.get('reason_status', False)"/></td>
+                                <td colspan="2">Attendance Type : <t t-esc="row.get('work_outside_text', False)"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+            <script>
+                $(document).on('click', '.create_reason', function(){
+                    $('input[name="attendance_id"]').val($(this).data('id'));
+                    $('input[name="date"]').val($(this).data('date'));
+                    $('input[name="employee_id"]').val($(this).data('employee_id'));
+                    var check_in = $(this).data('check_in');
+                    if(check_in != ''){
+                        $('input[name="check_in"]').val(check_in);
+                        $('input[name="check_in"]').addClass('hidden');
+                    }else{
+                        $('input[name="check_in"]').val('');                    
+                        $('input[name="check_in"]').removeClass('hidden');
+                    }
+                    var check_out = $(this).data('check_out');
+                    if(check_out != ''){
+                        $('input[name="check_out"]').val(check_out);                    
+                        $('input[name="check_out"]').addClass('hidden');
+                    }else{
+                        $('input[name="check_out"]').val('');
+                        $('input[name="check_out"]').removeClass('hidden');
+                    }
+                    if(check_in != '' &amp;&amp; check_out != ''){
+                        $('input[name="date"]').addClass('hidden');
+                    }else{
+                        $('input[name="date"]').removeClass('hidden');
+                    }
+                    $('#create_reason').modal({show: true});
+                });
+
+                $(document).on('click', '.submit_dinas', function(){
+                    $('input[name="attendance_id"]').val($(this).data('id'));
+                    $('#submit_dinas').modal({show: true});
+                });
+            </script>
+
+            <div id="submit_dinas" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="width:80%">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">x</button>
+                            <h4 class="modal-title">Update Attendance</h4>
+                        </div>
+                        <form action="/my/workoutside/submit" method="post" class="form-horizontal" autocomplete="off">
+                            <div class="modal-body">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <input type="hidden" name="attendance_id"/>
+                                You stated that in this date you work outside the office?
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success">Yes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="create_reason" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="width:80%">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">x</button>
+                            <h4 class="modal-title">Input Reason</h4>
+                        </div>
+                        <form action="/my/reason/submit" method="post" class="form-horizontal" autocomplete="off">
+                            <div class="modal-body">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <input type="hidden" name="attendance_id"/>
+                                <input class="form-control hidden" name="date" required="required" readonly="readonly" style="margin-bottom:10px"/>
+                                <input type="hidden" name="employee_id" required="required"/>
+                                <input id="check_in" class="form-control hidden" required="required" placeholder="Your Check In" name="check_in" style="margin-bottom:10px"/>
+                                <input id="check_out" class="form-control hidden" required="required" placeholder="Your Check Out" name="check_out" style="margin-bottom:10px"/>
+                                <textarea name="reason" class="form-control" placeholder="Your reason for this absence"  required="required"></textarea>
+                                <script>
+                                    $(document).ready(function(){
+                                        $('#check_in').datetimepicker({
+                                            format: 'HH:mm:ss',
+                                            icons: {
+                                                time: "fa fa-clock-o",
+                                                date: "fa fa-calendar",
+                                                up: "fa fa-arrow-up",
+                                                down: "fa fa-arrow-down"
+                                            },
+                                            pickDate: false,
+                                            useSeconds: true,
+                                        });
+                                        $('#check_out').datetimepicker({
+                                            format: 'HH:mm:ss',
+                                            icons: {
+                                                time: "fa fa-clock-o",
+                                                date: "fa fa-calendar",
+                                                up: "fa fa-arrow-up",
+                                                down: "fa fa-arrow-down"
+                                            },
+                                            pickDate: false,
+                                            useSeconds: true,
+                                        });
+                                        function timecheck() {
+                                            var from = $('input[name="date"]').val();
+                                            if($('#check_in').hasClass('hidden')){
+                                                from = from+" "+$('#check_in').val()+":00";
+                                            }else{
+                                                from = from+" "+$('#check_in').val();
+                                            }
+                                            var to = $('input[name="date"]').val();
+                                            if($('#check_out').hasClass('hidden')){
+                                                to = to+" "+$('#check_out').val()+":00";
+                                            }else{
+                                                to = to+" "+$('#check_out').val();
+                                            }
+                                            from = moment(from, 'YYYY-MM-DD HH:mm:ss');
+                                            to = moment(to, 'YYYY-MM-DD HH:mm:ss');
+                                            if (to &lt;= from) {
+                                                $('#check_out').val('');
+                                            }
+                                        }
+                                        $('#check_in').on('dp.change', function(e){
+                                            $(this).val(e.date.format('HH:mm:ss'));
+                                            timecheck();
+                                        });
+                                        $('#check_out').on('dp.change', function(e){
+                                            $(this).val(e.date.format('HH:mm:ss'));
+                                            timecheck();
+                                        });
+                                    });
+                                </script>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="reason_approval" name="Reason Approval">
+        <t t-call="website_portal.portal_layout">
+            <t t-if="success != None">
+                <div t-if="success" class="alert alert-success"><t t-esc="message"/></div>
+                <div t-if="not success" class="alert alert-danger"><t t-esc="message"/></div>
+            </t>
+            <style>
+                .table-custom{
+                    min-width: 900px;
+                }
+                .table-custom td{
+                    font-size: 13px;
+                }
+                .table-custom td, .table-custom th{
+                    white-space: normal !important;
+                }
+            </style>
+            <h3 class="page-header">Reason Approval</h3>
+            <div style="padding-bottom: 15px">
+                <div class="table-responsive">
+                    <table id="table_reason_approval" class="table table-bordered table-custom">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Employee</th>
+                                <th style="width:60px">IN</th>
+                                <th style="width:60px">OUT</th>
+                                <th style="width:95px">Timesheet</th>
+                                <th>Status</th>
+                                <th>Reason</th>
+                                <th style="width:160px">Approval</th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-size: 12px">
+                            <t t-foreach="lines" t-as="line">
+                                <t t-set="row_class"></t>
+                                <t t-if="line.get('status') == 'accept'">
+                                    <t t-set="row_class">success</t>
+                                </t>
+                                <t t-if="line.get('status') == 'decline'">
+                                    <t t-set="row_class">danger</t>
+                                </t>
+                                <tr t-attf-class="#{row_class}">
+                                    <td><span t-esc="line.get('date')"/></td>
+                                    <td><span t-esc="line.get('name')"/></td>
+                                    <td><span t-esc="line.get('in')"/></td>
+                                    <td><span t-esc="line.get('out')"/></td>
+                                    <td><span t-esc="line.get('timesheet')"/></td>
+                                    <td><span t-esc="line.get('status_reason_text')"/></td>
+                                    <td><span t-esc="line.get('reason')"/></td>
+                                    <td>
+                                        <button t-if="line.get('status') == 'open'" t-attf-data-id="#{line.get('id')}" class="action_accept btn btn-xs btn-success"><i class="fa fa-check"/> Yes</button>
+                                        <button t-if="line.get('status') == 'open'" t-attf-data-id="#{line.get('id')}" class="action_decline btn btn-xs btn-danger"><i class="fa fa-times"/> No</button>
+                                        <span t-if="line.get('status') != 'open'" t-esc="line.get('status_text')"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <form id="form_approval" action="/my/reason/approval" method="post">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="attendance_id"/>
+                        <input type="hidden" name="status"/>
+                    </form>
+                    <script>
+                        $(document).ready(function(){
+                            $('#table_reason_approval').DataTable();
+                        });
+                        function approval(text, id, status){
+                            var act = confirm(text);
+                            if(act){
+                                $('input[name="attendance_id"]').val(id);
+                                $('input[name="status"]').val(status);
+                                $('#form_approval').submit();
+                            }
+                        }
+                        
+                        $(document).on('click', '.action_accept', function(){
+                            var id = $(this).data('id');
+                            approval('Accept the attendance reason?', id, 'accept');
+                        });
+
+                        $(document).on('click', '.action_decline', function(){
+                            var id = $(this).data('id');
+                            approval('Decline the attendance reason?', id, 'decline');
+                        });
+                    </script>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

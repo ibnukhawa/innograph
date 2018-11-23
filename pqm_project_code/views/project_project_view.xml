@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="project_project_custom_wizard_view" model="ir.ui.view">
+	         <field name="name">project.project.wizard.form.custom</field>
+	         <field name="model">project.project</field>
+	         <field name="inherit_id" ref="project.project_project_view_form_simplified"/>
+	         <field name="arch" type="xml">
+	         	<xpath expr="//form/sheet/group/group[1]/field[@name='name']" position="after">
+	                 <field name="project_type_id" required="1" options="{'no_edit': True, 'no_create': True, 'no_create_edit': True}"/>
+	                 <field name="sme_id" required="1" options="{'no_edit': True, 'no_create': True, 'no_create_edit': True}"/>
+                     <field name="sub_sme_id" domain="[('sme_id', '=', sme_id)]"/>
+	            </xpath>
+	         </field>
+	    </record>
+
+	    <record id="project_project_custom_view" model="ir.ui.view">
+	         <field name="name">project.project.form.custom</field>
+	         <field name="model">project.project</field>
+	         <field name="inherit_id" ref="project.edit_project"/>
+	         <field name="arch" type="xml">
+	         	<field name="user_id" position="before">
+	                 <field name="code"/>
+	                 <field name="project_type_id" required="1" options="{'no_edit': True, 'no_create': True, 'no_create_edit': True}"/>
+	                 <field name="sme_id" required="1" options="{'no_edit': True, 'no_create': True, 'no_create_edit': True}"/>
+                     <field name="sub_sme_id" domain="[('sme_id', '=', sme_id)]"/>
+	            </field>
+	            <xpath expr="//form/div/field[@name='message_follower_ids']" position="after">
+	            	<field name="message_ids" widget="mail_thread"/>
+	            </xpath>
+	         </field>
+	    </record>
+	    
+	    <record id="analytic_account_custom_view" model="ir.ui.view">
+	         <field name="name">analytic.account.form.custom</field>
+	         <field name="model">account.analytic.account</field>
+	         <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+	         <field name="arch" type="xml">
+	         	<xpath expr="//form/sheet/group/group/field[@name='code']" position="after">
+	                 <field name="project_type_id"/>
+	                 <field name="sme_id"/>
+	            </xpath>
+	         </field>
+	    </record>
+
+		<record id="project_type_tree" model="ir.ui.view">
+            <field name="name">project.type.tree</field>
+            <field name="model">project.type</field>
+            <field name="arch" type="xml">
+                <tree string="Project Type">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+	    <record id="open_project_type_form" model="ir.actions.act_window">
+            <field name="name">Project Type</field>
+            <field name="res_model">project.type</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="project_type_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a project type.
+              </p>
+            </field>
+        </record>
+
+        <record id="project_sme_tree" model="ir.ui.view">
+            <field name="name">project.sme.tree</field>
+            <field name="model">project.sme</field>
+            <field name="arch" type="xml">
+                <tree string="Project SME">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="sub_sme_ids"/>
+                </tree>
+            </field>
+        </record>
+
+	    <record id="open_project_sme_form" model="ir.actions.act_window">
+            <field name="name">Project SME</field>
+            <field name="res_model">project.sme</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="project_sme_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a project sme
+              </p>
+            </field>
+        </record>
+
+        <record id="project_sub_sme_tree" model="ir.ui.view">
+            <field name="name">project.sub.sme.tree</field>
+            <field name="model">project.sub.sme</field>
+            <field name="arch" type="xml">
+                <tree string="Project Sub SME">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="open_project_sub_sme_form" model="ir.actions.act_window">
+            <field name="name">Project Sub SME</field>
+            <field name="res_model">project.sub.sme</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="project_sub_sme_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a project sme
+              </p>
+            </field>
+        </record>
+
+        <menuitem action="open_project_type_form" id="menu_project_type_config_project" name="Project Type" parent="project.menu_project_config" sequence="6" groups="project.group_project_manager"/>
+
+        <menuitem action="open_project_sme_form" id="menu_project_sme_config_project" name="Project SME" parent="project.menu_project_config" sequence="7" groups="project.group_project_manager"/>
+
+        <menuitem action="open_project_sub_sme_form" id="menu_project_sub_sme_config_project" name="Project Sub SME" parent="project.menu_project_config" sequence="8" groups="project.group_project_manager"/>
+
+	</data>
+</odoo>

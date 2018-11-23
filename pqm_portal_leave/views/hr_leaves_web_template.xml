@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <link href="/pqm_portal_leave/static/src/css/leaves.css" rel="stylesheet" type="text/css"/>
+        </xpath>
+    </template>
+
+    <template id="portal_leave_menu" inherit_id="pqm_portal_base.portal_menu" priority="10">
+        <xpath expr="//t[@name='additional_menu']/t[last()]" position="after">
+            <t t-if="request.env.user.has_group('base.group_user')">
+                <li>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" id="dropdown_leave" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Leaves
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown_leave">
+                            <li><a href="/my/leaves">Leaves List</a></li>
+                            <li t-if="request.env.user.has_group('hr_holidays.group_hr_holidays_manager')" role="separator" class="divider hidden-xs"></li>
+                            <li t-if="request.env.user.has_group('hr_holidays.group_hr_holidays_manager')"><a href="/leaves/approval">Leaves Approval</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="my_leaves" name="My Leaves">
+        <t t-call="website_portal.portal_layout">
+            <t t-if="success != None">
+                <div t-if="success" class="alert alert-success"><t t-esc="message"/></div>
+                <div t-if="not success" class="alert alert-danger"><t t-esc="message"/></div>
+            </t>
+            <style>
+                .table-custom{
+                    min-width: 900px;
+                }
+                .table-custom td{
+                    font-size: 13px;
+                }
+                .table-custom td, .table-custom th{
+                    white-space: normal !important;
+                }
+            </style>
+            <h3 class="page-header">Your Leaves</h3>
+            <div style="padding-bottom: 15px">
+                <div class="row" style="margin-bottom:15px">
+                    <div class="col-md-12">
+                        <button class="btn btn-success btn-md pull-right" data-toggle="modal" data-target="#create_leave">Create Leaves</button>
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="table_leave_request" class="table table-bordered table-custom">
+                                <thead>
+                                    <tr>
+                                        <th style="border-top: 2px solid #ddd" >Leave Type</th>
+                                        <th style="border-top: 2px solid #ddd" >Start Date</th>
+                                        <th style="border-top: 2px solid #ddd" >End Date</th>
+                                        <th style="border-top: 2px solid #ddd" >Duration</th>
+                                        <th style="border-top: 2px solid #ddd" >Description</th>
+                                        <th style="border-top: 2px solid #ddd" >Note</th>
+                                        <th style="border-top: 2px solid #ddd" >Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="leaves" t-as="leave">
+                                        <t t-set="row_class"></t>
+                                        <t t-if="leave.get('state') == 'validate'">
+                                            <t t-set="row_class">success</t>
+                                        </t>
+                                        <t t-if="leave.get('state') == 'refuse'">
+                                            <t t-set="row_class">danger</t>
+                                        </t>
+                                        <t t-if="leave.get('date_from') and leave.get('date_from') and leave.get('number_of_days_temp')">
+                                            <tr t-attf-class="#{row_class}">
+                                                <td><t t-esc="leave.get('holiday_status_id')"/></td>
+                                                <td><t t-esc="leave.get('date_from')"/></td>
+                                                <td><t t-esc="leave.get('date_to')"/></td>
+                                                <td align="right"><t t-esc="'%.2f'% leave.get('number_of_days_temp')"/>  days</td>
+                                                <td><t t-esc="leave.get('name')"/></td>
+                                                <td><t t-esc="leave.get('note')"/></td>
+                                                <td><t t-esc="leave.get('state_text')"/></td>
+                                            </tr>
+                                        </t>
+                                    </t> 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>Leave Summary</h3>
+                        <table class="table table-bordered table-custom" style="min-width: unset">
+                            <thead>
+                                <tr>
+                                    <th>Leave Type</th>
+                                    <th style="width:100px;">Allocation</th>
+                                    <th style="width:100px;">Total</th>
+                                    <th style="width:100px;">Remaining</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="types" t-as="type">
+                                    <tr>
+                                        <td><t t-esc="type['name']"/></td>
+                                        <td style="text-align:right"><t t-esc="type['days']"/></td>
+                                        <td style="text-align:right"><t t-esc="type['total_days']"/></td>
+                                        <td style="text-align:right"><t t-esc="type['remaining_days']"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="create_leave" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="width:80%">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">x</button>
+                                <h4 class="modal-title">Create Leaves</h4>
+                            </div>
+                            <form action="/my/leaves/submit" method="post" class="form-horizontal">
+                                <div class="modal-body">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <div class="form-group">
+                                        <div class="col-sm-3" style="text-align:right">
+                                            <label class="control-label text-right" for="name" style="padding-top:2%">
+                                                Description
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" style="margin-right: 10px" class="form-control o_website_form_input" name="name" required="required"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-3" style="text-align:right">
+                                            <label class="control-label text-right" for="holiday_status_id" style="padding-top:2%">
+                                                Leave Type
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" id="holiday_status_id" name="holiday_status_id" required="required">
+                                                <t t-foreach="leave_type" t-as="t">
+                                                    <option t-att-value="t.id">
+                                                        <t t-esc="t.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-3" style="text-align:right">
+                                            <label class="control-label text-right" for="date_from" style="padding-top:2%">
+                                                Date From
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" name="date_from" id="datetimepicker_from" required="required"/>
+                                        </div>
+                                        <script type="text/javascript">
+                                            $(function () {
+                                                $('#datetimepicker_from').datetimepicker({
+                                                    format: 'YYYY-MM-DD HH:mm:ss',
+                                                    icons: {
+                                                        time: "fa fa-clock-o",
+                                                        date: "fa fa-calendar",
+                                                        up: "fa fa-arrow-up",
+                                                        down: "fa fa-arrow-down"
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-3" style="text-align:right">
+                                            <label class="control-label text-right" for="date_to" style="padding-top:2%">
+                                                Date To
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" name="date_to" id="datetimepicker_to" required="required"/>
+                                        </div>
+                                        <script type="text/javascript">
+                                            $(function () {
+                                                $('#datetimepicker_to').datetimepicker({
+                                                    format: 'YYYY-MM-DD HH:mm:ss',
+                                                    icons: {
+                                                        time: "fa fa-clock-o",
+                                                        date: "fa fa-calendar",
+                                                        up: "fa fa-arrow-up",
+                                                        down: "fa fa-arrow-down"
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+                                    <div id="alert_container" class="form-group" style="display: none;">
+                                        <div class="col-sm-8 col-sm-offset-3" style="margin-top: -25px;">
+                                            <span style="font-size: x-small; color: #a94442;">Date To cannot be greater than Date From</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-3" style="text-align:right">
+                                            <label class="control-label text-right" for="duration" style="padding-top:2%">
+                                                Duration
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" name="duration" id="duration" required="required"/>
+                                        </div>
+                                        <script type="text/javascript">
+                                            function calc_duration() {
+                                                var from = moment($('#datetimepicker_from').val(), 'YYYY-MM-DD HH:mm:ss');
+                                                var to = moment($('#datetimepicker_to').val(), 'YYYY-MM-DD HH:mm:ss');
+                                                var dur = 1 + to.diff(from, 'days');
+                                                if (to &lt;= from) {
+                                                    dur = 0;
+                                                    $('#datetimepicker_to').val('');
+                                                    $('#alert_container').attr('style', 'display:block');
+                                                } else {
+                                                    $('#alert_container').attr('style', 'display:none');
+                                                }
+                                                $('#duration').val((dur || 0).toFixed(2));
+                                            }
+
+                                            $('#datetimepicker_from').on('change', calc_duration);
+                                            $('#datetimepicker_to').on('change', calc_duration);
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-success">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    $(document).ready(function(){
+                        $('#table_leave_request').DataTable();
+                    });
+                </script>
+            </div>
+        </t>
+    </template>
+
+    <template id="leaves_approval" name="Leaves Approval">
+        <t t-call="website_portal.portal_layout">
+            <t t-if="success != None">
+                <div t-if="success" class="alert alert-success"><t t-esc="message"/></div>
+                <div t-if="not success" class="alert alert-danger"><t t-esc="message"/></div>
+            </t>
+            <style>
+                .table-custom{
+                    min-width: 900px;
+                }
+                .table-custom td{
+                    font-size: 13px;
+                }
+                .table-custom td, .table-custom th{
+                    white-space: normal !important;
+                }
+            </style>
+            <h3 class="page-header">Leaves Approval</h3>
+            <div style="padding-bottom: 15px">
+                <div class="table-responsive">
+                    <table id="table_leave_approval" class="table table-bordered table-custom">
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th>Leave Type</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Duration</th>
+                                <th>Description</th>
+                                <th>Note</th>
+                                <th style="width:160px">Approval</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="lines" t-as="line">
+                                <t t-set="row_class"></t>
+                                <t t-if="line.get('status') == 'validate'">
+                                    <t t-set="row_class">success</t>
+                                </t>
+                                <t t-if="line.get('status') == 'refuse'">
+                                    <t t-set="row_class">danger</t>
+                                </t>
+                                <tr t-attf-class="#{row_class}">
+                                    <td><t t-esc="line.get('name')"/></td>
+                                    <td><t t-esc="line.get('leave_type')"/></td>
+                                    <td><t t-esc="line.get('date_from')"/></td>
+                                    <td><t t-esc="line.get('date_to')"/></td>
+                                    <td><t t-esc="'%.2f' % line.get('duration')"/></td>
+                                    <td><t t-esc="line.get('description')"/></td>
+                                    <td><t t-esc="line.get('note')"/></td>
+                                    <td>
+                                        <button t-if="line.get('status') == 'confirm'" t-attf-data-id="#{line.get('id')}" class="action_accept btn btn-xs btn-success"><i class="fa fa-check"/> Yes</button>
+                                        <button t-if="line.get('status') == 'confirm'" t-attf-data-id="#{line.get('id')}" class="action_decline btn btn-xs btn-danger"><i class="fa fa-times"/> No</button>
+                                        <t t-if="line.get('status') != 'confirm'" t-esc="line.get('status_text')"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <script>
+                        $(document).ready(function(){
+                            $('#table_leave_approval').DataTable();
+                        });
+                        $(document).on('click', '.action_accept', function(){
+                            var id = $(this).data('id');
+                            $('input[name="leave_id"]').val(id);
+                            $('input[name="status"]').val('validate');
+                            $('#title_approval').text('Accept the leave request?');
+                            $('#modal_button').text('Accept');
+                            $('#modal_button').attr('class', "btn btn-success")
+                            $('#modal_approval').modal({show: true});
+                        });
+
+                        $(document).on('click', '.action_decline', function(){
+                            var id = $(this).data('id');
+                            $('input[name="leave_id"]').val(id);
+                            $('input[name="status"]').val('refuse');
+                            $('#title_approval').text('Decline the leave request?');
+                            $('#modal_button').text('Decline');
+                            $('#modal_button').attr('class', "btn btn-danger")
+                            $('#modal_approval').modal({show: true});
+                        });
+                    </script>
+
+                    <div id="modal_approval" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content" style="width:80%">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">x
+                                    </button>
+                                    <h4 class="modal-title" id="title_approval"></h4>
+                                </div>
+                                <form id="form_approval" action="/leaves/approval/action" method="post">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <input type="hidden" name="leave_id"/>
+                                        <input type="hidden" name="status"/>
+                                        <textarea name="note" class="form-control"
+                                                  placeholder="Note for this Leave"></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="modal_button" class="btn btn-success"></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

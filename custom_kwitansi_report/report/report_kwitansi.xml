@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <report id="kwitansi_report_kr"
+            string="Print Kwitansi"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            file="custom_kwitansi_report.kwitansi_report_template"
+            name="custom_kwitansi_report.kwitansi_report_template"
+            menu = "False" />
+
+    <report id="kwitansi_report_duplicate"
+            string="Print Kwitansi Duplicate"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            file="custom_kwitansi_report.kwitansi_duplicate_template"
+            name="custom_kwitansi_report.kwitansi_duplicate_template"
+            menu = "False" />
+
+        <report
+            id="account.account_invoices"
+            model="account.invoice"
+            string="Invoices"
+            report_type="qweb-pdf"
+            name="account.report_invoice"
+            file="account.report_invoice"
+            attachment_use="True"
+            attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+            menu = "True"
+        />
+        <report
+            id="account.account_invoice_action_report_duplicate"
+            model="account.invoice"
+            string="Duplicates"
+            report_type="qweb-pdf"
+            name="custom_kwitansi_report.account_invoice_report_duplicate_custom"
+            file="custom_kwitansi_report.account_invoice_report_duplicate_custom"
+            attachment_use="False"
+            menu = "False"
+        />
+        <report
+            id="vit_inv_label.report_label_menu"
+            string="Label"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            file="account.invoice"
+            name="vit_inv_label.label_report"
+            menu = "False"
+        />
+
+
+</odoo>

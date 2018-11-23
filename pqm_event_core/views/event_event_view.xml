@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- EVENT.TARGET VIEWS -->
+    <record model="ir.ui.view" id="view_event_target_form">
+        <field name="name">event.target.form</field>
+        <field name="model">event.target</field>
+        <field name="arch" type="xml">
+            <form string="Event Type">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_event_target_tree">
+        <field name="name">event.type.target</field>
+        <field name="model">event.target</field>
+        <field name="arch" type="xml">
+            <tree string="Event Target">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_event_target">
+        <field name="name">Event Target</field>
+        <field name="res_model">event.target</field>
+        <field name="view_type">form</field>
+    </record>
+
+    <menuitem name="Event Targets" id="menu_event_target" action="action_event_target" parent="event.menu_event_configuration"/>
+
+    <!-- EVENT COMMENT VIEW -->
+    <record model="ir.ui.view" id="view_event_comment_form">
+        <field name="name">event.comment.form</field>
+        <field name="model">event.comment</field>
+        <field name="arch" type="xml">
+            <form string="Event Comment">
+                <header>
+                    <button type="object" class="btn-primary" name="set_publish" string="Publish" attrs="{'invisible': [('publish', '=', True)]}" />
+                    <button type="object" name="set_publish" string="Unpublish" attrs="{'invisible': [('publish', '=', False)]}" />
+                    <button type="object" class="btn-primary" name="reply_comment" string="Reply" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="email" readonly="True"/>
+                            <field name="event_id" readonly="True" required="True" />
+                            <field name="reply_id" readonly="True" attrs="{'invisible': [('reply_id', '=', False)]}" />
+                        </group>
+                        <group>
+                            <field name="create_date" string="Date" readonly="True" />
+                            <field name="publish" invisible="True" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="comment" string="Comment">
+                            <field name="comment" placeholder="Comment" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_event_comment_tree">
+        <field name="name">event.type.comment</field>
+        <field name="model">event.comment</field>
+        <field name="arch" type="xml">
+            <tree string="Event Comment">
+                <field name="create_date" string="Date" />
+                <field name="event_id"/>
+                <field name="user_id"/>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="reply_id"/>
+                <field name="publish" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_comment_search">
+        <field name="name">event.comment.search</field>
+        <field name="model">event.comment</field>
+        <field name="arch" type="xml">
+            <search string="Event Comment">
+                <filter name="not_active" string="Not Published" domain="[('publish', '=', False)]" />
+                <filter name="active" string="Published" domain="[('publish', '=', True)]" />
+                <separator/>
+                <filter name="comment" string="Comment" domain="[('reply_id', '=', False)]" />
+                <filter name="reply" string="Reply Comment" domain="[('reply_id', '!=', False)]" />
+                <separator/>
+                <field name="event_id"/>
+                <field name="user_id"/>
+                <field name="publish"/>
+                <group expand="0" string="Group By">
+                    <filter string="Commentator" domain="[]" context="{'group_by':'user_id'}"/>
+                    <filter string="Event" name="group_event" domain="[]" context="{'group_by':'event_id'}"/>
+                    <filter string="Status" domain="[]" context="{'group_by':'active'}"/>
+               </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="act_event_comment_from_event" model="ir.actions.act_window">
+        <field name="res_model">event.comment</field>
+        <field name="view_type">form</field>
+        <field name="name">Comments</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_event_id': active_id, 'default_event_id': active_id, 'search_default_expected': True, 'default_active': False, 'search_default_comment': True}</field>
+    </record>
+
+    <!-- EVENT VIEW -->
+	<record id="view_event_form" model="ir.ui.view">
+        <field name="name">event.event.form.inherit</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form" />
+        <field name="priority">17</field>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div[1]" position="after">
+                <field name="image" widget="image" class="oe_avatar" />
+            </xpath>
+
+            <!-- Show field Project -->
+            <field name="event_type_id" position="after">
+                <field name="project_id" />
+                <field name="project_sme_id" readonly="1"/>
+                <field name="project_sub_sme_id" readonly="1"/>
+            </field>
+
+            <!-- Show field for Target Attendances -->
+        	<field name="seats_max" position="after">
+        		<field name="event_target_ids" string="Target Attendances" widget="many2many_tags" options="{'no_create_edit': True}" />
+        	</field>
+
+            <!-- Check for displaying Price on Website -->
+            <field name="price" position="after">
+                <field name="is_display_price" />
+            </field>
+
+            <!-- Show new field Facilitators -->
+            <xpath expr="//notebook/page[2]" position="before">
+                <page name="facilitator" string="Facilitators">
+                    <field name="facilitator_ids">
+                        <tree string="facilitator" editable="bottom">
+                            <field name="partner_id" domain="[('is_facilitator', '=', True)]" />
+                            <field name="partner_name" />
+                            <field name="partner_phone" />
+                            <field name="partner_email" />
+                        </tree>
+                        <form>
+                            <sheet>
+                                <group>
+                                    <group>
+                                        <field name="partner_id" />
+                                        <field name="partner_name" />
+                                        <field name="partner_phone" />
+                                        <field name="partner_email" />
+                                    </group>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+                <page name="details" string="Details">
+                    <group>
+                        <field name="description" widget="html"/>
+                        <field name="second_description" widget="html"/>
+                    </group>
+                </page>
+            </xpath>
+            
+            <!-- Comment Button -->
+            <xpath expr="sheet/div/button[2]" position="after">
+                <button name="%(pqm_event_core.act_event_comment_from_event)d" type="action" class="oe_stat_button" icon="fa-comment" >
+                    <field name="comment_count" widget="statinfo" string="Comments" />
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

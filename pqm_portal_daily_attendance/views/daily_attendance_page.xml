@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="daily_attendance_new" name="Daily Attendance" page="True">
+        <t t-call="website.layout">
+            <style>
+                .holder_attendance{
+                    background: #f7f7f7;
+                    margin-top: 20px;
+                }
+                .table_head_today{
+                    background: #005eb9;
+                    text-align: center;
+                    color: #fff;
+                    border-color: #005eb9 !important;
+                }
+                .table_subhead_today th{
+                    background: #f1f1f1;
+                }
+                .table_head_nextday{
+                    background: #213e7f;
+                    text-align: center;
+                    color: #fff;
+                    border-color: #213e7f !important;
+                }
+                .table_subhead_nextday th{
+                    background: #f1f1f1;
+                }
+                .table_nodata{
+                    text-align: center;
+                }
+                .table-wrapper-scroll-y {
+                    display: block;
+                    max-height: 200px;
+                    overflow-y: auto;
+                    -ms-overflow-style: -ms-autohiding-scrollbar;
+                }
+
+            </style>
+            <div id="wrap">
+                <div class="oe_structure"/>
+                <div class="container" t-if="request.env.user.has_group('base.group_user')">
+                    <div class="col-md-12 holder_attendance">
+                        <div class="row" style="background: #eee; margin-bottom: 20px">
+                            <div class="col-md-12" style="text-align:center; margin-top:20px; margin-bottom:10px">
+                                <h3>Attendance Information</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" style="margin-bottom:30px">
+                                <canvas id="doughnut_daily_attendance" width="100%"
+                                        style="height:120 !important"/>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="table-wrapper-scroll-y">
+                                    <table class="table table-stripped">
+                                        <thead>
+                                            <tr>
+                                                <th>Nama</th>
+                                                <th style="width:100px">Waktu</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="demo">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        function fetchData(){
+                            $.getJSON('/web/attendance/realtime', function(result){
+                            var size = result.tabel.data.length;
+                            var myObj = result.tabel.data;
+                            var i=0;
+                                document.getElementById("demo").innerHTML = ""
+                                while (i &lt; size){
+                                    document.getElementById("demo").innerHTML +=  `<tr><td>${myObj[i].name}</td><td>${myObj[i].check_in}</td></tr>`;
+                                    i++;
+                                }
+
+                                new Chart(document.getElementById("doughnut_daily_attendance"), {
+                                    type: 'doughnut',
+                                    data: {
+                                        labels: ["Hadir", "Tidak Hadir"],
+                                        datasets: [
+                                            {
+                                            label: "Kehadiran Kayawan",
+                                            backgroundColor: ["#2e7d32","#d81b60"],
+                                            data: [i, result.chart.pegawai_total-i]
+                                            }
+                                        ]
+                                        },
+                                        options: {
+                                        title: {
+                                            display: false,
+                                        }
+                                    },
+                                    options: {
+                                        legend: {
+                                            display: false
+                                        },
+                                        animation: {
+                                            duration: 0
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                        $(document).ready(function(){
+                            fetchData();
+                            setInterval(fetchData, 20000);
+                        });
+                    </script>
+                </div>
+                <div class="container" t-if="request.env.user.has_group('base.group_user')">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12" style="text-align:center; margin-top:20px; margin-bottom:20px">
+                                <h3>Leave Information</h3>
+                                <hr/>
+                            </div>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" class="table_head_today">TODAY</th>
+                                </tr>
+                                <tr class="table_subhead_today">
+                                    <th>NAMA</th>
+                                    <th>TANGGAL MULAI CUTI</th>
+                                    <th>TANGGAL AKHIR CUTI</th>
+                                    <th>KETERANGAN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr t-if="not today">
+                                    <th colspan="4" class="table_nodata">NO LEAVE DATA TODAY</th>
+                                </tr> -->
+                                <t t-foreach="today" t-as="line">
+                                    <tr>
+                                        <td><t t-esc="line['employee']"/></td>
+                                        <td><t t-esc="line['date_from']"/></td>
+                                        <td><t t-esc="line['date_to']"/></td>
+                                        <td><t t-esc="line['type']"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" class="table_head_nextday">NEXT DAY</th>
+                                </tr>
+                                <tr class="table_subhead_nextday">
+                                    <th>NAMA</th>
+                                    <th>TANGGAL MULAI CUTI</th>
+                                    <th>TANGGAL AKHIR CUTI</th>
+                                    <th>KETERANGAN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr t-if="not tomorrow">
+                                    <th colspan="4" class="table_nodata">NO LEAVE DATA TOMORROW</th>
+                                </tr> -->
+                                <t t-foreach="next_day" t-as="line">
+                                    <tr>
+                                        <td><t t-esc="line['employee']"/></td>
+                                        <td><t t-esc="line['date_from']"/></td>
+                                        <td><t t-esc="line['date_to']"/></td>
+                                        <td><t t-esc="line['type']"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+
+    <record id="menu_daily_attendance" model="website.menu">
+        <field name="name">Daily Attendance</field>
+        <field name="url">/dailyattend</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">7</field>
+        <field name="website_id" ref="website.default_website"/>
+    </record>
+</odoo>

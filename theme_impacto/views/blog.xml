@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="blog_post_short_custom" inherit_id="website_blog.blog_post_short" name="Blog Posts Custom">
+            <xpath expr="//section[@class='mb0']" position="replace">
+              <section class="inner-intro small-intro dark-bg mb-2" style="background-image: url('/theme_impacto/static/src/img/bg/bg-01.jpg'); background-size: cover;">
+                <div class="container">
+                  <div class="row intro-title">
+                    <div class="col-md-12 text-center"><h1 class="title text-white">Get in touch with us</h1></div>
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-12 text-center mt-1">
+                          <ul class="page-breadcrumb">
+                            <li><a href="javascript:void(0)">Home</a></li>
+                            <li><span>Blog</span> </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>   
+            </xpath>
+            <xpath expr="//div[@id='main_column']" position="replace">
+                <section class="main-container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12" id="main_column">
+                                <div t-if="not blog_posts" class="container mb64">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        <h1 class="title text-center fadeInUp">No blog post yet.</h1>
+                                        <br></br>
+                                        <p groups="website.group_website_designer" class="text-center fadeInDown">
+                                            Click on "Content" on the top menu to write your first blog post.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div name='blog_post' t-foreach="blog_posts" t-as="blog_post"
+                                         class="clearfix blogpost object-non-visible animated object-visible">
+                                    <div class="blogpost-body">                                        
+                                        <div class="blogpost-content pb-2">
+                                            <header>
+                                              <div class="entry-meta pb-2">
+                                                   <span class='pr-1'>
+                                                    <i class="fa fa-user"></i> 
+                                                    <span t-field="blog_post.author_id" style="display: inline-block;"
+                                                          t-field-options='{"widget": "contact","fields": ["name"]}'/>
+                                                    </span>
+                                                    <span class='pr-1'>
+                                                        <i class="fa fa-clock-o"></i> 
+                                                        <span t-field="blog_post.post_date"
+                                                              t-options='{"format": "MMMM yyyy"}'/>
+                                                    </span>
+                                                    <span class='pr-1'>
+                                                    <i class="fa fa-comment-o"></i> 
+                                                    <a t-attf-href="#{blog_url('', ['blogpost'], blogpost=post)}#comments">
+                                                        <t t-if="len(blog_post.message_ids) &lt;= 1">
+                                                            <t t-esc="len(blog_post.message_ids)"/>
+                                                            comment
+                                                        </t>
+                                                        <t t-if="len(blog_post.message_ids) > 1">
+                                                            <t t-esc="len(blog_post.message_ids)"/>
+                                                            comments
+                                                        </t>
+                                                     </a>
+                                                   </span>
+
+                                                </div>
+                                                <h2 t-field="blog_post.name" class="mb-2 o_blog_post_title title">
+                                                    Untitled Post
+                                                </h2>                                                
+                                            </header>
+                                             <p t-field="blog_post.description"/>     
+                                                                                
+                                            <footer class="clearfix">
+                                               <div class="pull-left">
+                                                <i class="fa fa-eye"></i>
+                                                        <t t-if="blog_post.visits &lt;= 1">
+                                                            <t t-esc="blog_post.visits"/>
+                                                            view
+                                                        </t>
+                                                        <t t-if="blog_post.visits > 1">
+                                                            <t t-esc="blog_post.visits"/>
+                                                            views
+                                                        </t>
+                                                        <span t-if="not blog_post.website_published" class="label label-danger">
+                                                            not published
+                                                        </span>
+                                               </div>
+                                                <a class="pull-right link"
+                                                   t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }">
+                                                    <span>Read more <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                                </a>
+                                            </footer>
+                                          </div>    
+                                      </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </xpath>
+
+        </template>
+
+        <template id="website_blog.index_right" name="Right Column" inherit_id="website_blog.blog_post_short"  active="False" customize_show="True">
+            <xpath expr="//div[@id='main_column']" position="attributes">
+                <attribute name="class">col-sm-9</attribute>
+            </xpath>
+            <xpath expr="//div[@id='main_column']" position="after">
+                <div class="col-md-3" id="blog_right_column">
+                    <!-- <div class="sidebar" id="sidebar_menu">
+                    </div> -->
+                </div>
+            </xpath>
+        </template>
+        
+    </data>
+</openerp>

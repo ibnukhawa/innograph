@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="inherited_project_project_form_view" model="ir.ui.view">
+             <field name="name">inherited.project.project.form</field>
+             <field name="model">project.project</field>
+             <field name="inherit_id" ref="project.edit_project"/>
+             <field name="arch" type="xml">
+             	<xpath expr="//form/sheet/notebook/page[1]" position="replace">
+                    <page name="settings" string="Settings">
+                        <group>
+                            <group>
+                                <field name="user_id" string="Project Manager" attrs="{'readonly':[('active','=',False)]}"/>
+                                <field name="privacy_visibility" widget="radio"/>
+                                <field name="partner_id" string="Customer"/>
+                                <field name="project_lead_id"/>
+                                <field name="project_link" widget="url"/>
+                                <field name="account_manager_id"/>
+                                <field name="date_start"/>
+                                <field name="date" string="End Date"/>
+                            </group>
+                            <group name="right">
+                                <field name="contract_value" widget="monetary"/>
+                                <field name="timesheet_budget"/>
+                                <field name="timesheet_budget_uom_id"/>
+                                <field name="timesheet_total"/>
+                                <field name="timesheet_balance"/>
+                                <field name="total_invoice" widget="monetary"/>
+                                <field name="project_balance" widget="monetary"/>
+                                <field name="project_balance_invoice"/>
+                                <field name="project_contract_presentation"/>
+                            </group>
+                            
+                        </group>
+                        <group name="misc" colspan="2">
+                            <group string="Configuration" groups="base.group_no_one">
+                                <field name="sequence" groups="base.group_no_one"/>
+                            </group>
+                            <group string="Time Scheduling" groups="base.group_no_one">
+                                <field name="resource_calendar_id" groups="base.group_no_one"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                    
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button"
+                            type="object"
+                            name="button_account_invoice"
+                            icon="fa-pencil-square-o">
+                        <field name="invoice_count" string="Invoices" widget="statinfo" />
+                    </button>
+                </div>
+             </field>
+        </record>
+
+        <record id="view_project_inherit_tree_view" model="ir.ui.view">
+             <field name="name">view.project.inherit.tree.view</field>
+             <field name="model">project.project</field>
+             <field name="inherit_id" ref="project.view_project"/>
+             <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="code"/>
+                </xpath>
+                 <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="total_invoice"/>
+                    <field name="invoice_date"/>
+                    <field name="contract_value"/>
+                    <field name="project_balance"/>
+                    <field name="project_balance_invoice"/>
+                </xpath>
+             </field>
+        </record>
+
+        <record id="view_project_kanban_inherit_kanban_view" model="ir.ui.view">
+            <field name="name">view.project.kanban.inherit.kanban.view</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='o_project_kanban_boxes']" position="inside">
+                    <div class="o_project_kanban_box">
+                        <a name="attachment_tree_views" type="object">
+                            <span class="o_label">Details</span>
+                        </a>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_project_project_filter_inherit_search_view" model="ir.ui.view">
+             <field name="name">view.project.project.filter.inherit.search.view</field>
+             <field name="model">project.project</field>
+             <field name="inherit_id" ref="project.view_project_project_filter"/>
+             <field name="arch" type="xml">
+                 <xpath expr="//group[1]" position="after">
+                     <filter string="Project Type" name="project_type" context="{'group_by':'project_type_id'}"/>
+                     <filter string="Timesheet Invoiceable" name="timesheet" domain="[('invoiceable_project','=',True)]"/>
+                 </xpath>
+             </field>
+        </record>
+
+        <record id="project.open_view_project_all" model="ir.actions.act_window">
+            <field name="view_mode">kanban,form,tree</field>
+            <field name="context">{'search_default_project_type': 1, 'search_default_timesheet': 1}</field>
+        </record>
+
+        <record id="project.open_view_project_all_config" model="ir.actions.act_window">
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{'search_default_project_type': 1, 'search_default_timesheet': 1}</field>
+        </record>
+
+
+</odoo>

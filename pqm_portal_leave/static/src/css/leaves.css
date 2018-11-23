@@ -1,0 +1,12 @@
+.table-leaves > thead > tr > th{
+    vertical-align: middle;
+    text-align: center;
+    border-left: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+}
+
+.table-leaves > tbody > tr > td{
+    border-left: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+}

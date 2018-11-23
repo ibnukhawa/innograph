@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="hr_expense_sheet_form_view" model="ir.ui.view">
+	         <field name="name">hr.expense.sheet.form</field>
+	         <field name="model">hr.expense.sheet</field>
+	         <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+	         <field name="arch" type="xml">
+	         	<xpath expr="//field[@name='journal_id']" position="before">
+					<field name="category_id" required='1' domain="[('is_expenses','=', True)]"/>
+				</xpath>
+				<xpath expr="//field[@name='payment_mode']" position="before">
+					<field name="approval_id" required='1'/>
+				</xpath>
+	         </field>
+	    </record>
+	    
+	    
+	    <record id="hr_expense_sheet_form_views" model="ir.ui.view">
+	         <field name="name">hr.expense.sheet.form</field>
+	         <field name="model">hr.expense.sheet</field>
+	         <field name="inherit_id" ref="pci_hr_expense_validate.inherit_view_hr_expense_sheet_form"/>
+	         <field name="arch" type="xml">
+				<xpath expr="//field[@name='validate_id']" position="replace">
+					<field name="validate_id" options="{'no_open': True,'no_create_edit': True,'no_quick_create': True}"/>
+				</xpath>
+	         </field>
+	    </record>
+	    
+	    <record id="hr_expense_form_view" model="ir.ui.view">
+	         <field name="name">hr.expense.form</field>
+	         <field name="model">hr.expense</field>
+	         <field name="inherit_id" ref="hr_expense.hr_expense_form_view"/>
+	         <field name="arch" type="xml">
+	         	<xpath expr="//field[@name='product_id']" position="before">
+					<field name="category_id" domain="[('is_expenses','=', True)]"/>
+				</xpath>
+				<xpath expr="//field[@name='payment_mode']" position="attributes">
+					<attribute name="readonly">True</attribute>
+				</xpath>
+	         </field>
+	    </record>
+
+	    <record id="view_hr_expense_sheet_filter" model="ir.ui.view">
+            <field name="name">hr.expense.sheet.filter</field>
+            <field name="model">hr.expense.sheet</field>
+            <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_filter"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//search/field[@name='department_id']" position="after">
+					<field name="approval_id"/>
+				</xpath>
+            	<xpath expr="//search/filter[@name='submitted']" position="replace">
+            		<filter domain="[('state', '=', 'submit')]" string="To Validate" name="submitted" help="Confirmed Expenses"/>
+					<filter domain="[('state', '=', 'validate')]" string="To Approve" name="validated" help="Confirmed Expenses"/>
+				</xpath>
+				<xpath expr="//search/group/filter[@name='state']" position="after">
+					<filter string="validator" domain="[]" context="{'group_by': 'validate_id'}" name="validator"/>
+					<filter string="Approval" domain="[]" context="{'group_by': 'approval_id'}" name="approver"/>
+				</xpath>
+            </field>
+        </record>
+
+	    <record id="action_hr_expense_sheet_all_to_validate" model="ir.actions.act_window">
+            <field name="name">Expense to Validate</field>
+            <field name="res_model">hr.expense.sheet</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+            <field name="search_view_id" ref="hr_expense.view_hr_expense_sheet_filter"/>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_submitted': 1, 'search_default_validator': 1}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click here to create a new expense report.
+              </p><p>
+                Once you have created your expense, submit it to your manager who will validate it.
+              </p>
+            </field>
+        </record>
+
+        <record id="hr_expense.action_hr_expense_sheet_all_to_approve" model="ir.actions.act_window">
+            <field name="name">Expense Reports to Approve</field>
+            <field name="res_model">hr.expense.sheet</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+            <field name="search_view_id" ref="hr_expense.view_hr_expense_sheet_filter"/>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_validated': 1, 'search_default_approver': 1}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click here to create a new expense report.
+              </p><p>
+                Once you have created your expense, submit it to your manager who will validate it.
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_hr_expense_to_validate" name="To Validate" sequence="2" parent="hr_expense.menu_hr_expense_root" groups="hr_expense.group_hr_expense_user"/>
+        
+	    <menuitem id="menu_hr_expense_sheet_all_to_validate" name="Expense To Validate" sequence="1" parent="menu_hr_expense_to_validate"
+            action="action_hr_expense_sheet_all_to_validate"/>
+	</data>
+</odoo>

@@ -1,0 +1,43 @@
+.multiform_container{
+    margin-top: 15px;
+}
+
+.multiform_container .multiform_header{
+    list-style: none;
+    padding: 0px;
+}
+
+.multiform_container .multiform_header li{
+    display: inline-block;
+    color: #ddd;
+    padding: 5px 10px 5px 0px;
+}
+
+.multiform_container .multiform_header li.current{
+    color: #828282;
+}
+
+.multiform_container .help-block{
+    display: none;
+}
+
+.multiform_container .multiform_section{
+    display: none;
+}
+
+.multiform_container .multiform_section.current{
+    display: block;
+}
+
+.multiform_container .multiform_navigation{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.o_event_register .container .multiform_container .multiform_section .company_select .btn_company_show:hover{
+    color: #223e7f;
+}
+
+.o_event_register .container .multiform_container .multiform_section .company_select .btn_company_hide:hover{
+    color: #223e7f;
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	    <record id="account_report_general_ledger_view" model="ir.ui.view">
+	        <field name="name">General Ledger</field>
+	        <field name="model">account.report.general.ledger</field>
+	        <field name="inherit_id" ref="account.account_common_report_view"/>
+	        <field name="arch" type="xml">
+		        <xpath expr="//button[@name='check_report']" position="after">
+		            <button name="print_xls_report" string="XLS Report" type="object" class="oe_highlight"/> or
+		        </xpath>
+	        </field>
+	    </record>
+	    <record id="general_ledger_report_xls" model="ir.ui.view">
+	        <field name="name">Report Download Form</field>
+	        <field name="model">general.ledger.report.xls</field>
+	        <field name="arch" type="xml">
+	            <form string="Download Form">
+	                <p>Your report is ready. Please click the following link to download it.</p>
+	                <group>
+	                    <field name="name" invisible="1"/>
+	                    <field name="report" nolabel="1" filename="name"/>
+	                </group>
+	                <footer>
+	                    <button string="Close" class="oe_link" special="cancel" />
+	                </footer>
+	            </form>
+	        </field>
+	    </record>
+    </data>
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>        
+        <record id="inherit_view_account_financial_report_form" model="ir.ui.view">
+            <field name="name">account.financial.report.form</field>
+            <field name="model">account.financial.report</field>
+            <field name="inherit_id" ref="account.view_account_financial_report_form"/>
+            <field name="arch" type="xml">
+    	        <xpath expr="//form/group" position="after">
+    	        <group>
+    	        	<field name="show_root_balance" attrs="{'invisible':[('parent_id','=',True)]}"/>
+    	        	<field name="title_root_balance" attrs="{'invisible':[('parent_id','=',True)]}"/>
+    	        </group>
+    	        </xpath>
+                 
+            </field>
+        </record>
+        
+    </data>
+</odoo>

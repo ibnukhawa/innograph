@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="hr_employee_form_view" model="ir.ui.view">
+	         <field name="name">hr.employee.form</field>
+	         <field name="model">hr.employee</field>
+	         <field name="inherit_id" ref="hr.view_employee_form"/>
+	         <field name="arch" type="xml">
+	         	<xpath expr="//field[@name='address_id']" position="before">
+	                <field name="manager_only" invisible="True"/>
+	                <field name="office_only" invisible="True"/>
+	            </xpath>
+	         	<xpath expr="//field[@name='department_id']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='job_id']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='parent_id']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='coach_id']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='calendar_id']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+				<xpath expr="//page[@name='hr_settings']" position="attributes">
+	                 <attribute name="groups"></attribute>
+	            </xpath>
+	            
+	            <xpath expr="//field[@name='address_home_id']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='company_id']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='user_id']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	            
+	         </field>
+	    </record>
+	    
+	    <record id="hr_employee_form2_view" model="ir.ui.view">
+	         <field name="name">hr.employee.form</field>
+	         <field name="model">hr.employee</field>
+	         <field name="inherit_id" ref="hr_grade_rank.view_employee_form_grade_rank"/>
+	         <field name="arch" type="xml">
+	            <xpath expr="//field[@name='grade_id']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+				<xpath expr="//field[@name='rank_id']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	         </field>
+	    </record>
+
+	    <record id="hr_employee_form3_view" model="ir.ui.view">
+	         <field name="name">hr.employee.form</field>
+	         <field name="model">hr.employee</field>
+	         <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form2"/>
+	         <field name="arch" type="xml">
+	            <xpath expr="//field[@name='manager']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	                 <attribute name="groups"></attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='medic_exam']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='vehicle']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='vehicle_distance']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	         </field>
+	    </record>
+
+	    <record id="hr_employee_form4_view" model="ir.ui.view">
+	         <field name="name">hr.employee.form</field>
+	         <field name="model">hr.employee</field>
+	         <field name="inherit_id" ref="hr_employee_age.hr_employee_view_form"/>
+	         <field name="arch" type="xml">
+	            <xpath expr="//field[@name='age']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	         </field>
+	    </record>
+
+	    <record id="hr_employee_form5_view" model="ir.ui.view">
+	         <field name="name">hr.employee.form</field>
+	         <field name="model">hr.employee</field>
+	         <field name="inherit_id" ref="sale_timesheet.hr_timesheet_employee_extd_form"/>
+	         <field name="arch" type="xml">
+	            <xpath expr="//field[@name='timesheet_cost']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+				<xpath expr="//field[@name='account_id']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	         </field>
+	    </record>
+
+	    <record id="hr_employee_form6_view" model="ir.ui.view">
+	         <field name="name">hr.employee.form</field>
+	         <field name="model">hr.employee</field>
+	         <field name="inherit_id" ref="pqm_project_abc.view_employee_view_form"/>
+	         <field name="arch" type="xml">
+	            <xpath expr="//field[@name='overhead_cost']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	         </field>
+	    </record>
+	    
+	    <record id="hr_employee_form7_view" model="ir.ui.view">
+	         <field name="name">hr.employee.form</field>
+	         <field name="model">hr.employee</field>
+	         <field name="inherit_id" ref="hr_attendance.view_employee_form_inherit_hr_attendance"/>
+	         <field name="arch" type="xml">
+	            <xpath expr="//field[@name='barcode']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='pin']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='manual_attendance']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	         </field>
+	    </record>
+
+	    <record id="hr_employee_form8_view" model="ir.ui.view">
+	         <field name="name">hr.employee.form</field>
+	         <field name="model">hr.employee</field>
+	         <field name="inherit_id" ref="hr_employee_updation.hr_employee_inherit_form_view"/>
+	         <field name="arch" type="xml">
+	         	<xpath expr="//page[@name='personal_information']" position="attributes">
+	                 <attribute name="groups"></attribute>
+	            </xpath>
+	         	<xpath expr="//page[@name='personal_information']/group/group/field[@name='identification_id']" position="replace">
+	                 <field name="identification_id"/>
+	            </xpath>
+	            <xpath expr="//field[@name='joining_date']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	         	<xpath expr="//page[@name='family_info']" position="attributes">
+	                 <attribute name="groups"></attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='fam_ids']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('office_only', '=', True)]}</attribute>
+	            </xpath>
+	             <xpath expr="//group[@name='identification_id']" position="replace">
+	                 <group name="identification_id" string="Identification ID">
+                        <field name="identification_id"/>
+                        <field name="id_expiry_date" />
+                        <field name="id_attachment_id" widget="many2many_binary" class="oe_inline"/>
+                    </group>
+	            </xpath>
+	            <xpath expr="//group[@name='passport_id']" position="replace">
+	                 <group name="passport_id" string="Passport ID">
+                        <field name="passport_id"/>
+                        <field name="passport_expiry_date"/>
+                        <field name="passport_attachment_id" widget="many2many_binary" class="oe_inline"/>
+                    </group>
+	            </xpath>
+	         </field>
+	    </record>
+
+	    <record id="hr_employee_form9_view" model="ir.ui.view">
+	         <field name="name">hr.employee.form</field>
+	         <field name="model">hr.employee</field>
+	         <field name="inherit_id" ref="hr_experience.view_employee_form_inherit"/>
+	         <field name="arch" type="xml">
+	            <xpath expr="//page/field[@name='academic_ids']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('office_only', '=', True)]}</attribute>
+	            </xpath>
+                <xpath expr="//page/field[@name='experience_ids']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('office_only', '=', True)]}</attribute>
+	            </xpath>
+	            <xpath expr="//page/field[@name='certification_ids']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('office_only', '=', True)]}</attribute>
+	            </xpath>
+	         </field>
+	    </record>
+
+	    <record id="hr_employee_form10_view" model="ir.ui.view">
+	         <field name="name">hr.employee.form</field>
+	         <field name="model">hr.employee</field>
+	         <field name="inherit_id" ref="hr_holidays.view_employee_form_leave_inherit"/>
+	         <field name="arch" type="xml">
+	            <xpath expr="//field[@name='remaining_leaves']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	         </field>
+	    </record>
+
+	    <record id="hr_employee_form11_view" model="ir.ui.view">
+	         <field name="name">hr.employee.form</field>
+	         <field name="model">hr.employee</field>
+	         <field name="inherit_id" ref="hr_employee_seniority.hr_employee_view_form_inherit"/>
+	         <field name="arch" type="xml">
+	            <xpath expr="//field[@name='initial_employment_date']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	         </field>
+	    </record>
+
+	    <record id="hr_employee_form12_view" model="ir.ui.view">
+	         <field name="name">hr.employee.form</field>
+	         <field name="model">hr.employee</field>
+	         <field name="inherit_id" ref="hr_gamification.hr_hr_employee_view_form"/>
+	         <field name="arch" type="xml">
+	            <xpath expr="//div[@name='badges']" position="replace">
+	            	<div name="badges">
+                    	<field name="has_badges" invisible="1"/>
+                        <button string="Grant a Badge" type="action" name="704" attrs="{'invisible': [('manager_only', '!=', True)]}"/> to reward this employee for a good action
+                       	<div class="oe_view_nocontent" attrs="{'invisible': [('has_badges', '=', True)]}">
+                        	<p class="oe_view_nocontent_create">
+                            	Click to grant this employee his first badge
+                            </p><p class="oe_grey">
+                            	Badges are rewards of good work. Give them to people you believe deserve it.
+                            </p>
+                        </div>
+                	</div>
+	            </xpath>
+	            <xpath expr="//field[@name='badge_ids']" position="attributes">
+	                 <attribute name="attrs">{'readonly': [('manager_only', '!=', True)]}</attribute>
+	            </xpath>
+	         </field>
+	    </record>
+                        
+	</data>
+</odoo>

@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+		<xpath expr="." position="inside">
+			<link rel="stylesheet" href="/pqm_event_register/static/src/css/register.css"/>
+            <script src="/pqm_event_register/static/lib/parsley/parsley.min.js"></script>
+            <script src="/pqm_event_register/static/lib/inputmask/jquery.mask.min.js"></script>
+            <script src="/pqm_event_register/static/src/js/register.js"></script>
+		</xpath>
+	</template>
+
+    <template id="event_detail_content" inherit_id="pqm_event_core.pqm_event_detail_content">
+        <xpath expr="//div[@class='register_container']" position="replace">
+            <div class="register_container">
+                <div t-if="event.state == 'done' or not registrable" class="register_none">Event Registration Closed</div>
+                <div t-if="event.state != 'done' and registrable" class="table-responsive">
+                    <div class="register_none" t-if="not request.session.uid">
+                        <h4><a t-attf-href="/web/login">Login</a> or <a t-attf-href="/web/signup">Register</a></h4>
+                        <span>to View Price</span>
+                    </div>
+                    <t t-if="request.session.uid" t-call="pqm_event_register.event_detail_register"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="cart_popover" inherit_id="website_sale.cart_popover">
+        <xpath expr="//div[contains(@class, 'well')]" position="replace">
+            <div t-if="not website_sale_order or not website_sale_order.website_order_line" style="width:100%;height:130px;text-align:center;line-height:130px;">
+                Your order is empty!
+            </div>
+        </xpath>
+        <xpath expr="//div[contains(@class, 'cart_line')]" position="replace">
+            <div class="row mb8 cart_line">
+                <div class="col-xs-3">
+                    <span t-field="line.product_id.image_small" t-options="{'widget': 'image', 'class': 'img-rounded'}" />
+                </div>
+                <div class="col-xs-9">
+                    <span t-esc="line.product_id.with_context(display_default_code=False).display_name" class="h6" />
+                    <br />
+                    <small>Qty: <t t-esc="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty" /></small>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//a[contains(@href, '/shop/cart')]" position="replace">
+            <a class="btn btn-primary" href="/shop/payment">
+                View Order (<t t-esc="website_sale_order.cart_quantity" /> items)
+            </a>
+        </xpath>
+    </template>
+
+    <template id="event_detail_register">
+        <form id="event_register_form" t-if="event.event_ticket_ids and not all([ticket.is_expired for ticket in event.event_ticket_ids])" t-attf-action="/event/#{slug(event)}/registration/new" method="GET">
+            <table itemprop="offers" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="col-sm-2 col-md-3">Ticket Type</th>
+                        <th>End of Registration</th>
+                        <th class="o_th_price">Price</th>
+                        <th>Tax</th>
+                        <!-- ticket less than 25% -->
+                        <t t-set="show_tickets_left" t-value="any([ticket for ticket in event.event_ticket_ids if (ticket.seats_max and (ticket.seats_max - ticket.seats_reserved &lt;5))])"/>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="event.event_ticket_ids" t-as="ticket">
+                        <tr itemscope="itemscope" itemtype="http://data-vocabulary.org/Offer" t-if="not ticket.is_expired">
+                            <td itemscope="itemscope" itemtype="http://data-vocabulary.org/Product">
+                                <div itemprop="name" t-field="ticket.name"/>
+                                <div><small itemprop="description" t-field="ticket.product_id.description_sale"/></div>
+                                <div t-if="show_tickets_left">
+                                    <span t-if="ticket.seats_max" style="color:#e60e0e; font-size:10px;">
+                                        <i><t t-esc="ticket.seats_max - ticket.seats_reserved"/> <span>ticket left</span></i>
+                                </span>
+                                </div>
+                            </td>
+                            <td>
+                                <t t-if="ticket.deadline">
+                                    <span itemprop="priceValidUntil" t-esc="ticket._deadline_date()"/>
+                                </t>
+                                <t t-if="not ticket.deadline">
+                                    <span>Unlimited</span>
+                                </t>
+                            </td>
+                            <td>
+                                <t t-if="ticket.price or editable">
+                                    <t t-if="(ticket.price-website.get_current_pricelist().currency_id.compute(ticket.price_reduce, event.company_id.sudo().currency_id)) &gt; 1">
+                                    <del class="text-danger mr4" style="white-space: nowrap;" t-field="ticket.price" t-options='{
+                                    "widget": "monetary",
+                                    "from_currency": event.company_id.sudo().currency_id,
+                                    "display_currency": website.get_current_pricelist().currency_id
+                                    }'/>
+                                    </t>
+                                    <span t-field="ticket.price_reduce" t-options='{
+                                    "widget": "monetary",
+                                    "display_currency": website.pricelist_id.currency_id
+                                    }' groups="sale.group_show_price_subtotal"/>
+                                    <span t-field="ticket.price_reduce_taxinc" t-options='{
+                                    "widget": "monetary",
+                                    "display_currency": website.pricelist_id.currency_id
+                                    }' groups="sale.group_show_price_total"/>
+                                    <span itemprop="price" style="display:none;" t-esc="ticket.price"/>
+                                    <span itemprop="priceCurrency" style="display:none;" t-esc="website.pricelist_id.currency_id.name"/>
+                                </t>
+                                <t t-if="not ticket.price and not editable">
+                                    <span>Free</span>
+                                </t>
+                            </td>
+                            <td t-if="ticket.price or editable">
+                                <span t-if="ticket.product_id.taxes_id" t-foreach="ticket.product_id.taxes_id" t-as="tax">
+                                    <t t-esc="tax.name"/>
+                                </span>
+                                <span t-if="not ticket.product_id.taxes_id">
+                                    -
+                                </span>
+                            </td>
+                            <td t-if="not ticket.price and not editable">
+                                -
+                            </td>
+                            <td>
+                                <select t-if="(event.seats_available or event.seats_availability == 'unlimited') and (ticket.seats_available or ticket.seats_availability == 'unlimited')" t-attf-name="nb_register-#{ticket.id}" class="form-control">
+                                    <t t-set="seats_max_ticket" t-value="(ticket.seats_availability == 'unlimited' or ticket.seats_available > 9) and 10 or ticket.seats_available + 1"/>
+                                    <t t-set="seats_max_event" t-value="(event.seats_availability == 'unlimited' or event.seats_available > 9) and 10 or event.seats_available + 1"/>
+                                    <t t-set="seats_max" t-value="min(seats_max_ticket, seats_max_event)"/>
+                                    <t t-foreach="range(0, seats_max)" t-as="nb">
+                                        <option t-esc="nb"/>
+                                    </t>
+                                </select>
+                                <span t-if="(not event.seats_available and event.seats_availability == 'limited') or (ticket.seats_availability == 'limited' and not ticket.seats_available)">Sold Out</span>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+            <button type="submit" t-if="event.state == 'confirm' and (event.seats_available or event.seats_availability == 'unlimited')"
+            class="btn btn-primary btn-lg pull-right a-submit" t-attf-id="#{event.id}">Order Now</button>
+            <div t-if="not event.state == 'confirm'" class="alert alert-info">
+                <t t-if="event.state == 'draft'">
+                    Event registration not yet started.
+                </t>
+                <t t-if="event.state != 'draft'">
+                    Event registration is closed.
+                </t>
+                <t t-if="uid">
+                    <i class="fa fa-plus-circle"><a t-attf-href="/web#id=#{event.id}&amp;view_type=form&amp;model=event.event"> <em>Configure and Launch Event Registration</em></a></i>
+                </t>
+            </div>
+        </form>
+    </template>
+
+    <template id="registration_new">
+        <t t-call="website.layout">
+            <div id="wrap" class="o_event_register">
+                <div class="container">
+                    <form class="multiform_container" t-attf-action="/event/#{slug(event)}/registration/confirm" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <ul class="multiform_header">
+                            <li>Company</li>
+                            <li>PIC Profile</li>
+                            <li>Attendances</li>
+                            <li>Questioner</li>
+                        </ul>
+
+                        <div class="row multiform_section">
+                            <div class="company_select" style="text-align:center">
+                                <label>What type of registration are you going to use?</label><br/>
+                                <div class="btn_company_show btn"><i class="fa fa-building fa-3x"/><br/><span>Company</span></div>
+                                <div class="btn_company_hide btn"><i class="fa fa-user fa-3x"/><br/><span>Personal</span></div>
+                                <input class="hidden" name="company_prevent" required="1"/>
+                            </div>
+                            <div class="company_none hidden" style="text-align:center">
+                                <h4 class="text-muted">Personal registration!</h4>
+                            </div>
+                            <div class="company_form hidden">
+                                <t t-set="company" t-value="user.partner_id.parent_id"/>
+                                <t t-set="company_skip" t-value="True"/>
+                                <div class="col-sm-12 form-group">
+                                    <label>Name *</label>
+                                    <input type="text" class="form-control" name="company_name" placeholder="company name" t-attf-value="#{company.name or ''}" required="1"/>
+                                    <t t-if="not company.name">
+                                        <t t-set="company_skip" t-value="False"/>
+                                    </t>
+                                </div>
+
+                                <div class="col-sm-4 form-group">
+                                    <label>Address *</label>
+                                    <input type="text" class="form-control" name="company_street" placeholder="company address" t-attf-value="#{company.street or ''}" required="1"/>
+                                    <t t-if="not company.street">
+                                        <t t-set="company_skip" t-value="False"/>
+                                    </t>
+                                </div>
+
+                                <div class="col-sm-2 form-group">
+                                    <label>Postal Code *</label>
+                                    <input type="text" class="form-control mask_zip" name="company_zip" placeholder="postal code / zip" t-attf-value="#{company.zip or ''}" required="1"/>
+                                    <t t-if="not company.zip">
+                                        <t t-set="company_skip" t-value="False"/>
+                                    </t>
+                                </div>
+
+                                <div class="col-sm-3 form-group">
+                                    <label>Phone / Mobile *</label>
+                                    <input type="tel" class="form-control mask_phone" name="company_phone" placeholder="company phone number" t-attf-value="#{company.phone or ''}" required="1"/>
+                                    <t t-if="not company.phone">
+                                        <t t-set="company_skip" t-value="False"/>
+                                    </t>
+                                </div>
+
+                                <div class="col-sm-3 form-group">
+                                    <label>NPWP Number *</label>
+                                    <input type="text" class="form-control mask_npwp" name="company_npwp" placeholder="NPWP" t-attf-value="#{company.npwp or ''}" required="1"/>
+                                    <t t-if="not company.npwp">
+                                        <t t-set="company_skip" t-value="False"/>
+                                    </t>
+                                </div>
+
+                                <div class="col-sm-4 form-group">
+                                    <t t-if="not company.npwp_file">
+                                        <label>NPWP File *</label>
+                                        <input type="file" class="form-control" name="company_npwp_file" placeholder="NPWP File" required="1"/>
+                                        <span style="font-size:10px"><em>*Only support JPG / PNG file and file size not exceed 200KB</em></span>
+                                        <t t-set="company_skip" t-value="False"/>
+                                    </t>
+                                    <t t-if="company.npwp_file">
+                                        <label>NPWP File</label>
+                                        <input type="file" class="form-control" name="company_npwp_file" placeholder="NPWP File"/>
+                                        <div style="width:100%; background:#eee; border:1px solid #ddd;">
+                                            <a t-attf-href="/website/image/res.partner/#{company.id}/npwp_file" target="_blank">
+                                                <img style="width:150px" t-attf-src="/website/image/res.partner/#{company.id}/npwp_file"/>
+                                            </a>
+                                        </div>
+                                    </t>
+                                </div>
+
+                                <t t-if="company">
+                                    <t t-set="finance" t-value="company.child_ids.filtered(lambda r: r.is_event_finance == True)"/>
+                                </t>
+                                <div class="col-sm-4 form-group">
+                                    <label>Finance Name *</label>
+                                    <input type="text" class="form-control" name="finance_name" placeholder="finance name" t-attf-value="#{finance and finance[0].name or ''}" required="1"/>
+                                    <t t-if="not (finance and finance[0].name)">
+                                        <t t-set="company_skip" t-value="False"/>
+                                    </t>
+                                </div>
+
+                                <div class="col-sm-4 form-group">
+                                    <label>Finance Email *</label>
+                                    <input type="email" class="form-control" name="finance_email" placeholder="finance email" t-attf-value="#{finance and finance[0].email or ''}" required="1"/>
+                                    <t t-if="not (finance and finance[0].email)">
+                                        <t t-set="company_skip" t-value="False"/>
+                                    </t>
+                                </div>
+
+                                <div class="col-sm-3 form-group">
+                                    <label>Finance Phone / Mobile *</label>
+                                    <input type="tel" class="form-control mask_phone" name="finance_phone" placeholder="finance phone" t-attf-value="#{finance and finance[0].phone or ''}" required="1"/>
+                                    <t t-if="not (finance and finance[0].phone)">
+                                        <t t-set="company_skip" t-value="False"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row multiform_section">
+                            <t t-set="partner" t-value="user.partner_id"/>
+                            <t t-set="partner_skip" t-value="True"/>
+                            <div class="col-sm-8 form-group">
+                                <label>Name *</label>
+                                <input type="text" class="form-control" name="partner_name" placeholder="your name" t-attf-value="#{partner.name or ''}" required="1"/>
+                                <t t-if="not partner.name">
+                                    <t t-set="partner_skip" t-value="False"/>
+                                </t>
+                            </div>
+
+                            <div class="col-sm-4 form-group">
+                                <label>Job Position *</label>
+                                <input type="text" class="form-control" name="partner_function" placeholder="your job" t-attf-value="#{partner.function or ''}" required="1"/>
+                                <t t-if="not partner.function">
+                                    <t t-set="partner_skip" t-value="False"/>
+                                </t>
+                            </div>
+
+                            <div class="col-sm-4 form-group">
+                                <label>Country *</label>
+                                <select type="text" class="form-control" name="partner_country_id" placeholder="your country" required="1">
+                                    <option value=""></option>
+                                    <t t-foreach="countries" t-as="country">
+                                        <t t-set="selected" t-value="partner.country_id and partner.country_id.id == country.id"/>
+                                        <t t-if="selected">
+                                            <option t-att-value="country.id" selected="1"><t t-esc="country.name"/></option>
+                                        </t>
+                                        <t t-if="not selected">
+                                            <option t-att-value="country.id"><t t-esc="country.name"/></option>
+                                        </t>
+                                    </t>
+                                </select>
+                                <t t-if="not partner.country_id">
+                                    <t t-set="partner_skip" t-value="False"/>
+                                </t>
+                            </div>
+
+                            <div class="col-sm-4 form-group">
+                                <label>Address *</label>
+                                <input type="text" class="form-control" name="partner_street" placeholder="your address" t-attf-value="#{partner.street or ''}" required="1"/>
+                                <t t-if="not partner.street">
+                                    <t t-set="partner_skip" t-value="False"/>
+                                </t>
+                            </div>
+
+                            <div class="col-sm-4 form-group">
+                                <label>Email *</label>
+                                <input type="email" class="form-control" name="partner_email" placeholder="your email" t-attf-value="#{partner.email or ''}" required="1"/>
+                                <t t-if="not partner.email">
+                                    <t t-set="partner_skip" t-value="False"/>
+                                </t>
+                            </div>
+
+                            <div class="col-sm-3 form-group">
+                                <label>Phone / Mobile *</label>
+                                <input type="tel" class="form-control mask_phone" name="partner_phone" placeholder="your phone number" t-attf-value="#{partner.phone or ''}" required="1"/>
+                                <t t-if="not partner.phone">
+                                    <t t-set="partner_skip" t-value="False"/>
+                                </t>
+                            </div>
+                        </div>
+
+                        <div class="multiform_section">
+                            <t t-set="counter_type" t-value="1"/>
+                            <t t-set="counter" t-value="0"/>
+                            <t t-foreach="tickets" t-as="ticket">
+                                <div class="ticket_container">
+                                    <h4>
+                                        <strong>
+                                            Ticket Type #<t t-raw="counter_type"/>: <t t-esc="ticket['name']"/>
+                                            <t t-if="ticket['price'] == 0">(Free)</t>
+                                            <div class="register_yourself btn btn-default" style="font-size: 10px; padding: 4px 10px; text-transform: inherit;">register yourself</div>
+                                            <div class="register_add btn btn-default" style="font-size: 10px; padding: 4px 10px; text-transform: inherit;"><i class="fa fa-plus"/></div>
+                                            <div class="register_remove btn btn-default" style="font-size: 10px; padding: 4px 10px; text-transform: inherit;"><i class="fa fa-close"/></div>
+                                        </strong>
+                                    </h4>
+                                    <div class="row">
+                                        <div class="col-md-3"><strong>Email *</strong></div>
+                                        <div class="col-md-3"><strong>Name *</strong></div>
+                                        <div class="col-md-2"><strong>Nick Name *</strong></div>
+                                        <div class="col-md-2"><strong>Job Position *</strong></div>
+                                        <div class="col-md-2"><strong>Phone / Mobile *</strong></div>
+                                    </div>
+                                    <input type="hidden" class="register_counter" t-attf-value="#{ticket['quantity']}"/>
+                                    <t t-foreach="range(1, ticket['quantity'] + 1)" t-as="att_counter" name="attendee_loop">
+                                        <t t-set="counter" t-value="counter + 1"/>
+                                        <div class="row mb4 ticket_attendee" t-attf-data-type="#{'parent' if counter == 1 else 'child'}">
+                                            <t t-set="attendee_placeholder">Attendee #%s</t>
+                                            <div class="col-md-3"><input class='form-control email' type='email' t-attf-name="#{counter}-email" required="1"/></div>
+                                            <div class="col-md-3"><input class='form-control name' type='text' t-attf-name="#{counter}-name" required="1"/></div>
+                                            <div class="col-md-2"><input class='form-control nickname' type='text' t-attf-name="#{counter}-nickname" required="1"/></div>
+                                            <div class="col-md-2"><input class='form-control function' type='text' t-attf-name="#{counter}-function" required="1"/></div>
+                                            <div class="col-md-2"><input class='form-control mask_phone phone' type='tel' t-attf-name="#{counter}-phone" required="1"/></div>
+                                            <input class='hidden ticket' type='text' t-attf-name="#{counter}-ticket_id" t-attf-value="#{ticket['id']}"/>
+                                        </div>
+                                    </t>
+                                </div>
+                                <t t-set="counter_type" t-value="counter_type + 1"/>
+                            </t>
+                            <script>
+                                <![CDATA[
+                                    $(document).ready(function(){
+                                        $(document).on('click', '.register_add', function(){
+                                            var $parent = $(this).parents('.ticket_container');
+                                            var $counter = $parent.find('.register_counter');
+                                            var $base = $('<div class="row mb4 ticket_attendee" data-type="child"/>').html($parent.find('div.ticket_attendee[data-type="parent"]').html());
+                                            var counter = parseInt($counter.val()) + 1;
+                                            $base.find('input.email').attr('name', counter+'-email');
+                                            $base.find('input.name').attr('name', counter+'-name');
+                                            $base.find('input.nickname').attr('name', counter+'-nickname');
+                                            $base.find('input.function').attr('name', counter+'-function');
+                                            $base.find('input.phone').attr('name', counter+'-phone');
+                                            $base.find('input.ticket').attr('name', counter+'-ticket_id');
+                                            $parent.append($base);
+                                            $counter.val(counter);
+                                        });
+                                        $(document).on('click', '.register_remove', function(){
+                                            var $parent = $(this).parents('.ticket_container');
+                                            var $counter = $parent.find('.register_counter');
+                                            var $base = $parent.find('div.ticket_attendee[data-type="child"]:last-child');
+                                            var counter = parseInt($counter.val()) - 1;
+                                            if($base.length > 0){
+                                                $base.remove();
+                                                $counter.val(counter);
+                                            }
+                                        });
+                                    });
+                                ]]>
+                            </script>
+                        </div>
+
+                        <div class="multiform_section">
+                            <div class="form-group">
+                                <label>Where you find this event registration info? *</label>
+                                <select name="order_registration_source" class="form-control" required="1">
+                                    <option value=""></option>
+                                    <option>Email</option>
+                                    <option>Hard Copy (Brochure, Yearly Schedule, Improve! Magazine)</option>
+                                    <option>Colleague Recommendation</option>
+                                    <option>Social Media</option>
+                                    <option>PQM Website</option>
+                                    <option>Expo</option>
+                                </select>
+                            </div>                       
+                        </div>
+
+                        <div class="multiform_navigation">
+                            <button type="button" class="previous btn btn-default pull-left">&lt; Previous</button>
+                            <button type="button" class="next btn btn-default pull-right">Next &gt;</button>
+                            <input type="submit" class="btn btn-default pull-right"/>
+                            <span class="clearfix"></span>
+                        </div>
+                    </form>
+                </div>
+                <!-- <t t-set="navigate_to" t-value="2"/>
+                <t t-if="not partner_skip">
+                    <t t-set="navigate_to" t-value="1"/>
+                </t>
+                <t t-if="not company_skip">
+                    <t t-set="navigate_to" t-value="0"/>
+                </t> -->
+                <t t-set="navigate_to" t-value="0"/>
+                <script>
+                    $(document).ready(function(){
+                        $('.mask_zip').mask('00000');
+                        $('.mask_phone').mask('0000000000000');
+                        $('.mask_npwp').mask('000000000000000');
+
+                        $('.btn_company_hide').on('click', function(){
+                            $('.company_select').remove();
+                            $('.company_none').removeClass('hidden');
+                            $('.company_form').remove();
+                            navigateTo(1);
+                        });
+
+                        $('.btn_company_show').on('click', function(){
+                            $('.company_select').remove();
+                            $('.company_none').remove();
+                            $('.company_form').removeClass('hidden');
+                        });
+
+                        $('.register_yourself').on('click', function(){
+                            var email = $('input[name="partner_email"]').val();
+                            var name = $('input[name="partner_name"]').val();
+                            var nickname = name.split(' ')[0];
+                            var job = $('input[name="partner_function"]').val();
+                            var phone = $('input[name="partner_phone"]').val();
+                            $(this).closest('.ticket_container').find('input[name$="-email"]:first').val(email);
+                            $(this).closest('.ticket_container').find('input[name$="-name"]:first').val(name);
+                            $(this).closest('.ticket_container').find('input[name$="-nickname"]:first').val(nickname);
+                            $(this).closest('.ticket_container').find('input[name$="-function"]:first').val(job);
+                            $(this).closest('.ticket_container').find('input[name$="-phone"]:first').val(phone);
+                        });
+
+                        var navigate_to = <t t-esc="navigate_to"/>;
+                        var $sections = $('.multiform_section');
+                        var $headers = $('.multiform_header li');
+                        function navigateTo(index) {
+                            $sections.removeClass('current');
+                            $headers.removeClass('current');
+                            $sections.eq(index).addClass('current');
+                            $headers.eq(index).addClass('current');
+                            $('.multiform_navigation .previous').toggle(index > 0);
+                            var atTheEnd = index &gt;= $sections.length - 1;
+                            $('.multiform_navigation .next').toggle(!atTheEnd);
+                            $('.multiform_navigation [type=submit]').toggle(atTheEnd);
+                        }
+
+                        function curIndex() {
+                            return $sections.index($sections.filter('.current'));
+                        }
+
+                        $('.multiform_navigation .previous').click(function() {
+                            navigateTo(curIndex() - 1);
+                        });
+
+
+                        $('.multiform_navigation .next').click(function() {
+                            var parsleyConfig = {
+                                errorClass: 'has-error',
+                                successClass: 'has-success',
+                                classHandler: function(field) {
+                                    return field.$element.parents('.form-group');
+                                },
+                                errorsContainer: function(field) {
+                                    return field.$element.parents('.form-group');
+                                },
+                                errorsWrapper: '&lt;span class="help-block"&gt;',
+                                errorTemplate: '&lt;div&gt;&lt;/div&gt;'
+                            };
+                            $('.multiform_container').parsley(parsleyConfig).whenValidate({
+                                group: 'block-' + curIndex()
+                            }).done(function() {
+                                navigateTo(curIndex() + 1);
+                            });
+                        });
+
+                        $sections.each(function(index, section) {
+                            $(section).find(':input').attr('data-parsley-group', 'block-' + index);
+                        });
+
+                        $("input[name='company_npwp_file']").on('change', function(){
+                            var field = $(this);
+                            var image = field[0].files[0];
+                            var clear_file = function(image, size=200000, ext=['image/png', 'image/jpeg']){
+                                var status = false;
+
+                                if(image === undefined){
+                                    status = true;
+                                }
+                                if(image.size >= size){
+                                    status = true;
+                                }
+                                if(image.type == ''){
+                                    status = true;
+                                }
+                                if(ext.indexOf(image.type) &lt; 0){
+                                    status = true;
+                                }
+
+                                return status;
+                            };
+
+                            if(clear_file(image)){
+                                field[0].value = ""
+                            }
+                        });
+
+                        navigateTo(navigate_to);
+                    });
+                </script>
+            </div>
+        </t>
+    </template>
+</odoo>

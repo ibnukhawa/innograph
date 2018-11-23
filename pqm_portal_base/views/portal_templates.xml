@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/pqm_portal_base/static/src/css/custom.css"/>
+            <link rel="stylesheet" href="/pqm_portal_base/static/lib/datatables/css/dataTables.bootstrap.min.css"/>
+            <link rel="stylesheet" href="/pqm_portal_base/static/lib/datatables/css/dataTables.fontAwesome.css"/>
+            <script src="/pqm_portal_base/static/lib/momentjs/src/js/moment.min.js"></script>
+            <script src="/pqm_portal_base/static/lib/datatables/js/jquery.dataTables.min.js"></script>
+            <script src="/pqm_portal_base/static/lib/datatables/js/dataTables.bootstrap.min.js"></script>
+        </xpath>
+    </template>
+
+    <template id="portal_menu" inherit_id="website_portal.portal_layout" priority="27">
+        <xpath expr="//ul[contains(@class,'o_portal_submenu')]/li[last()]" position="after">
+            <t name="additional_menu">
+                <t name="menu_item"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_layout" inherit_id="website_portal.portal_layout">
+        <xpath expr="//div[@id='wrap']/div/div[1]" position="replace">
+            <t t-if="hide_sidebar">
+                <div class="col-md-12">
+                    <t t-raw="0"/>
+                </div>
+            </t>
+            <t t-if="not hide_sidebar">
+                <div class="col-md-8">
+                    <t t-raw="0"/>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[@id='o_my_sidebar']" position="replace">
+            <t t-if="not hide_sidebar">
+                <div id="o_my_sidebar" class="col-md-3 col-md-offset-1 o_my_sidebar">
+                    <div class="o_my_contact" t-if="sales_rep">
+                        <t t-call="website_portal.contact"/>
+                    </div>
+                    <div class="o_my_details">
+                        <h3 class="page-header">Your Details
+                            <a href="/my/account" class="btn btn-default btn-xs">Change</a>
+                        </h3>
+                        <div t-field="user.partner_id"
+                             t-options='{"widget": "contact", "fields": ["email", "phone", "address", "name"]}'/>
+                    </div>
+                    <div class="o_my_archives" t-if="archive_groups">
+                        <t t-call="website_portal.portal_archive_groups"/>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

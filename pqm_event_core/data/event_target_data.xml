@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+		<record id="target_staff" model="event.target">
+			<field name="name">Staff</field>
+			<field name="code">STF</field>
+		</record>
+
+		<record id="target_spv" model="event.target">
+			<field name="name">SPV</field>
+			<field name="code">SPV</field>
+		</record>
+
+		<record id="target_mgr" model="event.target">
+			<field name="name">Manager</field>
+			<field name="code">MGR</field>
+		</record>
+
+		<record id="target_gm" model="event.target">
+			<field name="name">General Manager</field>
+			<field name="code">GMG</field>
+		</record>
+
+		<record id="target_mgm" model="event.target">
+			<field name="name">Management</field>
+			<field name="code">MGM</field>
+		</record>
+
+		<record id="target_dir" model="event.target">
+			<field name="name">Director</field>
+			<field name="code">DIR</field>
+		</record>
+	</data>
+</odoo>

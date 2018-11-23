@@ -1,0 +1,54 @@
+.o_event_payment ul.list-unstyled li{
+    display: inline-block;
+    padding: 0px 10px;
+}
+.o_event_payment ul.list-unstyled li img{
+    height: 45px;
+}
+.o_event_payment ul.list-unstyled li label{
+    margin: 0px;
+}
+.o_event_coupon .sort_container{
+    background-color: #f7f7f7;
+    padding: 5px;
+}
+.o_event_coupon .card_background{
+    height: 350px;
+    margin-bottom: 10px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.o_event_coupon .card_holder{
+    background-color: rgba(34, 62, 127, 0.75);
+    padding: 5%;
+    position: relative;
+    height: 49%;
+    top: 51%;
+}
+.o_event_coupon .card_header{
+    color: white;
+    font-size: 12px;
+    height: 75%;
+}
+.o_event_coupon .copy_button{
+    background-color: #223e7f;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: white;
+    float: left;
+}
+.o_event_coupon .copy_button:hover{
+    background-color: #fff;
+    color: #223e7f;
+}
+.o_event_coupon .detail_button{
+    width: 40%;
+    height: 40px;
+    float: right;
+    background-color: #fff;
+    text-align: center;
+    padding-top: 7px;
+}

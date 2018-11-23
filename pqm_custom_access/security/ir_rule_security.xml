@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="account_analytic_line_rule_manager" model="ir.rule">
+        <field name="name">Account Analytic Line Rule : Manager</field>
+        <field ref="analytic.model_account_analytic_line" name="model_id"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('hr.group_hr_manager'))]"/>
+    </record>
+
+    <record id="account_analytic_line_rule_employee" model="ir.rule">
+        <field name="name">Account Analytic Line Rule : Employee</field>
+        <field ref="analytic.model_account_analytic_line" name="model_id"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_read" eval="False"/>
+    </record>
+
+    <record id="hr_employee_rule_manager" model="ir.rule">
+        <field name="name">Hr Employee Rule : Manager</field>
+        <field ref="hr.model_hr_employee" name="model_id"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('hr.group_hr_manager'))]"/>
+    </record>
+    
+    <record id="hr_employee_rule_officer" model="ir.rule">
+        <field name="name">Hr Employee Rule : Officer</field>
+        <field ref="hr.model_hr_employee" name="model_id"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('hr.group_hr_user'))]"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_create" eval="False"/>
+	</record>
+
+    <record id="hr_employee_rule_employee" model="ir.rule">
+        <field name="name">Hr Employee Rule : Employee</field>
+        <field ref="hr.model_hr_employee" name="model_id"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="purchase_order_rule_manager" model="ir.rule">
+        <field name="name">Purchase Order Rule : Manager</field>
+        <field ref="purchase.model_purchase_order" name="model_id"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('purchase.group_purchase_manager'))]"/>
+    </record>
+
+
+</odoo>

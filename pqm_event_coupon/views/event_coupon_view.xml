@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- EVENT.COUPON VIEWS -->
+    <record model="ir.ui.view" id="view_event_coupon_form">
+        <field name="name">event.coupon.form</field>
+        <field name="model">event.coupon</field>
+        <field name="arch" type="xml">
+            <form string="Event Coupon">
+            	<header>
+            		<button name="get_coupon_code" type="object" string="Get Code" />
+            		<field name="state" widget="statusbar" statusbar_visible="draft, none, available, end" />
+            	</header>
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar" modifiers="{}"/>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Event Name" on_change="1" modifiers="{'readonly': [['state', 'in', ['done']]], 'required': true}"/>
+                        </h1>
+                    </div>
+                	<group>
+	                    <group>
+	                        <field name="event_ids" widget="many2many_tags" />
+	                        <field name="date_begin" required="True"/>
+	                        <field name="date_end" required="True"/>
+	                        <field name="code" required="True" />
+	                    </group>
+	                    <group>
+	                    	<!-- <group> -->
+	                    		<field name="apply_method" required="True" />
+	                    		<label for="discount_percentage" attrs="{'invisible': [('apply_method', '!=', 'percent')]}" />
+	                    		<div attrs="{'invisible': [('apply_method', '!=', 'percent')]}">
+	                    			<field name="discount_percentage" class="oe_inline" attrs="{'invisible': [('apply_method', '!=', 'percent')]}" /> %%
+	                    		</div>
+		                    	<field name="discount_fixed" attrs="{'invisible': [('apply_method', '!=', 'fixed')]}" />
+                                <field name="minimum_order"/>
+		                    	<field name="limit" />
+		                    	<field name="limit_available" />
+		                    	<field name="limit_usage" />
+		                    <!-- </group> -->
+	                    </group>
+	                </group>
+	                <notebook>
+	                	<page name="coupon_usage" string="Coupon Usage">
+	                		<field name="coupon_usage_ids" readonly="True" >
+	                			<tree editable="bottom">
+	                				<field name="coupon_id" invisible="True" />
+	                				<field name="event_id" />
+	                				<field name="user_id" />
+	                				<field name="create_date" string="Registrated on" />
+	                			</tree>
+	                		</field>
+	                	</page>
+	                </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_event_coupon_tree">
+        <field name="name">event.coupon.tree</field>
+        <field name="model">event.coupon</field>
+        <field name="arch" type="xml">
+            <tree string="Event Coupon">
+                <field name="date_begin"/>
+                <field name="date_end"/>
+                <field name="name"/>
+                <field name="code" />
+                <field name="minimum_order"/>
+                <field name="limit" />
+                <field name="limit_available" />
+                <field name="limit_usage" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_event_coupon">
+        <field name="name">Event Coupon</field>
+        <field name="res_model">event.coupon</field>
+        <field name="view_type">form</field>
+    </record>
+
+    <menuitem name="Event Coupons" id="menu_event_coupon" action="action_event_coupon" parent="event.menu_event_configuration"/>
+</odoo>

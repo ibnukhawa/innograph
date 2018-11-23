@@ -1,0 +1,150 @@
+<openerp>
+    <data>
+    <!-- Inherit Financial Report Template -->
+    <template id="pqm_report" inherit_id="account.report_financial">
+        <xpath expr="//div[@class='page']" position="replace">
+            <div class="page">
+                <!-- Report Header -->
+                <h2 t-esc="data['account_report_id'][1]"/>
+                <strong>
+                    <t t-if="data['date_from']">
+                        <span t-esc="time.strftime('%d %B %Y',time.strptime(data['date_from'],'%Y-%m-%d'))"/> - 
+                    </t>
+                    <t t-if="data['date_to']">
+                        <t t-if="not data['date_from']">
+                            Per
+                        </t>
+                        <span t-esc="time.strftime('%d %B %Y',time.strptime(data['date_to'],'%Y-%m-%d'))"/>
+                    </t>
+                    <t t-if="not data['date_to'] and not data['date_from']">
+                        Per <span t-esc="time.strftime('%d %B %Y')"/>
+                    </t>
+                    <br/> <br/>
+                </strong>
+                <!--table class="table table-condensed table-bordered"-->
+                <table class="table table-condensed table-bordered" width="100%" style="table-layout:fixed; font-size:11px;">
+                    <!-- Table Header -->
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width:40%;vertical-align:middle;">Keterangan</th>
+                            <t t-if="data['enable_filter'] == 0 and data['debit_credit'] == 1">
+	                            <th class="text-center" style="vertical-align:middle;">Dr</th>
+	                            <th class="text-center" style="vertical-align:middle;">Cr</th>
+                            </t>
+                            <th class="text-center" style="vertical-align:middle;">
+                                 <t t-if="data['date_from']">
+                                    <span t-esc="time.strftime('%d %B %Y',time.strptime(data['date_from'],'%Y-%m-%d'))"/> - 
+                                </t>
+                                <t t-if="data['date_to']">
+                                    <t t-if="not data['date_from']">
+                                        Per
+                                    </t>
+                                    <span t-esc="time.strftime('%d %B %Y',time.strptime(data['date_to'],'%Y-%m-%d'))"/>
+                                </t>
+                                <t t-if="not data['date_to'] and not data['date_from']">
+                                    Per <span t-esc="time.strftime('%d %B %Y')"/>
+                                </t>
+                            </th>
+                            <t t-if="data['enable_filter'] == 1">
+                                <th class="text-center" style="vertical-align:middle;">
+                                    <span t-esc="data['label_filter']"/>
+                                    <br/>
+                                    <t t-if="data['date_from_cmp']">
+                                        <span t-esc="time.strftime('%d %B %Y',time.strptime(data['date_from_cmp'],'%Y-%m-%d'))"/> - 
+                                    </t>
+                                    <t t-if="data['date_to_cmp']">
+                                        <t t-if="not data['date_from_cmp']">
+                                            Per
+                                        </t>
+                                        <span t-esc="time.strftime('%d %B %Y',time.strptime(data['date_to_cmp'],'%Y-%m-%d'))"/>
+                                    </t>
+                                    <t t-if="not data['date_to_cmp'] and not data['date_from_cmp']">
+                                        Per <span t-esc="time.strftime('%d %B %Y')"/>
+                                    </t>
+                                </th>
+                                <th class="text-center" style="vertical-align:middle;">
+                                    Variance
+                                </th>
+                                <th class="text-center" style="vertical-align:middle;">
+                                    % Variance
+                                </th>
+                            </t>
+                        </tr>
+                    </thead>
+                    <!-- Table Body -->
+	                <!-- <t t-if="data['report_id'] == 'pl'">  -->
+                    	<tbody>
+		                    <tr t-foreach="get_account_lines" t-as="a">
+		                        <t t-if="a['level'] != 0"><t t-set="style" t-value="'font-weight: normal;'"/>
+	                            <t t-if="a.get('account_type') in ['account_type','sum','account_report']" t-set="style" t-value="'font-weight: bold;'"/>
+		                            <td style="padding:1px">
+		                                <span style="color: white;" t-esc="'....' * a.get('level', 0)"/>
+		                                <span t-att-style="style" t-esc="a.get('name')"/>
+		                            </td>
+		                            <t t-if="data['debit_credit'] == 1 and data['enable_filter'] == 0">
+			                            <td class="text-right" style="white-space: text-nowrap;padding:1px">
+			                               <t t-if="not a.get('children')">
+				                            	<t t-if="a.get('debit')">
+				                                    	<span t-att-style="style" t-esc="a.get('debit')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+				                                </t>
+				                                <t t-if="not a.get('debit')">-</t>
+			                            	</t>
+			                            </td>
+			                            <td class="text-right" style="white-space: text-nowrap;padding:1px">
+			                            	<t t-if="not a.get('children')">
+				                                <t t-if="a.get('credit')">
+				                                    <span t-att-style="style" t-esc="a.get('credit')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+				                                </t>
+				                                <t t-if="not a.get('credit')">-</t>
+			                            	</t>
+				                        </td>
+			                        </t>
+		                            <td class="text-right" style="white-space: text-nowrap;padding:1px">
+		                            	    <t t-if="a.get('balance')">
+			                                    <span t-att-style="style" t-esc="a.get('balance')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+			                                </t>
+			                                <t t-if="not a.get('balance')">-</t>
+			                        </td>
+			                        <t t-if="data['enable_filter'] == 1">
+		                                <td class="text-right" style="white-space: text-nowrap;padding:1px">
+		                                    <t t-if="a.get('balance_cmp')">
+		                                        <span t-att-style="style" t-esc="a.get('balance_cmp')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+		                                    </t>
+		                                    <t t-if="not a.get('balance_cmp')">-</t>
+		                                </td>
+		                                <td class="text-right" style="white-space: text-nowrap;padding:1px">
+		                                    <t t-if="a.get('variance')">
+		                                        <span t-att-style="style" t-esc="a.get('variance')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+		                                    </t>
+		                                    <t t-if="not a.get('variance')">-</t>
+		                                </td>
+		                                <td class="text-right" style="white-space: text-nowrap;padding:1px">
+		                                    <t t-if="a.get('percent_variance')">
+		                                        <span t-att-style="style" t-esc="a.get('percent_variance')" /> %
+		                                    </t>
+		                                    <t t-if="not a.get('percent_variance')">-</t>
+		                                </td>
+		                            </t>
+		                        </t>
+		                    </tr>
+	                    </tbody>
+                </table>
+                <t t-set="total_bal" t-value="get_parent"/>
+				<t t-if="total_bal['show_root_balance']">
+				    <table class="table table-condensed table-bordered">
+                    <tbody>
+                        <tr>
+                        <td class="text-left" style="font-weight:bold"><span t-esc="total_bal['title_root_balance']"/></td>
+                 
+                        <td class="text-right" style="font-weight:bold"><span t-esc= "get_total_balance" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                    </tr>
+                    </tbody>
+                	</table>
+                </t>
+                
+            </div>
+        </xpath>
+    </template>
+    <!-- End of Template -->
+    </data>
+</openerp>

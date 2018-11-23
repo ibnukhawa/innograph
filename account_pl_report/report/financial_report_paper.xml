@@ -1,0 +1,21 @@
+<openerp>
+	<data>
+ 		<record id="paperformat_reports_custom_A4" model="report.paperformat">
+            <field name="name">A4 Financial Report</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="account.action_report_financial" model="ir.actions.report.xml">
+		    <field name="paperformat_id" ref="account_pl_report.paperformat_reports_custom_A4" />
+		</record>
+		
+	</data>
+</openerp>

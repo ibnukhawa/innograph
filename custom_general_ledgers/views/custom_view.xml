@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>        
+        <report 
+            id="custom_report"
+            model="account.report.general.ledger"
+            string="General Ledger"
+            report_type="qweb-pdf"
+            name="custom_general_ledgers.report_custom_generalledger"
+            file="custom_general_ledgers.report_custom_generalledger"
+            />
+
+        <record id="general_ledger_wizard_inherit" model="ir.ui.view">
+            <field name="name">general.ledger.wizard.inherit</field>
+            <field name="model">account.report.general.ledger</field>
+            <field name="inherit_id" ref="account.account_common_report_view" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//form/group[1]" position="after">
+                    <group>
+                        <field name="wbs_ids" options="{'no_create': True}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

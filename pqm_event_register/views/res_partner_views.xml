@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="event_registration_form_view" model="ir.ui.view">
+            <field name="name">event.registration.form</field>
+            <field name="model">event.registration</field>
+            <field name="inherit_id" ref="event.view_event_registration_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="nickname"/>
+                </field>
+                <field name="partner_id" position="replace">
+
+                </field>
+                <field name="name" position="before">
+                    <field name="partner_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="res_partner_form_view" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="street" position="before">
+                    <field name="nickname"/>
+                </field>
+                <field name="lang" position="after">
+                    <field name="lob" attrs="{'invisible': [('is_company', '=', False)]}"/>
+                    <field name="is_event_pic" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                    <field name="is_event_finance" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="res_partner_form_view_npwp_file" model="ir.ui.view">
+            <field name="name">res.partner.form.view.npwp.file</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="efaktur.res_partner_form_tax1"/>
+            <field name="arch" type="xml">
+                <field name="npwp" position="after">
+                    <field name="npwp_file"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="sale_order_form_view" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_term_id" position="after">
+                    <field name="registration_source"/>
+                    <field name="payment_acquirer_id"/>
+                    <field name="receipt_document"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

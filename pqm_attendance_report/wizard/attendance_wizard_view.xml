@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="attendance_wizard_form_view" model="ir.ui.view">
+        <field name="name">Attendance Wizard</field>
+        <field name="model">attendance.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <p class="oe_grey">
+                        Report will generated based on these month and year.
+                    </p>
+                    <group>
+                        <field name="extra_meal_price" widget="monetary"/>
+                        <field name="extra_meal_time" widget="float_time"/>
+                        <field name="month"/>
+                        <field name="year"/>
+                    </group>
+                    <footer>
+                        <button name="print_pdf" string="Print PDF" type="object" class="btn-primary" />
+                        <button name="print_xls" string="Print XLS" type="object" class="btn-primary" />
+                    </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_attendance_wizard" model="ir.actions.act_window">
+        <field name="name">Generate Attendance Report</field>
+        <field name="res_model">attendance.wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="attendance_wizard_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="hr_attendance.menu_hr_attendance_report" name="Reports" parent="hr_attendance.menu_hr_attendance_root" sequence="30" groups="hr_attendance.group_hr_attendance_user"/>
+    <menuitem id="attendance_analys_menu" name="Attendance Analysis" parent="hr_attendance.menu_hr_attendance_report" sequence="1" action="hr_attendance.hr_attendance_action_graph"/>
+    <menuitem id="attendance_report_menu" name="Attendance Report" action="action_attendance_wizard" parent="hr_attendance.menu_hr_attendance_report" sequence="2"/>
+</odoo>

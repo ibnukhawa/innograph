@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="action_report_project_margin2">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.internal_layout">
+                <div class="page">
+					<h2>PROFIT MARGIN REPORT BY SALES TYPE</h2>
+                    <table class="table table-condensed" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="text-center" style="width:20%; padding:8px 0px; border:1px solid #000;">Description</th>
+                                <th colspan="6" class="text-center" style="width:40%; border:1px solid #000;">
+                                	<t t-if="o.date_from">
+                        				<span t-esc="time.strftime('%d %B %Y',time.strptime(o.date_from,'%Y-%m-%d'))"/> -
+                        				<span t-esc="time.strftime('%d %B %Y',time.strptime(o.date_to,'%Y-%m-%d'))"/>
+                    				</t>
+                    				<t t-if="not o.date_from">
+                    					PER 
+                        				<span t-esc="time.strftime('%d %B %Y',time.strptime(o.date_to,'%Y-%m-%d'))"/>
+                    				</t>
+                    			</th>
+                    			<t t-if="o.enable_compare">
+	                    			<th colspan="6" class="text-center" style="width:40%; border:1px solid #000;">
+	                                	<t t-if="o.date_from_cmp">
+	                        				<span t-esc="time.strftime('%d %B %Y',time.strptime(o.date_from_cmp,'%Y-%m-%d'))"/> -
+	                        				<span t-esc="time.strftime('%d %B %Y',time.strptime(o.date_to_cmp,'%Y-%m-%d'))"/>
+	                    				</t>
+	                    				<t t-if="not o.date_from_cmp">
+	                    					PER 
+	                        				<span t-esc="time.strftime('%d %B %Y',time.strptime(o.date_to_cmp,'%Y-%m-%d'))"/>
+	                    				</t>
+	                    			</th>
+	                    		</t>
+                            </tr>
+                            <tr>
+                                <th class="text-center" style="width:60px; border:1px solid #000;">Actual</th>
+                                <th class="text-center" style="width:60px; border:1px solid #000;">%</th>
+                                <th class="text-center" style="width:60px; border:1px solid #000;">Budget</th>
+                                <th class="text-center" style="width:60px; border:1px solid #000;">%</th>
+                                <th class="text-center" style="width:60px; border:1px solid #000;">Variance</th>
+                                <th class="text-center" style="width:60px; border:1px solid #000;">%</th>
+                                <t t-if="o.enable_compare">
+                                	<th class="text-center" style="width:60px; border:1px solid #000;">Actual</th>
+	                                <th class="text-center" style="width:60px; border:1px solid #000;">%</th>
+	                                <th class="text-center" style="width:60px; border:1px solid #000;">Budget</th>
+	                                <th class="text-center" style="width:60px; border:1px solid #000;">%</th>
+	                                <th class="text-center" style="width:60px; border:1px solid #000;">Variance</th>
+	                                <th class="text-center" style="width:60px; border:1px solid #000;">%</th>
+                                </t>
+                            </tr>
+                        </thead>
+                        <t t-set="all_type" t-value="get_project_type(data['form'])"/>
+                        <tbody>
+                        	<tr>
+                        		<td class="text-left" style="border-right:1px solid #000; border-left:1px solid #000;"><b>SALES</b></td>
+                        			<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                	<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                	<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                    <t t-if="o.enable_compare">
+                                    	<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                	<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                </t>
+                        	</tr>
+                            <t t-foreach="all_type" t-as="project_type">
+                            	<tr>
+                                	<td style="border-right:1px solid #000; border-left:1px solid #000;">
+                                		<span t-esc="project_type.name"/>
+                                	</td>
+                                	<td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+                                		<span t-esc="bracket(get_actual_income(project_type.id))"/>
+                                	</td>
+                                	<td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+                                		<span t-esc="get_percentage_income(project_type.id)"/>
+                                    </td>
+                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+                                    	<span class="text-left" t-esc="bracket(get_budget_income(project_type.id))"/>
+                                    </td>
+                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+                                    	<span t-esc="get_percentage_budget_income(project_type.id)"/>
+                                    </td>
+                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+                                    	<span t-esc="bracket(get_income_variance(project_type.id))"/>
+                                    </td>
+                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+                                    	<span t-esc="get_percentage_variance(project_type.id)"/>
+                                    </td>
+                                    <t t-if="o.enable_compare">
+                                    	<td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                                		<span t-esc="bracket(get_actual_income_cmp(project_type.id))"/>
+	                                	</td>
+	                                	<td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                		<span t-esc="get_percentage_income_cmp(project_type.id)"/>
+	                                    </td>
+	                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    	<span t-esc="bracket(get_budget_income_cmp(project_type.id))"/>
+	                                    </td>
+	                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    	<span t-esc="get_percentage_budget_income_cmp(project_type.id)"/>
+	                                    </td>
+	                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    	<span t-esc="bracket(get_income_variance_cmp(project_type.id))"/>
+	                                    </td>
+	                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    	<span t-esc="get_percentage_variance_cmp(project_type.id)"/>
+	                                    </td>
+                                    </t>
+                            	</tr>
+                        	</t>
+
+                        	<t t-foreach="all_type" t-as="project_type">
+                            	<tr>
+                                	<td style="border-right:1px solid #000; border-left:1px solid #000;">
+                                		Discount <span t-esc="project_type.name"/>
+                                	</td>
+                                	<td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+                                		<span t-esc="bracket(get_actual_discount(project_type.id))"/>
+                                	</td>
+                                	<td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+                                		<span t-esc="get_percentage_discount(project_type.id)"/>
+                                    </td>
+                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+                                    	<span class="text-left" t-esc="bracket(get_budget_discount(project_type.id))"/>
+                                    </td>
+                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+                                    	<span t-esc="get_percentage_budget_discount(project_type.id)"/>
+                                    </td>
+                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+                                    	<span t-esc="bracket(get_discount_variance(project_type.id))"/>
+                                    </td>
+                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+                                    	<span t-esc="get_percentage_variance_disk(project_type.id)"/>
+                                    </td>
+                                    <t t-if="o.enable_compare">
+                                    	<td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                                		<span t-esc="bracket(get_actual_discount_cmp(project_type.id))"/>
+	                                	</td>
+	                                	<td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                		<span t-esc="get_percentage_discount_cmp(project_type.id)"/>
+	                                    </td>
+	                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    	<span t-esc="bracket(get_budget_discount_cmp(project_type.id))"/>
+	                                    </td>
+	                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    	<span t-esc="get_percentage_budget_discount_cmp(project_type.id)"/>
+	                                    </td>
+	                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    	<span t-esc="bracket(get_discount_variance_cmp(project_type.id))"/>
+	                                    </td>
+	                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    	<span t-esc="get_percentage_variance_cmp_disk(project_type.id)"/>
+	                                    </td>
+                                    </t>
+                            	</tr>
+                        	</t>
+
+	                        	<tr>
+	                        		<td class="text-left" style="border:1px solid #000;"><b>TOTAL SALES</b></td>
+	                        	    <td style="text-align:right; border:1px solid #000;">
+	                        			<strong t-esc="bracket(total_income())"/>
+	                        		</td>
+	                        		<td style="text-align:center; border:1px solid #000;">
+	                        			<strong t-esc="total_percentage_income()"/>
+	                        		</td>
+	                        		<td style="text-align:right; border:1px solid #000;">
+	                        			<strong t-esc="bracket(total_budget_income())"/>
+	                        		</td>
+	                        		<td style="text-align:center; border:1px solid #000;">
+	                        			<strong t-esc="total_percentage_budget_income()"/>
+	                        		</td>
+	                        		<td style="text-align:right; border:1px solid #000;">
+	                        			<strong t-esc="bracket(total_variance())"/>
+	                        		</td>
+	                        		<td style="text-align:center; border:1px solid #000;">
+	                        			<strong t-esc="total_percentage_variance()"/>
+	                        		</td>
+	                        		<t t-if="o.enable_compare">
+	                        			<td style="text-align:right; border:1px solid #000;">
+		                        			<strong t-esc="bracket(total_income_cmp())"/>
+		                        		</td>
+		                        		<td style="text-align:center;border:1px solid #000;">
+		                        			<strong t-esc="total_percentage_income_cmp()"/>
+		                        		</td>
+		                        		<td style="text-align:right; border:1px solid #000;">
+		                        			<strong t-esc="bracket(total_budget_income_cmp())"/>
+		                        		</td>
+		                        		<td style="text-align:center; border:1px solid #000;">
+		                        			<strong t-esc="total_percentage_budget_income_cmp()"/>
+		                        		</td>
+		                        		<td style="text-align:right; border:1px solid #000;">
+		                        			<strong t-esc="bracket(total_variance_cmp())"/>
+		                        		</td>
+		                        		<td style="text-align:center; border:1px solid #000;">
+		                        			<strong t-esc="total_percentage_variance_cmp()"/>
+		                        		</td>
+	                        		</t>
+	                        	</tr>
+                        	
+                        	<tr>
+                        		<td class="text-left" style="border-right:1px solid #000; border-left:1px solid #000;"><b>COST OF SALES</b></td>
+                        		<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                	<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                	<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                    <t t-if="o.enable_compare">
+                                    	<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                	<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                </t>
+                        	</tr>
+                            <t t-foreach="all_type" t-as="project_type">
+                            	<tr>
+                                	<td style="border-right:1px solid #000; border-left:1px solid #000;">
+                                		<span t-esc="project_type.name"/>
+                                	</td>
+                                	<td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+                                		<span t-esc="bracket(get_total_actual_cost(project_type.id))"/>
+                                	</td>
+                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+                                        <span t-esc="get_percentage_total_cost(project_type.id)"/>
+                                    </td>
+                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+                                    	<span t-esc="bracket(get_total_budget_cost(project_type.id))"/>
+                                    </td>
+                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+                                    	<span t-esc="get_percentage_total_budget_cost(project_type.id)"/>
+                                    </td>
+                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+                                    	<span t-esc="bracket(get_cost_total_variance(project_type.id))"/>
+                                    </td>
+                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+                                    	<span t-esc="get_percentage_tot_variance_cost(project_type.id)"/>
+                                    </td>
+									<t t-if="o.enable_compare">
+	                        			<td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                                		<span t-esc="bracket(get_total_actual_cost_cmp(project_type.id))"/>
+	                                	</td>
+	                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                        <span t-esc="get_percentage_total_cost_cmp(project_type.id)"/>
+	                                    </td>
+	                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    	<span t-esc="bracket(get_total_budget_cost_cmp(project_type.id))"/>
+	                                    </td>
+	                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    	<span t-esc="get_percentage_total_budget_cost_cmp(project_type.id)"/>
+	                                    </td>
+	                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    	<span t-esc="bracket(get_cost_total_variance_cmp(project_type.id))"/>
+	                                    </td>
+	                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    	<span t-esc="get_percentage_tot_variance_cost_cmp(project_type.id)"/>
+	                                    </td>
+	                        		</t>
+                                </tr>
+                                <t t-if="not o.hide_details">
+                                    <t t-foreach="get_account_cost(project_type)" t-as="cost">	
+                                    	<tr>
+                                            <td style="border-right:1px solid #000; border-left:1px solid #000;">
+                                                 <span style="color: white;" t-esc="'.......'"/><span t-esc="cost.name"/>
+                                            </td>
+                                            <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+                                                <span t-esc="bracket(get_actual_cost(cost.id))"/>
+                                            </td>
+                                            <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+                                            	<span t-esc="get_percentage_cost(cost.id)"/>
+	                                        </td>
+	                                        <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                                            <span t-esc="bracket(get_budget_cost(cost.id))"/>
+	                                        </td>
+	                                        <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                            <span t-esc="get_percentage_budget_cost(cost.id)"/>
+	                                        </td>
+	                                        <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                                            <span t-esc="bracket(get_cost_variance(cost.id))"/>
+	                                        </td>
+	                                        <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    		<span t-esc="get_percentage_cost_variance(cost.id)"/>
+	                                    	</td>
+	                                        <t t-if="o.enable_compare">
+	                                        	<td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                                                <span t-esc="bracket(get_actual_cost_cmp(cost.id))"/>
+	                                            </td>
+	                                            <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                            	<span t-esc="get_percentage_cost_cmp(cost.id)"/>
+		                                        </td>
+		                                        <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+		                                            <span t-esc="bracket(get_budget_cost_cmp(cost.id))"/>
+		                                        </td>
+		                                        <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+		                                            <span t-esc="get_percentage_budget_cost_cmp(cost.id)"/>
+		                                        </td>
+		                                        <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+		                                            <span t-esc="bracket(get_cost_variance_cmp(cost.id))"/>
+		                                        </td>
+		                                        <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    			<span t-esc="get_percentage_cost_variance_cmp(cost.id)"/>
+	                                    		</td>
+	                                        </t>
+                                    	</tr>
+                                    </t>
+                                </t>
+                            </t>
+                        	<tr>
+                        		<td class="text-left" style="border:1px solid #000;"><b>TOTAL COST OF SALES</b></td>
+                        		<td style="text-align:right; border:1px solid #000;">
+                        			<strong t-esc="bracket(total_cost())"/>
+                        		</td>
+                        		<td style="text-align:center; border:1px solid #000;">
+                        			<strong t-esc="percentage_all_cost()"/>
+                        		</td>
+                        		<td style="text-align:right;border:1px solid #000;">
+                        			<strong t-esc="bracket(tot_budget_cost())"/>
+                        		</td>
+                        		<td style="text-align:center; border:1px solid #000;">
+                        			<strong t-esc="percentage_all_budget_cost()"/>
+                        		</td>
+                        		<td style="text-align:right; border:1px solid #000;">
+                        			<strong t-esc="bracket(total_cost() - tot_budget_cost())"/>
+                        		</td>
+                        		<td style="text-align:center; border:1px solid #000;">
+                        			<strong t-esc="percentage_all_variance()"/>
+                        		</td>
+                        		<t t-if="o.enable_compare">
+                        			<td style="text-align:right; border:1px solid #000;">
+	                        			<strong t-esc="bracket(total_cost_cmp())"/>
+	                        		</td>
+	                        		<td style="text-align:center; border:1px solid #000;">
+	                        			<strong t-esc="percentage_all_cost_cmp()"/>
+	                        		</td>
+	                        		<td style="text-align:right; border:1px solid #000;">
+	                        			<strong t-esc="bracket(tot_budget_cost_cmp())"/>
+	                        		</td>
+	                        		<td style="text-align:center; border:1px solid #000;">
+	                        			<strong t-esc="percentage_all_budget_cost_cmp()"/>
+	                        		</td>
+	                        		<td style="text-align:right; border:1px solid #000;">
+	                        			<strong t-esc="bracket(total_cost_cmp() - tot_budget_cost_cmp())"/>
+	                        		</td>
+	                        		<td style="text-align:center; border:1px solid #000;">
+	                        			<strong t-esc="percentage_all_variance_cmp()"/>
+	                        		</td>
+                        		</t>
+                        	</tr>
+                        	<tr>
+                        		<td class="text-left" style="border:1px solid #000;"><b>GROSS OPERATING INCOME</b></td>
+                        		<td style="text-align:right; border:1px solid #000;">
+                        			<strong t-esc="bracket(gross_income())"/>
+                        		</td>
+                        		<td style="text-align:center; border:1px solid #000;">
+                        			<strong t-esc="percentage_gross_income()"/>
+                        		</td>
+                        		<td style="text-align:right; border:1px solid #000;">
+                        			<strong t-esc="bracket(get_gross_budget())"/>
+                        		</td>
+                        		<td style="text-align:center; border:1px solid #000;">
+                        			<strong t-esc="get_gross_percentage_budget()"/>
+                        		</td>
+                        		<td style="text-align:right; border:1px solid #000;">
+                        		      <!-- total budget sales - total budget cost -->
+                        			<strong t-esc="bracket(gross_income() - get_gross_budget())"/>
+                        		</td>
+                        		<td style="text-align:center; border:1px solid #000;">
+                        			<strong t-esc="get_gross_percentage_variance()"/>
+                        		</td>
+                        		<t t-if="o.enable_compare">
+                        			<td style="text-align:right; border:1px solid #000;">
+	                        			<strong t-esc="bracket(gross_income_cmp())"/>
+	                        		</td>
+	                        		<td style="text-align:center; border:1px solid #000;">
+	                        			<strong t-esc="percentage_gross_income_cmp()"/>
+	                        		</td>
+	                        		<td style="text-align:right; border:1px solid #000;">
+	                        			<strong t-esc="bracket(get_gross_budget_cmp())"/>
+	                        		</td>
+	                        		<td style="text-align:center; border:1px solid #000;">
+	                        			<strong t-esc="get_gross_percentage_budget_cmp()"/>
+	                        		</td>
+	                        		<td style="text-align:right; border:1px solid #000;">
+	                        			<strong t-esc="bracket(gross_income_cmp() - get_gross_budget_cmp())"/>
+	                        		</td>
+	                        		<td style="text-align:center; border:1px solid #000;">
+	                        			<strong t-esc="get_gross_percentage_variance_cmp()"/>
+	                        		</td>
+                        		</t>
+                        	</tr>
+                        	<tr>
+                        		<td class="text-left" style="border-right:1px solid #000; border-left:1px solid #000;"><b>PROFIT MARGIN</b></td>
+                        		<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                	<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                	<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+                                    <t t-if="o.enable_compare">
+                                    	<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                	<td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                    <td style="border-right:1px solid #000; border-left:1px solid #000;"></td>
+	                                </t>
+                        	</tr>
+                        	<t t-set="margin_actual" t-value="0"/>
+                        	<t t-set="margin_variance" t-value="0"/>
+                        	<t t-set="margin_budget" t-value="0"/>
+                        	
+                        	<t t-set="margin_actual_cmp" t-value="0"/>
+                        	<t t-set="margin_variance_cmp" t-value="0"/>
+                        	<t t-set="margin_budget_cmp" t-value="0"/>
+                            <t t-foreach="all_type" t-as="project_type">
+                            	<tr>
+                                	<td style="border-right:1px solid #000; border-left:1px solid #000;">
+                                		<span t-esc="project_type.name"/>
+                               		</td>
+                               		<td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+                               			<span t-esc="bracket(get_margin_actual(project_type.id))"/>
+									</td>
+                                    <t t-set="margin_actual" t-value="margin_actual + get_margin_actual(project_type.id)"/>
+                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+                                        <span t-esc="get_percentage_margin(project_type.id)"/>
+                                    </td>
+                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+                                        <span t-esc="bracket(get_margin_budget(project_type.id))"/>
+                                    </td>
+                                    <t t-set="margin_budget" t-value="margin_budget + get_margin_budget(project_type.id)"/>
+                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+                                    	<span t-esc="get_percentage_margin_budget(project_type.id)" />
+                                    </td>
+                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;;">
+                                        <span t-esc="bracket(get_margin_variance(project_type.id))"/>
+                                    </td>
+                                    <t t-set="margin_variance" t-value="margin_variance + get_margin_variance(project_type.id)"/>
+                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+                                    	<span t-esc="percentage_margin_variance(project_type.id)"/>
+                                    </td>
+                                    <t t-if="o.enable_compare">
+                                       	<td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                               			<span t-esc="bracket(get_margin_actual_cmp(project_type.id))"/>
+										</td>
+	                                    <t t-set="margin_actual_cmp" t-value="margin_actual_cmp + get_margin_actual_cmp(project_type.id)"/>
+	                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                        <span t-esc="get_percentage_margin_cmp(project_type.id)"/>
+	                                    </td>
+	                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                                        <span t-esc="bracket(get_margin_budget_cmp(project_type.id))"/>
+	                                    </td>
+	                                    <t t-set="margin_budget_cmp" t-value="margin_budget_cmp + get_margin_budget_cmp(project_type.id)"/>
+	                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    	<span t-esc="get_percentage_margin_budget_cmp(project_type.id)"/>
+	                                    </td>
+	                                    <td style="text-align:right; border-right:1px solid #000; border-left:1px solid #000;">
+	                                        <span t-esc="bracket(get_margin_variance_cmp(project_type.id))"/>
+	                                    </td>
+	                                    <t t-set="margin_variance_cmp" t-value="margin_variance_cmp + get_margin_variance_cmp(project_type.id)"/>
+	                                    <td style="text-align:center; border-right:1px solid #000; border-left:1px solid #000;">
+	                                    	<span t-esc="percentage_margin_variance_cmp(project_type.id)"/>
+	                                    </td>
+                                    </t>
+                            	</tr>
+                        	</t>
+                        		<tr>
+	                        		<td class="text-left" style="border:1px solid #000;"><b>TOTAL PROFIT MARGIN</b></td>
+	                        	    <td style="text-align:right; border:1px solid #000;">
+	                        			<strong t-esc="bracket(margin_actual)"/>
+	                        		</td>
+	                        		<td style="text-align:center; border:1px solid #000;">
+	                        			<t t-if="total_income()">
+	                        				<strong t-esc="round(margin_actual/total_income()*100,1)"/>
+	                        			</t>
+	                        		</td>
+	                        		<td style="text-align:right; border:1px solid #000;">
+	                        			<strong t-esc="bracket(margin_budget)"/>
+	                        		</td>
+	                        		<td style="text-align:center; border:1px solid #000;">
+	                        			<t t-if="total_budget_income()">
+	                        				<strong t-esc="round(margin_budget/total_budget_income()*100,1)"/>
+	                        			</t>
+	                        		</td>
+	                        		<td style="text-align:right; border:1px solid #000;">
+	                        			<strong t-esc="bracket(margin_variance)"/>
+	                        		</td>
+	                        		<td style="text-align:center; border:1px solid #000;">
+	                        			<t t-if="margin_budget">
+	                        				<strong t-esc="round(margin_variance/margin_budget*100,1)"/>
+	                        			</t>
+	                        		</td>
+	                        		<t t-if="o.enable_compare">
+	                        			<td style="text-align:right; border:1px solid #000;">
+		                        			<strong t-esc="bracket(margin_actual_cmp)"/>
+		                        		</td>
+		                        		<td style=" text-align:center; border:1px solid #000;">
+		                        			<t t-if="total_income_cmp()">
+		                        				<strong t-esc="round(margin_actual_cmp/total_income_cmp()*100,1)"/>
+		                        			</t>
+		                        		</td>
+		                        		<td style="text-align:right; border:1px solid #000;">
+		                        			<strong t-esc="bracket(margin_budget_cmp)"/>
+		                        		</td>
+		                        		<td style="text-align:center; border:1px solid #000;">
+		                        			<t t-if="total_budget_income_cmp()">
+		                        				<strong t-esc="round(margin_budget_cmp/total_budget_income_cmp()*100,1)"/>
+		                        			</t>
+		                        		</td>
+		                        		<td style="text-align:right; border:1px solid #000;">
+		                        			<strong t-esc="bracket(margin_variance_cmp)"/>
+		                        		</td>
+		                        		<td style="text-align:center; border:1px solid #000;">
+		                        			<t t-if="margin_budget_cmp">
+		                        				<strong t-esc="round(margin_variance_cmp/margin_budget_cmp*100,1)"/>
+		                        			</t>
+		                        		</td>
+	                        		</t>
+	                        	</tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+</odoo>

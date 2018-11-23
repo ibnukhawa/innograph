@@ -1,0 +1,3 @@
+<odoo>
+    <function model="website.menu" name="menu_website_menu"/>
+</odoo>

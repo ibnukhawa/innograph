@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_event_coupon_public,access.event.coupon.public,model_event_coupon,,1,0,0,0
+access_event_coupon_portal,access.event.coupon.portal,model_event_coupon,base.group_portal,1,0,0,0
+access_event_coupon_user,access.event.coupon.user,model_event_coupon,event.group_event_user,1,0,0,0
+access_event_coupon_manager,access.event.coupon.manager,model_event_coupon,event.group_event_manager,1,1,1,1
+access_event_coupon_usage_public,access.event.coupon.usage.public,model_event_coupon_usage,,1,0,0,0
+access_event_coupon_usage_portal,access.event.coupon.usage.portal,model_event_coupon_usage,base.group_portal,1,1,1,1
+access_event_coupon_usage_user,access.event.coupon.usage.user,model_event_coupon_usage,event.group_event_user,1,1,1,1
+access_event_coupon_usage_manager,access.event.coupon.usage.manager,model_event_coupon_usage,event.group_event_manager,1,1,1,1

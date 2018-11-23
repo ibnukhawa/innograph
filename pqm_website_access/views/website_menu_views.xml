@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_website_menu" name="Website Menu" parent="website.menu_website_global_configuration" action="website.action_website_menu" sequence="15"/>
+
+    <record id="website_menu_view_tree" model="ir.ui.view">
+        <field name="name">website.menu.view.tree</field>
+        <field name="model">website.menu</field>
+        <field name="inherit_id" ref="website.menu_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="access_type" required="1"/>
+                <field name="access_url" required="1"/>
+            </xpath>            
+        </field>
+    </record>
+
+    <record id="website.action_website_menu" model="ir.actions.act_window">
+            <field name="name">Website Menu</field>
+            <field name="res_model">website.menu</field>
+            <field name="view_mode">list</field>
+            <field name="context">{}</field>
+    </record>
+</odoo>

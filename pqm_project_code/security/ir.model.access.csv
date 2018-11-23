@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pqm_project_type_user,pqm.project_type_user,model_project_type,base.group_user,1,0,0,0
+access_pqm_project_type_manager,pqm.project_type_manager,model_project_type,project.group_project_manager,1,1,1,1
+access_pqm_project_sme_user,pqm.project_sme_user,model_project_sme,base.group_user,1,0,0,0
+access_pqm_project_sme_manager,pqm.project_sme_manager,model_project_sme,project.group_project_manager,1,1,1,1
+access_pqm_project_sub_sme_user,pqm.project_sub_sme_user,model_project_sub_sme,base.group_user,1,0,0,0
+access_pqm_project_sub_sme_manager,pqm.project_sub_sme_manager,model_project_sub_sme,project.group_project_manager,1,1,1,1
