@@ -15,19 +15,6 @@ class AccountInvoice(models.Model):
     is_kwitansi_printed = fields.Boolean('Kwitansi Printed?', default=False, copy=False)
     kwitansi_number = fields.Char('Nomor Kwitansi', copy=False)
     is_printed = fields.Boolean('Printed', default= False)
-#     project_type_id = fields.Many2one('project.type', compute='_compute_project_type')
-# 
-#     @api.depends('invoice_line_ids')
-#     @api.multi
-#     def _compute_project_type(self):
-# #         for inv in self:
-#         print '================='
-#         for inv in self:
-#             for line in inv.invoice_line_ids:
-#                 type_id = self.env['project.type'].search([('id','=', line.account_analytic_id.project_type_id.id)],limit=1)
-#                 print type_id
-#             inv.project_type_id = type_id.id
-#             print '<<<<<<<<<<<<<<<<<<<<<<<<<<', inv.project_type_id
 
     @api.multi
     def invoice_print(self):
@@ -89,7 +76,6 @@ class AccountInvoice(models.Model):
         for line in self.invoice_line_ids:
             for project in line.account_analytic_id.project_ids:
                 analytic.append(project.id)
-        print analytic, '==========='
         project_ids = self.env['project.project'].search([('id', 'in', analytic)])
         if project_ids:
             result = {
@@ -187,32 +173,66 @@ class AccountInvoice(models.Model):
         return res
 
     @api.model
-    def terbilang(self,bil):
-        angka = ["", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas"]
-        Hasil = " "
-        n = int(bil)
-        if n >= 0 and n <= 11:
-            Hasil = Hasil + angka[n]
-        elif n < 20:
-            Hasil = self.terbilang(n % 10) + " Belas"
-        elif n < 100:
-            Hasil = self.terbilang(n / 10) + " Puluh" + self.terbilang(n % 10)
-        elif n < 200:
-            Hasil = " Seratus" + self.terbilang(n - 100)
-        elif n < 1000:
-            Hasil = self.terbilang(n / 100) + " Ratus" + self.terbilang(n % 100)
-        elif n < 2000:
-            Hasil = " Seribu" + self.terbilang(n - 1000)
-        elif n < 1000000:
-            Hasil = self.terbilang(n / 1000) + " Ribu" + self.terbilang(n % 1000)
-        elif n < 1000000000:
-            Hasil = self.terbilang(n / 1000000) + " Juta" + self.terbilang(n % 1000000)
-        elif n < 1000000000000:
-            Hasil = self.terbilang(n / 1000000000) + " Milyar" + self.terbilang(n % 1000000000)
+    def terbilang(self, number, english=False):
+        number = int(number)
+        if not english:
+            angka = ["", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas"]
+            Hasil = " "
+            n = number
+            if n >= 0 and n <= 11:
+                Hasil = Hasil + angka[n]
+            elif n < 20:
+                Hasil = self.terbilang(n % 10) + " Belas"
+            elif n < 100:
+                Hasil = self.terbilang(n / 10) + " Puluh" + self.terbilang(n % 10)
+            elif n < 200:
+                Hasil = " Seratus" + self.terbilang(n - 100)
+            elif n < 1000:
+                Hasil = self.terbilang(n / 100) + " Ratus" + self.terbilang(n % 100)
+            elif n < 2000:
+                Hasil = " Seribu" + self.terbilang(n - 1000)
+            elif n < 1000000:
+                Hasil = self.terbilang(n / 1000) + " Ribu" + self.terbilang(n % 1000)
+            elif n < 1000000000:
+                Hasil = self.terbilang(n / 1000000) + " Juta" + self.terbilang(n % 1000000)
+            elif n < 1000000000000:
+                Hasil = self.terbilang(n / 1000000000) + " Milyar" + self.terbilang(n % 1000000000)
+            else:
+                Hasil = self.terbilang(n / 1000000000000) + " Triliyun" + self.terbilang(n % 1000000000000)
+            return Hasil
         else:
-            Hasil = self.terbilang(n / 1000000000000) + " Triliyun" + self.terbilang(n % 1000000000000)
-        return Hasil
-
+            ones = ("", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
+            tens = ("", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety")
+            teens = ("ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen")
+            levels = ("", "thousand", "million", "billion", "trillion", "quadrillion", "quintillion", "sextillion", "septillion", "octillion", "nonillion")
+            word = ""
+            num = reversed(str(number))
+            number = ""
+            for x in num:
+                number += x
+            del num
+            if len(number) % 3 == 1: number += "0"
+            x = 0
+            for digit in number:
+                if x % 3 == 0:
+                    word = levels[x / 3] + ", " + word
+                    n = int(digit)
+                elif x % 3 == 1:
+                    if digit == "1":
+                        num = teens[n]
+                    else:
+                        num = tens[int(digit)]
+                        if n:
+                            if num:
+                                num += "-" + ones[n]
+                            else:
+                                num = ones[n]
+                    word = num + " " + word
+                elif x % 3 == 2:
+                    if digit != "0":
+                        word = ones[int(digit)] + " hundred " + word
+                x += 1
+            return word.strip(", ").title()
 
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
