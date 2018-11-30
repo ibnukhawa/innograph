@@ -18,22 +18,22 @@
                                     <b>NPWP: <t t-esc="res_company.partner_id.npwp"/></b>
                                 </div>
                             </div>
-                            <div class="col-xs-4" style="text-align:right">
-                                <t t-if="o.state == 'proforma' or o.state == 'proforma2' ">
-                                    <div style="font-size:41px;margin:-10px 0px;"><b>PRO-FORMA</b></div>
+                            <div class="col-xs-4" style="text-align:left;padding-left:65px">
+                                <t t-if="o.state == 'proforma' or o.state == 'proforma2'">
+                                    <div style="font-size:34px;margin:-12px 1px -12px 0px;letter-spacing:0px"><b>PRO-FORMA</b></div>
                                     <h3 style="margin:0px"><b t-esc="o.proforma_nmbr"/></h3>
                                 </t>
                                 <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'out_invoice' and o.journal_id.code == 'LL'">
-                                    <div style="font-size:41px;margin:-10px -15px -10px 0px;letter-spacing:15px"><b>INVOICE</b></div>
+                                    <div style="font-size:34px;margin:-12px -12px -10px 0px;letter-spacing:12px"><b>INVOICE</b></div>
                                     <h3 style="margin:0px"><b t-esc="o.number"/></h3>
                                 </t>
                                 <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'out_invoice' and o.journal_id.code != 'LL'">
-                                    <div style="font-size:41px;margin:-10px -15px -10px 0px;letter-spacing:15px"><b>INVOICE</b></div>
-                                    <h4 style="margin:0px"><b t-esc="o.number"/></h4>
-                                    <h4 style="margin:0px"><b t-esc="o.efaktur_id.name"/></h4>
+                                    <div style="font-size:34px;margin:-12px -12px -10px 0px;letter-spacing:12px"><b>INVOICE</b></div>
+                                    <h3 style="margin:0px"><b t-esc="o.number"/></h3>
+                                    <h4 style="margin:0px;font-size:16px">NO. FP : <t t-esc="o.efaktur_id.name"/></h4>
                                 </t>
                                 <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'in_invoice' and o.journal_id.code != 'LL'">
-                                    <div style="font-size:41px;margin:-10px -15px -10px 0px;letter-spacing:15px"><b>BILLING</b></div>
+                                    <div style="font-size:34px;margin:-12px -13px -10px 0px;letter-spacing:13px"><b>BILLING</b></div>
                                     <h3 style="margin:0px"><b t-esc="o.number"/></h3>
                                 </t>
                             </div>
@@ -87,30 +87,30 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-4">
-                                <div class="row" style="padding-top:20px">
-                                    <div class="col-xs-6"><b>Invoice Date</b><b class="pull-right">:</b></div>
-                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.date_invoice"/>
+                            <div class="col-xs-4" style="padding-left:60px">
+                                <div class="row" style="padding-top:20px;">
+                                    <div class="col-xs-7"><b>Invoice Date</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-5" style="padding-left:0px" t-field="o.date_invoice"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-6"><b>SO</b><b class="pull-right">:</b></div>
-                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.origin"/>
+                                    <div class="col-xs-7"><b>SO</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-5" style="padding-left:0px" t-field="o.origin"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-6"><b>Sales Person</b><b class="pull-right">:</b></div>
-                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.user_id"/>
+                                    <div class="col-xs-7"><b>Sales Person</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-5" style="padding-left:0px" t-field="o.user_id"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-6"><b>DN. Ref</b><b class="pull-right">:</b></div>
-                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.reference"/>
+                                    <div class="col-xs-7"><b>DN. Ref</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-5" style="padding-left:0px" t-field="o.reference"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-6"><b>Customer Ref</b><b class="pull-right">:</b></div>
-                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.reference"/>
+                                    <div class="col-xs-7"><b>Customer Ref</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-5" style="padding-left:0px" t-field="o.reference"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-6"><b>Payment Term</b><b class="pull-right">:</b></div>
-                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.payment_term_id"/>
+                                    <div class="col-xs-7"><b>Payment Term</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-5" style="padding-left:0px" t-field="o.payment_term_id"/>
                                 </div>
                             </div>
                         </div>
@@ -124,24 +124,28 @@
                                     <t t-set="discount" t-value="0"/>
                                     <thead>
                                         <tr>
-                                            <th class="text-center" style="width: 5%">NO</th>
-                                            <th class="text-center" style="width: 53%;">KETERANGAN</th>
-                                            <th class="hidden">Source Document</th>
-                                            <th class="text-center" style="width: 9%;">JUMLAH</th>
-                                            <th class="text-center" style="width: 15%;" colspan="2">HARGA SATUAN</th>
-                                            <th class="text-center" style="width: 8%;">Disc.(%)</th>
-                                            <th class="text-center" style="width: 22%">TOTAL</th>
+                                            <th class="text-center" style="width: 3.5%">NO</th>
+                                            <th class="text-center" style="width: 7%" colspan="2">ITEM</th>
+                                            <th class="text-center" style="width: 40%;">PRODUCT DESCRIPTION</th>
+                                            <th class="text-center" style="width: 7%;">QTY</th>
+                                            <th class="text-center" style="width: 6%;">UNIT</th>
+                                            <th class="text-center" style="width: 10%;">UNIT PRICE</th>
+                                            <th class="text-center" style="width: 12.5%;">DISC %</th>
+                                            <th class="text-center" style="width: 14%">AMOUNT</th>
                                         </tr>
                                     </thead>
                                     <tbody style="font-size: 12px; line-height:16px;" class="invoice_tbody">
                                         <tr t-foreach="o.invoice_line_ids" t-as="l">
-                                            <td class="text-center"> <span t-esc="no"/></td>
+                                            <td class="text-center"><span t-esc="no"/></td>
+                                            <td colspan="2"><span t-field="l.product_id"/></td>
                                             <td><span t-field="l.name"/></td>
-                                            <td class="hidden"><span t-field="l.origin"/></td>
                                             <td class="text-center">
                                                 <span t-field="l.quantity"/>
                                             </td>
-                                            <td class="text-right" colspan="2">
+                                            <td class="text-center">
+                                                <span t-field="l.uom_id"/>
+                                            </td>
+                                            <td class="text-right">
                                                 <span t-field="l.price_unit"/>
                                             </td>
                                             <td class="text-center">
@@ -154,38 +158,38 @@
                                             <t t-set="no" t-value="no+1"/>
                                         </tr>
                                         <tr>
-                                            <td colspan="4" rowspan="3"><b>Description:</b></td>
-                                            <td colspan="2"><b>Invoice Value</b></td>
+                                            <td colspan="7" rowspan="3"><b>Description:</b></td>
+                                            <td><b>Invoice Value</b></td>
                                             <td class="text-right">
                                                 <span t-field="o.amount_untaxed"/>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2"><b>Discount</b></td>
+                                            <td><b>Discount</b></td>
                                             <td class="text-right">
                                                 <span t-esc="discount"/>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2"><b>DPP</b></td>
+                                            <td><b>DPP</b></td>
                                             <td class="text-right">
                                                 <span t-field="o.amount_untaxed"/>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4" rowspan="2">
+                                            <td colspan="2" rowspan="2" class="text-center" style="vertical-align:middle"><b>Say :</b></td>
+                                            <td colspan="5" rowspan="2" style="vertical-align:middle">
                                                 <t t-if="o.amount_total != 0">
-                                                    <p style="font-size:11pt">"<strong><i><span class="text-center" t-esc="o.terbilang(o.amount_total)"/> Rupiah</i></strong>"</p>
-                                                    <p style="font-size:11pt">"<strong><i><span class="text-center" t-esc="o.terbilang(o.amount_total, True)"/> Rupiah</i></strong>"</p>
+                                                    <b>"<t t-esc="o.terbilang(o.amount_total, True)"/> Rupiah"</b>
                                                 </t>
                                             </td>
-                                            <td colspan="2"><b>PPN 10%</b></td>
+                                            <td><b>PPN 10%</b></td>
                                             <td class="text-right">
                                                 <span t-field="o.amount_tax"/>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2"><b>Grand Total</b></td>
+                                            <td><b>Grand Total</b></td>
                                             <td class="text-right">
                                                 <b><span t-field="o.amount_total"/></b>
                                             </td>
