@@ -5,261 +5,282 @@
             <t t-call="report.html_container">
                 <t t-foreach="docs" t-as="o">
                     <div class="header">
-                <div class="row">
-                    <!-- All your custom code here -->
-                    <img class="image" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="height: 62px; width: 240px; line-height:0px;" alt="Banner"/>
-                </div>
-            </div>
-            <div class="page">
-                    <style type="text/css">
-                        table {
-                            font-family: arial, sans-serif;
-                            border-collapse: collapse;
-                            width: 100%;
-                        }
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <img class="image" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="height:80px;display:block;float:left;padding-right:10px;"/>
+                                <div style="height:80px;display:block;float:left;font-size:13px">
+                                    <h5><b t-esc="res_company.name"/></h5>
+                                    <t t-esc="res_company.partner_id.street"/><br/>
+                                    <t t-esc="res_company.partner_id.street2"/>
+                                    <t t-esc="res_company.partner_id.city"/>
+                                    <t t-esc="res_company.partner_id.state_id.name"/>
+                                    <t t-esc="res_company.partner_id.zip"/><br/>
+                                    <b>NPWP: <t t-esc="res_company.partner_id.npwp"/></b>
+                                </div>
+                            </div>
+                            <div class="col-xs-4" style="text-align:right">
+                                <t t-if="o.state == 'proforma' or o.state == 'proforma2' ">
+                                    <div style="font-size:41px;margin:-10px 0px;"><b>PRO-FORMA</b></div>
+                                    <h3 style="margin:0px"><b t-esc="o.proforma_nmbr"/></h3>
+                                </t>
+                                <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'out_invoice' and o.journal_id.code == 'LL'">
+                                    <div style="font-size:41px;margin:-10px -15px -10px 0px;letter-spacing:15px"><b>INVOICE</b></div>
+                                    <h3 style="margin:0px"><b t-esc="o.number"/></h3>
+                                </t>
+                                <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'out_invoice' and o.journal_id.code != 'LL'">
+                                    <div style="font-size:41px;margin:-10px -15px -10px 0px;letter-spacing:15px"><b>INVOICE</b></div>
+                                    <h4 style="margin:0px"><b t-esc="o.number"/></h4>
+                                    <h4 style="margin:0px"><b t-esc="o.efaktur_id.name"/></h4>
+                                </t>
+                                <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'in_invoice' and o.journal_id.code != 'LL'">
+                                    <div style="font-size:41px;margin:-10px -15px -10px 0px;letter-spacing:15px"><b>BILLING</b></div>
+                                    <h3 style="margin:0px"><b t-esc="o.number"/></h3>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page">
+                        <style type="text/css">
+                            table {
+                                font-family: arial, sans-serif;
+                                border-collapse: collapse;
+                                width: 100%;
+                            }
 
-                        td, th {
-                            border: 1px solid #000000;
-                            text-align: left;
-                            padding: 6px;
-                        }
+                            td,
+                            th {
+                                border: 1px solid #000000;
+                                text-align: left;
+                                padding: 6px;
+                            }
 
-                        tr:nth-child(even) {
-                            background-color: #dddddd;
-                        }
-                        .watermark {
-                        position: absolute;
-                        top: 2.5em; 
-                        left: 1.8em;
-                        z-index: -1;
-                        background: none;
-                        display: block;
-                        color: #EEE;
-                        font-size: 150px;
-                        transform: rotate(340deg);
-                        -webkit-transform: rotate(340deg);
-                    }
+                            .watermark {
+                                position: absolute;
+                                top: 2.5em;
+                                left: 1.8em;
+                                z-index: -1;
+                                background: none;
+                                display: block;
+                                color: #EEE;
+                                font-size: 150px;
+                                transform: rotate(340deg);
+                                -webkit-transform: rotate(340deg);
+                            }
                         </style>
-                        <div class="row mt32 mb32" position="'fixed">
-                        <br/>
-                         <!-- Kop Surat -->
-                <div style="font-size:13px; width:50%; solid black; height:110px; padding:7px; background-color:#E6E6E6; text-align:left;float:left">
-                    <p style="font-size:13px">
-                        <b>PT PROQUAMAN KONSULTAN</b><br/>
-                        <span t-field="o.company_id.partner_id.street"/><br/>
-                        <span t-field="o.company_id.partner_id.street2"/>
-                        <span t-field="o.company_id.partner_id.city"/>
-                        <span t-field="o.company_id.partner_id.state_id.name"/>
-                        <span t-field="o.company_id.partner_id.zip"/><br/>
-                        NPWP: <span t-field="o.company_id.partner_id.npwp"/><br/>
-                    </p>
-                </div>
-                <div style="height:110px; width:20%; color: black; background-color: white; border: 0px solid black; padding: 5px; float:left"/>
-                <div style="width: 30%; height:100px; padding:0px; background-color:white; text-align:right; float:left">
-                    <t t-if="o.state == 'proforma' or o.state == 'proforma2' ">
-                        <span align="center" style="font-size: 40px"><b>PRO-FORMA</b></span><br/>
-                        <span align="center" style="font-size: 28px">NO : <t t-esc="o.proforma_nmbr"/></span><br/>
-                    </t>
-                    <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'out_invoice' and o.journal_id.code == 'LL'">
-                        <span align="center" style="font-size: 41px"><b>I N V O I C E</b></span><br/>
-                        <span align="center" style="font-size: 28px">NO : <t t-esc="o.number"/></span><br/>
-                    </t>
-                    <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'out_invoice' and o.journal_id.code != 'LL'">
-                        <span align="center" style="font-size: 34px"><b>I N V O I C E</b></span><br/>
-                        <span align="center" style="font-size: 28px">NO : <t t-esc="o.number"/></span><br/>
-                        <span align="center" style="font-size: 16px">NO.FP: <span style="font-size: 16px" t-field="o.efaktur_id.name"/></span><br/>	
-                    </t>
-                    <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'in_invoice' and o.journal_id.code != 'LL'">
-                        <span align="center" style="font-size: 46px"><b>B I L L I N G</b></span><br/>
-                        <span align="center" style="font-size: 28px">NO : <t t-esc="o.number"/></span><br/>
-                    </t>
-                </div>
-                <div name="reference"></div>
-            </div>
+                        <div class="row">
+                            <div name="reference"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <div class="row" style="padding-top:20px">
+                                    <div class="col-xs-3"><b>BILL TO</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-9" style="padding-left:0px">
+                                        <div t-field="o.partner_id"/>
+                                        <div t-field="o.partner_id.street"/>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:20px">
+                                    <div class="col-xs-3"><b>DELIVER TO</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-9" style="padding-left:0px">
+                                        <div t-field="o.partner_shipping_id"/>
+                                        <div t-field="o.partner_shipping_id.street"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="row" style="padding-top:20px">
+                                    <div class="col-xs-6"><b>Invoice Date</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.date_invoice"/>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6"><b>SO</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.origin"/>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6"><b>Sales Person</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.user_id"/>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6"><b>DN. Ref</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.reference"/>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6"><b>Customer Ref</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.reference"/>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6"><b>Payment Term</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.payment_term_id"/>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="heading">
-                <!-- Customer -->
-                    <div style="font-size:12px; width:40%; border: 0px solid black; height:0px; padding:5px; background-color:white; text-align:left;float:left">
-                    </div>
-                    <div style="height:0px; width: 18%; color: black; background-color: white; border: 0px solid black; padding: 30px; float:left"/>
-                    <div name="invoice_address" style="font-size:; width: 40%; border: 0px solid black; height:130px; padding:3px; background-color:; text-align:left;float:left">
-                        <b><font size="30px">DIKIRIM KE : </font></b><br/>
-                        <span style="font-size: 12px" t-field="o.partner_id.name"/><br/>
-                        <tr>
-                            <td style="font-size: 12px; line-height:50px;">
-                                <span style="font-size: 12px" t-field="o.partner_id.street"/>
-                                <t t-if="o.partner_id.street2">
-                                    <span style="font-size: 12px" t-field="o.partner_id.street2"/><br/>
-                                </t>
-                                <span style="font-size: 12px" t-field="o.partner_id.city"/>
-                                <span style="font-size: 12px" t-field="o.partner_id.zip"/>
-                                <span style="font-size: 12px" t-field="o.partner_id.state_id"/><br/>
-                                <span style="font-size: 12px">NPWP: </span> <span style="font-size: 12px" t-field="o.partner_id.npwp"/><br/>
-                            </td>
-                        </tr>
-                    </div>
-                    <br/>
-                    <br/>
-                    <!-- Table-->
-                    <div class="row mt32 mb32">
-                        <table style="border: solid black 1px; font-size: 12px;">
-                            <t t-set="no" t-value="1"/>
-                            <thead>
-                                <tr>
-                                    <th class="text-center" style="width: 5%">NO</th>
-                                    <th class="text-center" style="width: 53%;">KETERANGAN</th>
-                                    <th class="hidden">Source Document</th>
-                                    <th class="text-center" style="width: 9%;">JUMLAH</th>
-                                    <th class="text-center" style="width: 15%;">HARGA SATUAN</th>
-                                    <th class="text-center" style="width: 8%;">Disc.(%)</th>
-                                    <th class="text-center" style="width: 22%">TOTAL</th>
-                                </tr>
-                            </thead>
-                            <tbody style="font-size: 12px; line-height:16px;" class="invoice_tbody">
-                                <tr t-foreach="o.invoice_line_ids" t-as="l">
-                                    <td class="text-center"> <span t-esc="no"/> </td>
-                                    <td><span t-field="l.name"/></td>
-                                    <td class="hidden"><span t-field="l.origin"/></td>
-                                    <td class="text-center">
-                                        <span t-field="l.quantity"/>
-                                        <!--<span t-field="l.uom_id" groups="product.group_uom"/>-->
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-field="l.price_unit"/>
-                                    </td>
-                                    <td class="text-center">
-                                        <span t-field="l.discount"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-field="l.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
-                                    </td>
-                                    <t t-set="no" t-value="no+1"/>
-                                </tr>
-                                <t t-set="tax" t-value="o.amount_tax"/>
-                                <t t-if="tax != 0">
+                        <div name="invoice_address" style="display:none"/>
+                        <!-- Table-->
+                        <div class="row">
+                            <div class="col-xs-12" style="padding-top:20px;">
+                                <table style="border: solid black 1px; font-size: 12px;">
+                                    <t t-set="no" t-value="1"/>
+                                    <t t-set="discount" t-value="0"/>
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="width: 5%">NO</th>
+                                            <th class="text-center" style="width: 53%;">KETERANGAN</th>
+                                            <th class="hidden">Source Document</th>
+                                            <th class="text-center" style="width: 9%;">JUMLAH</th>
+                                            <th class="text-center" style="width: 15%;" colspan="2">HARGA SATUAN</th>
+                                            <th class="text-center" style="width: 8%;">Disc.(%)</th>
+                                            <th class="text-center" style="width: 22%">TOTAL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="font-size: 12px; line-height:16px;" class="invoice_tbody">
+                                        <tr t-foreach="o.invoice_line_ids" t-as="l">
+                                            <td class="text-center"> <span t-esc="no"/></td>
+                                            <td><span t-field="l.name"/></td>
+                                            <td class="hidden"><span t-field="l.origin"/></td>
+                                            <td class="text-center">
+                                                <span t-field="l.quantity"/>
+                                            </td>
+                                            <td class="text-right" colspan="2">
+                                                <span t-field="l.price_unit"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="l.discount"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="l.price_subtotal"/>
+                                            </td>
+                                            <t t-set="discount" t-value="l.discount"/>
+                                            <t t-set="no" t-value="no+1"/>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" rowspan="3"><b>Description:</b></td>
+                                            <td colspan="2"><b>Invoice Value</b></td>
+                                            <td class="text-right">
+                                                <span t-field="o.amount_untaxed"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><b>Discount</b></td>
+                                            <td class="text-right">
+                                                <span t-esc="discount"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><b>DPP</b></td>
+                                            <td class="text-right">
+                                                <span t-field="o.amount_untaxed"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" rowspan="2">
+                                                <t t-if="o.amount_total != 0">
+                                                    <p style="font-size:11pt">"<strong><i><span class="text-center" t-esc="o.terbilang(o.amount_total)"/> Rupiah</i></strong>"</p>
+                                                    <p style="font-size:11pt">"<strong><i><span class="text-center" t-esc="o.terbilang(o.amount_total, True)"/> Rupiah</i></strong>"</p>
+                                                </t>
+                                            </td>
+                                            <td colspan="2"><b>PPN 10%</b></td>
+                                            <td class="text-right">
+                                                <span t-field="o.amount_tax"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><b>Grand Total</b></td>
+                                            <td class="text-right">
+                                                <b><span t-field="o.amount_total"/></b>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12" style="padding-top:20px;">
+                                <table style="border: solid black 1px; font-size: 12px;">
                                     <tr>
-                                        <td colspan="5" class="text-right" style="no-border; height: 15px;border-bottom:solid black 1px;border-right:solid black 1px;">SUB TOTAL</td>
-                                        <td class="text-right" style="border-bottom:solid black 1px;border-right:solid black 1px">
-                                            <span t-field="o.amount_untaxed"/>
-                                        </td>
+                                        <th class="text-center" style="background:#ddd">PAYMENT TO</th>
+                                        <td style="width: 26.5%"><b>Jakarta, <span t-field="o.date_invoice" t-field-options="{'format':'d MMMM y'}" /></b></td>
+                                        <td style="width: 26.5%"></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="5" class="text-right" style="no-border; height: 15px;border-bottom:solid black 1px;border-right:solid black 1pt;">PPN 10%</td>
-                                        <td class="text-right" style="border-bottom:solid black 1px;border-right:solid black 1px">
-                                            <span t-field="o.amount_tax"/>
-                                            <!--<t t-set="hasil" t-value="o.invoice_ids.amount_untaxed * 0.10"/>-->
-                                            <!--<span t-esc="'%.2f'%hasil"/>-->
+                                        <td class="text-center">
+                                            <h5 style="margin-top:0px"><b><span t-field="o.partner_bank_id.bank_id"/></b></h5>
+                                            <h4><b>A/C : <span t-field="o.partner_bank_id"/></b></h4>
+                                            <h5 style="margin-bottom:0px"><b>A/N : <span t-field="o.partner_bank_id.partner_id"/></b></h5>
                                         </td>
-                                    </tr>
-                                </t>
-                                <tr>
-                                    <td colspan="5" class="text-right">Total</td>
-                                    <td class="text-right"><span t-field="o.amount_total"/></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="6" class="text-left">
-                                        <t t-set="bil" t-value="o.amount_total"/>
-                                        <p style="font-size:11pt"><b>Terbilang:</b></p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="6" class="text-center">
-                                        <t t-if="bil != 0 ">
-                                            <p style="font-size:11pt"> "<strong> <i><span class="text-center" t-esc="o.terbilang(bil) "/> Rupiah </i></strong>"</p>
-                                        </t>
-                                    </td>
-                                </tr>
-                                <tr>
-                                </tr>
-                                <tr>
-                                    <td colspan="6" class="text-left">
-                                        <p t-if="o.comment">
-                                            <strong>Keterangan:</strong>
+                                        <td rowspan="3">
+                                            Issued by:<br/>
                                             <br/>
-                                            <span t-field="o.comment"/>
-                                        </p>
-                                        <p t-if="o.payment_term_id">
-                                            Jatuh Tempo: <span t-field="o.date_due" t-field-options="{&quot;format&quot;:&quot;d MMMM y&quot;}"/>
-                                        </p>
-                                        <p t-if="o.fiscal_position_id.note">
-                                            <strong>Fiscal Position Remark:</strong>
-                                            <span t-field="o.fiscal_position_id.note"/>
-                                        </p>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div style="font-size:10pt;" class="row mt32 mb32">
-
-						<t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'out_invoice'">
-							<span>TRANSFER KE:</span><br/>
-	                        <span t-field="o.partner_bank_id.partner_id.name"/><br/>
-	                        <span t-field="o.partner_bank_id.bank_id.name"/><br/>
-	                        <b>No Rekening: <span t-field="o.partner_bank_id.acc_number"/></b><br/>
-						</t>
-                        <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'in_invoice'">
-                        	<spant t-field="o.company_id.bill_report"/>
-                        </t>
-                        <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'out_invoice'">
-                        	<spant t-field="o.company_id.invoice_report"/>
-                        </t>
-                        <br/>
-                        <p>
-                            <br/>
-                            Jakarta, <span t-field="o.date_invoice" t-field-options="{&quot;format&quot;:&quot;d MMMM y&quot;}"/><br/>
-                            Issued by:<br/>
-                            <b>PT PROQUAMAN KONSULTAN</b>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-
-                            <u><span/>Frida Sani Wihardji</u><br/>
-                            <span>Finance Manager</span>
-                        </p>
-                    </div>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <u>Hilderia Tambunan</u><br/>
+                                            <span>Finance Head</span>
+                                        </td>
+                                        <td rowspan="3">
+                                            Received by:<br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            (<div style="width:150px;display:inline-block"/>)<br/>
+                                            <span>Date:</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center" style="background:#ddd">TERM &amp; CONDITION</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:10px">
+                                            - Bila nilai invoice tidak sesuai dengan perjanjian SEGERA hubungi kami <br/>
+                                            - Periksa SEGERA (tipe, merek, kondisi &amp; Kelengkapan) barang yang anda terima <br/>
+                                            - Bila ada kerusakan atau barang tidak berfungsi SEGERA konfirmasi sales konsultan kami <br/>
+                                            - Barang yang sudah dibeli dan diterima tidak dapat dibatalkan atau dikembangkan
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:15px 20px;border-right:0px;vertical-align:top">
+                                            <img style="width:120px" src="/custom_kwitansi_report/static/src/img/displaystore.png"/>
+                                            <div style="margin-top:5px">https://displaystore.id</div>
+                                        </td>
+                                        <td colspan="2" style="padding:8px 0px;border-left:0px;font-size:10px;vertical-align:top">
+                                            <div style="font-weight:bold;display:inline-block;width:100px">Office</div>: Jl. Lenteng Agung Raya No. 15 (Jl. Baung No. 2) Jakarta Selatan 12610 <br/>
+                                            <div style="font-weight:bold;display:inline-block;width:100px">Phone</div>: (62) 21 7883 1075 <br/>
+                                            <div style="font-weight:bold;display:inline-block;width:100px">Fax</div>: (62) 21 7883 1075 <br/>
+                                            <div style="font-weight:bold;display:inline-block;width:100px">Phone</div>: (62) 21 7883 1692 <br/>
+                                            <div style="font-weight:bold;display:inline-block;width:100px">Website</div>: http://innograph.com <br/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="footer">
-                        <style type="text/css">
-                            .lineHr{
-                                    font-size: 1px;
-                                    color: rgba(0, 0, 0, 0);
-                                    line-height: 1px;
-                                    background-color: black;
-                                }
-                        </style>
-                       <!-- <div class="row">
-                            <div class="lineHr">.</div>
-
-                            <div class="col-xs-8">
-                                <p style="font-size:12px"><b>PERKUMPULAN MANAJEMEN PRODUKTIVITAS DAN MUTU INDONESIA (PM2I)</b>
-                                    <br/>Jl. Cempaka Putih Tengah 17C No.7A Cempaka Putih
-                                    <br/>Jakarta 10510 - Indonesia
-                                </p>
-                            </div>
-                            <div class="col-xs-4">
-                                <p style="font-size:12px">
-                                    Phone : 021 - 42887540<br/>
-                                    Mobile / WA : 0859 5916 7864 <br/>
-                                    Email: clubs@pqm.co.id<br/>
-                                    Website: clubs.pqm.co.id
-                                </p>
-                            </div>
-                        </div>-->
-                        <p style="font-size:10px" align="center"><br>PQM BUILDING 3rd Floor</br>
-                <br>Jl. Cempaka Putih Tengah 17C No.7A, Jakarta 10510, Tel: (62)21 425 1887 | 425 1836 Fax: (62)21 425 4836</br>
-                <br>Email: finance@pqm.co.id | Website: http://www.pqm.co.id</br></p>
+                    <div class="footer" style="text-align:center">
+                        <p style="font-size:11px">
+                            <t t-esc="res_company.name"/><br/>
+                            <t t-esc="res_company.partner_id.street"/><br/>
+                            <t t-esc="res_company.partner_id.street2"/>
+                            <t t-esc="res_company.partner_id.city"/>
+                            <t t-esc="res_company.partner_id.state_id.name"/>
+                            <t t-esc="res_company.partner_id.zip"/><br/>
+                            <span class="page"/> / <span class="topage"/>
+                        </p>
                     </div>
                 </t>
             </t>
-    
+
         </template>
         <template id="account_invoice_report_duplicate_custom" inherit_id="account.report_invoice_document" primary="True">
             <xpath expr="//div[@class='page']" position="inside">
