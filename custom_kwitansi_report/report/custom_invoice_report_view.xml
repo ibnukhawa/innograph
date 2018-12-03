@@ -8,7 +8,7 @@
                         <div class="row">
                             <div class="col-xs-8">
                                 <img class="image" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="height:80px;display:block;float:left;padding-right:10px;"/>
-                                <div style="height:80px;display:block;float:left;font-size:13px">
+                                <div style="height:80px;display:block;float:left;font-size:11px;width:400px">
                                     <h5><b t-esc="res_company.name"/></h5>
                                     <t t-esc="res_company.partner_id.street"/><br/>
                                     <t t-esc="res_company.partner_id.street2"/>
@@ -67,7 +67,8 @@
                                 -webkit-transform: rotate(340deg);
                             }
                         </style>
-                        <div class="row">
+                        <!-- report inherit hack -->
+                        <div class="row" style="display:none">
                             <div name="reference"></div>
                         </div>
                         <div class="row">
@@ -114,8 +115,11 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div name="invoice_address" style="display:none"/>
+                        <!-- report inherit hack -->
+                        <div style="display:none">
+                            <div name="invoice_address" style="display:none"/>
+                            <table></table>
+                        </div>
                         <!-- Table-->
                         <div class="row">
                             <div class="col-xs-12" style="padding-top:20px;">
