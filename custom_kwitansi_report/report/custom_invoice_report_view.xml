@@ -51,7 +51,8 @@
                             th {
                                 border: 1px solid #000000;
                                 text-align: left;
-                                padding: 6px;
+                                padding: 3px;
+                                font-size: 12px;
                             }
 
                             .watermark {
@@ -71,7 +72,7 @@
                         <div class="row" style="display:none">
                             <div name="reference"></div>
                         </div>
-                        <div class="row">
+                        <div class="row" style="font-size:12px">
                             <div class="col-xs-8">
                                 <div class="row" style="padding-top:20px">
                                     <div class="col-xs-3"><b>BILL TO</b><b class="pull-right">:</b></div>
@@ -90,28 +91,28 @@
                             </div>
                             <div class="col-xs-4" style="padding-left:60px">
                                 <div class="row" style="padding-top:20px;">
-                                    <div class="col-xs-7"><b>Invoice Date</b><b class="pull-right">:</b></div>
-                                    <div class="col-xs-5" style="padding-left:0px" t-field="o.date_invoice"/>
+                                    <div class="col-xs-6"><b>Invoice Date</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.date_invoice"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-7"><b>SO</b><b class="pull-right">:</b></div>
-                                    <div class="col-xs-5" style="padding-left:0px" t-field="o.origin"/>
+                                    <div class="col-xs-6"><b>SO</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.origin"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-7"><b>Sales Person</b><b class="pull-right">:</b></div>
-                                    <div class="col-xs-5" style="padding-left:0px" t-field="o.user_id"/>
+                                    <div class="col-xs-6"><b>Sales Person</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.user_id"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-7"><b>DN. Ref</b><b class="pull-right">:</b></div>
-                                    <div class="col-xs-5" style="padding-left:0px" t-field="o.reference"/>
+                                    <div class="col-xs-6"><b>DN. Ref</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.reference"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-7"><b>Customer Ref</b><b class="pull-right">:</b></div>
-                                    <div class="col-xs-5" style="padding-left:0px" t-field="o.reference"/>
+                                    <div class="col-xs-6"><b>Customer Ref</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.reference"/>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xs-7"><b>Payment Term</b><b class="pull-right">:</b></div>
-                                    <div class="col-xs-5" style="padding-left:0px" t-field="o.payment_term_id"/>
+                                    <div class="col-xs-6"><b>Payment Term</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.payment_term_id"/>
                                 </div>
                             </div>
                         </div>
@@ -129,13 +130,13 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center" style="width: 3.5%">NO</th>
-                                            <th class="text-center" style="width: 7%" colspan="2">ITEM</th>
-                                            <th class="text-center" style="width: 40%;">PRODUCT DESCRIPTION</th>
+                                            <th class="text-center" style="width: 14%" colspan="2">ITEM</th>
+                                            <th class="text-center" style="width: 34%;">PRODUCT DESCRIPTION</th>
                                             <th class="text-center" style="width: 7%;">QTY</th>
                                             <th class="text-center" style="width: 6%;">UNIT</th>
                                             <th class="text-center" style="width: 10%;">UNIT PRICE</th>
-                                            <th class="text-center" style="width: 12.5%;">DISC %</th>
-                                            <th class="text-center" style="width: 14%">AMOUNT</th>
+                                            <th class="text-center" style="width: 12%;">DISC %</th>
+                                            <th class="text-center" style="width: 12%">AMOUNT</th>
                                         </tr>
                                     </thead>
                                     <tbody style="font-size: 12px; line-height:16px;" class="invoice_tbody">
@@ -181,10 +182,10 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2" rowspan="2" class="text-center" style="vertical-align:middle"><b>Say :</b></td>
-                                            <td colspan="5" rowspan="2" style="vertical-align:middle">
+                                            <td colspan="2" rowspan="2" class="text-center" style="vertical-align:middle"><b>Terbilang</b></td>
+                                            <td colspan="5" rowspan="2" class="text-center" style="vertical-align:middle">
                                                 <t t-if="o.amount_total != 0">
-                                                    <b>"<t t-esc="o.terbilang(o.amount_total, True)"/> Rupiah"</b>
+                                                    <b><t t-esc="o.terbilang(o.amount_total)"/> Rupiah</b>
                                                 </t>
                                             </td>
                                             <td><b>PPN 10%</b></td>
@@ -208,8 +209,8 @@
                                 <table style="border: solid black 1px; font-size: 12px;">
                                     <tr>
                                         <th class="text-center" style="background:#ddd">PAYMENT TO</th>
-                                        <td style="width: 26.5%"><b>Jakarta, <span t-field="o.date_invoice" t-field-options="{'format':'d MMMM y'}" /></b></td>
-                                        <td style="width: 26.5%"></td>
+                                        <td style="width: 24.5%"><b>Jakarta, <span t-field="o.date_invoice" t-field-options="{'format':'d MMMM y'}" /></b></td>
+                                        <td style="width: 24.5%"></td>
                                     </tr>
                                     <tr>
                                         <td class="text-center">
@@ -228,11 +229,11 @@
                                             <br/>
                                             <br/>
                                             <br/>
-                                            <u>Hilderia Tambunan</u><br/>
-                                            <span>Finance Head</span>
+                                            <u><b>Yuditya Mega P</b></u><br/>
+                                            <span>Finance Staff</span>
                                         </td>
                                         <td rowspan="3">
-                                            Received by:<br/>
+                                            Approved by:<br/>
                                             <br/>
                                             <br/>
                                             <br/>
@@ -242,8 +243,8 @@
                                             <br/>
                                             <br/>
                                             <br/>
-                                            (<div style="width:150px;display:inline-block"/>)<br/>
-                                            <span>Date:</span>
+                                            <u><b>Hilderia Tambunan</b></u><br/>
+                                            <span>Finance Head</span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -251,10 +252,9 @@
                                     </tr>
                                     <tr>
                                         <td style="font-size:10px">
-                                            - Bila nilai invoice tidak sesuai dengan perjanjian SEGERA hubungi kami <br/>
-                                            - Periksa SEGERA (tipe, merek, kondisi &amp; Kelengkapan) barang yang anda terima <br/>
-                                            - Bila ada kerusakan atau barang tidak berfungsi SEGERA konfirmasi sales konsultan kami <br/>
-                                            - Barang yang sudah dibeli dan diterima tidak dapat dibatalkan atau dikembangkan
+                                            <div style="padding-bottom:10px">- Bila nilai invoice tidak sesuai dengan perjanjian SEGERA hubungi kami maksimal 2 x 24 jam</div>
+                                            <div style="padding-bottom:10px">- Invoice asli bermaterai ini hanya dibuat satu kali</div>
+                                            <div>- Pencetakan ulang invoice (duplicate) akan diberikan tanpa materai</div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -263,11 +263,13 @@
                                             <div style="margin-top:5px">https://displaystore.id</div>
                                         </td>
                                         <td colspan="2" style="padding:8px 0px;border-left:0px;font-size:10px;vertical-align:top">
-                                            <div style="font-weight:bold;display:inline-block;width:100px">Office</div>: Jl. Lenteng Agung Raya No. 15 (Jl. Baung No. 2) Jakarta Selatan 12610 <br/>
-                                            <div style="font-weight:bold;display:inline-block;width:100px">Phone</div>: (62) 21 7883 1075 <br/>
-                                            <div style="font-weight:bold;display:inline-block;width:100px">Fax</div>: (62) 21 7883 1075 <br/>
-                                            <div style="font-weight:bold;display:inline-block;width:100px">Phone</div>: (62) 21 7883 1692 <br/>
-                                            <div style="font-weight:bold;display:inline-block;width:100px">Website</div>: http://innograph.com <br/>
+                                            <div style="margin-left:-20px">
+                                                <div style="font-weight:bold;display:inline-block;width:110px">Office</div>: Jl. Lenteng Agung Raya No. 15 (Jl. Baung No. 2) Jakarta Selatan 12610 <br/>
+                                                <div style="font-weight:bold;display:inline-block;width:110px">Phone</div>: (62) 21 7883 1075 <br/>
+                                                <div style="font-weight:bold;display:inline-block;width:110px">Fax</div>: (62) 21 7883 1075 <br/>
+                                                <div style="font-weight:bold;display:inline-block;width:110px">Phone</div>: (62) 21 7883 1692 <br/>
+                                                <div style="font-weight:bold;display:inline-block;width:110px">Website</div>: http://innograph.com <br/>
+                                            </div>
                                         </td>
                                     </tr>
                                 </table>
@@ -276,13 +278,7 @@
                     </div>
 
                     <div class="footer" style="text-align:center">
-                        <p style="font-size:11px">
-                            <t t-esc="res_company.name"/><br/>
-                            <t t-esc="res_company.partner_id.street"/><br/>
-                            <t t-esc="res_company.partner_id.street2"/>
-                            <t t-esc="res_company.partner_id.city"/>
-                            <t t-esc="res_company.partner_id.state_id.name"/>
-                            <t t-esc="res_company.partner_id.zip"/><br/>
+                        <p style="font-size:11px;padding-top:40px">
                             <span class="page"/> / <span class="topage"/>
                         </p>
                     </div>
