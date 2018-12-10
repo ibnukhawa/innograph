@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+    	<record model="ir.ui.view" id="view_partner_property_form">
+	        <field name="name">inno.res.partner.property.form.inherit</field>
+	        <field name="model">res.partner</field>
+	        <field name="inherit_id" ref="purchase.view_partner_property_form" />
+	        <field name="arch" type="xml">
+	        	<field name="property_purchase_currency_id" position="after">
+	        		<field name="vendor_specialization" />
+	        		<field name="lob_id" />
+	        		<field name="specialization_product" widget="many2many_tags" />
+	        	</field>
+	        </field>
+	    </record>
+
+	    <record model="ir.ui.view" id="res_partner_form_tax1">
+	        <field name="name">inno.res.partner.form.tax.inherit</field>
+	        <field name="model">res.partner</field>
+	        <field name="inherit_id" ref="efaktur.res_partner_form_tax1" />
+	        <field name="arch" type="xml">
+	        	<field name="npwp" position="before">
+	        		<field name="no_pkp" />
+	        	</field>
+	        	<field name="npwp" position="attributes">
+	        		<attribute name="attrs">{'required': [('no_pkp', '=', True)]}</attribute>
+	        	</field>
+	        	<field name="nik" position="attributes">
+	        		<attribute name="attrs">{'required': [('no_pkp', '=', False)]}</attribute>
+	        	</field>
+	        </field>
+	    </record>
+
+	    <!-- Partner Line of Business -->
+	    <record model="ir.ui.view" id="res_partner_lob_form_view">
+	        <field name="name">res.partner.lob.form.view</field>
+	        <field name="model">res.partner.lob</field>
+	        <field name="arch" type="xml">
+	        	<form string="Line of Business">
+	        		<sheet>
+	        			<group>
+	        				<group>
+	        					<field name="name" />
+	        				</group>
+	        			</group>
+	        		</sheet>
+	        	</form>
+	        </field>
+	    </record>
+
+	    <record model="ir.ui.view" id="res_partner_lob_tree_view">
+	        <field name="name">res.partner.lob.tree.view</field>
+	        <field name="model">res.partner.lob</field>
+	        <field name="arch" type="xml">
+	        	<tree string="Line of Business">
+	        		<field name="name" />
+	        	</tree>
+	        </field>
+	    </record>
+
+	    <record model="ir.actions.act_window" id="action_line_of_business">
+	        <field name="name">Line of Business</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">res.partner.lob</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	        <field name="help" type="html">
+	          <p class="oe_view_nocontent_create">
+	            Click to create Partner's Line of Business.
+	          </p>
+	        </field>
+	    </record>
+
+	    <menuitem id="menu_partner_lob" sequence="101"
+        	parent="purchase.menu_purchase_config"
+        	action="inno_partner.action_line_of_business"/>
+
+    </data>
+</odoo>
