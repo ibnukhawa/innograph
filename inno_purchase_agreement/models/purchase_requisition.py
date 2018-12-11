@@ -19,16 +19,14 @@ class PurchaseRequisition(models.Model):
 		# Process to get data information for email contents #####
 		list_products_description = self.line_ids.sorted('id').mapped('product_id').mapped('display_name')
 		list_products_description = ', '.join(list_products_description)
-		list_products_qty = self.line_ids.sorted('id').mapped('product_qty')
-		list_products_qty = ['{:.2f}'.format(x) for x in list_products_qty]
-		list_products_qty = ', '.join(list_products_qty)
 		project = "-"
 		project_ids = self.account_analytic_id.project_ids
 		if len(project_ids) > 0:
 			project = project_ids[0].code
+		purchase_amount = sum([x.price_unit * x.product_qty for x in self.line_ids])
 		context = {
 			'list_product': list_products_description,
-			'list_qty': list_products_qty,
+			'purchase_amount': purchase_amount,
 			'project': project
 		}
 		email.with_context(data=context).send_mail(self.id, force_send=True)
@@ -38,27 +36,22 @@ class PurchaseRequisition(models.Model):
 		active_user_id = self.env.user.partner_id.id
 		if self.approver_id.id != active_user_id:
 			raise UserError(_("You don’t have any access to approve this request."))
-		# Search for email receiver (Purchase User only)
-		user_ids = self.env['res.users'].search([])
-		purchase_user_ids = user_ids.filtered(lambda user:user.has_group('purchase.group_purchase_user') and not user.has_group('purchase.group_purchase_manager'))
-		# Process to get data information for email contents #####
+		
 		list_products_description = self.line_ids.sorted('id').mapped('product_id').mapped('display_name')
 		list_products_description = ', '.join(list_products_description)
-		list_products_qty = self.line_ids.sorted('id').mapped('product_qty')
-		list_products_qty = ['{:.2f}'.format(x) for x in list_products_qty]
-		list_products_qty = ', '.join(list_products_qty)
 		project = "-"
 		project_ids = self.account_analytic_id.project_ids
 		if len(project_ids) > 0:
 			project = project_ids[0].code
 		email = self.env.ref("inno_purchase_agreement.purchase_notification_email")
-		for user in purchase_user_ids:
-			context = {
-				'name': user.name,
-				'email': user.partner_id.email,
-				'list_product': list_products_description,
-				'list_qty': list_products_qty,
-				'project': project
-			}
-			email.with_context(data=context).send_mail(self.id, force_send=True)
+		user = self.user_id
+		purchase_amount = sum([x.price_unit * x.product_qty for x in self.line_ids])
+		context = {
+			'name': user.name,
+			'email': user.partner_id.email,
+			'list_product': list_products_description,
+			'purchase_amount': purchase_amount,
+			'project': project
+		}
+		email.with_context(data=context).send_mail(self.id, force_send=True)
 		return super(PurchaseRequisition, self).action_open()
