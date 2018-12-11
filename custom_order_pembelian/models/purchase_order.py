@@ -66,10 +66,18 @@ class PurchaseOrder(models.Model):
         :return:
         """
         res = super(PurchaseOrder, self).write(vals)
-        if self.user_has_groups('purchase.group_purchase_user') and not self.user_has_groups('purchase.group_purchase_manager'):
-            if self.user_id.id != self.env.user.id:
-                raise exceptions.Warning(
-                    'Sorry! To Edit this item Please Contact User responsible (%s) for this PO' % (self.user_id.name))
+        for purchase in self:
+            if self.user_has_groups('purchase.group_purchase_user') and not self.user_has_groups('purchase.group_purchase_manager'):
+                if purchase.requisition_id:
+                    if purchase.env.user.id not in [purchase.user_id.id, purchase.requisition_id.user_id.id]:
+                        raise exceptions.Warning(
+                            'Sorry! To Edit this item Please Contact User responsible (%s or %s) for this %s' 
+                            % (purchase.user_id.name, purchase.requisition_id.user_id.name, purchase.name))
+                else:
+                    if purchase.user_id.id != purchase.env.user.id:
+                        raise exceptions.Warning(
+                            'Sorry! To Edit this item Please Contact User responsible (%s) for this %s' 
+                            % (purchase.user_id.name, purchase.name))
         return res
 
     def get_cure(self):

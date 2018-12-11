@@ -13,7 +13,7 @@
                 <table style="border-bottom: 1px solid black;width:100%;">
                     <tr>
                         <td align="right">
-                            <img src="https://images.glints.com/unsafe/1024x0/glints-dashboard.s3.amazonaws.com/company-logo/c03948e46bc25d8877325a1f3a97f352.png" align="right" width="100"/>
+                            <img src="data:image/png;base64,${object.company_id.logo}" align="right" style="width:100px;height:auto;" />
                         </td>
                     </tr>
                 </table>
@@ -40,7 +40,7 @@
                     <tr>
                         <td>Purchase Amount</td>
                         <td>:</td>
-                        <td>${ctx['data']['list_qty'] or '-'}</td>
+                        <td>${ctx['data']['purchase_amount'] or '-'}</td>
                     </tr>
                 </table>
                 <br/>
@@ -68,7 +68,7 @@
                 <table style="border-bottom: 1px solid black;width:100%;">
                     <tr>
                         <td align="right">
-                            <img src="https://images.glints.com/unsafe/1024x0/glints-dashboard.s3.amazonaws.com/company-logo/c03948e46bc25d8877325a1f3a97f352.png" align="right" width="100"/>
+                            <img src="data:image/png;base64,${object.company_id.logo}" align="right" style="width:100px;height:auto;" />
                         </td>
                     </tr>
                 </table>
@@ -95,7 +95,7 @@
                     <tr>
                         <td>Purchase Amount</td>
                         <td>:</td>
-                        <td>${ctx['data']['list_qty'] or '-'}</td>
+                        <td>${ctx['data']['purchase_amount'] or '0'}</td>
                     </tr>
                 </table>
                 <br/>
