@@ -20,20 +20,20 @@
                             </div>
                             <div class="col-xs-4" style="text-align:left;padding-left:65px">
                                 <t t-if="o.state == 'proforma' or o.state == 'proforma2'">
-                                    <div style="font-size:34px;margin:-12px 1px -12px 0px;letter-spacing:0px"><b>PRO-FORMA</b></div>
+                                    <div style="font-size:34px;margin:-6px 1px -12px 0px;letter-spacing:0px"><b>PRO-FORMA</b></div>
                                     <h3 style="margin:0px"><b t-esc="o.proforma_nmbr"/></h3>
                                 </t>
                                 <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'out_invoice' and o.journal_id.code == 'LL'">
-                                    <div style="font-size:34px;margin:-12px -12px -10px 0px;letter-spacing:12px"><b>INVOICE</b></div>
+                                    <div style="font-size:34px;margin:-6px -12px -10px 0px;letter-spacing:12px"><b>INVOICE</b></div>
                                     <h3 style="margin:0px"><b t-esc="o.number"/></h3>
                                 </t>
                                 <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'out_invoice' and o.journal_id.code != 'LL'">
-                                    <div style="font-size:34px;margin:-12px -12px -10px 0px;letter-spacing:12px"><b>INVOICE</b></div>
+                                    <div style="font-size:34px;margin:-6px -12px -10px 0px;letter-spacing:12px"><b>INVOICE</b></div>
                                     <h3 style="margin:0px"><b t-esc="o.number"/></h3>
                                     <h4 style="margin:0px;font-size:16px">NO. FP : <t t-esc="o.efaktur_id.name"/></h4>
                                 </t>
                                 <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'in_invoice' and o.journal_id.code != 'LL'">
-                                    <div style="font-size:34px;margin:-12px -13px -10px 0px;letter-spacing:13px"><b>BILLING</b></div>
+                                    <div style="font-size:34px;margin:-6px -13px -10px 0px;letter-spacing:13px"><b>BILLING</b></div>
                                     <h3 style="margin:0px"><b t-esc="o.number"/></h3>
                                 </t>
                             </div>
@@ -252,9 +252,9 @@
                                     </tr>
                                     <tr>
                                         <td style="font-size:10px">
-                                            <div style="padding-bottom:10px">- Bila nilai invoice tidak sesuai dengan perjanjian SEGERA hubungi kami maksimal 2 x 24 jam</div>
-                                            <div style="padding-bottom:10px">- Invoice asli bermaterai ini hanya dibuat satu kali</div>
-                                            <div>- Pencetakan ulang invoice (duplicate) akan diberikan tanpa materai</div>
+                                            <div style="padding-bottom:10px">
+                                                <span t-field="o.company_id.invoice_report" />
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
