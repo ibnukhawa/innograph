@@ -13,7 +13,7 @@
                 <table style="border-bottom: 1px solid black;width:100%;">
                     <tr>
                         <td align="right">
-                            <img src="data:image/png;base64,${object.company_id.logo}" align="right" style="width:100px;height:auto;" />
+                            <img src="/logo.png?company=${object.company_id.id}" align="right" style="width:100px;height:auto;" />
                         </td>
                     </tr>
                 </table>
@@ -59,7 +59,7 @@
         <field name="name">${object.name}</field>
         <field name="email_from">${object.company_id.name} &lt;${user.email}&gt;</field>
         <field name="subject">${object.name}</field>
-        <field name="email_to">${ctx['data']['email'] or '-'}</field>
+        <field name="email_to">${object.user_id.partner_id.email or '-'}</field>
         <field name="model_id" ref="purchase_requisition.model_purchase_requisition"/>
         <field name="notification" eval="True"/>
         <field name="auto_delete" eval="False"/>
@@ -68,12 +68,12 @@
                 <table style="border-bottom: 1px solid black;width:100%;">
                     <tr>
                         <td align="right">
-                            <img src="data:image/png;base64,${object.company_id.logo}" align="right" style="width:100px;height:auto;" />
+                            <img src="/logo.png?company=${object.company_id.id}" align="right" style="width:100px;height:auto;" />
                         </td>
                     </tr>
                 </table>
                 <br/>
-                <p>Halo <b>${ctx['data']['name'] or '-'}</b>, ${user.name} telah membuat PP dengan rincian sebagai berikut :</p>
+                <p>Halo <b>${object.user_id.name or '-'}</b>, ${object.approver_id.name} telah berhasil menyetujui Permintaan Pembelian anda sebagai berikut :</p>
                 <br/>
                 <br/>
                 <table>
