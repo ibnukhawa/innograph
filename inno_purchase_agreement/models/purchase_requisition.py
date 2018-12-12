@@ -24,6 +24,8 @@ class PurchaseRequisition(models.Model):
 		if len(project_ids) > 0:
 			project = project_ids[0].code
 		purchase_amount = sum([x.price_unit * x.product_qty for x in self.line_ids])
+		symbol = self.company_id.currency_id.symbol
+		purchase_amount = ("%s %s" % (symbol, "{:,.2f}".format(purchase_amount)))
 		context = {
 			'list_product': list_products_description,
 			'purchase_amount': purchase_amount,
@@ -44,11 +46,10 @@ class PurchaseRequisition(models.Model):
 		if len(project_ids) > 0:
 			project = project_ids[0].code
 		email = self.env.ref("inno_purchase_agreement.purchase_notification_email")
-		user = self.user_id
 		purchase_amount = sum([x.price_unit * x.product_qty for x in self.line_ids])
+		symbol = self.company_id.currency_id.symbol
+		purchase_amount = ("%s %s" % (symbol, "{:,.2f}".format(purchase_amount)))
 		context = {
-			'name': user.name,
-			'email': user.partner_id.email,
 			'list_product': list_products_description,
 			'purchase_amount': purchase_amount,
 			'project': project
