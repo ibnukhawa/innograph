@@ -38,10 +38,10 @@ class SaleOrder(models.Model):
                     line.unlink()
                 else:
                     disc_line = line
-
+        
         if self.discount == 0.0 and disc_line:
             disc_line.unlink()
-        else:
+        elif self.discount > 0.0:
             if disc_line:
                 disc_line.product_uom_qty = 1
                 disc_line.price_unit = - self.discount
