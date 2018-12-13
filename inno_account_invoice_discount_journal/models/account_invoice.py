@@ -56,7 +56,7 @@ class AccountInvoice(models.Model):
 
         if self.discount == 0.0 and disc_line:
             disc_line.unlink()
-        else:
+        elif self.discount > 0.0:
             if disc_line:
                 disc_line.quantity = 1
                 disc_line.price_unit = - self.discount
