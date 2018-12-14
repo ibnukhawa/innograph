@@ -21,7 +21,7 @@
 
         <record id="purchase_reminder_notification_email" model="mail.template">
         <field name="name">${object.name}</field>
-        <field name="email_from">${object.company_id.name}</field>
+        <field name="email_from">${object.company_id.name} &lt;${user.email}&gt;</field>
         <field name="subject">${object.name}</field>
         <field name="email_to">${ctx['data']['email']}</field>
         <field name="model_id" ref="purchase.model_purchase_order"/>
