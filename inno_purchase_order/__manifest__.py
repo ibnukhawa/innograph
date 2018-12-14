@@ -9,7 +9,7 @@
     'description'   : """
         *Author : Dwiki Adnan F.
     """,
-    'depends'       : ['custom_order_pembelian'],
+    'depends'       : ['custom_order_pembelian', 'calendar'],
     'data'          : [
                         'data/inno_purchase_order_data.xml',
                         'views/purchase_view.xml',
