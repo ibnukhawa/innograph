@@ -14,7 +14,7 @@ class SaleOrder(models.Model):
             amount = 0
             for line in order.order_line:
                 if not line.product_id.is_discount:
-                    amount += line.price_total
+                    amount += line.price_subtotal
             order.amount = amount
 
     @api.model
