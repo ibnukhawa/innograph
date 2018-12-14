@@ -7,13 +7,15 @@ class AccountInvoice(models.Model):
     discount = fields.Monetary()
     amount = fields.Monetary(compute="_amount_disc_exclude")
 
+    @api.multi
     @api.depends('invoice_line_ids.price_subtotal')
     def _amount_disc_exclude(self):
-        amount = 0
-        for line in self.invoice_line_ids:
-            if not line.product_id.is_discount:
-                amount += line.price_subtotal
-        self.amount = amount
+        for invoice in self:
+            amount = 0
+            for line in invoice.invoice_line_ids:
+                if not line.product_id.is_discount:
+                    amount += line.price_subtotal
+            invoice.amount = amount
 
     @api.model
     def create(self, vals):

@@ -41,9 +41,10 @@ class PurchaseOrder(models.Model):
 			# Product Names
 			products = ', '.join(order.order_line.mapped('name'))
 			# Project 
-			projects = order.order_line.mapped('account_analytic_id').mapped('project_ids')
-			if len(projects) > 0:
-				project = projects[0].name
+			project = "-"
+			project_ids = order.order_line.mapped('account_analytic_id').mapped('project_ids')
+			if len(project_ids) > 0:
+				project = project_ids[0].name
 			# Purchase Amount
 			amount = "%s %s" % (order.currency_id.symbol, "{:,.2f}".format(order.amount_total))
 
