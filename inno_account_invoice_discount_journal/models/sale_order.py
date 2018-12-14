@@ -7,13 +7,15 @@ class SaleOrder(models.Model):
     discount = fields.Monetary()
     amount = fields.Monetary(compute="_amount_disc_exclude")
 
+    @api.multi
     @api.depends('order_line.price_total')
     def _amount_disc_exclude(self):
-        amount = 0
-        for line in self.order_line:
-            if not line.product_id.is_discount:
-                amount += line.price_total
-        self.amount = amount
+        for order in self:
+            amount = 0
+            for line in order.order_line:
+                if not line.product_id.is_discount:
+                    amount += line.price_total
+            order.amount = amount
 
     @api.model
     def create(self, vals):
