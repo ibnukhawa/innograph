@@ -21,7 +21,7 @@
                         <div class="text-center">
                             <b>
                                 <t><div style="letter-spacing:2px;font-size:18px;">PURCHASE ORDER</div></t>
-                                <div style="margin-top:-6px;font-size:23px;">PO-ISG-1812-0001<!-- <span t-esc="doc.name" /> --></div>
+                                <div style="margin-top:-6px;font-size:23px;"><span t-esc="doc.name" /></div>
                             </b>
                         </div>
                     </div>
