@@ -13,6 +13,7 @@ class PurchaseOrder(models.Model):
     is_approver = fields.Boolean(compute='_compute_is_approver')
 #     is_creator = fields.Boolean(compute='_compute_is_creator', default=True)
 
+    
     @api.one
     def _compute_is_approver(self):
         """

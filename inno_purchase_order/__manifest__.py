@@ -13,6 +13,8 @@
     'data'          : [
                         'data/inno_purchase_order_data.xml',
                         'views/purchase_view.xml',
+                        'report/purchase_order_report.xml',
+                        'report/purchase_order_report_template.xml',
                       ],
     'installable'   : True,
     'application'   : True,

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 
@@ -8,17 +8,43 @@ class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
     sale_order_id = fields.Many2one('sale.order', string="Sales Order")
+    amount_real = fields.Monetary(compute="_compute_amount_real")
+
+    @api.multi
+    def _compute_amount_real(self):
+        for order in self:
+            order.amount_real = order.product_qty * order.price_unit
 
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
+    date_confirm = fields.Date(string="Confirm Date")
+    amount = fields.Monetary(compute="_compute_amount", help="Amount not include discounts and taxes")
+    amount_discount = fields.Monetary(compute="_compute_total_discount")
+
+    @api.multi
+    def _compute_amount(self):
+        for order in self:
+            amounts = order.order_line.mapped('amount_real')
+            order.amount = sum(amounts)
+
+    @api.multi
+    def _compute_total_discount(self):
+        for order in self:
+            total_discount = 0
+            for line in order.order_line:
+                total_discount += (line.discount/100 * line.amount_real)
+            order.amount_discount = total_discount
+
     @api.multi
     def button_confirm(self):
+        today = date.today()
         res = super(PurchaseOrder, self).button_confirm()
         alarm_id = self.env.ref('inno_purchase_order.alarm_2_days_before').id
         calendar_event_obj = self.env['calendar.event']
         for order in self:
+            order.date_confirm = today
             vals = {
                 'name': "Incoming Product For [%s]" % (order.name),
                 'start': datetime.strftime(datetime.now(), DEFAULT_SERVER_DATETIME_FORMAT),

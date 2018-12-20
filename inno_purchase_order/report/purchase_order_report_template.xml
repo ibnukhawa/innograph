@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    	<template id="inno_report_purchaseorder_document">
+    		<!-- HEADER -->
+    		<div class="header">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <img class="image" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="height:80px;display:block;float:left;padding-right:10px;"/>
+                        <div style="height:80px;display:block;float:left;font-size:11px;width:360px">
+                            <h5><b t-esc="res_company.name"/></h5>
+                            <t t-esc="res_company.partner_id.street"/><br/>
+                            <t t-esc="res_company.partner_id.street2"/>
+                            <t t-esc="res_company.partner_id.city"/>
+                            <t t-esc="res_company.partner_id.state_id.name"/>
+                            <t t-esc="res_company.partner_id.zip"/><br/>
+                            <b>NPWP : <t t-esc="res_company.partner_id.npwp"/></b>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 text-center" style="height: 30px;">
+                        <div class="text-center">
+                            <b>
+                                <t><div style="letter-spacing:2px;font-size:18px;">PURCHASE ORDER</div></t>
+                                <div style="margin-top:-6px;font-size:23px;">PO-ISG-1812-0001<!-- <span t-esc="doc.name" /> --></div>
+                            </b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- BODY -->
+            <div class="page">
+            	<div class="row">
+	            	<div class="col-xs-4">
+	            		<table class="table table-bordered" style="height: 100px;">
+	            			<tr>
+	            				<td class="text-center" style="padding: 3px;font-size: 11px;height:20%;background-color: #999;border: 1px solid #000;">
+	            					<b>SUPPLIER</b>
+	            				</td>
+	            			</tr>
+	            			<tr>
+	            				<td style="font-size: 10px;border: 1px solid #000;padding: 3px;border: 1px solid #000;">
+	            					<span t-esc="o.partner_id.name" /><br/>
+	            					<span t-esc="o.partner_id.street" /><br/>
+	            					<span t-esc="o.partner_id.street2" />
+	            					<span t-esc="o.partner_id.city" />
+	            					<span t-esc="o.partner_id.state_id.name" />
+	            					<span t-esc="o.partner_id.zip" /><br/>
+	            				</td>
+	            			</tr>
+	            		</table>
+	            	</div>
+	            	<div class="col-xs-4">
+	            		<table class="table table-bordered" style="height: 100px;">
+	            			<tr>
+	            				<td class="text-center" style="padding: 3px;font-size: 11px;height:20%;background-color: #999;border: 1px solid #000;">
+	            					<b>DELIVERY TO</b>
+	            				</td>
+	            			</tr>
+	            			<tr>
+	            				<td rowspan="2" style="font-size: 10px;border: 1px solid #000;padding: 3px;">
+	            					<span t-esc="o.company_id.partner_id.street" /><br/>
+	            					<span t-esc="o.company_id.partner_id.street2" />
+	            					<span t-esc="o.company_id.partner_id.city" />
+	            					<span t-esc="o.company_id.partner_id.state_id.name" />
+	            					<span t-esc="o.company_id.partner_id.zip" /><br/>
+	            				</td>
+	            			</tr>
+	            		</table>
+	            	</div>
+	            	<div class="col-xs-4" style="padding-left: 5px;padding-right: 5px;height: 100px;">
+	            		<table style="width: 100%;margin-bottom:5px;font-size: 12px;">
+	            			<tr>
+	            				<td width="50%" style="padding: 3px;font-size: 10px;height: 25%;">ORDER DATE</td>
+	            				<td>:</td>
+	            				<td style="padding: 3px;font-size: 10px;"><span t-field="o.date_order" t-field-options="{'format': 'dd-MM-yyyy'}" /></td>
+	            			</tr>
+	            			<tr>
+	            				<td style="padding: 3px;font-size: 10px;height: 25%;">SCHEDULED DATE</td>
+	            				<td>:</td>
+	            				<td style="padding: 3px;font-size: 10px;"><span t-field="o.date_planned" t-field-options="{'format': 'dd-MM-yyyy'}" /></td>
+	            			</tr>
+	            			<tr>
+	            				<td style="padding: 3px;font-size: 10px;height: 25%;">PAYMENT TERM</td>
+	            				<td>:</td>
+	            				<td style="padding: 3px;font-size: 10px;">
+	            					<span t-if="o.payment_term_id" t-esc="o.payment_term_id.name" />
+	            					<span t-if="not o.payment_term_id">-</span>
+	            				</td>
+	            			</tr>
+	            			<tr>
+	            				<td style="padding: 3px;font-size: 10px;height: 25%;">CURRENCIES</td>
+	            				<td>:</td>
+	            				<td style="padding: 3px;font-size: 10px;">
+	            					<span t-if="o.currency_id" t-esc="o.currency_id.name" />
+	            					<span t-if="not o.currency_id">-</span>
+	            				</td>
+	            			</tr>
+	            		</table>
+	            	</div>
+	            </div>	            
+
+	            <div class="row">
+	            	<div class="col-xs-12">
+		            	<table class="table table-bordered">
+	                        <thead>
+	                            <tr>
+	                            	<th style="font-size: 9px;border: 1px solid #000;width: 4%;padding: 3px;" class="text-center"><strong>NO</strong></th> 
+	                                <th style="font-size: 9px;border: 1px solid #000;width: 10%;padding: 3px;" class="text-center"><strong>ITEM</strong></th>
+	                                <th style="font-size: 9px;border: 1px solid #000;width: 20%;padding: 3px;" class="text-center"><strong>PRODUCT DESCRIPTION</strong></th>
+	                                <th style="font-size: 9px;border: 1px solid #000;width: 10%;padding: 3px;" class="text-center"><strong>PROJECT</strong></th>
+	                                <th style="font-size: 9px;border: 1px solid #000;width: 10%;padding: 3px;" class="text-center"><strong>QTY</strong></th>
+									<th style="font-size: 9px;border: 1px solid #000;width: 13%;padding: 3px;" class="text-center"><strong>UNIT PRICE</strong></th>
+	                                <th style="font-size: 9px;border: 1px solid #000;width: 10%;padding: 3px;" class="text-center"><strong>TAX</strong></th>
+	                                <th style="font-size: 9px;border: 1px solid #000;width: 10%;padding: 3px;" class="text-center"><strong>DISC %</strong></th>
+	                                <th style="font-size: 9px;border: 1px solid #000;width: 13%;padding: 3px;" class="text-center"><strong>PRICE</strong></th>
+	                            </tr>
+	                        </thead>
+	                        <t t-set="no" t-value="0" />
+	                        <tbody style="font-size: 11;"> 
+	                            <tr t-foreach="o.order_line" t-as="line" style="no-border">
+	                            	<t t-set="no" t-value="no+1" />
+	                            	<td style="font-size: 9px;border: 1px solid #000;padding: 3px;" class="text-center"><span t-esc="no"/></td>
+	                                <td style="font-size: 9px;border: 1px solid #000;padding: 3px;" class="text-center"><span t-esc="line.product_id.default_code"/></td>
+	                                <td style="font-size: 9px;border: 1px solid #000;padding: 3px;"><span t-field="line.name"/><br/></td>
+	                                <td style="font-size: 9px;border: 1px solid #000;padding: 3px;"><span t-esc="line.account_analytic_id.code"/></td>
+	                                <td style="font-size: 9px;border: 1px solid #000;padding: 3px;" class="text-center" ><span t-field="line.product_qty"/></td>
+									<td style="font-size: 9px;border: 1px solid #000;padding: 3px;" class="text-right" ><span t-field="line.price_unit"/></td>
+									<td style="font-size: 9px;border: 1px solid #000;padding: 3px;" >
+										<t t-foreach="line.taxes_id" t-as="tax">
+											<span t-esc="tax.name" /> 
+										</t>
+									</td>
+	                                <td style="font-size: 9px;border: 1px solid #000;padding: 3px;" class="text-center" ><span t-esc="line.discount" /></td>
+	                                <td style="font-size: 9px;border: 1px solid #000;padding: 3px;" class="text-right" ><span t-field="line.amount_real"/></td>
+	                            </tr>
+	                            <tr>
+			                		<td colspan="2" class="text-center" style="border: 1px solid #000;font-size: 10px;vertical-align: middle;height: 30px;">Terbilang</td>
+			                		<td colspan="7" class="text-center" style="border: 1px solid #000;font-size: 10px;vertical-align: middle;height: 30px;">
+			                			<span t-esc="o.amount_text" /> <t t-if="o.currency_id.name == 'IDR'">Rupiah</t>
+			                		</td>
+			                	</tr>
+			                	<tr>
+	            					<td colspan="7" style="font-size:10px;padding: 3px;width: 33%;border: 1px solid #000;">Keterangan :</td>
+	            					<td style="padding: 3px;font-size: 9px;border: 1px solid #000;">SUBTOTAL</td>
+		            				<td class="text-right" style="padding: 3px;font-size: 9px;border: 1px solid #000;">
+		            					<span t-field="o.amount" />
+		            				</td>
+	            				</tr>
+	            				<tr>
+	            					<td colspan="7" rowspan="3" style="font-size:10px;padding: 3px;border: 1px solid #000;">
+	            						<p t-field="o.notes" />
+	            					</td>
+		            				<td style="padding: 3px;font-size: 9px;border: 1px solid #000;">DISCOUNT</td>
+		            				<td class="text-right" style="padding: 3px;font-size:9px;border: 1px solid #000;">
+		            					<span t-field="o.amount_discount" />
+		            				</td>
+	            				</tr>
+	            				<tr>
+	            					<td style="padding: 3px;font-size: 9px;border: 1px solid #000;">TAX</td>
+		            				<td class="text-right" style="padding: 3px;font-size: 9px;border: 1px solid #000;"><span t-field="o.amount_tax" /></td>
+	            				</tr>
+	            				<tr>
+	            					<td style="padding: 3px;font-size: 9px;border: 1px solid #000;">TOTAL</td>
+		            				<td class="text-right" style="padding: 3px;font-size: 9px;border: 1px solid #000;"><span t-field="o.amount_total" /></td>
+	            				</tr>
+	            				<tr>
+	            					<td colspan="4" class="text-center" style="font-size: 10px;border: 1px solid #000;background-color: #999;"><b>TERM &amp; CONDITION</b></td>
+	            					<td colspan="3" style="font-size: 10px;border: 1px solid #000;">
+	            						Jakarta, <t t-esc="datetime.date.today().strftime('%d-%m-%Y')" />
+	            					</td>
+	            					<td colspan="2" style="font-size: 10px;border: 1px solid #000;"></td>
+	            				</tr>
+	            				<tr>
+	            					<td colspan="4" style="font-size: 10px;border: 1px solid #000;"><p t-field="o.company_id.bill_report" /></td>
+	            					<td colspan="3" style="font-size: 10px;border: 1px solid #000;">
+	            						Disiapkan oleh:<br/>
+					            		<br/>
+					            		<br/>
+					            		<br/>
+					            		<br/>
+					            		<br/>
+					            		<br/>
+					            		<br/>
+					            		<u><b><span t-esc="o.user_id.name" /></b></u><br/>
+					            		Tgl : <span t-field="o.date_confirm" t-field-options="{'format': 'dd-MM-yyyy'}" />
+	            					</td>
+	            					<td colspan="2" style="font-size: 10px;border: 1px solid #000;">
+	            						Disetujui oleh:<br/>
+						        		<br/>
+						        		<br/>
+						        		<br/>
+						        		<br/>
+						        		<br/>
+						        		<br/>
+						        		<br/>
+						        		<u><b><span t-esc="o.approver.name" /></b></u><br/>
+						        		Tgl : <span t-field="o.date_approve" t-field-options="{'format': 'dd-MM-yyyy'}" />
+	            					</td>
+	            				</tr>
+	                        </tbody>
+	                    </table>
+	                </div>
+	            </div>
+            </div>
+            <!-- FOOTER -->
+            <div class="footer">
+	            <div class="row">
+                    <table style="font-size: 12px;width: 100%;">
+                        <tr>
+                            <td style="padding:15px 20px;vertical-align:top">
+                                <img style="width:120px" src="/inno_sales_order/static/src/img/displaystore.png"/>
+                                <div style="margin-top:5px">https://displaystore.id</div>
+                            </td>
+                            <td colspan="2" style="padding:15px 0px;font-size:9px;vertical-align:top">
+                                <div style="margin-left: 130px;">
+                                    <div style="font-weight:bold;display:inline-block;width:70px">Office</div>: Jl. Lenteng Agung Raya No. 15 (Jl. Baung No. 2) Jakarta Selatan 12610 <br/>
+                                    <div style="font-weight:bold;display:inline-block;width:70px">Phone</div>: (62) 21 7883 1075 <br/>
+                                    <div style="font-weight:bold;display:inline-block;width:70px">Fax</div>: (62) 21 7883 1075 <br/>
+                                    <div style="font-weight:bold;display:inline-block;width:70px">Phone</div>: (62) 21 7883 1692 <br/>
+                                    <div style="font-weight:bold;display:inline-block;width:70px">Website</div>: http://innograph.com <br/>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+	        </div>
+
+    	</template>
+
+        <template id="purchase.report_purchaseorder">
+        	<t t-call="report.html_container">
+        		<t t-foreach="docs" t-as="o">
+        			<t t-call="inno_purchase_order.inno_report_purchaseorder_document" t-lang="o.partner_id.lang"/>
+        		</t>
+        	</t>
+        </template>
+    </data>
+</odoo>
