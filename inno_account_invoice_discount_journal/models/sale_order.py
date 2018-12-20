@@ -6,6 +6,11 @@ class SaleOrder(models.Model):
 
     discount = fields.Monetary()
     amount = fields.Monetary(compute="_amount_disc_exclude")
+    order_line = fields.One2many('sale.order.line', 'order_id',
+                                 string='Order Lines', 
+                                 domain=[('is_product_discount', '=', False)], 
+                                 states={'cancel': [('readonly', True)], 'done': [('readonly', True)]}, 
+                                 copy=True, auto_join=True)
 
     @api.multi
     @api.depends('order_line.price_total')
@@ -59,4 +64,9 @@ class SaleOrder(models.Model):
                             'price_unit': - self.discount,
                         })]
                     })
+
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
+
+    is_product_discount = fields.Boolean(related="product_id.is_discount")
     
