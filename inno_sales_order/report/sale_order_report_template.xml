@@ -19,9 +19,9 @@
                                 </div>
                             </div>
                             <div class="col-xs-4">
-                                <div class="text-center" style="font-size:23px;margin:-6px 1px -12px 0px;letter-spacing:0px;">
+                                <div class="text-center" style="font-size:23px;margin-top: -6px;">
                                     <b>
-                                        <t t-if="doc.state in ['draft', 'sent']"><div style="letter-spacing:7px">QUOTATION</div></t>
+                                        <t t-if="doc.state in ['draft', 'sent']"><div style="letter-spacing:7px;padding-left:4px;">QUOTATION</div></t>
                                         <t t-if="doc.state in ['sale', 'done']"><div style="letter-spacing:3px;">SALES ORDER</div></t>
                                         <div style="margin-top:-6px;"><span t-esc="doc.name" /></div>
                                     </b>
@@ -84,7 +84,7 @@
                                         <td style="padding: 3px;width:45%;">Valid</td>
                                         <td style="padding: 3px;width:5%;">:</td>
                                         <td>
-                                            0
+                                            <span t-esc="doc.valid_days" /> day
                                         </td>
                                     </tr>
                                     <tr t-if="doc.state in ['sale', 'done']">
@@ -190,25 +190,6 @@
                         </div>
                     </div>
                     <div class="footer">
-                        <!-- <div class="col-xs-4 text-center">
-                            <span>Terima kasih,</span><br/>
-                            <span t-esc="doc.company_id.name" /><br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            (<span t-esc="doc.user_id.name" />)
-                        </div>
-                        <div class="col-xs-4 pull-right text-center">
-                            <span>Menyetujui</span><br/>
-                            <span t-esc="doc.partner_id.name" /><br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <span>(.........................)</span>
-                        </div> -->
-
                         <div class="row">
                             <table style="font-size: 12px;width: 100%;">
                                 <tr>
@@ -227,15 +208,6 @@
                                     </td>
                                 </tr>
                             </table>
-                        </div>
-
-                        <div class="col-xs-12 text-center">
-                            <ul class="list-inline">
-                                <li>Page:</li>
-                                <li><span class="page"/></li>
-                                <li>/</li>
-                                <li><span class="topage"/></li>
-                            </ul>
                         </div>
                     </div>
                 </t>
