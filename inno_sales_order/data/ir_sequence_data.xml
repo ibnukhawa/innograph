@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Sequences for sale.order -->
+        <record id="inno_seq_quotation" model="ir.sequence">
+            <field name="name">Inno Quotation</field>
+            <field name="code">inno.quotation</field>
+            <field name="prefix">SQ-ISG-%(y)s%(month)s-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="inno_seq_saleorder" model="ir.sequence">
+            <field name="name">Inno Sale Order</field>
+            <field name="code">inno.sale.order</field>
+            <field name="prefix">SO-ISG-%(y)s%(month)s-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>
