@@ -15,8 +15,9 @@
         'inno_account_invoice_discount_journal'
     ],
     'data'          : [
-        "report/sale_order_report.xml",
-        "report/sale_order_report_template.xml"
+        'data/ir_sequence_data.xml',
+        'report/sale_order_report.xml',
+        'report/sale_order_report_template.xml'
     ],
     'installable'   : True,
     'application'   : True,
