@@ -6,6 +6,8 @@ class AccountInvoice(models.Model):
 
     discount = fields.Monetary()
     amount = fields.Monetary(compute="_amount_disc_exclude")
+    invoice_line_ids = fields.One2many('account.invoice.line', 'invoice_id', string='Invoice Lines', oldname='invoice_line',
+        readonly=True, states={'draft': [('readonly', False)]}, copy=True, domain=[('is_product_discount', '=', False)])
 
     @api.multi
     @api.depends('invoice_line_ids.price_subtotal')
@@ -92,4 +94,7 @@ class AccountInvoice(models.Model):
                         })]
                     })
             
-            
+class AccountInvoiceLine(models.Model):
+    _inherit = "account.invoice.line"
+
+    is_product_discount = fields.Boolean(related="product_id.is_discount")
