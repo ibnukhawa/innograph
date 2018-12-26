@@ -91,8 +91,8 @@
                                         <td style="padding: 3px;width:45%;">Delivery Date</td>
                                         <td style="padding: 3px;width:5%;">:</td>
                                         <td>
-                                            <span t-if="doc.date_from" t-field="doc.date_from" t-field-options="{'format': 'dd-MM-yyyy'}" />
-                                            <span t-if="not doc.date_from">-</span>
+                                            <span t-if="doc.date_planned" t-field="doc.date_planned" t-field-options="{'format': 'dd-MM-yyyy'}" />
+                                            <span t-if="not doc.date_planned">-</span>
                                         </td>
                                     </tr>
                                     <tr t-if="doc.state in ['sale', 'done']">
@@ -197,8 +197,8 @@
                                         <img style="width:120px" src="/inno_sales_order/static/src/img/displaystore.png"/>
                                         <div style="margin-top:5px">https://displaystore.id</div>
                                     </td>
-                                    <td colspan="2" style="padding:15px 0px;font-size:9px;vertical-align:top">
-                                        <div style="margin-left: 130px;">
+                                    <td colspan="2" style="padding:15px 0px;font-size:9px;vertical-align:top;">
+                                        <div style="margin-left: 220px;">
                                             <div style="font-weight:bold;display:inline-block;width:70px">Office</div>: Jl. Lenteng Agung Raya No. 15 (Jl. Baung No. 2) Jakarta Selatan 12610 <br/>
                                             <div style="font-weight:bold;display:inline-block;width:70px">Phone</div>: (62) 21 7883 1075 <br/>
                                             <div style="font-weight:bold;display:inline-block;width:70px">Fax</div>: (62) 21 7883 1075 <br/>
