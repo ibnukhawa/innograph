@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from odoo.addons.amount_to_text_id.amount_to_text import Terbilang
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF, DEFAULT_SERVER_DATE_FORMAT as DF
 
@@ -11,6 +11,13 @@ class SaleOrder(models.Model):
 	quotation_number = fields.Char(help="keep quotation number when change into Sales Order")
 	amount_text = fields.Char(compute='terbilang')
 	valid_days = fields.Integer(compute='_get_valid_day')
+	date_planned = fields.Date(compute='_compute_date_planned')
+
+	def _compute_date_planned(self):
+		if self.order_line:
+			lead_list = self.order_line.mapped('customer_lead')
+			min_lead = min(lead_list)
+			self.date_planned = datetime.strptime(self.date_order, DTF) + timedelta(days=min_lead)
 
 	@api.model
 	def create(self, vals):

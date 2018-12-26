@@ -18,9 +18,9 @@
                         </div>
                     </div>
                     <div class="col-xs-4 text-center" style="height: 30px;">
-                        <div class="text-center">
+                        <div class="text-center" style="padding-left: 4px;">
                             <b>
-                                <t><div style="letter-spacing:2px;font-size:18px;">PURCHASE ORDER</div></t>
+                                <t><div style="letter-spacing:3px;font-size:18px;">PURCHASE ORDER</div></t>
                                 <div style="margin-top:-6px;font-size:23px;"><span t-esc="o.name" /></div>
                             </b>
                         </div>
@@ -68,7 +68,7 @@
 	            		</table>
 	            	</div>
 	            	<div class="col-xs-4" style="padding-left: 5px;padding-right: 5px;height: 100px;">
-	            		<table style="width: 100%;margin-bottom:5px;font-size: 12px;">
+	            		<table style="width: 100%;margin-left: 22%;margin-bottom:5px;font-size: 12px;">
 	            			<tr>
 	            				<td width="50%" style="padding: 3px;font-size: 10px;height: 25%;">ORDER DATE</td>
 	            				<td>:</td>
@@ -212,7 +212,7 @@
                                 <div style="margin-top:5px">https://displaystore.id</div>
                             </td>
                             <td colspan="2" style="padding:15px 0px;font-size:9px;vertical-align:top">
-                                <div style="margin-left: 130px;">
+                                <div style="margin-left: 220px;">
                                     <div style="font-weight:bold;display:inline-block;width:70px">Office</div>: Jl. Lenteng Agung Raya No. 15 (Jl. Baung No. 2) Jakarta Selatan 12610 <br/>
                                     <div style="font-weight:bold;display:inline-block;width:70px">Phone</div>: (62) 21 7883 1075 <br/>
                                     <div style="font-weight:bold;display:inline-block;width:70px">Fax</div>: (62) 21 7883 1075 <br/>

@@ -6,11 +6,11 @@ class SaleOrder(models.Model):
 
     discount = fields.Monetary()
     amount = fields.Monetary(compute="_amount_disc_exclude")
-    order_line = fields.One2many('sale.order.line', 'order_id',
-                                 string='Order Lines', 
-                                 domain=[('is_product_discount', '=', False)], 
-                                 states={'cancel': [('readonly', True)], 'done': [('readonly', True)]}, 
-                                 copy=True, auto_join=True)
+    # order_line = fields.One2many('sale.order.line', 'order_id',
+    #                              string='Order Lines', 
+    #                              domain=[('is_product_discount', '=', False)], 
+    #                              states={'cancel': [('readonly', True)], 'done': [('readonly', True)]}, 
+    #                              copy=True, auto_join=True)
 
     @api.multi
     @api.depends('order_line.price_total')
@@ -32,10 +32,15 @@ class SaleOrder(models.Model):
     def write(self, vals):
         res = super(SaleOrder, self).write(vals)
         for order in self:
+            print (">>>>>>", order)
+            if  self._context.get('discount_applied'):
+                continue
+            print (">> lanjut >>", self._context)
             order.compute_global_discount()
         return res
 
     def compute_global_discount(self):
+        context = self._context.copy()
         if self.discount < 0:
             raise UserError('Discount amount must be greater than 0, %s given' % self.discount)
         disc_line = False
@@ -57,7 +62,8 @@ class SaleOrder(models.Model):
                 if not disc:
                     raise UserError("No product identified as discount, please create one")
                 else:
-                    self.write({
+                    context['discount_applied'] = True
+                    self.with_context(context).write({
                         'order_line': [(0, False, {
                             'product_id': disc.id, 
                             'product_uom_qty': 1,
@@ -65,8 +71,8 @@ class SaleOrder(models.Model):
                         })]
                     })
 
-class SaleOrderLine(models.Model):
-    _inherit = "sale.order.line"
+# class SaleOrderLine(models.Model):
+#     _inherit = "sale.order.line"
 
-    is_product_discount = fields.Boolean(related="product_id.is_discount")
+#     is_product_discount = fields.Boolean(related="product_id.is_discount")
     
