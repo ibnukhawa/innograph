@@ -40,6 +40,10 @@
 	        	<field name="account_analytic_id" position="after">
 	        		<field name="approver_id" domain="[('supplier', '=', False), ('customer', '=', False), ('is_division_head', '=', True)]" />
 	        	</field>
+	        	<xpath expr="//sheet/div/h1/field[@name='name']" position="attributes">
+	        		<attribute name="attrs"></attribute>
+	        		<attribute name="readonly">True</attribute>
+	        	</xpath>
 	        </field>
 	    </record>
 
