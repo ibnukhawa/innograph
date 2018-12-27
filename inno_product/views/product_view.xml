@@ -15,7 +15,24 @@
 	        	<field name="categ_id" position="after">
 	        		<field name="inv_part_type" />
 	        	</field>
+	        	<label for="standard_price" position="attributes">
+	        		<attribute name="groups">account.group_account_invoice,purchase.group_purchase_manager,sales_team.group_sale_manager,base.group_system</attribute>
+	        	</label>
+	        	<div name="standard_price_uom" position="attributes">
+	        		<attribute name="groups">account.group_account_invoice,purchase.group_purchase_manager,sales_team.group_sale_manager,base.group_system</attribute>
+	        	</div>
 	        </field>
+	    </record>
+
+	    <record model="ir.ui.view" id="product_template_tree_view">
+	    	<field name="name"></field>
+	    	<field name="model">product.template</field>
+	    	<field name="inherit_id" ref="product.product_template_tree_view" />
+	    	<field name="arch" type="xml">
+	    		<field name="standard_price" position="attributes">
+	    			<attribute name="groups">account.group_account_invoice,purchase.group_purchase_manager,sales_team.group_sale_manager,base.group_system</attribute>
+	    		</field>
+	    	</field>
 	    </record>
     </data>
 </odoo>

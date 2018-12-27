@@ -10,7 +10,7 @@
         
         *Author : Dwiki Adnan F.
     """,
-    'depends'       : ['product'],
+    'depends'       : ['product', 'purchase', 'sales_team', 'account'],
     'data'          : [
                         'security/ir.model.access.csv',
                         'views/product_category_view.xml',
