@@ -7,7 +7,7 @@ class ProjectSme(models.Model):
     """ pqm_project_code"""
     _name = "project.sme"
 
-    code = fields.Char(size=2)
+    code = fields.Char(size=3)
     name = fields.Char()
     description = fields.Text()
     sub_sme_ids = fields.One2many(
