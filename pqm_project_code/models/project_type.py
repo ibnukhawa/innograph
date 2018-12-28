@@ -8,7 +8,7 @@ class ProjectType(models.Model):
     """ pqm_project_code"""
     _name = "project.type"
 
-    code = fields.Char(size=2)
+    code = fields.Char(size=3)
     name = fields.Char()
     description = fields.Text()
     sequence_id = fields.Many2one(comodel_name='ir.sequence')

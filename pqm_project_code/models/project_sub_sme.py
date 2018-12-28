@@ -7,7 +7,7 @@ class ProjectSubSme(models.Model):
     """ pqm_project_code"""
     _name = "project.sub.sme"
 
-    code = fields.Char(size=2)
+    code = fields.Char(size=3)
     name = fields.Char()
     description = fields.Text()
     sme_id = fields.Many2one(string="SME", comodel_name='project.sme')
