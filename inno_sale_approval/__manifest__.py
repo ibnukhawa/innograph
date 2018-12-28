@@ -10,9 +10,8 @@
     """,
     'website': 'https://portcities.net',
     'author': 'Portcities Ltd',
-    'depends': ['base_setup', 'sale', 'sales_team'],
+    'depends': ['base_setup', 'sale', 'sales_team', 'sale_approval'],
     'data': [
-        'views/res_user_views.xml',
         'views/sale_view.xml',
     ],
     'installable': True,
