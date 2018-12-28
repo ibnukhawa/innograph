@@ -141,44 +141,45 @@
                                     </thead>
                                     <tbody style="font-size: 12px; line-height:16px;" class="invoice_tbody">
                                         <tr t-foreach="o.invoice_line_ids" t-as="l">
-                                            <td class="text-center"><span t-esc="no"/></td>
-                                            <td colspan="2"><span t-field="l.product_id"/></td>
-                                            <td><span t-field="l.name"/></td>
-                                            <td class="text-center">
-                                                <span t-field="l.quantity"/>
-                                            </td>
-                                            <td class="text-center">
-                                                <span t-field="l.uom_id"/>
-                                            </td>
-                                            <td class="text-right">
-                                                <span t-field="l.price_unit"/>
-                                            </td>
-                                            <td class="text-center">
-                                                <span t-field="l.discount"/>
-                                            </td>
-                                            <td class="text-right">
-                                                <span t-field="l.price_subtotal"/>
-                                            </td>
-                                            <t t-set="discount" t-value="l.discount"/>
-                                            <t t-set="no" t-value="no+1"/>
+                                            <t t-if="not l.is_product_discount">
+                                                <td class="text-center"><span t-esc="no"/></td>
+                                                <td colspan="2"><span t-field="l.product_id"/></td>
+                                                <td><span t-field="l.name"/></td>
+                                                <td class="text-center">
+                                                    <span t-field="l.quantity"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-field="l.uom_id"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="l.price_unit"/>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span t-field="l.discount"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="l.price_subtotal"/>
+                                                </td>
+                                                <t t-set="no" t-value="no+1"/>
+                                            </t>
                                         </tr>
                                         <tr>
                                             <td colspan="7" rowspan="3"><b>Description:</b></td>
                                             <td><b>Invoice Value</b></td>
                                             <td class="text-right">
-                                                <span t-field="o.amount_untaxed"/>
+                                                <span t-field="o.amount"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Discount</b></td>
                                             <td class="text-right">
-                                                <span t-esc="discount"/>
+                                                <span t-esc="o.discount"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>DPP</b></td>
                                             <td class="text-right">
-                                                <span t-field="o.amount_untaxed"/>
+                                                <span t-field="o.amount"/>
                                             </td>
                                         </tr>
                                         <tr>
