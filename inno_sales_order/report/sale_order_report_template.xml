@@ -167,7 +167,8 @@
                                         <td style="border:1px solid #000;">SUBTOTAL</td>
                                         <td class="text-right" style="border:1px solid #000;"><span t-field="doc.amount" /></td>
                                     </tr>
-                                    <tr t-if="doc.state in ['sale', 'done']">
+                                    <tr>
+                                    <!--tr t-if="doc.state in ['sale', 'done']"-->
                                         <td style="border:1px solid #000;">DISCOUNT</td>
                                         <td class="text-right" style="border:1px solid #000;"><span t-field="doc.discount" /></td>
                                     </tr>
