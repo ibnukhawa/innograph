@@ -71,8 +71,8 @@ class SaleOrder(models.Model):
                         })]
                     })
 
-# class SaleOrderLine(models.Model):
-#     _inherit = "sale.order.line"
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
 
-#     is_product_discount = fields.Boolean(related="product_id.is_discount")
+    is_product_discount = fields.Boolean(related="product_id.is_discount")
     

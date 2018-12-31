@@ -14,7 +14,8 @@
     'author': 'Portcities',
     'website': 'http://www.portcities.net',
     'depends': ['base', 'account', 'base_setup', 'product',
-                'analytic', 'report', 'sale', 'purchase','vit_inv_label'],
+                'analytic', 'report', 'sale', 'purchase','vit_inv_label',
+                'inno_account_invoice_discount_journal'],
     'data': [
         'data/ir_sequence_data.xml',
         'report/custom_kwitansi_report_view.xml',

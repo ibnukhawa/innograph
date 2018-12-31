@@ -18,10 +18,15 @@
 	        <field name="model">purchase.requisition</field>
 	        <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form" />
 	        <field name="arch" type="xml">
+	        	<!-- Button -->
 	        	<xpath expr="//header/button[1]" position="attributes">
 	        		<attribute name="class">btn-primary</attribute>
 	        	</xpath>
 	        	<xpath expr="//header/button[2]" position="replace" />
+	        	<button name="action_cancel" position="attributes">
+	        		<attribute name="string">Cancel Request</attribute>
+	        	</button>
+	        	<!-- Change String -->
 	        	<xpath expr="//form[1]" position="attributes">
 	        		<attribute name="string">Purchase Requests</attribute>
 	        	</xpath>
@@ -31,18 +36,26 @@
 	        	<field name="date_end" position="attributes">
 	        		<attribute name="string">Request Deadline</attribute>
 	        	</field>
+	        	<!-- Set Invisible/Required/Readonly -->
 	        	<field name="type_id" position="attributes">
 	        		<attribute name="invisible">1</attribute>
-	        	</field>
-	        	<button name="action_cancel" position="attributes">
-	        		<attribute name="string">Cancel Request</attribute>
-	        	</button>
-	        	<field name="account_analytic_id" position="after">
-	        		<field name="approver_id" domain="[('supplier', '=', False), ('customer', '=', False), ('is_division_head', '=', True)]" />
 	        	</field>
 	        	<xpath expr="//sheet/div/h1/field[@name='name']" position="attributes">
 	        		<attribute name="attrs"></attribute>
 	        		<attribute name="readonly">True</attribute>
+	        	</xpath>
+	        	<field name="account_analytic_id" position="attributes">
+	        		<attribute name="required">True</attribute>
+	        	</field>
+	        	<field name="vendor_id" position="attributes">
+	        		<attribute name="required">True</attribute>
+	        	</field>
+	        	<!-- Add new Field -->
+	        	<field name="account_analytic_id" position="after">
+	        		<field name="approver_id" required="True" domain="[('supplier', '=', False), ('customer', '=', False), ('is_division_head', '=', True)]" />
+	        	</field>
+	        	<xpath expr="//page/field[@name='line_ids']/tree/field[@name='product_uom_id']" position="after">
+	        		<field name="sale_order_id" string="Sales Order" />
 	        	</xpath>
 	        </field>
 	    </record>

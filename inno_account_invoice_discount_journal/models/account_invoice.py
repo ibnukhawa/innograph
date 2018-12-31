@@ -94,7 +94,7 @@ class AccountInvoice(models.Model):
                         })]
                     })
             
-# class AccountInvoiceLine(models.Model):
-#     _inherit = "account.invoice.line"
+class AccountInvoiceLine(models.Model):
+    _inherit = "account.invoice.line"
 
-#     is_product_discount = fields.Boolean(related="product_id.is_discount")
+    is_product_discount = fields.Boolean(related="product_id.is_discount")
