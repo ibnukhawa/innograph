@@ -21,6 +21,8 @@ class SaleOrder(models.Model):
 
 	@api.model
 	def create(self, vals):
+		if not vals.get('company_id'):
+			vals['company_id'] = self.env.user.company_id.id
 		vals['name'] = self.env['ir.sequence'].with_context(force_company=vals['company_id']).next_by_code('inno.quotation') or _('New')
 		return super(SaleOrder, self).create(vals)
 
