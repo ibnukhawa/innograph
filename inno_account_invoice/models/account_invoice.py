@@ -6,7 +6,7 @@ class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     date_payment = fields.Date(string="Payment Date", compute="_compute_date_payment")
-    project_code_id = fields.Many2one('account.analytic.account', string="Project Code", store=True, compute="_compute_project_code_sme")
+    project_code_id = fields.Char(string="Project Code", store=True, compute="_compute_project_code_sme")
     sme_id = fields.Many2one('project.sme', string="SME", store=True, compute="_compute_project_code_sme")
 
     @api.multi
@@ -23,7 +23,7 @@ class AccountInvoice(models.Model):
         for invoice in self:
             projects = invoice.invoice_line_ids.mapped('account_analytic_id')
             if any(projects):
-                invoice.project_code_id = projects[0]
+                invoice.project_code_id = projects[0].code
                 invoice.sme_id = projects[0].sme_id
 
 
