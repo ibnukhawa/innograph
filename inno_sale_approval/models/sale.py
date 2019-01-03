@@ -52,7 +52,6 @@ class SaleOrder(models.Model):
             if max_discount < order_line.discount:
                 max_discount = order_line.discount
         qualified_user = self.env['res.users'].search([
-            ('sale_order_amount_limit', '>=', self.amount_total),
             ('sale_order_discount_limit', '>=', max_discount),
             ('sale_order_can_approve', '=', 'yes')], order='sale_order_amount_limit', limit=1)
         if not qualified_user:
