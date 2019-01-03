@@ -29,7 +29,7 @@ class SaleOrder(models.Model):
             res = super(SaleOrder, self).action_confirm()           
         except UserError, e:
             if e.name in error:
-                SO.action_confirm()
+                SO.action_confirm(self)
         return res
 
     def approval_check(self):
@@ -43,7 +43,7 @@ class SaleOrder(models.Model):
             self.approve_order()
             return True
         elif not self.amount_total <= self.approver_id.sale_order_amount_limit:
-            self.approve_order()
+            SO.action_confirm(self)
             return True
     
     def approve_order(self):
