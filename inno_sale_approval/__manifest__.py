@@ -13,6 +13,7 @@
     'depends': ['base_setup', 'sale', 'sales_team', 'sale_approval'],
     'data': [
         'views/sale_view.xml',
+        'views/res_users_view.xml'
     ],
     'installable': True,
     'auto_install': False,
