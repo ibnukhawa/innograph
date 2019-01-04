@@ -31,7 +31,7 @@ class SaleOrder(models.Model):
                 user = sale.user_id
             
             if not user.sale_order_can_approve:
-                sale.approver_id = True
+                sale.approver_id = False
                 sale.is_need_approval = True
             else:
                 discount_list = sale.order_line.mapped('discount')
@@ -40,7 +40,7 @@ class SaleOrder(models.Model):
                     discount = max(discount_list)
 
                 if discount > user.sale_order_discount_limit:
-                    sale.approver_id = True
+                    sale.approver_id = False
                     sale.is_need_approval = True
                 else:
                     sale.approver_id = False
