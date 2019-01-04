@@ -143,7 +143,7 @@
                                         <tr t-foreach="o.invoice_line_ids" t-as="l">
                                             <t t-if="not l.is_product_discount">
                                                 <td class="text-center"><span t-esc="no"/></td>
-                                                <td colspan="2"><span t-field="l.product_id"/></td>
+                                                <td colspan="2"><span t-field="l.product_id.default_code"/></td>
                                                 <td><span t-field="l.name"/></td>
                                                 <td class="text-center">
                                                     <span t-field="l.quantity"/>

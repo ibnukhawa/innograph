@@ -10,7 +10,7 @@ class SaleOrder(models.Model):
     approver_id = fields.Many2one('res.users', 'Approver', track_visibility='onchange', default=False)
     is_need_approval = fields.Boolean('Need Approval', store=True, compute="_compute_need_approval")
 
-    @api.onchange('amount', 'order_line.discount')
+    @api.onchange('amount', 'order_line.discount', 'is_need_approval')
     def _onchange_order_discount(self):
         discount = 0
         discount_list = self.order_line.mapped('discount')
@@ -31,6 +31,7 @@ class SaleOrder(models.Model):
                 user = sale.user_id
             
             if not user.sale_order_can_approve:
+                sale.approver_id = False
                 sale.is_need_approval = True
             else:
                 discount_list = sale.order_line.mapped('discount')
@@ -39,6 +40,7 @@ class SaleOrder(models.Model):
                     discount = max(discount_list)
 
                 if discount > user.sale_order_discount_limit:
+                    sale.approver_id = False
                     sale.is_need_approval = True
                 else:
                     sale.approver_id = False
