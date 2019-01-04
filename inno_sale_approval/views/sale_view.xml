@@ -17,7 +17,14 @@
             </xpath>
         </field>
     </record>
+
     <record id="sale_approval.view_order_tree_extend" model="ir.ui.view">
+        <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
         <field name="active" eval="False"/>
     </record>
+
+    <record id="sale_approval.action_sale_approval" model="ir.actions.act_window">
+        <field name="domain">[('state', 'in', ('draft', 'waiting_for_approval')), ('is_need_approval', '=', True), ('approver_id', '=', uid)]</field>
+    </record>
+
 </odoo>
