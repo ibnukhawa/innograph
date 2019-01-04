@@ -1,2 +1,3 @@
 # -*- coding: utf-8 -*-
-import sale
+from . import sale
+from . import res_users
