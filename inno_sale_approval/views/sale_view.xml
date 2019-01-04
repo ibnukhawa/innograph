@@ -11,7 +11,9 @@
                 <button name="action_cancel" states="draft,sent,sale,waiting_for_approval" type="object" string="Cancel" />
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
-                <field name="approver_id" required="True" readonly="False" domain="[('sale_order_can_approve', '=', 'yes')]" />
+                <field name="is_need_approval" invisible="True" />
+                <field name="approver_id" readonly="False" domain="[('sale_order_can_approve', '=', 'yes')]" 
+                    attrs="{'required': [('is_need_approval', '=', True)], 'invisible': [('is_need_approval', '=', False)]}" />
             </xpath>
         </field>
     </record>

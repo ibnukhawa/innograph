@@ -8,6 +8,39 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     approver_id = fields.Many2one('res.users', 'Approver', track_visibility='onchange', default=False)
+    is_need_approval = fields.Boolean('Need Approval', compute="_compute_need_approval")
+
+    @api.onchange('amount', 'order_line.discount')
+    def _onchange_order_discount(self):
+        discount = 0
+        discount_list = self.order_line.mapped('discount')
+        if any(discount_list):
+            discount = max(discount_list)
+
+        user_approval = self.env['res.users'].search([('sale_order_can_approve', '=', 'yes'), 
+                                                      ('sale_order_discount_limit', '>=', discount)])
+        return {'domain' : {'approver_id': [('id', 'in', user_approval._ids)]}}
+
+
+    @api.onchange('amount', 'order_line.discount')
+    def _compute_need_approval(self):
+        user = self.env.user
+        if self.user_id:
+            user = self.user_id
+        
+        if not user.sale_order_can_approve:
+            self.is_need_approval = True
+        else:
+            discount_list = self.order_line.mapped('discount')
+            discount = 0
+            if any(discount_list):
+                discount = max(discount_list)
+
+            if discount > user.sale_order_discount_limit:
+                self.is_need_approval = True
+            else:
+                self.is_need_approval = False
+
     
     @api.multi
     def action_confirm(self):
