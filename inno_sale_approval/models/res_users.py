@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models, tools, SUPERUSER_ID, _
+from odoo import fields, models
 
 class Users(models.Model):
     _inherit = "res.users"
