@@ -131,8 +131,8 @@
                                     </tr>
                                </thead>
                                <tbody class="sale_tbody">
+                                    <t t-set="count" t-value="0" />
                                     <t t-foreach="doc.order_line" t-as="l">
-                                        <t t-set="count" t-value="0" />
                                         <!-- Lines associated -->
                                         
                                         <tr t-if="not l.product_id.is_discount">
