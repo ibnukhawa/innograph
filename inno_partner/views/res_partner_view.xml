@@ -23,10 +23,10 @@
                 <field name="no_pkp" />
             </field>
             <field name="npwp" position="attributes">
-                <attribute name="attrs">{'required': [('no_pkp', '=', True)]}</attribute>
+                <attribute name="attrs">{'required': [('no_pkp', '=', False)]}</attribute>
             </field>
             <field name="nik" position="attributes">
-                <attribute name="attrs">{'required': [('no_pkp', '=', False)]}</attribute>
+                <attribute name="attrs">{'required': [('no_pkp', '=', True)]}</attribute>
             </field>
         </field>
     </record>
