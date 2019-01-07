@@ -22,16 +22,12 @@ class CRMLead(models.Model):
 
 	@api.multi
 	def write(self, vals):
-		print ("vals", vals)
 		if 'team_id' in vals:
-			print (">>>>", vals.get('team_id'))
 			stage_ids = self.env['crm.stage'].search([])
 			stage_ids = stage_ids.filtered(lambda x:vals.get('team_id') in x.team_ids._ids)
 			for stage in stage_ids:
-				print (">>>>", stage)
 				vals['stage_id'] = stage.id
 				break
-		print (">>> vals >>>", vals)
 		return super(CRMLead, self).write(vals)
 
 
