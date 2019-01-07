@@ -16,6 +16,20 @@ class AccountInvoice(models.Model):
     kwitansi_number = fields.Char('Nomor Kwitansi', copy=False)
     is_printed = fields.Boolean('Printed', default= False)
 
+    delivery_number = fields.Many2one('stock.picking', compute="_get_picking_id")
+
+    def _get_picking_id(self):
+        picking = False
+        for line in self.invoice_line_ids:
+            for so_line in line.sale_line_ids:
+                if any(so_line.order_id.picking_ids):
+                    picking = so_line.order_id.picking_ids[0]
+                    break
+            break
+        self.delivery_number = picking.id
+
+
+
     @api.multi
     def invoice_print(self):
         ref = super(AccountInvoice, self).invoice_print()
