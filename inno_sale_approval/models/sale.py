@@ -58,7 +58,7 @@ class SaleOrder(models.Model):
             'Your approval limit is lesser then sale order total amount.Click on "Ask for Approval" for Higher value.',
             'You can not confirm this sale order. You have asked for Higher value.'
         ]
-        for sale_order in self:
+        for sale_order in self.filtered(lambda x:x.is_need_approval):
             approval = sale_order.approval_check()
             if approval:
                 return approval
