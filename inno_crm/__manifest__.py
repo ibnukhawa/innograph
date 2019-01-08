@@ -10,7 +10,7 @@
         *Author : Dwiki Adnan F.
     """,
     'depends'       : ['crm_opportunity_product', ],
-    'data'          : ['views/crm_stage_view.xml'],
+    'data'          : [],
     'installable'   : True,
     'application'   : True,
     'auto_install'  : False
