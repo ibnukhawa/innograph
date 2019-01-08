@@ -7,9 +7,6 @@ from datetime import datetime
 class CRMLead(models.Model):
 	_inherit = "crm.lead"
 
-	stage_id = fields.Many2one('crm.stage', string='Stage', track_visibility='onchange', index=True, 
-		group_expand='_read_group_stage_ids', default=lambda self: self._default_stage_id())
-
 	@api.multi
 	@api.onchange('lead_product_ids', 'lead_product_ids.price_unit')
 	def _onchange_products_price_unit(self):
@@ -23,8 +20,7 @@ class CRMLead(models.Model):
 	@api.multi
 	def write(self, vals):
 		if 'team_id' in vals:
-			stage_ids = self.env['crm.stage'].search([])
-			stage_ids = stage_ids.filtered(lambda x:vals.get('team_id') in x.team_ids._ids)
+			stage_ids = self.env['crm.stage'].search([('team_id', '=', vals.get('team_id'))])
 			for stage in stage_ids:
 				vals['stage_id'] = stage.id
 				break
