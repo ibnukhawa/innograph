@@ -11,6 +11,7 @@ class AccountInvoice(models.Model):
     sme_id = fields.Many2one('project.sme', string="SME", store=True, compute="_compute_project_code_sme")
 
     @api.multi
+    @api.depends('payment_ids', 'payments_widget')
     def _compute_date_payment(self):
         for invoice in self:
             payment_ids = invoice.payment_ids
