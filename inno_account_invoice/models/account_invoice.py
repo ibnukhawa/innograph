@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models
 from odoo.exceptions import UserError
+import json
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    date_payment = fields.Date(string="Payment Date", compute="_compute_date_payment")
+    date_payment = fields.Date(string="Payment Date", store=True, compute="_compute_date_payment")
     project_code_id = fields.Char(string="Project Code", store=True, compute="_compute_project_code_sme")
     sme_id = fields.Many2one('project.sme', string="SME", store=True, compute="_compute_project_code_sme")
 
@@ -14,8 +15,15 @@ class AccountInvoice(models.Model):
         for invoice in self:
             payment_ids = invoice.payment_ids
             payment_date = payment_ids.mapped('payment_date')
+            # Get payment data from Payments
             if any(payment_date):
                 invoice.date_payment = max(payment_date)
+            # Get payment data from payment widget (Paid with Bank Statement)
+            elif invoice.payments_widget:
+                payment = json.loads(invoice.payments_widget)
+                if payment and any(payment.get('content', False)):
+                    content = payment.get('content')
+                    invoice.date_payment = content[0].get('date', False)
 
     @api.multi
     @api.depends('invoice_line_ids', 'invoice_line_ids.account_analytic_id')
