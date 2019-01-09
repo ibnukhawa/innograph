@@ -24,10 +24,10 @@ class AccountInvoice(models.Model):
             for so_line in line.sale_line_ids:
                 if any(so_line.order_id.picking_ids):
                     picking_ids = so_line.order_id.picking_ids.sorted('id')
-                    picking = picking_ids[0]
+                    picking = picking_ids[0].id
                     break
             break
-        self.delivery_number = picking.id
+        self.delivery_number = picking
 
 
 
