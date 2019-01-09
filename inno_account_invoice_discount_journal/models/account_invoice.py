@@ -38,7 +38,6 @@ class AccountInvoice(models.Model):
     def write(self, vals):
         res = super(AccountInvoice, self).write(vals)
         for invoice in self:
-            print (">>>", vals)
             if invoice.type == 'out_invoice' and 'discount' in vals:
                 from_so = self._context.get('from_so', False)
                 invoice.compute_global_discount(from_so)
