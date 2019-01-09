@@ -16,7 +16,7 @@ class AccountInvoice(models.Model):
     kwitansi_number = fields.Char('Nomor Kwitansi', copy=False)
     is_printed = fields.Boolean('Printed', default= False)
 
-    delivery_number = fields.Many2one('stock.picking', compute="_get_picking_id")
+    delivery_number = fields.Char('stock.picking', compute="_get_picking_id")
 
     def _get_picking_id(self):
         picking = False
@@ -24,10 +24,10 @@ class AccountInvoice(models.Model):
             for so_line in line.sale_line_ids:
                 if any(so_line.order_id.picking_ids):
                     picking_ids = so_line.order_id.picking_ids.sorted('id')
-                    picking = picking_ids[0]
+                    picking = picking_ids[0].id
                     break
             break
-        self.delivery_number = picking.id
+        self.delivery_number = picking
 
 
 

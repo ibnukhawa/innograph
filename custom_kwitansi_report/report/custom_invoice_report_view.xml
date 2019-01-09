@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-6"><b>DN. Ref</b><b class="pull-right">:</b></div>
-                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.delivery_number.name"/>
+                                    <div class="col-xs-6" style="padding-left:0px" t-if="o.delivery_number" t-field="o.delivery_number.name"/>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-6"><b>Customer Ref</b><b class="pull-right">:</b></div>
