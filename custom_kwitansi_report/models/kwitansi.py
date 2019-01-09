@@ -16,7 +16,7 @@ class AccountInvoice(models.Model):
     kwitansi_number = fields.Char('Nomor Kwitansi', copy=False)
     is_printed = fields.Boolean('Printed', default= False)
 
-    delivery_number = fields.Char('stock.picking', compute="_get_picking_id")
+    delivery_number = fields.Many2one('stock.picking', compute="_get_picking_id")
 
     def _get_picking_id(self):
         picking = False
