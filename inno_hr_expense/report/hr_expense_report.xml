@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="hr_expense.report_expense_sheet">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="report.external_layout">
+				
+                    <div class="page">
+					<B><div style="letter-spacing:2px;font-size:12px;float:left; width:200px;text-align:left">
+					EXPENSES REPORT :<br/></div>
+					<div style="letter-spacing:1px;font-size:11px;float:left; width:200px;text-align:center">
+					<span t-esc="o.name" />
+					</div></B>
+					<br/>
+					<br/>
+					                      
+                        <div class="row mt32 mb32">
+                            <div style="font-size: 11; width:300px" class="col-xs-2">
+                                <strong>Employee:</strong>
+                                <p t-field="o.employee_id.name"/>
+                            </div>
+                            <div style="font-size: 11; width:300px;" class="col-xs-2">
+                                <strong>Validated By:</strong>
+                                <p t-field="o.responsible_id"/>
+                            </div>
+                            <div style="font-size: 11" class="col-xs-3">
+                                <strong>Payment By:</strong>
+                                <p t-field="o.payment_mode"/>
+                            </div>
+                        </div>
+
+                        <table class="table table-condensed" >
+                            <thead style="font-size: 11" >
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Name</th>
+                                    <th>Unit Price</th>
+                                    <th>Taxes</th>
+                                    <th class="text-center">Qty</th>
+                                    <th class="text-right">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size: 11">
+                                <tr t-foreach="o.expense_line_ids" t-as="line">
+                                    <td><span t-field="line.date" t-field-options="{'format': 'dd-MM-yyyy'}" /></td>
+                                    <td>
+                                        <span t-field="line.name"/> 
+                                        <span t-field="line.description"/><br/>
+                                        <span t-field="line.analytic_account_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.unit_amount"/>
+                                    </td>
+                                    <td>
+                                        <t t-foreach="line.tax_ids" t-as="tax">
+                                          <t t-if="tax.description">
+                                            <span t-field="tax.description"/>
+                                          </t>
+                                          <t t-if="not tax.description">
+                                            <span t-field="tax.name"/>
+                                          </t>
+                                        </t>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="line.quantity"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="line.requested_amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: line.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row">
+                            <div class="col-xs-4 pull-right">
+                                <table class="table table-condensed">
+                                    <tr class="border-black" t-if="o.category_id.is_medical">
+                                        <td><strong>Sub total</strong></td>
+                                        <td class="text-right">
+                                            <span t-field="o.requested_amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-black" t-if="o.category_id.is_medical">
+                                        <td><strong>Reimbursement</strong></td>
+                                        <td class="text-right">
+                                            <span t-esc="o.employee_id.medical_reimbursement" /> %
+                                        </td>
+                                    </tr>
+                                    <tr class="border-black">
+                                        <td><strong>Total</strong></td>
+                                        <td class="text-right">
+                                            <span t-field="o.total_amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+							<table style="width: 100%; font-size:11px;">
+								<tbody>
+									<tr>
+									<td width="34%" align="left" style="font-size: 11px">
+										Jakarta, <span t-field="o.create_date" t-field-options="{&quot;format&quot;:&quot;d-MMMM-y&quot;}" style="font-size: 11"/>
+										</td>
+										<td width="34%" align="left"/>
+									</tr> 
+									<tr>
+										<td width="34%" align="left"><b>Recevied By,</b></td>
+										<td width="34%" align="left"><b>Approved By,</b></td>
+									</tr>
+									<tr>
+									<td><br/><br/><br/><br/><br/><br/><br/></td>
+									<td><br/><br/><br/><br/><br/><br/><br/></td>
+									</tr>
+																		
+									<tr>
+										<td width="34%" align="left"><span style="text-decoration:overline" t-esc="o.employee_id.name"/></td>
+										<td width="34%" align="left"><span style="text-decoration:overline" t-field="o.approval_id.name"/></td>
+									</tr>
+								</tbody>
+							</table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
