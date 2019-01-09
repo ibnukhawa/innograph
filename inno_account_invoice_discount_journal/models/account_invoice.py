@@ -38,7 +38,8 @@ class AccountInvoice(models.Model):
     def write(self, vals):
         res = super(AccountInvoice, self).write(vals)
         for invoice in self:
-            if invoice.type == 'out_invoice':
+            print (">>>", vals)
+            if invoice.type == 'out_invoice' and 'discount' in vals:
                 from_so = self._context.get('from_so', False)
                 invoice.compute_global_discount(from_so)
         return res
@@ -90,9 +91,11 @@ class AccountInvoice(models.Model):
                             'uom_id': disc.uom_id.id,
                             'quantity': 1,
                             'price_unit': - self.discount,
-                            'account_id': disc_account.id
+                            'account_id': disc_account.id,
+                            'invoice_line_tax_ids': [(6, 0, disc.taxes_id.ids)],
                         })]
                     })
+            self.compute_taxes()
             
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
