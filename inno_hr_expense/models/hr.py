@@ -158,7 +158,7 @@ class HrExpenseSheet(models.Model):
                 total_amount += expense.currency_id.with_context(
                     date=expense.date,
                     company_id=expense.company_id.id
-                ).compute(expense.requested_amount, self.currency_id)
+                ).compute(expense.requested_amount, sheet.currency_id)
             sheet.requested_amount = total_amount
 
     @api.onchange('expense_line_ids')
