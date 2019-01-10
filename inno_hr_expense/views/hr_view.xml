@@ -3,17 +3,17 @@
     <record model="ir.ui.view" id="view_employee_form">
         <field name="name">inno.hr.employee.form.inherit</field>
         <field name="model">hr.employee</field>
-        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
             <page name="hr_settings" position="inside">
                 <group>
                     <group string="Expense Reimbursement" name="expense_reimbursement">
-                        <field name="medical_reimbursement" />
-                        <field name="medical_budget" />
-                        <field name="medical_consum" />
+                        <field name="medical_reimbursement"/>
+                        <field name="medical_budget"/>
+                        <field name="medical_consum"/>
                     </group>
                 </group>
             </page>
         </field>
-    </record>  
+    </record>
 </odoo>
