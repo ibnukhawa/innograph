@@ -51,10 +51,10 @@
 	            	</div>
 	            	<div class="col-xs-4">
 	            		<table class="table table-bordered" style="height: 100px;">
+	            			<t t-set="delivery_addr" t-value="o.picking_type_id.warehouse_id.partner_id" />
 	            			<tr>
 	            				<td class="text-center" style="padding: 3px;font-size: 11px;height:20%;background-color: #999;border: 1px solid #000;">
 	            					<b>DELIVERY TO</b>
-	            					<t t-esc="delivery_addr" />
 	            				</td>
 	            			</tr>
 	            			<tr>
