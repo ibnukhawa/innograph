@@ -32,7 +32,7 @@ class Employee(models.Model):
             emp.medical_consum = sum(expense_ids.mapped('total_amount'))
 
     @api.multi
-    @api.depends('medical_reimbursement', 'contract_ids', 'contract_ids.wage')
+    @api.depends('medical_reimbursement', 'contract_ids', 'contract_ids.wage', 'contract_ids.state')
     def _compute_medical_budget(self):
         """ Compute function for Medical Budget """
         for emp in self:
