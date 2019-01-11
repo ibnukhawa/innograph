@@ -26,7 +26,9 @@ class Employee(models.Model):
             expense_ids = expense_obj.search([('employee_id', '=', emp.id),
                                               ('date', '>=', start),
                                               ('date', '<=', end),
-                                              ('state', 'in', ['posted', 'paid'])])
+                                              ('state', 'in', ['done'])])
+            expense_ids = expense_ids.filtered(
+                lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
             emp.medical_consum = sum(expense_ids.mapped('total_amount'))
 
     @api.multi
