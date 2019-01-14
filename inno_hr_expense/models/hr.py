@@ -129,12 +129,8 @@ class HrExpense(models.Model):
             have Expense consumed larger than it's budget
         """
         if self.sheet_id:
-            sheet = self.sheet_id
-            medical_expense = sheet.expense_line_ids.filtered(
-                lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
-            new_expense_consumed = sum(medical_expense.mapped('total_amount'))
-            budget = self.employee_id.medical_budget
-            if new_expense_consumed > budget:
+            check_medical_budget = self.sheet_id._check_medical_budget(self.sheet_id)
+            if check_medical_budget:
                 raise UserError(_("Your Medical Budget already reach the yearly limit \
                                   (Your Budget = %s, Consumed Budget = %s).\n \
                                    You can continue to ask approval, \
@@ -148,6 +144,17 @@ class HrExpenseSheet(models.Model):
     requested_amount = fields.Float(string='Total Requested Amount', store=True,
                                     compute='_compute_requested_amount',
                                     digits=dp.get_precision('Account'))
+
+
+    def _check_medical_budget(self, sheet):
+        """ Function to check if medical budget larger than Expense requested """
+        employee_id = sheet.employee_id
+        medical_expense = sheet.expense_line_ids.filtered(
+            lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
+        expense_total = sum(medical_expense.mapped('total_amount'))
+        new_expense_consumed = expense_total + employee_id.medical_consum
+        budget = employee_id.medical_budget
+        return new_expense_consumed > budget
 
     @api.multi
     @api.depends('expense_line_ids', 'expense_line_ids.requested_amount',
@@ -169,13 +176,71 @@ class HrExpenseSheet(models.Model):
             Add onchange function to Check expense consume larger than expense budget
             when user add line on Expense line
         """
-        medical_expense = self.expense_line_ids.filtered(
-            lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
-        expense_total = sum(medical_expense.mapped('total_amount'))
-        new_expense_consumed = expense_total + self.employee_id.medical_consum
-        budget = self.employee_id.medical_budget
-        if new_expense_consumed > budget:
+        check_medical_budget = self._check_medical_budget(sheet)
+        if check_medical_budget:
             raise UserError(_("Your Medical Budget already reach the yearly limit \
                               (Your Budget = %s, Consumed Budget = %s).\n \
                                You can continue to ask approval, \
                                or adjust the expense amount." % (budget, new_expense_consumed)))
+
+    @api.multi
+    def validate_expense_sheets(self):
+        """ Extend Validate Button """
+        view = self.env.ref('inno_hr_expense.hr_expense_medical_confirmation_view')
+        wiz = self.env['hr.expense.medical.confirmation']
+        context = self.env.context
+        for sheet in self:
+            if not context.get('medical_expense_confirmed', False) and self._check_medical_budget(sheet):
+                budget = sheet.employee_id.medical_budget
+                medical_expense = sheet.expense_line_ids.filtered(
+                    lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
+                expense_total = sum(medical_expense.mapped('total_amount'))
+                new_wiz = wiz.create({
+                        'sheet_id': sheet.id,
+                        'expense_request': expense_total,
+                        'medical_budget': budget
+                    })
+                return {
+                    'name': _('Expense Medical Confirmation?'),
+                    'type': 'ir.actions.act_window',
+                    'view_type': 'form',
+                    'view_mode': 'form',
+                    'res_model': 'hr.expense.medical.confirmation',
+                    'views': [(view.id, 'form')],
+                    'view_id': view.id,
+                    'target': 'new',
+                    'res_id': new_wiz.id,
+                    'context': context,
+                }
+        return super(HrExpenseSheet, self).validate_expense_sheets()
+
+    @api.multi
+    def approve_expense_sheets(self):
+        """ Extend Approve Button """
+        view = self.env.ref('inno_hr_expense.hr_expense_medical_confirmation_view')
+        wiz = self.env['hr.expense.medical.confirmation']
+        context = self.env.context
+        for sheet in self:
+            if not context.get('medical_expense_confirmed', False) and self._check_medical_budget(sheet):
+                budget = sheet.employee_id.medical_budget
+                medical_expense = sheet.expense_line_ids.filtered(
+                    lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
+                expense_total = sum(medical_expense.mapped('total_amount'))
+                new_wiz = wiz.create({
+                        'sheet_id': sheet.id,
+                        'expense_request': expense_total,
+                        'medical_budget': budget
+                    })
+                return {
+                    'name': _('Expense Medical Confirmation?'),
+                    'type': 'ir.actions.act_window',
+                    'view_type': 'form',
+                    'view_mode': 'form',
+                    'res_model': 'hr.expense.medical.confirmation',
+                    'views': [(view.id, 'form')],
+                    'view_id': view.id,
+                    'target': 'new',
+                    'res_id': new_wiz.id,
+                    'context': context,
+                }
+        return super(HrExpenseSheet, self).approve_expense_sheets()
