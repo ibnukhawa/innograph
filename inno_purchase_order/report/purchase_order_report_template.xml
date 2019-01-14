@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-    	<template id="inno_report_purchaseorder_document">
+    	<template id="purchase.report_purchaseorder_document">
     		<!-- HEADER -->
     		<div class="header">
                 <div class="row">
@@ -229,13 +229,5 @@
 	        </div>
 
     	</template>
-
-        <template id="purchase.report_purchaseorder">
-        	<t t-call="report.html_container">
-        		<t t-foreach="docs" t-as="o">
-        			<t t-call="inno_purchase_order.inno_report_purchaseorder_document" t-lang="o.partner_id.lang"/>
-        		</t>
-        	</t>
-        </template>
     </data>
 </odoo>
