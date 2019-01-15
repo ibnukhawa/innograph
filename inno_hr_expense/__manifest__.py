@@ -11,6 +11,7 @@
         'views/hr_view.xml',
         'views/product_category_view.xml',
         'report/hr_expense_report.xml',
+        'wizard/hr_expense_medical_confirmation_view.xml'
     ],
     'installable': True,
     'application': True,
