@@ -37,10 +37,12 @@ class Employee(models.Model):
         """ Compute function for Medical Budget """
         for emp in self:
             contract = False
-            if emp.contract_id and emp.contract_id.state == 'open':
-                contract = emp.contract_id
-            elif any(emp.contract_ids.filtered(lambda x: x.state == 'open')):
-                running_contract = emp.contract_ids.filtered(lambda x: x.state == 'open')
+            contract_id = emp.sudo().contract_id
+            contract_ids = emp.sudo().contract_ids
+            if contract_id and contract_id.state == 'open':
+                contract = contract_id
+            elif any(contract_ids.filtered(lambda x: x.state == 'open')):
+                running_contract = contract_ids.filtered(lambda x: x.state == 'open')
                 running_contract = running_contract.sorted('date_start desc', reverse=True)
                 contract = running_contract[0]
 
@@ -131,6 +133,11 @@ class HrExpense(models.Model):
         if self.sheet_id:
             check_medical_budget = self.sheet_id._check_medical_budget(self.sheet_id)
             if check_medical_budget:
+                budget = self.employee_id.medical_budget
+                medical_expense = self.sheet_id.expense_line_ids.filtered(
+                    lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
+                expense_total = sum(medical_expense.mapped('total_amount'))
+                new_expense_consumed = expense_total + self.employee_id.medical_consum
                 raise UserError(_("Your Medical Budget already reach the yearly limit \
                                   (Your Budget = %s, Consumed Budget = %s).\n \
                                    You can continue to ask approval, \
@@ -176,8 +183,13 @@ class HrExpenseSheet(models.Model):
             Add onchange function to Check expense consume larger than expense budget
             when user add line on Expense line
         """
-        check_medical_budget = self._check_medical_budget(sheet)
+        check_medical_budget = self._check_medical_budget(self)
         if check_medical_budget:
+            budget = self.employee_id.medical_budget
+            medical_expense = self.expense_line_ids.filtered(
+                    lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
+            expense_total = sum(medical_expense.mapped('total_amount'))
+            new_expense_consumed = expense_total + self.employee_id.medical_consum
             raise UserError(_("Your Medical Budget already reach the yearly limit \
                               (Your Budget = %s, Consumed Budget = %s).\n \
                                You can continue to ask approval, \
