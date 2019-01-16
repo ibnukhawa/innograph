@@ -5,17 +5,19 @@
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
-            <page name="hr_settings" position="inside">
-                <group>
-                    <group string="Expense Reimbursement" name="expense_reimbursement">
-                        <field name="medical_reimbursement"/>
-                        <field name="medical_budget"/>
-                        <field name="medical_consum"/>
+            <field name="category_ids" position="before">
+                <field name="show_reimbursement_page" invisible="True" />
+            </field>
+            <page name="hr_settings" position="after">
+                <page name="expense" string="Reimbursement" attrs="{'invisible': [('show_reimbursement_page', '=', False)]}">
+                    <group>
+                        <group string="Expense Reimbursement" name="expense_reimbursement">
+                            <field name="medical_reimbursement"/>
+                            <field name="medical_budget"/>
+                            <field name="medical_consum"/>
+                        </group>
                     </group>
-                </group>
-            </page>
-            <page name="hr_settings" position="attributes">
-                <attribute name="groups"></attribute>
+                </page>
             </page>
         </field>
     </record>

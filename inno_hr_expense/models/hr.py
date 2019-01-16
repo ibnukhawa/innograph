@@ -15,6 +15,17 @@ class Employee(models.Model):
                                   default=0.00, store=True, compute="_compute_medical_budget")
     medical_consum = fields.Float(string="Consumed Medical",
                                   default=0.00, compute="_compute_medical_consum")
+    show_reimbursement_page = fields.Boolean(compute="_compute_show_reimbursement_page")
+
+    @api.multi
+    def _compute_show_reimbursement_page(self):
+        """ Compute Show Reimbursement page """
+        active_user_id = self.env.user
+        for emp in self:
+            if active_user_id.has_group('hr.group_hr_manager') or active_user_id.id == emp.user_id.id:
+                emp.show_reimbursement_page = True
+            else:
+                emp.show_reimbursement_page = False
 
     @api.multi
     def _compute_medical_consum(self):
