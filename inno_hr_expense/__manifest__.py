@@ -6,7 +6,7 @@
     'category': 'Purchase',
     'summary': 'HR Expense custom',
     'sequence': 1,
-    'depends': ['pqm_hr_expense_approval'],
+    'depends': ['pqm_hr_expense_approval', 'hr_contract'],
     'data': [
         'views/hr_view.xml',
         'views/product_category_view.xml',
