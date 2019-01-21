@@ -56,8 +56,7 @@ class Employee(models.Model):
             emp.medical_consum = sum(expense_ids.mapped('total_amount'))
 
     @api.multi
-    @api.depends('medical_reimbursement', 'contract_ids', 
-        'contract_ids.wage', 'contract_ids.state',
+    @api.depends('contract_ids', 'contract_ids.wage', 'contract_ids.state',
         'contract_ids.type_id', 'contract_ids.type_id.medical_budget')
     def _compute_medical_budget(self):
         """ Compute function for Medical Budget """
@@ -73,7 +72,7 @@ class Employee(models.Model):
                 contract = running_contract[0]
             if contract:
                 multiply = contract.type_id.medical_budget or 1
-                emp.medical_budget = contract.wage * multiply * (emp.medical_reimbursement / 100)
+                emp.medical_budget = contract.wage * multiply
 
     @api.constrains('medical_reimbursement')
     def _check_medical_reimbursement(self):
