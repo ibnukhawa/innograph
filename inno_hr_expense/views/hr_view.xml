@@ -21,4 +21,26 @@
             </page>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="hr_contract_type_view_form">
+        <field name="name">inno.hr.contract.type.form</field>
+        <field name="model">hr.contract.type</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_type_view_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="medical_budget"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_contract_type_view_tree">
+        <field name="name">inno.hr.contract.type.tree</field>
+        <field name="model">hr.contract.type</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_type_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="medical_budget"/>
+            </field>
+        </field>
+    </record>
 </odoo>

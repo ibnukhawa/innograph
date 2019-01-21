@@ -6,6 +6,19 @@ from odoo.exceptions import UserError
 import odoo.addons.decimal_precision as dp
 
 
+class HrContractType(models.Model):
+    _inherit = 'hr.contract.type'
+
+    medical_budget = fields.Integer(string="Budget Medical", default=1)
+
+    @api.constrains('medical_budget')
+    def _check_medical_reimbursement(self):
+        """ Function to constraint medical reimbursement to have value between 0 and 100 """
+        for contract in self:
+            if contract.medical_budget < 0:
+                raise UserError(_("Invalid input number for Medical Reimbursement."))
+
+
 class Employee(models.Model):
     """ Inherit Employee """
     _inherit = 'hr.employee'
@@ -33,7 +46,7 @@ class Employee(models.Model):
         start = date(date.today().year, 1, 1)
         end = date(date.today().year, 12, 31)
         expense_obj = self.env['hr.expense']
-        for emp in self:
+        for emp in self.sudo():
             expense_ids = expense_obj.search([('employee_id', '=', emp.id),
                                               ('date', '>=', start),
                                               ('date', '<=', end),
@@ -43,7 +56,9 @@ class Employee(models.Model):
             emp.medical_consum = sum(expense_ids.mapped('total_amount'))
 
     @api.multi
-    @api.depends('medical_reimbursement', 'contract_ids', 'contract_ids.wage', 'contract_ids.state')
+    @api.depends('medical_reimbursement', 'contract_ids', 
+        'contract_ids.wage', 'contract_ids.state',
+        'contract_ids.type_id', 'contract_ids.type_id.medical_budget')
     def _compute_medical_budget(self):
         """ Compute function for Medical Budget """
         for emp in self:
@@ -56,22 +71,16 @@ class Employee(models.Model):
                 running_contract = contract_ids.filtered(lambda x: x.state == 'open')
                 running_contract = running_contract.sorted('date_start desc', reverse=True)
                 contract = running_contract[0]
-
             if contract:
-                emp.medical_budget = contract.wage * (emp.medical_reimbursement / 100)
+                multiply = contract.type_id.medical_budget or 1
+                emp.medical_budget = contract.wage * multiply * (emp.medical_reimbursement / 100)
 
+    @api.constrains('medical_reimbursement')
     def _check_medical_reimbursement(self):
         """ Function to constraint medical reimbursement to have value between 0 and 100 """
         for emp in self:
             if emp.medical_reimbursement > 100 or emp.medical_reimbursement < 0:
-                return False
-            else:
-                return True
-
-    _constraints = [
-        (_check_medical_reimbursement, 'Invalid Value for Medical Reimbursement',
-         ['medical_reimbursement'])
-    ]
+                raise UserError(_("Invalid input number for Medical Reimbursement."))
 
 
 class HrExpense(models.Model):
@@ -144,11 +153,12 @@ class HrExpense(models.Model):
         if self.sheet_id:
             check_medical_budget = self.sheet_id._check_medical_budget(self.sheet_id)
             if check_medical_budget:
-                budget = self.employee_id.medical_budget
+                employee_id = self.employee_id.sudo()
+                budget = employee_id.medical_budget
                 medical_expense = self.sheet_id.expense_line_ids.filtered(
                     lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
                 expense_total = sum(medical_expense.mapped('total_amount'))
-                new_expense_consumed = expense_total + self.employee_id.medical_consum
+                new_expense_consumed = expense_total + employee_id.medical_consum
                 raise UserError(_("Your Medical Budget already reach the yearly limit \
                                   (Your Budget = %s, Consumed Budget = %s).\n \
                                    You can continue to ask approval, \
@@ -166,7 +176,7 @@ class HrExpenseSheet(models.Model):
 
     def _check_medical_budget(self, sheet):
         """ Function to check if medical budget larger than Expense requested """
-        employee_id = sheet.employee_id
+        employee_id = sheet.employee_id.sudo()
         medical_expense = sheet.expense_line_ids.filtered(
             lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
         expense_total = sum(medical_expense.mapped('total_amount'))
@@ -196,11 +206,12 @@ class HrExpenseSheet(models.Model):
         """
         check_medical_budget = self._check_medical_budget(self)
         if check_medical_budget:
-            budget = self.employee_id.medical_budget
+            employee_id = self.employee_id.sudo()
+            budget = employee_id.medical_budget
             medical_expense = self.expense_line_ids.filtered(
                     lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
             expense_total = sum(medical_expense.mapped('total_amount'))
-            new_expense_consumed = expense_total + self.employee_id.medical_consum
+            new_expense_consumed = expense_total + employee_id.medical_consum
             raise UserError(_("Your Medical Budget already reach the yearly limit \
                               (Your Budget = %s, Consumed Budget = %s).\n \
                                You can continue to ask approval, \
@@ -214,7 +225,7 @@ class HrExpenseSheet(models.Model):
         context = self.env.context
         for sheet in self:
             if not context.get('medical_expense_confirmed', False) and self._check_medical_budget(sheet):
-                budget = sheet.employee_id.medical_budget
+                budget = sheet.employee_id.sudo().medical_budget
                 medical_expense = sheet.expense_line_ids.filtered(
                     lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
                 expense_total = sum(medical_expense.mapped('total_amount'))
@@ -245,7 +256,7 @@ class HrExpenseSheet(models.Model):
         context = self.env.context
         for sheet in self:
             if not context.get('medical_expense_confirmed', False) and self._check_medical_budget(sheet):
-                budget = sheet.employee_id.medical_budget
+                budget = sheet.employee_id.sudo().medical_budget
                 medical_expense = sheet.expense_line_ids.filtered(
                     lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
                 expense_total = sum(medical_expense.mapped('total_amount'))
@@ -267,3 +278,4 @@ class HrExpenseSheet(models.Model):
                     'context': context,
                 }
         return super(HrExpenseSheet, self).approve_expense_sheets()
+
