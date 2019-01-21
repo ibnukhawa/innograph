@@ -33,7 +33,7 @@ class Employee(models.Model):
         start = date(date.today().year, 1, 1)
         end = date(date.today().year, 12, 31)
         expense_obj = self.env['hr.expense']
-        for emp in self:
+        for emp in self.sudo():
             expense_ids = expense_obj.search([('employee_id', '=', emp.id),
                                               ('date', '>=', start),
                                               ('date', '<=', end),
@@ -144,11 +144,12 @@ class HrExpense(models.Model):
         if self.sheet_id:
             check_medical_budget = self.sheet_id._check_medical_budget(self.sheet_id)
             if check_medical_budget:
-                budget = self.employee_id.medical_budget
+                employee_id = self.employee_id.sudo()
+                budget = employee_id.medical_budget
                 medical_expense = self.sheet_id.expense_line_ids.filtered(
                     lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
                 expense_total = sum(medical_expense.mapped('total_amount'))
-                new_expense_consumed = expense_total + self.employee_id.medical_consum
+                new_expense_consumed = expense_total + employee_id.medical_consum
                 raise UserError(_("Your Medical Budget already reach the yearly limit \
                                   (Your Budget = %s, Consumed Budget = %s).\n \
                                    You can continue to ask approval, \
@@ -166,7 +167,7 @@ class HrExpenseSheet(models.Model):
 
     def _check_medical_budget(self, sheet):
         """ Function to check if medical budget larger than Expense requested """
-        employee_id = sheet.employee_id
+        employee_id = sheet.employee_id.sudo()
         medical_expense = sheet.expense_line_ids.filtered(
             lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
         expense_total = sum(medical_expense.mapped('total_amount'))
@@ -196,11 +197,12 @@ class HrExpenseSheet(models.Model):
         """
         check_medical_budget = self._check_medical_budget(self)
         if check_medical_budget:
-            budget = self.employee_id.medical_budget
+            employee_id = self.employee_id.sudo()
+            budget = employee_id.medical_budget
             medical_expense = self.expense_line_ids.filtered(
                     lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
             expense_total = sum(medical_expense.mapped('total_amount'))
-            new_expense_consumed = expense_total + self.employee_id.medical_consum
+            new_expense_consumed = expense_total + employee_id.medical_consum
             raise UserError(_("Your Medical Budget already reach the yearly limit \
                               (Your Budget = %s, Consumed Budget = %s).\n \
                                You can continue to ask approval, \
@@ -214,7 +216,7 @@ class HrExpenseSheet(models.Model):
         context = self.env.context
         for sheet in self:
             if not context.get('medical_expense_confirmed', False) and self._check_medical_budget(sheet):
-                budget = sheet.employee_id.medical_budget
+                budget = sheet.employee_id.sudo().medical_budget
                 medical_expense = sheet.expense_line_ids.filtered(
                     lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
                 expense_total = sum(medical_expense.mapped('total_amount'))
@@ -245,7 +247,7 @@ class HrExpenseSheet(models.Model):
         context = self.env.context
         for sheet in self:
             if not context.get('medical_expense_confirmed', False) and self._check_medical_budget(sheet):
-                budget = sheet.employee_id.medical_budget
+                budget = sheet.employee_id.sudo().medical_budget
                 medical_expense = sheet.expense_line_ids.filtered(
                     lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
                 expense_total = sum(medical_expense.mapped('total_amount'))
