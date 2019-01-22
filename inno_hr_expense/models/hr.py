@@ -45,7 +45,7 @@ class Employee(models.Model):
         """ Compute function for Medical Consumed"""
         # Default Start and End period
         start = date(date.today().year, 1, 1)
-        end = date(date.today().year, 12, 31)
+        end = date(date.today().year + 1, 1, 1)
         today = date.today()
 
         expense_obj = self.env['hr.expense']
@@ -66,12 +66,12 @@ class Employee(models.Model):
                 while not period:
                     start = date(year, month, day)
                     end = date(year + 1, month, day)
-                    if start <= today <= end:
+                    if start <= today < end:
                         period = True
                     year += 1
             expense_ids = expense_obj.search([('employee_id', '=', emp.id),
                                               ('date', '>=', start),
-                                              ('date', '<=', end),
+                                              ('date', '<', end),
                                               ('state', 'in', ['done'])])
             expense_ids = expense_ids.filtered(
                 lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
