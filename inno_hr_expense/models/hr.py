@@ -302,5 +302,5 @@ class HrExpenseSheet(models.Model):
 
     def _get_users_to_subscribe(self, employee=False):
         """ Add sudo to get followers """
-        res = super(HrExpenseSheet, self).sudo()._get_users_to_subscribe(employee=employee)
+        res = super(HrExpenseSheet, self.sudo())._get_users_to_subscribe(employee=employee)
         return res
