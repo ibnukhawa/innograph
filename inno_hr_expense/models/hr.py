@@ -43,21 +43,44 @@ class Employee(models.Model):
     @api.multi
     def _compute_medical_consum(self):
         """ Compute function for Medical Consumed"""
+        # Default Start and End period
         start = date(date.today().year, 1, 1)
         end = date(date.today().year, 12, 31)
+        today = date.today()
+
         expense_obj = self.env['hr.expense']
         for emp in self.sudo():
+            contract = False
+            # Search latest Running Contract
+            running_contract = emp.contract_ids.filtered(lambda x: x.state == 'open')
+            running_contract = running_contract.sorted('date_start', reverse=True)
+            if any(running_contract):
+                contract = running_contract[0]
+            # If found running contract, change start and end period based on contract
+            if contract:
+                year, month, day = contract.date_start.split('-')
+                period = False
+                year = int(year)
+                month = int(month)
+                day = int(day)
+                while not period:
+                    start = date(year, month, day)
+                    end = date(year + 1, month, day)
+                    if start <= today <= end:
+                        period = True
+                    year += 1
             expense_ids = expense_obj.search([('employee_id', '=', emp.id),
                                               ('date', '>=', start),
                                               ('date', '<=', end),
                                               ('state', 'in', ['done'])])
             expense_ids = expense_ids.filtered(
                 lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
-            emp.medical_consum = sum(expense_ids.mapped('total_amount'))
+            consum = sum(expense_ids.mapped('total_amount'))
+            emp.medical_consum = consum
 
     @api.multi
     @api.depends('contract_ids', 'contract_ids.wage', 'contract_ids.state',
-        'contract_ids.type_id', 'contract_ids.type_id.medical_budget')
+                 'contract_ids.type_id', 'contract_ids.type_id.medical_budget')
     def _compute_medical_budget(self):
         """ Compute function for Medical Budget """
         for emp in self:
@@ -68,7 +91,7 @@ class Employee(models.Model):
                 contract = contract_id
             elif any(contract_ids.filtered(lambda x: x.state == 'open')):
                 running_contract = contract_ids.filtered(lambda x: x.state == 'open')
-                running_contract = running_contract.sorted('date_start desc', reverse=True)
+                running_contract = running_contract.sorted('date_start', reverse=True)
                 contract = running_contract[0]
             if contract:
                 multiply = contract.type_id.medical_budget or 1
@@ -172,7 +195,6 @@ class HrExpenseSheet(models.Model):
                                     compute='_compute_requested_amount',
                                     digits=dp.get_precision('Account'))
 
-
     def _check_medical_budget(self, sheet):
         """ Function to check if medical budget larger than Expense requested """
         employee_id = sheet.employee_id.sudo()
@@ -208,7 +230,7 @@ class HrExpenseSheet(models.Model):
             employee_id = self.employee_id.sudo()
             budget = employee_id.medical_budget
             medical_expense = self.expense_line_ids.filtered(
-                    lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
+                lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
             expense_total = sum(medical_expense.mapped('total_amount'))
             new_expense_consumed = expense_total + employee_id.medical_consum
             raise UserError(_("Your Medical Budget already reach the yearly limit \
@@ -229,10 +251,10 @@ class HrExpenseSheet(models.Model):
                     lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
                 expense_total = sum(medical_expense.mapped('total_amount'))
                 new_wiz = wiz.create({
-                        'sheet_id': sheet.id,
-                        'expense_request': expense_total,
-                        'medical_budget': budget
-                    })
+                    'sheet_id': sheet.id,
+                    'expense_request': expense_total,
+                    'medical_budget': budget
+                })
                 return {
                     'name': _('Expense Medical Confirmation?'),
                     'type': 'ir.actions.act_window',
@@ -260,10 +282,10 @@ class HrExpenseSheet(models.Model):
                     lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
                 expense_total = sum(medical_expense.mapped('total_amount'))
                 new_wiz = wiz.create({
-                        'sheet_id': sheet.id,
-                        'expense_request': expense_total,
-                        'medical_budget': budget
-                    })
+                    'sheet_id': sheet.id,
+                    'expense_request': expense_total,
+                    'medical_budget': budget
+                })
                 return {
                     'name': _('Expense Medical Confirmation?'),
                     'type': 'ir.actions.act_window',
@@ -278,3 +300,7 @@ class HrExpenseSheet(models.Model):
                 }
         return super(HrExpenseSheet, self).approve_expense_sheets()
 
+    def _get_users_to_subscribe(self, employee=False):
+        """ Add sudo to get followers """
+        res = super(HrExpenseSheet, self).sudo()._get_users_to_subscribe(employee=employee)
+        return res
