@@ -9,7 +9,7 @@
     'description': """
         *Author : Dwiki Adnan F.
     """,
-    'depends': ['crm_opportunity_product', ],
+    'depends': ['crm_opportunity_product', 'sale'],
     'data': ['views/crm_stage_view.xml'],
     'installable': True,
     'application': True,
