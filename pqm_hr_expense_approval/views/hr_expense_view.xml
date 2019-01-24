@@ -52,6 +52,7 @@
             	<xpath expr="//search/filter[@name='submitted']" position="replace">
 					<filter domain="[('validate_id', '=', uid), ('state', '=', 'submit')]" string="Validator" name="validator" help="Need validated by you"/>
 					<filter domain="[('approval_id', '=', uid), ('state', '=', 'validate')]" string="Approval" name="approval" help="Need approved by you"/>
+					<separator/>
             		<filter domain="[('state', '=', 'submit')]" string="To Validate" name="submitted" help="Confirmed Expenses"/>
 					<filter domain="[('state', '=', 'validate')]" string="To Approve" name="validated" help="Confirmed Expenses"/>
 				</xpath>
@@ -68,7 +69,7 @@
             <field name="view_mode">tree,kanban,form,pivot,graph</field>
             <field name="search_view_id" ref="hr_expense.view_hr_expense_sheet_filter"/>
             <field name="domain">[]</field>
-            <field name="context">{'search_default_validator': 1, 'search_default_validators': 1}</field>
+            <field name="context">{'search_default_submitted': 1, 'search_default_validator': 1, 'search_default_validators': 1}</field>
             <field name="help" type="html">
               <p class="oe_view_nocontent_create">
                 Click here to create a new expense report.
@@ -84,7 +85,7 @@
             <field name="view_mode">tree,kanban,form,pivot,graph</field>
             <field name="search_view_id" ref="hr_expense.view_hr_expense_sheet_filter"/>
             <field name="domain">[]</field>
-            <field name="context">{'search_default_approval': 1, 'search_default_approvals': 1}</field>
+            <field name="context">{'search_default_validated': 1, 'search_default_approval': 1, 'search_default_approvals': 1}</field>
             <field name="help" type="html">
               <p class="oe_view_nocontent_create">
                 Click here to create a new expense report.
