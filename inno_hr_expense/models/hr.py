@@ -138,7 +138,7 @@ class HrExpense(models.Model):
         """ Replace to adjust total with medical reimbursement when product category is medical """
         account_move = []
         for expense in self:
-            move_line = expense._prepare_move_line_value()
+            move_line = expense.sudo()._prepare_move_line_value()
             account_move.append(move_line)
 
             # Calculate tax lines and adjust base line
@@ -303,4 +303,9 @@ class HrExpenseSheet(models.Model):
     def _get_users_to_subscribe(self, employee=False):
         """ Add sudo to get followers """
         res = super(HrExpenseSheet, self.sudo())._get_users_to_subscribe(employee=employee.sudo())
+        return res
+
+    @api.multi
+    def action_sheet_move_create(self):
+        res = super(HrExpenseSheet, self.sudo()).action_sheet_move_create()
         return res
