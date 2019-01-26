@@ -21,7 +21,7 @@
                         <div class="row mt32 mb32">
                             <div style="font-size: 11; width:300px" class="col-xs-2">
                                 <strong>Employee:</strong>
-                                <p t-field="o.employee_id.name"/>
+                                <p t-field="o.sudo().employee_id.name"/>
                             </div>
                             <div style="font-size: 11; width:300px;" class="col-xs-2">
                                 <strong>Validated By:</strong>
@@ -96,7 +96,7 @@
                                             <strong>Reimbursement</strong>
                                         </td>
                                         <td class="text-right">
-                                            <span t-esc="o.employee_id.medical_reimbursement"/>
+                                            <span t-esc="o.sudo().employee_id.medical_reimbursement"/>
                                             %
                                         </td>
                                     </tr>
@@ -154,7 +154,7 @@
 
                                 <tr>
                                     <td width="34%" align="left">
-                                        <span style="text-decoration:overline" t-esc="o.employee_id.name"/>
+                                        <span style="text-decoration:overline" t-esc="o.sudo().employee_id.name"/>
                                     </td>
                                     <td width="34%" align="left">
                                         <span style="text-decoration:overline" t-field="o.approval_id.name"/>
