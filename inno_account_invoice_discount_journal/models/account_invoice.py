@@ -30,7 +30,7 @@ class AccountInvoice(models.Model):
                     vals['discount'] = order.discount
                     from_so = True
         res = super(AccountInvoice, self.with_context(from_so=from_so)).create(vals)
-        if res.type == 'out_invoice' and res.origin:
+        if res.type == 'out_invoice' and res.origin and not vals.get('discount'):
             res.compute_global_discount()
         return res
 
