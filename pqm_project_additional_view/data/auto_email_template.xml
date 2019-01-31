@@ -54,7 +54,7 @@
                 </a>
              to see detail project.</p><br/>
             <p> Best regards, </p>
-            <p> PT. PROQUAMAN KONSULTAN </p>
+            <p> ${object.company_id.name} </p>
         </div>
         ]]></field>
     </record>
@@ -100,7 +100,7 @@
             </table><br/>
             <p> We are very pleased to inform you that the project has been done, Thank you for your collaboration on this project.</p><br/>
             <p> Best regards, </p>
-            <p> PT. PROQUAMAN KONSULTAN</p>
+            <p> ${object.company_id.name} </p>
         </div>
         ]]></field>
     </record>

@@ -112,7 +112,7 @@
                     <!-- Kop Surat -->
                     <div style="width:50%; padding:0 7px 4px ; text-align:left">
                         <p>
-                            <strong>PT PROQUAMAN KONSULTAN</strong><br/>
+b                            <strong><span t-field="o.company_id.name"></strong><br/>
                             <span t-field="o.company_id.partner_id.street"/><br/>
                             <span t-field="o.company_id.partner_id.street2"/>
                             <span t-field="o.company_id.partner_id.city"/>
@@ -287,8 +287,6 @@
                         <br/>
                         <p>
                             Jakarta, <span t-field="o.date_invoice" t-field-options="{&quot;format&quot;:&quot;d MMMM y&quot;}"/><br/>
-                            <!-- Issued by:<br/>
-                            <b>PT PROQUAMAN KONSULTAN</b> -->
                             <br/>
                             <br/>
                             <br/>

@@ -54,7 +54,7 @@
 <br/>
 <br/>
 <br/>
-<p><b>PT PROQUAMAN KONSULTAN</b></p>
+<p><b>${object.company_id.name}</b></p>
 
 ]]>
         </field>
@@ -119,7 +119,7 @@
 <br/>
 <br/>
 <br/>
-<p><b>PT PROQUAMAN KONSULTAN</b></p>
+<p><b>${object.company_id.name}</b></p>
 ]]>
         </field>
     </record>

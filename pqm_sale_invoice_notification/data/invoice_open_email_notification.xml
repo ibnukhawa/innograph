@@ -84,7 +84,7 @@
                     <br/>
                     <br/>
                     <p>Best regards,</p>
-                    <p>PT. PROQUAMAN KONSULTAN</p>
+                    <p>${object.company_id.name}</p>
               ]]>
             </field>
         </record>
