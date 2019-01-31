@@ -33,8 +33,8 @@
                                     <h4 style="margin:0px;font-size:16px">NO. FP : <t t-esc="o.efaktur_id.name"/></h4>
                                 </t>
                                 <t t-if="o.state!='proforma' and o.state!='proforma2' and o.type == 'in_invoice' and o.journal_id.code != 'LL'">
-                                    <div style="font-size:34px;margin:-6px -13px -10px 0px;letter-spacing:13px"><b>BILLING</b></div>
-                                    <h3 style="margin:0px"><b t-esc="o.number"/></h3>
+                                    <div style="font-size:32px;margin:-6px -13px -10px 0px;letter-spacing:15px"><b>BILLING</b></div>
+                                    <h3 style="margin:0px;font-size: 23px;"><b t-esc="o.number"/></h3>
                                 </t>
                             </div>
                         </div>
@@ -81,15 +81,21 @@
                                         <div t-field="o.partner_id.street"/>
                                     </div>
                                 </div>
-                                <div class="row" style="padding-top:20px">
+                                <div t-if="o.type == 'out_invoice'" class="row" style="padding-top:20px">
                                     <div class="col-xs-3"><b>DELIVER TO</b><b class="pull-right">:</b></div>
                                     <div class="col-xs-9" style="padding-left:0px">
                                         <div t-field="o.partner_shipping_id"/>
                                         <div t-field="o.partner_shipping_id.street"/>
                                     </div>
                                 </div>
+                                <div t-if="o.type == 'in_invoice'" class="row" style="padding-top:20px">
+                                    <div class="col-xs-3"><b>VENDOR REFF</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-9" style="padding-left:0px">
+                                        <div t-field="o.reference" />
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-xs-4" style="padding-left:60px">
+                            <div t-if="o.type == 'out_invoice'" class="col-xs-4" style="padding-left:60px">
                                 <div class="row" style="padding-top:20px;">
                                     <div class="col-xs-6"><b>Invoice Date</b><b class="pull-right">:</b></div>
                                     <div class="col-xs-6" style="padding-left:0px" t-field="o.date_invoice"/>
@@ -110,6 +116,20 @@
                                     <div class="col-xs-6"><b>Customer Ref</b><b class="pull-right">:</b></div>
                                     <div class="col-xs-6" style="padding-left:0px" t-if="o.reference" t-field="o.reference"/>
                                     <div class="col-xs-6" style="padding-left:0px" t-if="o.name" t-field="o.name"/>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6"><b>Payment Term</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.payment_term_id"/>
+                                </div>
+                            </div>
+                            <div t-if="o.type == 'in_invoice'" class="col-xs-4" style="padding-left:60px">
+                                <div class="row" style="padding-top:20px;">
+                                    <div class="col-xs-6"><b>Bill Date</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.date_invoice"/>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6"><b>PO Number</b><b class="pull-right">:</b></div>
+                                    <div class="col-xs-6" style="padding-left:0px" t-field="o.origin"/>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-6"><b>Payment Term</b><b class="pull-right">:</b></div>
@@ -207,8 +227,9 @@
                         </div>
 
                         <div class="row">
+                            <!--CUSTOMER INVOICE FOOTER-->
                             <div class="col-xs-12" style="padding-top:20px;">
-                                <table style="border: solid black 1px; font-size: 12px;">
+                                <table t-if="o.type == 'out_invoice'" style="border: solid black 1px; font-size: 12px;">
                                     <tr>
                                         <th class="text-center" style="background:#ddd">PAYMENT TO</th>
                                         <td style="width: 24.5%"><b>Jakarta, <span t-field="o.date_invoice" t-field-options="{'format':'d MMMM y'}" /></b></td>
@@ -231,7 +252,9 @@
                                             <br/>
                                             <br/>
                                             <br/>
-                                            <u><b>Yuditya Mega P</b></u><br/>
+                                            <u>
+                                                <b>Yuditya Mega P</b>
+                                            </u><br/>
                                             <span>Finance Staff</span>
                                         </td>
                                         <td rowspan="3">
@@ -264,17 +287,94 @@
                                             <img style="width:120px" src="/custom_kwitansi_report/static/src/img/displaystore.png"/>
                                             <div style="margin-top:5px">https://displaystore.id</div>
                                         </td>
-                                        <td colspan="2" style="padding:8px 0px;border-left:0px;font-size:10px;vertical-align:top">
+                                        <td t-if="o.type == 'out_invoice'" colspan="2" style="padding:8px 0px;border-left:0px;font-size:10px;vertical-align:top">
                                             <div style="margin-left:-20px">
                                                 <div style="font-weight:bold;display:inline-block;width:110px">Office</div>: Jl. Lenteng Agung Raya No. 15 (Jl. Baung No. 2) Jakarta Selatan 12610 <br/>
                                                 <div style="font-weight:bold;display:inline-block;width:110px">Phone</div>: (62) 21 7883 1075 <br/>
-                                                <div style="font-weight:bold;display:inline-block;width:110px">Fax</div>: (62) 21 7883 1075 <br/>
-                                                <div style="font-weight:bold;display:inline-block;width:110px">Phone</div>: (62) 21 7883 1692 <br/>
+                                                <div style="font-weight:bold;display:inline-block;width:110px">Fax</div>: (62) 21 7883 1692 <br/>
                                                 <div style="font-weight:bold;display:inline-block;width:110px">Website</div>: http://innograph.com <br/>
                                             </div>
                                         </td>
                                     </tr>
                                 </table>
+
+                                <!--VENDOR BILL FOOTER -->
+                                <table t-if="o.type == 'in_invoice'" style="border: solid black 1px; font-size: 12px;">
+                                    <tr>
+                                        <th class="text-center" style="background:#ddd">TERM &amp; CONDITION</th>
+                                        <td style="width: 18%"><b>Jakarta, <span t-field="o.date_invoice" t-field-options="{'format':'d MMMM y'}" /></b></td>
+                                        <td style="width: 18%"></td>
+                                        <td style="width: 18%"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size:10px">
+                                            <div style="padding-bottom:10px">
+                                                <span t-field="o.company_id.bill_report" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            Issued by:<br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <u>
+                                                <b>Siti Nuzulah</b>
+                                            </u><br/>
+                                            <span>Finance Staff</span>
+                                        </td>
+                                        <td>
+                                            Approved by:<br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <u><b>Hilderia Tambunan</b></u><br/>
+                                            <span>Finance Head</span>
+                                        </td>
+                                        <td>
+                                            Received by:<br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:15px 20px;border-right:0px;vertical-align:top">
+                                            <img style="width:120px" src="/custom_kwitansi_report/static/src/img/displaystore.png"/>
+                                            <div style="margin-top:5px">https://displaystore.id</div>
+                                        </td>
+                                        <td colspan="3" style="padding:8px 0px;border-left:0px;font-size:10px;vertical-align:top">
+                                            <div style="margin-left:24px">
+                                                <div style="font-weight:bold;display:inline-block;width:110px">Office</div>: Jl. Lenteng Agung Raya No. 15 (Jl. Baung No. 2) Jakarta Selatan 12610 <br/>
+                                                <div style="font-weight:bold;display:inline-block;width:110px">Phone</div>: (62) 21 7883 1075 <br/>
+                                                <div style="font-weight:bold;display:inline-block;width:110px">Fax</div>: (62) 21 7883 1692 <br/>
+                                                <div style="font-weight:bold;display:inline-block;width:110px">Website</div>: http://innograph.com <br/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+
+
                             </div>
                         </div>
                     </div>
