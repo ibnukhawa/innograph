@@ -123,7 +123,7 @@
                             </table>
                         </p>
                     <br/>
-                    <p><strong>LEAV${object.employee_id.company_id.name}E SUMMARY</strong></p>
+                    <p><strong>LEAVE SUMMARY</strong></p>
                     <table style="border: 1px solid black;border-collapse:collapse;font-size: 12px;width:400px"  >
                         <tr>
                             <th bgcolor="#eeeeee" style="border: 1px solid black;border-collapse:collapse;padding:5px;text-align:left">Leave Type</th>
