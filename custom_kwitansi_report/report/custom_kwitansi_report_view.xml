@@ -112,7 +112,7 @@
                     <!-- Kop Surat -->
                     <div style="width:50%; padding:0 7px 4px ; text-align:left">
                         <p>
-b                            <strong><span t-field="o.company_id.name"></strong><br/>
+                            <strong><span t-field="o.company_id.name"></strong><br/>
                             <span t-field="o.company_id.partner_id.street"/><br/>
                             <span t-field="o.company_id.partner_id.street2"/>
                             <span t-field="o.company_id.partner_id.city"/>
