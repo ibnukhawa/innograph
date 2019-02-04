@@ -40,3 +40,26 @@ class CRMLead(models.Model):
             if stage_id:
                 vals['stage_id'] = stage_id.id
         return super(CRMLead, self).write(vals)
+
+    @api.model
+    def _read_group_stage_ids(self, stages, domain, order):
+        user_id = self._context.get('uid')
+        user = self.env['res.users'].search([('id', '=', user_id)])
+        if user.has_group('sales_team.group_sale_salesman'):
+            res = super(CRMLead, self)._read_group_stage_ids(stages, domain, order)
+            # If not sales manager will be filtered
+            if not user.has_group('sales_team.group_sale_manager'):
+                # Get user assigned team
+                team_ids = self.env['crm.team'].search([])
+                user_team = team_ids.filtered(lambda x: user_id in x.member_ids._ids)
+                if not user_team:
+                    return stages
+                # Get stage assigned User's team
+                stage_ids = self.env['crm.stage']
+                for team in user_team:
+                    stage_ids += res.filtered(lambda x: team.id in x.team_ids._ids)
+                    res -= stage_ids
+                stages = stage_ids
+            else:
+                return res
+        return stages
