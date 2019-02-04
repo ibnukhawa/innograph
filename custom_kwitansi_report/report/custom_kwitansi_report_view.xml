@@ -330,9 +330,14 @@
                     </div>
                 </div> -->
                 <p style="font-size:10px" align="center">
-                    <br>PQM BUILDING 3rd Floor</br>
-                    <br>Jl. Cempaka Putih Tengah 17C No.7A, Jakarta 10510, Tel: (62)21 425 1887 | 425 1836 Fax: (62)21 425 4836</br>
-                    <br>Email: finance@pqm.co.id | Website: http://www.pqm.co.id</br>
+                    <!--<br>PQM BUILDING 3rd Floor</br>-->
+                    <!--<br>Jl. Cempaka Putih Tengah 17C No.7A, Jakarta 10510, Tel: (62)21 425 1887 | 425 1836 Fax: (62)21 425 4836</br>-->
+                    <!--<br>Email: finance@pqm.co.id | Website: http://www.pqm.co.id</br>-->
+                    <span t-field="o.company_id.street" /><br/>
+                    <span t-if="o.company_id.phone"> Tel : <span t-esc="o.company_id.phone" /></span>
+                    <span t-if="o.company_id.fax"> Fax : <span t-esc="o.company_id.fax" /></span><br/>
+                    <span t-if="o.company_id.email"> Email : <span t-esc="o.company_id.email"/> |</span>
+                    <span t-if="o.company_id.website"> Website : <span t-esc="o.company_id.website"/></span>
                 </p>
             </div>
         </t>
