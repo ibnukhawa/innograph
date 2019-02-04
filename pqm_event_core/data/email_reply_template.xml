@@ -23,7 +23,7 @@
                 <br/>
                 <br/>
                 <p>Regards,</p>
-                <p><b>PT PROQUAMAN KONSULTAN</b></p>
+                <p><b>${object.company_id.name}</b></p>
             ]]>
         </field>
     </record>
