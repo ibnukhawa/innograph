@@ -32,10 +32,8 @@ class SaleOrder(models.Model):
     def write(self, vals):
         res = super(SaleOrder, self).write(vals)
         for order in self:
-            print (">>>>>>", order)
             if  self._context.get('discount_applied'):
                 continue
-            print (">> lanjut >>", self._context)
             order.compute_global_discount()
         return res
 
