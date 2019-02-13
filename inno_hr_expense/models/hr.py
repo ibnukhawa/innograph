@@ -197,13 +197,17 @@ class HrExpenseSheet(models.Model):
 
     def _check_medical_budget(self, sheet):
         """ Function to check if medical budget larger than Expense requested """
+        res = False
         employee_id = sheet.employee_id.sudo()
-        medical_expense = sheet.expense_line_ids.filtered(
-            lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
-        expense_total = sum(medical_expense.mapped('total_amount'))
-        new_expense_consumed = expense_total + employee_id.medical_consum
-        budget = employee_id.medical_budget
-        return new_expense_consumed > budget
+        if sheet.category_id.is_medical:
+            medical_expense = sheet.expense_line_ids.filtered(
+                lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
+            if any(medical_expense):
+                expense_total = sum(medical_expense.mapped('total_amount'))
+                new_expense_consumed = expense_total + employee_id.medical_consum
+                budget = employee_id.medical_budget
+                res = new_expense_consumed > budget
+        return res
 
     @api.multi
     @api.depends('expense_line_ids', 'expense_line_ids.requested_amount',
