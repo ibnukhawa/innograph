@@ -47,9 +47,6 @@
 	        	<field name="account_analytic_id" position="attributes">
 	        		<attribute name="required">True</attribute>
 	        	</field>
-	        	<field name="vendor_id" position="attributes">
-	        		<attribute name="required">True</attribute>
-	        	</field>
 	        	<!-- Add new Field -->
 	        	<field name="account_analytic_id" position="after">
 	        		<field name="approver_id" required="True" domain="[('supplier', '=', False), ('customer', '=', False), ('is_division_head', '=', True)]" />
