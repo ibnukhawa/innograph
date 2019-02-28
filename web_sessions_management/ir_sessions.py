@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -23,6 +23,7 @@
 ##############################################################################
 
 import logging
+import os
 from datetime import datetime
 
 import werkzeug.contrib.sessions
@@ -32,9 +33,8 @@ import werkzeug.local
 import werkzeug.routing
 import werkzeug.wrappers
 import werkzeug.wsgi
-from odoo import SUPERUSER_ID
-from odoo import api
-from odoo import fields, models
+
+from odoo import SUPERUSER_ID, api, fields, models
 from odoo.http import root
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
@@ -116,9 +116,19 @@ class ir_sessions(models.Model):
     @api.multi
     def _close_session(self, logout_type=None):
         redirect = False
-        for r in self:
-            if r.user_id.id == self.env.user.id:
+        for res in self:
+            if res.user_id.id == self.env.user.id:
                 redirect = True
-            session = root.session_store.get(r.session_id)
+            session = root.session_store.get(res.session_id)
             session.logout(logout_type=logout_type, env=self.env)
+
+            # Delete the stored session directly
+            for fname in os.listdir(root.session_store.path):
+                if res.session_id in fname:
+                    path = os.path.join(root.session_store.path, fname)
+                    try:
+                        os.unlink(path)
+                    except OSError:
+                        _logger.warning('Unable to remove session %s', res.session_id)
+
         return redirect
