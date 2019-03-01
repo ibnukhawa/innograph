@@ -112,9 +112,9 @@ class ProjectProject(models.Model):
         res = super(ProjectProject, self).create(vals)
         if res.invoiceable_project:
             users = []
-            billing = self.env.ref('account.group_account_invoice')
-            for acc in billing.users:
-                users.append(acc.partner_id.id)
+#             billing = self.env.ref('account.group_account_invoice')
+#             for acc in billing.users:
+#                 users.append(acc.partner_id.id)
             
             if res.account_manager_id:
                 users.append(res.account_manager_id.partner_id.id)
