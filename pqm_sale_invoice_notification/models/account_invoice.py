@@ -29,23 +29,23 @@ class AccountInvoice(models.Model):
         sale_id = self.env['sale.order'].search([('name', '=', self.origin)])
         append(admin_user)
 
-        director_user = self.env['res.users'].\
-            search([('is_director', '=', True)])
-        for director in director_user:
-            append(director)
+#         director_user = self.env['res.users'].\
+#             search([('is_director', '=', True)])
+#         for director in director_user:
+#             append(director)
+# 
+#         billing_id = self.env.ref('account.group_account_invoice').id
+#         billing_user = self.env['res.users'].\
+#             search([('groups_id', '=', billing_id)])
+#         for billing in billing_user:
+#             if billing not in users:
+#                 append(billing)
 
-        billing_id = self.env.ref('account.group_account_invoice').id
-        billing_user = self.env['res.users'].\
-            search([('groups_id', '=', billing_id)])
-        for billing in billing_user:
-            if billing not in users:
-                append(billing)
-
-        for follower in sale_id.project_project_id.message_follower_ids:
-            if follower.partner_id not in users:
-                follower_id = self.env['res.users'].\
-                    search([('partner_id', '=', follower.partner_id.id)])
-                append(follower_id)
+#         for follower in sale_id.project_project_id.message_follower_ids:
+#             if follower.partner_id not in users:
+#                 follower_id = self.env['res.users'].\
+#                     search([('partner_id', '=', follower.partner_id.id)])
+#                 append(follower_id)
         return users
 
     @api.multi
