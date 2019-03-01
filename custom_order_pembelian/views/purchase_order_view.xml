@@ -22,7 +22,7 @@
                     <attribute name="attrs">{'invisible':['|',('is_approver','=', False)]}</attribute>
                 </xpath>
                 <field name="date_order" position="after">
-		    		<field name="approver" required="1" domain="[('customer','=', False),('supplier','=',False),('is_approval','=',True)]"
+		    		<field name="approver" required="1" domain="[('is_approval','=',True)]"
 		    				attrs="{'readonly': [('state', 'not in', ('draft'))]}"/>
 		    		<field name="is_approver" invisible="1"/>
 		    	</field>
