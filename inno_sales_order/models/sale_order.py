@@ -48,12 +48,14 @@ class SaleOrder(models.Model):
 	def terbilang(self):
 		self.amount_text = Terbilang(self.amount_total)
 
+	@api.multi
 	def _get_valid_day(self):
-		diff = 0
-		if self.date_order and self.validity_date:
-			date_order = datetime.strptime(self.date_order, DTF).date()
-			year, month, day = self.validity_date.split('-')
-			validity_date = date(int(year), int(month), int(day))
-			delta = validity_date - date_order
-			diff = delta.days
-		self.valid_days = diff
+		for sale in self:
+			diff = 0
+			if sale.date_order and sale.validity_date:
+				date_order = datetime.strptime(sale.date_order, DTF).date()
+				year, month, day = sale.validity_date.split('-')
+				validity_date = date(int(year), int(month), int(day))
+				delta = validity_date - date_order
+				diff = delta.days
+			sale.valid_days = diff
