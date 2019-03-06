@@ -13,11 +13,13 @@ class SaleOrder(models.Model):
 	valid_days = fields.Integer(compute='_get_valid_day')
 	date_planned = fields.Date(compute='_compute_date_planned')
 
+	@api.multi
 	def _compute_date_planned(self):
-		if self.order_line:
-			lead_list = self.order_line.mapped('customer_lead')
-			min_lead = min(lead_list)
-			self.date_planned = datetime.strptime(self.date_order, DTF) + timedelta(days=min_lead)
+		for sale in self:
+			if sale.order_line:
+				lead_list = sale.order_line.mapped('customer_lead')
+				min_lead = min(lead_list)
+				sale.date_planned = datetime.strptime(sale.date_order, DTF) + timedelta(days=min_lead)
 
 	@api.model
 	def create(self, vals):
@@ -32,17 +34,20 @@ class SaleOrder(models.Model):
 		for sale in self:
 			if sale.state == 'sale':
 				sale.quotation_number = sale.name
-				sale.name = self.env['ir.sequence'].with_context(force_company=self.company_id.id).next_by_code('inno.sale.order') or self.name	
+				sale.name = self.env['ir.sequence'].with_context(force_company=sale.company_id.id).next_by_code('inno.sale.order') or sale.name
+		return res
 
+	@api.multi
 	def _get_contact_person(self):
-		contact = False
-		if self.partner_id:
-			contact_src = self.partner_id.child_ids.filtered(lambda x:x.type == 'contact')
-			if any(contact_src):
-				contact = contact_src[0]
-			else:
-				contact = self.partner_id
-		return contact
+		for sale in self:
+			contact = False
+			if sale.partner_id:
+				contact_src = sale.partner_id.child_ids.filtered(lambda x:x.type == 'contact')
+				if any(contact_src):
+					contact = contact_src[0]
+				else:
+					contact = sale.partner_id
+			return contact
 
 	@api.one
 	def terbilang(self):
