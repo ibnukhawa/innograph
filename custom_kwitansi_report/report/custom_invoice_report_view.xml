@@ -201,7 +201,7 @@
                                             <tr>
                                                 <td><b>DPP</b></td>
                                                 <td class="text-right">
-                                                    <span t-field="o.amount"/>
+                                                    <span t-field="o.amount_untaxed"/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -241,7 +241,7 @@
                                             <tr>
                                                 <td><b>DPP</b></td>
                                                 <td class="text-right">
-                                                    <span t-field="o.amount"/>
+                                                    <span t-field="o.amount_untaxed"/>
                                                 </td>
                                             </tr>
                                             <tr>
