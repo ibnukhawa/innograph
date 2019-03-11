@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=import-error,protected-access,too-few-public-methods
-
 """account invoice"""
 from odoo import models, api
 
@@ -26,26 +24,26 @@ class AccountInvoice(models.Model):
         users = []
         append = users.append
         admin_user = self.env['res.users'].search([('id', '=', 1)])
-        sale_id = self.env['sale.order'].search([('name', '=', self.origin)])
+        # sale_id = self.env['sale.order'].search([('name', '=', self.origin)])
         append(admin_user)
 
-#         director_user = self.env['res.users'].\
-#             search([('is_director', '=', True)])
-#         for director in director_user:
-#             append(director)
-# 
-#         billing_id = self.env.ref('account.group_account_invoice').id
-#         billing_user = self.env['res.users'].\
-#             search([('groups_id', '=', billing_id)])
-#         for billing in billing_user:
-#             if billing not in users:
-#                 append(billing)
+        # director_user = self.env['res.users'].\
+        #     search([('is_director', '=', True)])
+        # for director in director_user:
+        #     append(director)
 
-#         for follower in sale_id.project_project_id.message_follower_ids:
-#             if follower.partner_id not in users:
-#                 follower_id = self.env['res.users'].\
-#                     search([('partner_id', '=', follower.partner_id.id)])
-#                 append(follower_id)
+        # billing_id = self.env.ref('account.group_account_invoice').id
+        # billing_user = self.env['res.users'].\
+        #     search([('groups_id', '=', billing_id)])
+        # for billing in billing_user:
+        #     if billing not in users:
+        #         append(billing)
+
+        # for follower in sale_id.project_project_id.message_follower_ids:
+        #     if follower.partner_id not in users:
+        #         follower_id = self.env['res.users'].\
+        #             search([('partner_id', '=', follower.partner_id.id)])
+        #         append(follower_id)
         return users
 
     @api.multi
@@ -87,6 +85,6 @@ class AccountInvoice(models.Model):
             })
             template_id.\
                 with_context(symbol=symbol, receipt=rec.partner_id.name,
-                             project_name=sale_id.project_id.display_name,
-                             project_title=sale_id.project_project_id.display_name).\
+                             project_name=sale_id.project_id.code,
+                             project_title=sale_id.project_id.name).\
                 send_mail(rec_id, force_send=True)
