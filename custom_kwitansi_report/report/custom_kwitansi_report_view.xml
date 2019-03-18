@@ -168,14 +168,23 @@
                             <tr>
                                 <td><strong>Untuk Pembayaran</strong></td>
                                 <td>:&#160;</td>
-                                 <t t-if="len(o.invoice_line_ids)==1">
-                                    <td class="border-bottom"><em><span t-esc="o.invoice_line_ids[0].name"/> </em></td>
+                                <t t-set="len_line" t-value="len(o.invoice_line_ids)" />
+                                    <t t-if="len_line &gt;= 1">
+                                    <td class="border-bottom">
+                                        <t t-set="n" t-value="0" />
+                                        <t t-foreach="o.invoice_line_ids" t-as="line">
+                                            <t t-set="n" t-value="n+1" />
+                                            <t t-if="n &lt; len_line">
+                                                <em><span t-esc="line.name"/></em>,
+                                            </t>
+                                            <t t-if="n == len_line">
+                                                <em><span t-esc="line.name"/></em>
+                                            </t>
+                                        </t>
+                                        <br/>
+                                        <em><strong> <span t-esc="o.comment"/> #</strong></em>
+                                    </td>
                                 </t>
-                                 <t t-if="len(o.invoice_line_ids)&gt;1">
-                                    <td class="border-bottom"><em><span t-esc="o.invoice_line_ids[0].name"/> </em><br/>
-                                        <em><strong> <span t-esc="o.comment"/> #</strong></em></td>
-                                </t>
-
                             </tr>
                         </table>
                     </div>
@@ -295,7 +304,7 @@
                             <br/>
                             <br/>
                             <br/>
-                            <u>Frida Sani Wihardji</u><br/>
+                            <u>Hilderia Panjaitan</u><br/>
                             <span>Finance Manager</span>
                         </p>
                     </div>
