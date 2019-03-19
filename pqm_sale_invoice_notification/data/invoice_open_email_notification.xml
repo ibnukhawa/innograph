@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!--Email template -->
+        <record id="invoice_open_email_template" model="mail.template">
+            <field name="name">Invoice Open</field>
+            <field name="email_from">${(user.email or '')|safe}</field>
+            <field name="subject">Invoice Open Notification</field>
+            <field name="email_to"/>
+            <field name="model_id" ref="pqm_sale_invoice_notification.model_account_invoice" />
+            <field name="auto_delete" eval="True" />
+            <field name="body_html">
+              <![CDATA[
+                    <table style="border-bottom: 1px solid black;width:100%;">
+                      <tr>
+                        <td align="right">
+                          <img src="https://images.glints.com/unsafe/1024x0/glints-dashboard.s3.amazonaws.com/company-logo/c03948e46bc25d8877325a1f3a97f352.png" align="right" width="100"/>
+                        </td>
+                      </tr>
+                    </table>
+                    <br/>
+                    <p>Hello ${ctx['receipt']}, ${object.create_uid.partner_id.name} Telah berhasil membuat invoice untuk penagihan project:</p>
+                    <table bordercolor="white" style="vertical-align:top">
+                      <tr>
+                        <td>
+                          Client Name
+                        </td>
+              			<td>: </td>
+                        <td>
+                          ${object.partner_id.name}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Project Name
+                        </td>
+                        <td>: </td>
+                        <td>
+                          ${ctx['project_name']}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Project Title
+                        </td>
+                        <td>: </td>
+                        <td>
+                          ${ctx['project_title']}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Invoice Description
+                        </td>
+                        <td>: </td>
+                        <td>
+                          %for row in object.invoice_line_ids:
+                            - ${row.name}
+                            <br/>
+                          %endfor
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Invoice Amount (DPP+Tax)
+                        </td>
+                        <td>: </td>
+                        <td>
+                          ${ ctx['symbol']+ ' ' + '{:,.2f}'.format(object.amount_total)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Invoice Status
+                        </td>
+                        <td>: </td>
+                        <td>
+                          ${object.state}
+                        </td>
+                      </tr>
+                    </table>
+                    <br/>
+                    <p>Informasi lebih lanjut mengenai proses penagihan ini, bisa konfirmasi PMO / Finance Departement</p>
+                    <br/>
+                    <br/>
+                    <p>Best regards,</p>
+                    <p>${object.company_id.name}</p>
+              ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

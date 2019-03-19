@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+    	<menuitem id="purchase_requisition.menu_purchase_requisition_pro_mgt" 
+    		sequence="10" parent="purchase.menu_procurement_management"
+    		name="Purchase Requests" action="purchase_requisition.action_purchase_requisition"/>
+
+    	<record model="ir.actions.act_window" id="purchase_requisition.action_purchase_requisition">
+    		<field name="name">Purchase Requests</field>
+    	</record>
+
+    	<record model="ir.actions.act_window" id="purchase_requisition.action_purchase_requisition">
+    		<field name="name">Purchase Requests</field>
+    	</record>
+
+    	<record model="ir.ui.view" id="view_purchase_requisition_form">
+	        <field name="name">purchase.requisition.form</field>
+	        <field name="model">purchase.requisition</field>
+	        <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form" />
+	        <field name="arch" type="xml">
+	        	<!-- Button -->
+	        	<xpath expr="//header/button[1]" position="attributes">
+	        		<attribute name="class">btn-primary</attribute>
+	        	</xpath>
+	        	<xpath expr="//header/button[2]" position="replace" />
+	        	<button name="action_cancel" position="attributes">
+	        		<attribute name="string">Cancel Request</attribute>
+	        	</button>
+	        	<!-- Change String -->
+	        	<xpath expr="//form[1]" position="attributes">
+	        		<attribute name="string">Purchase Requests</attribute>
+	        	</xpath>
+	        	<xpath expr="//label[@for='name']" position="attributes">
+	        		<attribute name="string">Request Number</attribute>
+	        	</xpath>
+	        	<field name="date_end" position="attributes">
+	        		<attribute name="string">Request Deadline</attribute>
+	        	</field>
+	        	<!-- Set Invisible/Required/Readonly -->
+	        	<field name="type_id" position="attributes">
+	        		<attribute name="invisible">1</attribute>
+	        	</field>
+	        	<xpath expr="//sheet/div/h1/field[@name='name']" position="attributes">
+	        		<attribute name="attrs"></attribute>
+	        		<attribute name="readonly">True</attribute>
+	        	</xpath>
+	        	<field name="account_analytic_id" position="attributes">
+	        		<attribute name="required">True</attribute>
+	        	</field>
+	        	<!-- Add new Field -->
+	        	<field name="account_analytic_id" position="after">
+	        		<field name="approver_id" required="True" domain="[('supplier', '=', False), ('customer', '=', False), ('is_division_head', '=', True)]" />
+	        	</field>
+	        	<xpath expr="//page/field[@name='line_ids']/tree/field[@name='product_uom_id']" position="after">
+	        		<field name="sale_order_id" string="Sales Order" />
+	        	</xpath>
+	        </field>
+	    </record>
+
+	    <record model="ir.ui.view" id="view_purchase_requisition_tree">
+	        <field name="name">purchase.requisition.tree</field>
+	        <field name="model">purchase.requisition</field>
+	        <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_tree" />
+	        <field name="arch" type="xml">
+	        	<field name="name" position="attributes">
+	        		<attribute name="string">Purchase Request</attribute>
+	        	</field>
+	        	<field name="date_end" position="attributes">
+	        		<attribute name="string">Request Deadline</attribute>
+	        	</field>
+	        </field>
+	    </record>
+    </data>
+</odoo>

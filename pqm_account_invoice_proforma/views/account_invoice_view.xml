@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="account_journal_form_view" model="ir.ui.view">
+	         <field name="name">account.journal.form</field>
+	         <field name="model">account.journal</field>
+	         <field name="inherit_id" ref="account.view_account_journal_form"/>
+	         <field name="arch" type="xml">
+	         	<xpath expr="//field[@name='sequence_id']" position="after">
+					<field name="is_accrued_journal"/>
+				</xpath>
+	         </field>
+	    </record>
+		<record id="account_invoice_form_view" model="ir.ui.view">
+	         <field name="name">account.invoice.form</field>
+	         <field name="model">account.invoice</field>
+	         <field name="inherit_id" ref="account.invoice_form"/>
+	         <field name="arch" type="xml">
+	           <button name="invoice_print" position="after">
+	                <button name="action_move_accrued" 
+                    string="ACCRUED" type="object" 
+                    attrs="{'invisible':['|',('accrued_journal','!=',False), ('state', 'in', ['open','paid','cancel'])]}" groups="base.group_user"
+                     class="oe_highlight"/>
+	           </button>
+	         	<xpath expr="//form/sheet/notebook/page[@name='other_info']/group/group/field[@name='name']" position="after">
+					<field name="accrued_journal" readonly='1'/>
+					<field name="accrued_reverse_journal" readonly='1'/>
+				</xpath>
+	         </field>
+	    </record>   
+	        
+	</data>
+</odoo>

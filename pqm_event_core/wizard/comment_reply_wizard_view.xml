@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="event_comment_reply_wizard" model="ir.ui.view">
+        <field name="name">event.comment.reply.wizard</field>
+        <field name="model">event.comment.reply</field>
+        <field name="arch" type="xml">
+        	<form>
+        		<group>
+        			<group>
+        				<field name="comment_id" readonly="True" />
+        				<field name="email_to" readonly="True" />
+        				<field name="event_id" readonly="True" />
+        			</group>
+        		</group>
+        		<label for="reply_comment" string="Reply" />
+        		<field name="reply_comment" placeholder="Reply" />
+	        	<footer>
+	        		<button class="btn-primary" type="object" name="send_reply_comment" string="Reply" />
+	        		<button string="Cancel" class="btn-default" special="cancel"/>
+	        	</footer>
+	        </form>
+        </field>
+    </record>
+</odoo>

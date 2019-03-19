@@ -1,0 +1,463 @@
+/* event filter */
+.o_website_event .filter_container{
+    background: #f7f7f7;
+    padding-top: 15px;
+    margin-top: 10px;
+}
+
+.o_website_event .filter_container #filter_form .form-control{
+    background: #fff !important;
+    margin-bottom: 15px;
+}
+
+.o_website_event .filter_container #filter_form .clear_filter{
+    margin-bottom: 15px;
+}
+
+.o_website_event .filter_container #filter_form select, .o_website_event .filter_container #filter_form select, .o_website_event .filter_container #filter_form select, .o_website_event .filter_container #filter_form select option{
+    text-transform: capitalize;
+}
+
+/* event mode */
+.o_website_event .mode_container{
+    margin:10px 0px;
+}
+
+.o_website_event .mode_container ul.mode_switcher{
+    list-style: none;
+}
+
+.o_website_event .mode_container ul.mode_switcher li{
+    display: table-cell;
+}
+
+.o_website_event .mode_container ul.mode_switcher li a{
+    padding: 5px 10px;
+    background: #eee;
+}
+
+.o_website_event .mode_container ul.mode_switcher li.active a{
+    background: #ddd;
+    color: #828282 !important;
+}
+
+
+/* event card */
+.o_website_event .card_container{
+    margin-bottom: 15px;
+}
+
+.o_website_event .card_container .card_background{
+    background-color: #ddddff;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.o_website_event .card_container .card_holder{
+    position: relative;
+    height: 190px;
+}
+
+.o_website_event .card_container .card_foreground{
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 50%;
+    background-color: rgba(34, 62, 127, 0.85);
+    transition: top .4s;
+    color: white;
+}
+
+.o_website_event .card_container .card_foreground:hover{
+    top: 0px;
+}
+
+.o_website_event .card_container .card_foreground .card_header{
+    height: 80%;
+}
+
+.o_website_event .card_container .card_foreground .card_footer{
+    height: 20%;
+}
+
+.o_website_event .card_container .card_foreground .card_title{
+    height: 40%;
+}
+
+.o_website_event .card_container .card_foreground .card_title *{
+    color: white;
+}
+
+.o_website_event .card_container .card_foreground .card_date{
+    font-size: 14px;
+}
+
+.o_website_event .card_container .card_foreground .card_address{
+    padding-top: 5px;
+}
+
+.o_website_event .card_container .card_foreground .card_address *{
+    font-size: 10px;
+}
+
+.o_website_event .card_container .card_btn{
+    border:2px solid #e9e9e9;
+    padding:5px;
+    width:50%;
+    text-align:center;
+    float:left;
+    color:white;
+}
+
+.o_website_event .card_container .card_share{
+    position: relative;
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+}
+
+.o_website_event .card_container .card_share .card_share_button{
+    width:35px;
+    height:35px;
+    float: left;
+    margin-left:20%;
+    background-color: inherit;
+    border:none;
+    cursor: pointer;
+}
+
+.o_website_event .card_container .card_share .card_share_content{
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: -135px;
+    margin-left: 5px;
+    border-radius: 25px;
+}
+
+.o_website_event .card_container .card_share:hover .card_share_content{
+    display: block;
+}
+ 
+.o_website_event .card_container .card_share .card_share_content a{
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    display: block;
+    margin: 5px;
+    border-radius: 50%;
+    font-size: 12px;
+    color: #fff;
+    opacity: 0.75;
+    transition: opacity 0.15s linear;
+}
+
+.o_website_event .card_container .card_share .card_share_content a:hover{
+    background-color: #f1f1f1
+}
+
+.o_website_event .card_container .card_share .card_share_content a:hover {
+    opacity: 1;
+}
+
+.o_website_event .card_container .card_share .card_share_content i {
+    margin-top: 8px;
+}
+
+.o_website_event .card_container .card_share .card_share_content .facebook {
+    background: #3b5998;
+}
+
+.o_website_event .card_container .card_share .card_share_content .twitter {
+    background: #55acee;
+}
+
+.o_website_event .card_container .card_share .card_share_content .googleplus {
+    background: #dd4b39;
+}
+
+.o_website_event .card_container .card_share .card_share_content .linkedin {
+    background: #0077b5;
+}
+
+.o_website_event .card_container .card_share .card_share_content .pinterest {
+    background: #cb2027;
+}
+
+.o_website_event .card_container .card_share .card_share_content .whatsapp {
+    background: #25D366;
+}
+
+/* event table */
+.o_website_event .calendar_table{
+    margin-bottom: 20px;
+    min-width: 980px;
+}
+
+.o_website_event .calendar_table th{
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #d0d0ef;
+    text-align: center;
+    background-color: #223e7f;
+    color: white;
+}
+
+.o_website_event .calendar_table th.green{
+    background-color: green;
+}
+
+.o_website_event .calendar_table td{
+    padding: 0px 2px;
+    border: 1px solid #d0d0ef;
+    font-size: 12px;
+    color: black;
+}
+
+.o_website_event .calendar_table .badge{
+    background: #223e7f;
+    padding: 2px 3px;
+    font-size: 10px;
+    max-width: 100px;
+}
+
+/* event details */
+.o_website_event .label-primary{
+    position: initial;
+    padding: 3px 5px;
+}
+
+.o_website_event .js_unfollow_btn{
+    background: #223e7f;
+    border-color: #2e6da4;
+}
+
+.o_website_event .event_title{
+    text-transform: capitalize;
+}
+
+/* event details content */
+.o_website_event .content_container img{
+    max-width: 100%;
+}
+
+@media (min-width: 992px){
+    .o_website_event .second_content{
+        min-height: 1155px;
+    }
+}
+
+@media (min-width: 1200px){
+    .o_website_event .second_content{
+        min-height: 1105px;
+    }
+}
+
+/* event details register */
+.o_website_event .register_container .register_none{
+    text-align: center;
+    padding: 20px;
+    background: #f8f8f8;
+}
+
+.o_website_event .register_container .table-responsive{
+    border: 0px;
+}
+
+/* event details countdown */
+.o_website_event .countdown_container{
+    text-align: center;
+    padding-top: 25px;
+    padding-bottom: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background: #f8f8f8;
+}
+
+.o_website_event .countdown_container h6{
+    margin: 0px;
+    padding-bottom: 20px;
+}
+
+.o_website_event .countdown_container .flip-clock-wrapper{
+    display: inline-block;
+    width: auto;
+}
+
+.o_website_event .countdown_container .flip-clock-wrapper .flip{
+    box-shadow: none;
+    height: 74px;
+}
+
+.o_website_event .countdown_container .flip-clock-wrapper ul li a div div.inn{
+    text-shadow: none;
+    color: #f8f8f8;
+    background: #223e7f;
+    font-size: 60px;
+}
+
+.o_website_event .countdown_container .flip-clock-wrapper ul li a div.up:after, .o_website_event .countdown_container .flip-clock-wrapper ul li.play a div.up:after{
+    background-color: rgba(0, 0, 0, 0.15);
+    top: 36px;
+}
+
+.o_website_event .countdown_container .flip-clock-wrapper .flip-clock-label{
+    font-size: 15px;
+    color: #828282;
+    font-family: 'Poppins', sans-serif;
+    right: -92px;
+    font-weight: bold;
+}
+
+.o_website_event .countdown_container .flip-clock-wrapper .flip-clock-dot{
+    visibility: hidden;
+}
+
+.o_website_event .countdown_container .countdown_display{
+    zoom: 0.85;
+    -moz-transform: scale(0.85);
+}
+
+@media (max-width: 600px){
+    .o_website_event .countdown_container .countdown_display{
+        zoom: 0.65;
+        -moz-transform: scale(0.65);
+    }
+}
+
+@media (max-width: 500px){
+    .o_website_event .countdown_container .countdown_display{
+        zoom: 0.60;
+        -moz-transform: scale(0.60);
+    }
+}
+
+@media (max-width: 450px){
+    .o_website_event .countdown_container .countdown_display{
+        zoom: 0.45;
+        -moz-transform: scale(0.45);
+    }
+}
+
+@media (max-width: 350px){
+    .o_website_event .countdown_container .countdown_display{
+        zoom: 0.38;
+        -moz-transform: scale(0.38);
+    }
+}
+
+
+/* event details nextevent */
+.o_website_event .pastnextevent_container{
+    margin-bottom: 15px;
+}
+
+/* event details panel */
+.o_website_event .panel-default{
+    color: #323232;
+    background: #f8f8f8;
+    border-radius: 0px;
+    border: 0px;
+}
+
+.o_website_event .panel-default .panel-heading{
+    background: #223e7f;
+    color: #fff;
+    padding-top: 15px;
+    border-radius: 0px;
+}
+
+.o_website_event .panel-default .panel-heading h4{
+    color: #fff;
+}
+
+.o_website_event .panel-default .social-share{
+    margin: 10px;
+    text-align: center;
+}
+
+.o_website_event .panel-default .social-share a{
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    display: inline-block;
+    margin: 5px;
+    border-radius: 50%;
+    font-size: 12px;
+    color: #fff;
+    opacity: 0.75;
+    transition: opacity 0.15s linear;
+}
+
+.o_website_event .panel-default .social-share a:hover {
+    opacity: 1;
+    background-color: #f1f1f1;
+    color: #223e7f;
+}
+
+.o_website_event .panel-default .social-share a i {
+    margin-top: 8px;
+}
+
+.o_website_event .panel-default .social-share .facebook {
+    background: #3b5998;
+}
+
+.o_website_event .panel-default .social-share .twitter {
+    background: #55acee;
+}
+
+.o_website_event .panel-default .social-share .googleplus {
+    background: #dd4b39;
+}
+
+.o_website_event .panel-default .social-share .linkedin {
+    background: #0077b5;
+}
+
+.o_website_event .panel-default .social-share .pinterest {
+    background: #cb2027;
+}
+
+.o_website_event .panel-default .social-share .whatsapp {
+    background: #25D366;
+}
+
+
+/* event comment */
+.o_website_event .comment_container .comment_form{
+    background: #f8f8f8;
+    display: inline-block;
+    padding-top: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.o_website_event .comment_container .comment_form .form-control[readonly]{
+    background: #eee;
+}
+
+.o_website_event .comment_container .comment_form textarea.form-control{
+    background: #fff;
+}
+
+.o_website_event .comment_container .comment_form .comment_item{
+    display: inline-block;
+    background: #fbfbfb;
+    width: 100%;
+    padding: 10px;
+    border-bottom:1px solid #eee;
+}
+
+.o_website_event .comment_container .comment_form .comment_item h6{
+    margin-bottom: 5px;
+}
+
+.o_website_event .breadcrumb{
+    border-radius: 0px;
+}

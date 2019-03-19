@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_attendance_form_view" model="ir.ui.view">
+            <field name="name">hr.attendance.form.view</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group[1]" position="before">
+                    <div style="float: right">
+                        <button name="write" string="Manual Update" type="object" class="btn-primary"/>
+                    </div>
+                </xpath>
+                <field name="check_out" position="after">
+                    <field name="date" readonly="1"/>
+                    <field name="day_of_month" invisible="1"/>
+                    <field name="day_of_week" invisible="1"/>
+                    <field name="working_time"/>
+                    <field name="worked_hours" widget="float_time"/>
+                    <field name="hour_late" widget="float_time" readonly="1"/>
+                    <field name="hour_early" widget="float_time" readonly="1"/>
+                    <field name="status" readonly="1"/>
+                    <field name="punishment_late" readonly="1"/>
+                    <field name="reason"/>
+                    <field name="reason_date" readonly="1"/>
+                    <field name="reason_status" readonly="1"/>
+                </field>
+                <xpath expr="//sheet/group[1]" position="after">
+                    <div style="display: flow-root" attrs="{'invisible': [('reason_status', '!=', 'open')]}">
+                        <div style="float: right">
+                            <button name="reason_approve" string="Decline Reason" context="{'status': 'decline'}" type="object" class="btn-danger" style="margin-right:10px;"/>
+                            <button name="reason_approve" string="Approve Reason" context="{'status': 'accept'}" type="object" class="btn-success"/>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_attendance_form_tree" model="ir.ui.view">
+            <field name="name">hr.attendance.form.tree</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='check_out']" position="after">
+                    <field name="auto_attendance"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

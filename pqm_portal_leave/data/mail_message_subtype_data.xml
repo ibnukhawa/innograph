@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+		<function model="mail.message.subtype" name="change_default"/>
+        <function model="hr.employee" name="recompute_coach_leave"/>
+    </data>
+</odoo>

@@ -1,0 +1,44 @@
+.o_portal_submenu > li > div {
+    display: inline;
+}
+
+.o_portal_submenu > li > div > a{
+    color: #777777;
+    padding: 10px 15px;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.o_portal_submenu > li:hover > div > a{
+    color: #0a78e4;
+}
+
+.o_portal_submenu .open > a, .o_portal_submenu .open > a:hover, .o_portal_submenu .open > a:focus{
+    background-color: transparent;
+    border-color: #0a78e4;
+}
+
+@media (min-width: 768px){
+    .o_portal_submenu > li > div {
+        display: flex;
+    }
+
+    .navbar-nav > li > div > a {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
+
+.bootstrap-datetimepicker-widget{
+    width: 290px !important;
+}
+
+/* datatables fix */
+div.dataTables_wrapper div.dataTables_length select{
+    width: auto !important;
+    height: 34px !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter input{
+    height: 34px !important;
+}

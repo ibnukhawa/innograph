@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="inherit_res_partner" model="ir.ui.view">
+        <field name="name">inherit_res_partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+        	<field name="category_id" position="after">
+        		<field name="is_approval"/>
+        		<field name="digital_signature" widget='image' options="{&quot;size&quot;: [90, 90]}"/>
+        	</field>   
+        </field>
+    </record>
+    </data>
+</odoo>

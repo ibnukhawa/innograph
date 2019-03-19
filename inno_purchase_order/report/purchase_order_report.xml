@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_po_letter" model="report.paperformat">
+            <field name="name">Purchase Order Letter</field>
+            <field name="default" eval="True"/>
+            <field name="format">Letter</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">33</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report 
+            id="purchase.action_report_purchase_order"
+            string="Purchase Order"
+            model="purchase.order" 
+            report_type="qweb-pdf"
+            file="purchase.report_purchaseorder" 
+            name="purchase.report_purchaseorder"
+            paperformat="inno_purchase_order.paperformat_po_letter"
+        />
+    </data>
+</odoo>

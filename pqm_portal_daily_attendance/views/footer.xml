@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="pqm_custom_footer" inherit_id="website.footer_default" customize_show="True" name="Footer With Attendance">
+             <xpath expr="//div[@id='footer']" position="after">
+              <footer class="site-footer">
+                        <div class="footer-top">
+                            <div class="container">
+                              <div class="row">
+                               
+                                <div class="col-md-4">
+                                    <h6 class="footer-title">Navigation</h6>
+                                    <ul class="footer-ul footer-menu">
+                                        <li><a href="#">Home</a></li>
+                                        <li><a href="#">About Us</a></li>
+                                        <li><a href="#">Services</a></li>
+                                        <li><a href="#">Blog</a></li>
+                                        <li><a href="#">Contact us</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6 class="footer-title">Usefull Link</h6>
+                                    <ul class="footer-ul footer-menu">
+                                        <li><a href="#">Create Account</a></li>
+                                        <li><a href="#">Faq</a></li>
+                                        <li><a href="#">Team</a></li>
+                                        <li><a href="#">Privacy Policy</a></li>
+                                        <li><a href="#">Terms &amp; Conditions</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6 class="footer-title">Contact Info</h6>
+                                    <ul class="footer-ul contact-info">
+                                    <li><i class="fa fa-map-marker"></i> <span t-field="res_company.street"/> <span t-field="res_company.city"/> 
+                                    <span t-field="res_company.country_id"/></li>
+                                     <li><i class="fa fa-phone"></i> <span t-field="res_company.phone"></span></li>
+                                    
+                                     <li><i class="fa fa-envelope-o"></i> <span t-field="res_company.email"></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a class="logo" href="/">
+                                        <span itemprop="image" t-field="res_company.logo" t-field-options='{"widget": "image","class":"logo_img"}'/>
+                                    </a>
+                                </div>
+                            </div>
+                           </div>
+                        </div>
+                         <div class="site-info">
+                            <div class="container">
+                                <div class="row">
+                                 <div class="col-md-8 col-md-offset-2 text-center">© 2018 PQM Consultants. All Rights Reserved.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+            </xpath>
+        </template>
+    </data>
+</openerp>

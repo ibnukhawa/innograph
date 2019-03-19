@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hr_expense_medical_confirmation_view" model="ir.ui.view">
+        <field name="name">hr.expense.medical.confirmation.view.form</field>
+        <field name="model">hr.expense.medical.confirmation</field>
+        <field name="arch" type="xml">
+            <form string="Expense Medical Confirmation">
+                <p>
+                    Medical Budget of <b><field name="employee_name" class="oe_inline" readonly="True" /></b>
+                    already reach the yearly limit (
+                    Budget = <field name="medical_budget" class="oe_inline" readonly="True" />, 
+                    Consumed Budget = <field name="expense_request" class="oe_inline" readonly="True" />).<br/>
+                    You can continue to approve/validate, or Refuse the expense.
+                </p>
+                <footer>
+                    <button name="confirm_validate" string="Continue" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

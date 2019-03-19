@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Website Sales -->
+
+	<template id="wizard_checkout" inherit_id="website_sale.wizard_checkout">
+		<xpath expr="//ul[1]" position="attributes">
+			<attribute name="class">hidden</attribute>
+		</xpath>
+		<xpath expr="//ul[1]" position="after">
+			<div style="height:50px;">&amp;nbsp;</div>
+		</xpath>
+	</template>
+
+	<template id="confirmation" inherit_id="website_sale.confirmation">
+		<xpath expr="//div[@id='wrap']/div[1]/div/div[1]/div[2]/table[2]" position="after">
+			<div class="pre_msg" t-field="order.payment_acquirer_id.pre_msg" />
+		</xpath>
+	</template>
+
+	<template id="continue_shopping" inherit_id="website_sale.continue_shopping">
+		<xpath expr="//a[@href='/shop']" position="attributes">
+			<attribute name="class">hidden</attribute>
+		</xpath>
+	</template>
+
+	<template id="cart" inherit_id="website_sale.cart">
+		<xpath expr="//div[@id='wrap']/div[1]/div[contains(@class, 'row')]" position="before">
+			<h1 class="mb32">Shopping Cart</h1>
+		</xpath>
+		<!-- Inherited by other template, so better to hide it -->
+		<xpath expr="//div[@id='wrap']/div[1]/div/div[contains(@class, 'oe_cart')]/a[1]" position="attributes">
+			<attribute name="class">hidden</attribute>
+		</xpath>
+		<xpath expr="//div[@id='wrap']/div[1]/div/div[contains(@class, 'oe_cart')]/a[1]" position="after">
+			<a t-if="not optional_products and website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32" href="/shop/payment">
+                <span class="hidden-xs">Process Checkout</span>
+                <span class="visible-xs-inline">Checkout</span>
+                <span class="fa fa-long-arrow-right" />
+            </a>
+		</xpath>
+	</template>
+
+	<template id="custom_cart" inherit_id="theme_impacto.custom_cart">
+		<xpath expr="//div[@id='wrap']/div[contains(@class, 'dark-bg')]" position="replace"></xpath>
+	</template>
+
+	<template id="custom_navbar" inherit_id="theme_impacto.custom_navbar">
+		<xpath expr="//div[contains(@class, 'header-buttons')]/div[1]/div[@id='search-box']/form[1]" position="replace">
+			<form action='/event' method="get">
+				<input type="text" name="keyword" placeholder="Search" class="search-input" t-att-value="search"/>
+				<button class="btn btn-default">Search <i class="fa fa-search"></i></button>
+				<button type="button" class="close">×</button>
+			</form>
+		</xpath>
+	</template>
+	
+    <template id="delete_custom_login" inherit_id="theme_impacto.custom_navbar">
+        <xpath expr="//div[@class='login-header']/ul/li[2]" position="replace">
+            <li><a href="/my/home" t-if="website.user_id != user_id"><i class="fa fa-user"/><t t-esc="' ' + user_id.name"/></a></li>
+        </xpath>
+        <xpath expr="//div[@class='header-top-dropdown']/a[@t-if='not(website.user_id != user_id)']" position="replace"></xpath>
+        <xpath expr="//div[@class='header-top-dropdown']/a[@t-if='website.user_id != user_id']" position="replace"></xpath>
+    </template>
+</odoo>

@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="assets_frontend" inherit_id="website.assets_frontend">
+		<xpath expr="." position="inside">
+			<link rel="stylesheet" href="/pqm_event_core/static/src/lib/flipclock/flipclock.css"/>
+			<link rel="stylesheet" href="/pqm_event_core/static/src/css/custom.css"/>
+			<script src="/pqm_event_core/static/src/lib/flipclock/flipclock.min.js"></script>
+		</xpath>
+	</template>
+
+	<template id="assets_theme" inherit_id="theme_impacto.assets_theme">
+		<xpath expr="//link[last()]" position="after">
+			<link rel="stylesheet" href="/pqm_event_core/static/src/css/global.css"/>
+		</xpath>
+	</template>
+
+    <template id="pqm_event_header" inherit_id="website_event.index">
+        <xpath expr="//div[@id='wrap']/section" position="replace">
+		</xpath>
+	</template>
+
+    <template id="pqm_event_body" inherit_id="website_event.index">
+		<xpath expr="//div[@id='wrap']/div[@class='container']" position="replace">
+            <div class="container o_website_event">
+                <t t-if="success != None">
+                    <div t-if="success" class="alert alert-success"><t t-esc="message"/></div>
+					<div t-if="not success" class="alert alert-danger"><t t-esc="message"/></div>
+                </t>
+                <div class="row">
+                    <div class="col-sm-12 filter_container">
+                        <div class="row">
+							<form id="filter_form" method="GET">
+								<input type="hidden" name="mode" t-attf-value="{{mode}}" />
+								<div class="col-sm-6">
+									<select name="type" class="form-control">
+										<option value="all">All Types</option>
+										<t t-foreach="types" t-as="row" >
+											<option t-attf-value="{{row.id}}" t-att-selected="selected_type == row.id"><t t-esc="row.name.lower()" /></option>
+										</t>
+									</select>
+								</div>
+								<div class="col-sm-6">
+									<select name="facilitator" class="form-control">
+										<option value="all">All Facilitator</option>
+										<t t-foreach="facilitators" t-as="row" >
+											<option t-attf-value="{{row.id}}" t-att-selected="selected_facilitator == row.id"><t t-esc="row.name.lower()" /></option>
+										</t>
+									</select>
+								</div>
+								<div class="col-sm-6">
+									<select name="category" class="form-control">
+										<option value="all">All Category</option>
+										<t t-foreach="categories" t-as="row" >
+											<option t-attf-value="{{row.id}}" t-att-selected="selected_category == row.id"><t t-esc="row.name.lower()" /></option>
+										</t>
+									</select>
+								</div>
+								<div t-if="selected_category and sub_categories" class="col-sm-6">
+									<select name="sub_category" class="form-control">
+										<option value="all">All Sub Category</option>
+										<t t-foreach="sub_categories" t-as="row" >
+											<option t-attf-value="{{row.id}}" t-att-selected="selected_sub_category == row.id"><t t-esc="row.name.lower()" /></option>
+										</t>
+									</select>
+								</div>
+                                <div class="col-sm-6">
+									<select name="year" class="form-control">
+                                        <option value="upcoming">Upcoming Event</option>
+										<t t-foreach="year" t-as="row" >
+											<option t-attf-value="{{row[0]}}" t-att-selected="selected_year == row[0]"><t t-esc="row[1]" /></option>
+										</t>
+                                        <option value="all" t-att-selected="not selected_year">All Year</option>
+									</select>
+								</div>
+								<div class="col-sm-6">
+									<input class="form-control" name="keyword" placeholder="Search" t-attf-value="#{keyword if keyword else ''}"/>
+								</div>
+								<div t-if="selected_type or selected_category or selected_sub_category or selected_facilitator or selected_year != 'upcoming' or keyword" class="col-sm-6">
+									<div class="btn btn-danger filter_clear" style="margin-bottom:15px">Clear Filter</div>
+                                </div>
+                                <div class="mode_container col-sm-12">
+                                    <ul class="mode_switcher pull-right" style="margin-bottom: 0px">
+                                        <li t-if="mode == 'card'">
+                                            <span>Show</span>
+                                            <select name="step">
+                                                <option value="12" t-att-selected="12 == step">12</option>
+                                                <option value="24" t-att-selected="24 == step">24</option>
+                                                <option value="36" t-att-selected="36 == step">36</option>
+                                                <option value="48" t-att-selected="48 == step">48</option>
+                                            </select>
+                                            <span>Events</span>
+                                        </li>
+                                        <li t-if="mode == 'card'" class="active"><a href="?mode=card"><i class="fa fa-th-large"/></a></li>
+                                        <li t-if="mode == 'card'"><a href="?mode=calendar"><i class="fa fa-calendar"/></a></li>
+                                        <li t-if="mode == 'calendar'"><a href="?mode=card"><i class="fa fa-th-large"/></a></li>
+                                        <li t-if="mode == 'calendar'" class="active"><a href="?mode=calendar"><i class="fa fa-calendar"/></a></li>
+                                    </ul>
+                                </div>
+							</form>
+						</div>
+                        <script type="text/javascript">
+                            function filter_submit() {
+                                $('#filter_form').submit();
+                            }
+
+                            function filter_clear() {
+                                $('select[name="type"]').val('all');
+                                $('select[name="category"]').val('all');
+                                $('select[name="sub_category"]').val('all');
+                                $('select[name="facilitator"]').val('all');
+                                $('select[name="year"]').val('upcoming');
+                                $('input[name="keyword"]').val('');
+                                filter_submit();
+                            }
+
+                            $('.filter_clear').on('click', filter_clear);
+                            $('select[name="type"]').on('change', filter_submit);
+                            $('select[name="category"]').on('change', filter_submit);
+                            $('select[name="sub_category"]').on('change', filter_submit);
+                            $('select[name="facilitator"]').on('change', filter_submit);
+                            $('select[name="year"]').on('change', filter_submit);
+                            $('select[name="step"]').on('change', filter_submit);
+                            $('input[name="keyword"]').on('enter', filter_submit);
+
+							$('option').each(function(){
+								var content = $(this).text();
+								$(this).text(content.replace(/^(.)|\s(.)/g, function($1){ return $1.toUpperCase( ); }))
+							});
+
+                        </script>
+                    </div>
+                </div>
+
+            	<div t-if="not events" style="text-align:center; margin-bottom: 20px; margin-top: 20px;">No results found</div>
+				<div class="row" t-if="events and mode == 'card'" style="margin-top: 20px; margin-left:-30px;margin-right:-30px;">
+					<t t-foreach="events" t-as="event">
+						<div class="card_container col-sm-6 col-md-4 col-lg-3">
+							<div class="card_background" t-attf-style="background-image:url('/website/image/event.event/{{event.id}}/image')">
+								<div class="card_holder">
+									<div class="card_foreground">
+										<div class="card_header">
+											<div class="card_title"><h5 t-esc="event.name"/></div>
+	                                        <div class="card_date" t-esc="event._card_date()"/>
+											<div class="card_address">
+												<p><i class="fa fa-map-marker"/> <t t-esc="event.address_id.name"/></p>
+											</div>
+										</div>
+										<div class="card_footer">
+											<a t-attf-href="/event/#{slug(event)}/#{(not event.menu_id) and 'register' or ''}" style="width:20%;" >
+												<div class="card_btn">
+													<span>View Detail</span>
+												</div>
+											</a>
+											<div class="dropdown card_share">
+												<button class="card_share_button fa fa-share-alt fa-lg" />
+												<div class="dropdown-content card_share_content">
+													<a class="facebook" t-attf-href="https://www.facebook.com/share.php?u=#{request.httprequest.url_root}event/#{slug(event)}/#{(not event.menu_id) and 'register' or ''}&amp;title={{event.name}}" target="blank"><i class="fa fa-facebook"></i></a>
+													<a class="twitter" t-attf-href="https://twitter.com/share?text=Pelatihananya menarik banget nih!%0A%0A%23PQMConsultants %0A%0A&amp;url=#{request.httprequest.url_root}event/#{slug(event)}/#{(not event.menu_id) and 'register' or ''}" target="blank"><i class="fa fa-twitter"></i></a>
+													<a class="whatsapp" t-attf-href="whatsapp://send?text=Pelatihananya menarik banget nih!%0A%0A%23PQMConsultants %0A%0A#{request.httprequest.url_root}event/#{slug(event)}/#{(not event.menu_id) and 'register' or ''}" target="blank" data-action="share/whatsapp/share"><i class="fa fa-whatsapp"></i></a>
+													<a class="linkedin" t-attf-href="https://www.linkedin.com/shareArticle?mini=true&amp;url=#{request.httprequest.url_root}event/#{slug(event)}/#{(not event.menu_id) and 'register' or ''}&amp;title={{event.name}}" target="blank"><i class="fa fa-linkedin"></i></a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</t>
+				</div>
+				<div class="row" t-if="events and mode == 'calendar'" >
+					<t t-set="counter_events" t-value="0"/>
+					<t t-foreach="categories" t-as="category">
+						<t t-set="category_events" t-value="events.filtered(lambda r: r.project_sme_id.id == category.id)"/>
+						<t t-set="counter_events" t-value="counter_events+len(category_events.ids)"/>
+						<div t-if="category_events" class="table-responsive" style="margin-top: 20px">
+							<table class="calendar_table hidden-xs hidden-sm" >
+								<tr>
+									<th rowspan="2" style="width:2% !important">No</th>
+									<th rowspan="2" style="width:15% !important"><span t-esc="category.name" /></th>
+									<th rowspan="2" style="width:8% !important">Price</th>
+									<th t-attf-colspan="#{len(event_targets.ids)}" style="width:15% !important">Participants</th>
+									<th rowspan="2" style="width:5% !important">Jan</th>
+									<th rowspan="2" style="width:5% !important">Feb</th>
+									<th rowspan="2" style="width:5% !important">Mar</th>
+									<th rowspan="2" style="width:5% !important">Apr</th>
+									<th rowspan="2" style="width:5% !important">May</th>
+									<th rowspan="2" style="width:5% !important">Jun</th>
+									<th rowspan="2" style="width:5% !important">Jul</th>
+									<th rowspan="2" style="width:5% !important">Aug</th>
+									<th rowspan="2" style="width:5% !important">Sep</th>
+									<th rowspan="2" style="width:5% !important">Oct</th>
+									<th rowspan="2" style="width:5% !important">Nov</th>
+									<th rowspan="2" style="width:5% !important">Dec</th>
+								</tr>
+								<tr>
+									<t t-foreach="event_targets" t-as="target">
+										<th class="green" style="padding:1px;"><span t-esc="target.code" style="font-size:10px;"></span></th>
+									</t>
+								</tr>
+								<t t-set="counter" t-value="1" />
+								<t t-foreach="category_events" t-as="event">
+									<tr>
+										<td style="text-align:center;" ><span t-esc="counter" /></td>
+										<td>
+											<span t-esc="event.name"/>
+										</td>
+										<td style="text-align: right;"><span t-field="event.display_price" t-options="{'widget': 'monetary', 'display_currency': event.company_id.currency_id}" /></td>
+										<t t-foreach="event_targets" t-as="target">
+											<td style="text-align:center;font-size:8px;">
+												<t t-foreach="event.event_target_ids" t-as="e_target">
+													<t t-if="target.id == e_target.id"><i class="fa fa-circle"/></t>
+												</t>
+											</td>
+										</t>
+										<t t-set="event_schedules" t-value="event._calendar_schedule()"/>
+										<t t-foreach="event._calendar_month()" t-as="month">
+											<td style="text-align:center;font-size:8px;">
+												<a t-if="event_schedules.get(month)" t-attf-href="/event/#{slug(event)}/#{(not event.menu_id) and 'register' or ''}">
+													<span class="badge" t-esc="event_schedules.get(month)"/>
+												</a>
+											</td>
+										</t>
+										<t t-set="counter" t-value="counter+1" />
+									</tr>
+								</t>
+							</table>
+							<table class="calendar_table hidden-md hidden-lg" style="min-width:100%">
+								<tr>
+									<th style="width:10% !important">No</th>
+									<th style="width:90% !important"><span t-esc="category.name"/></th>
+								</tr>
+								<t t-set="counter" t-value="1"/>
+								<t t-foreach="category_events" t-as="event">
+									<tr>
+										<td style="text-align:center;" ><span t-esc="counter"/></td>
+										<td>
+											<span t-esc="event.name"/>
+										</td>
+										<t t-set="counter" t-value="counter+1" />
+									</tr>
+									<tr>
+										<td colspan="2" style="background:#f7f7f7;padding:3px 5px">
+											<t t-set="event_schedules" t-value="event._calendar_schedule()"/>
+											<t t-foreach="event._calendar_month()" t-as="month">
+												<t t-if="event_schedules.get(month)">
+													<span t-esc="datetime.date(1900, month, 1).strftime('%B')" style="padding-right:5px"/>
+													<a t-attf-href="/event/#{slug(event)}/#{(not event.menu_id) and 'register' or ''}">
+														<span class="badge" t-esc="event_schedules.get(month)"/>
+													</a>
+												</t>
+											</t>
+										</td>
+									</tr>
+								</t>
+							</table>
+						</div>
+					</t>
+					<t t-if="counter_events &lt; 1">
+						<div style="text-align:center; margin-bottom: 20px">No results found</div>
+					</t>
+				</div>
+				<div t-if="pager" class="row" style="text-align:center">
+					<t t-call="website.pager"/>
+				</div>
+            </div>
+		</xpath>
+	</template>
+
+	<template id="pqm_event_detail_header" inherit_id="website_event.layout">
+        <xpath expr="//div[@id='wrap']/section[1]" position="replace">
+			<t t-if="success != None">
+				<div t-if="success" class="alert alert-success"><t t-esc="message"/></div>
+				<div t-if="not success" class="alert alert-danger"><t t-esc="message"/></div>
+			</t>
+		</xpath>
+	</template>
+
+	<template id="pqm_event_detail_title" inherit_id="website_event.event_details">
+		<xpath expr="//div[1]/h1" position="before">
+			<nav aria-label="breadcrumb" style="margin-top: 5px;">
+				<ol class="breadcrumb">
+				    <li class="breadcrumb-item"><a href="/event">Events</a></li>
+				    <li t-if="event.project_sme_id" class="breadcrumb-item"><a t-attf-href="/event?category={{event.project_sme_id.id}}"><span t-esc="event.project_sme_id.name" /></a></li>
+				    <li t-if="event" class="breadcrumb-item active" aria-current="page"><span t-esc="event.name" /></li>
+				</ol>
+			</nav>
+		</xpath>
+		<xpath expr="//div[1]/div[@class='text-center']" position="replace">
+		</xpath>
+        <xpath expr="//div[1]/h4[1]" position="replace"></xpath>
+		<xpath expr="//div[1]/h4[last()]" position="replace">
+			<div class="text-center">
+				<small t-if="event.is_participating" class="label o_website_event label-info">Participating</small>
+			</div>
+		</xpath>
+	</template>
+
+	<template id="pqm_event_detail_content" inherit_id="website_event.event_description_full">
+        <xpath expr="//div[contains(@class, 'col-md-8')]" position="replace">
+			<div class="col-md-9">
+				<div class="content_container" t-if="not event._description_empty()">
+					<div t-field="event.description" t-options="{'widget': 'html'}" />
+				</div>
+				<div class="register_container">
+					<div t-if="event.state == 'done' or not registrable" class="register_none">Event Registration Closed</div>
+					<div t-if="event.state != 'done' and registrable" class="table-responsive">
+						<div class="register_none" t-if="not request.session.uid">
+							<h4><a t-attf-href="/web/login">Login</a> or <a t-attf-href="/web/signup">Register</a></h4>
+						</div>
+						<t t-if="request.session.uid" t-call="website_event.registration_template"/>
+					</div>
+				</div>
+                <div class="content_container second_content">
+                    <div t-field="event.second_description" t-options="{'widget': 'html'}"/>
+                </div>
+				<div class="countdown_container">
+					<div class="text-center"><h6>Event start in</h6></div>
+					<div class="countdown_display"></div>
+					<input name="countdown_date" type="hidden" t-attf-value="#{'%s UTC' % event.date_begin}"/>
+					<script type="text/javascript">
+						var countdown_set = new Date($('input[name="countdown_date"]').val()).getTime() / 1000;
+						var countdown_now = new Date().getTime() / 1000;
+						var countdown_time = countdown_set - countdown_now;
+						$('.countdown_display').FlipClock(Math.max(0, countdown_time), {
+							clockFace: 'DailyCounter',
+							countdown: true,
+						});
+					</script>
+				</div>
+				<div class="pastnextevent_container hidden-sm  hidden-xs">
+					<t t-set="past_event" t-value="event._event_past()"/>
+					<div t-if="past_event" t-attf-style="background-image:url('/website/image/event.event/{{past_event.id}}/image'); background-repeat:no-repeat; background-size:cover; background-position:center top; width:49%; float: left; margin-right: 1%; min-height: 145px;" >
+						<div style="width:100%; padding:15px; background-color: rgba(34,62,127,.85); min-height: 145px">
+							<h4 style="border-bottom:.5px solid rgba(0,0,0,.15); margin:0px; color: #fff;">Past Event</h4>
+							<div style="color: #fff">
+								<h5 style="margin: 0px">
+									<a style="color: #fff;" t-attf-href="/event/#{slug(past_event)}/#{(not past_event.menu_id) and 'register' or ''}"><t t-esc="past_event.name"/></a>
+								</h5>
+								<strong><span class="fa fa-calendar"/> <span t-esc="past_event._event_date_begin()"/> to <span t-esc="past_event._event_date_end()"/></strong><br/>
+								<strong><span class="fa fa-clock-o"/> <span t-esc="past_event._event_time_from()"/> to <span t-esc="past_event._event_time_to()"/></strong><br/>
+							</div>
+						</div>
+					</div>
+
+					<t t-set="next_event" t-value="event._event_next()"/>
+					<div t-if="next_event" t-attf-style="background-image:url('/website/image/event.event/{{next_event.id}}/image'); background-repeat:no-repeat; background-size:cover; background-position:center top; width:49%; float: right; margin-left: 1%; min-height: 145px;">
+						<div class="text-right" style="width:100%; padding:15px; background-color: rgba(34,62,127,.85); min-height: 145px">
+							<h4 style="border-bottom:.5px solid rgba(0,0,0,.15); margin:0px; color: #fff;">Next Event</h4>
+							<div style="color: #fff">
+								<h5 style="margin: 0px">
+									<a style="color: #fff;" t-attf-href="/event/#{slug(next_event)}/#{(not next_event.menu_id) and 'register' or ''}"><t t-esc="next_event.name"/></a>
+								</h5>
+								<strong><span class="fa fa-calendar"/> <span t-esc="next_event._event_date_begin()"/> to <span t-esc="next_event._event_date_end()"/></strong><br/>
+								<strong><span class="fa fa-clock-o"/> <span t-esc="next_event._event_time_from()"/> to <span t-esc="next_event._event_time_to()"/></strong><br/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</xpath>
+		<xpath expr="//div[contains(@class, 'css_noprint')]" position="replace">
+			<div class="col-md-3 css_noprint">
+				<div class="clearfix"/>
+
+				<div class="panel panel-default time_widget">
+					<div class="panel-heading">
+						<h4>Schedule</h4>
+					</div>
+					<div class="panel-body">
+						<i class="fa fa-calendar"></i> <span itemprop="startDate" t-esc="event._event_date_begin()"/> to
+						<span itemprop="endDate" t-esc="event._event_date_end()"/><br/>
+						<i class="fa fa-clock-o"></i> <span t-esc="event._event_time_from()"/> to
+						<span t-esc="event._event_time_to()"/>
+					</div>
+				</div>
+
+                <div class="panel panel-default download_widget" t-if="event.organizer_id">
+					<div class="panel-heading">
+						<h4>Download</h4>
+					</div>
+					<div class="panel-body">
+						<div t-if="not request.session.uid">
+							<p class="text-muted">
+								Please login to see attachment(s).
+							</p>
+						</div>
+						<t t-if="request.session.uid">
+							<p t-if="event.attachment_ids" class="text-muted">
+								Here is attachment(s) for you.
+							</p>
+							<p t-if="not event.attachment_ids" class="text-muted">
+								No attachment(s) for this event.
+							</p>
+							<t t-foreach="event.attachment_ids" t-as="attachment">
+								<a t-attf-href="/event/attachment/{{attachment.id}}/download">
+									<span class="fa fa-download" />
+									<t t-esc="event._remove_extension_file(attachment.name)"/>
+								</a>
+							</t>
+						</t>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>Facilitator</h4>
+					</div>
+					<div class="panel-body">
+						<p t-if="not event.facilitator_ids" class="text-muted">
+							Facilitator detail is empty.
+						</p>
+						<div t-if="event.facilitator_ids" id="facilitator_carousel" class="carousel slide" data-ride="carousel">
+							<t t-set="carousel_first">active</t>
+							<div class="carousel-inner" role="listbox">
+								<div t-attf-class="item #{carousel_first}" style="text-align:center" t-foreach="event.facilitator_ids" t-as="facilitator">
+									<a t-attf-href="{{facilitator.sudo().partner_id.url_facilitator}}" target="_blank">
+										<div t-attf-style="background:url('/website/image/res.partner/{{facilitator.sudo().partner_id.id}}/image');background-size:cover;background-repeat:no-repeat;background-position:center;width:230px;height:330px;display:inline-block">
+										</div>
+										<div class="">
+											<strong t-esc="facilitator.sudo().partner_name" /><br/>
+										</div>
+									</a>
+									<t t-set="carousel_first"></t>
+								</div>
+							</div>
+
+							<a class="left carousel-control" href="#facilitator_carousel" role="button" data-slide="prev">
+								<span class="fa fa-chevron-left" aria-hidden="true"></span>
+								<span class="sr-only">Previous</span>
+							</a>
+							<a class="right carousel-control" href="#facilitator_carousel" role="button" data-slide="next">
+								<span class="fa fa-chevron-right" aria-hidden="true"></span>
+								<span class="sr-only">Next</span>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default location_widget" t-if="event.address_id">
+					<div class="panel-heading">
+						<h4>Location</h4>
+					</div>
+					<div class="panel-body">
+						<t t-if="event.google_map_img()">
+							<t t-raw="event.google_map_img()"/>
+						</t>
+						<div itemprop="location" class="mt16 mb8">
+							<a t-if="event.address_id.name" t-att-href="event.google_map_link()" target="_BLANK">
+								<span class="fa fa-map-marker" />
+								<span t-esc="event.address_id.name" />
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>Subscribe to Our Newsletter</h4>
+					</div>
+					<div class="panel-body">
+						<t t-call="website_mail.follow"><t t-set="object" t-value="event"/></t>
+                        <div class="social-share">
+                            <a class="facebook" t-attf-href="https://www.facebook.com/share.php?u=#{request.httprequest.url_root}event/#{slug(event)}/#{(not event.menu_id) and 'register' or ''}&amp;title={{event.name}}" target="blank"><i class="fa fa-facebook fa-2x"></i></a>
+                            <a class="twitter" t-attf-href="https://twitter.com/share?text=Pelatihananya menarik banget nih!%0A%0A%23PQMConsultants %0A%0A&amp;url=#{request.httprequest.url_root}event/#{slug(event)}/#{(not event.menu_id) and 'register' or ''}" target="blank"><i class="fa fa-twitter fa-2x"></i></a>
+                            <a class="whatsapp" t-attf-href="whatsapp://send?text=Pelatihananya menarik banget nih!%0A%0A%23PQMConsultants %0A%0A#{request.httprequest.url_root}event/#{slug(event)}/#{(not event.menu_id) and 'register' or ''}" target="blank" data-action="share/whatsapp/share"><i class="fa fa-whatsapp fa-2x"></i></a>
+							<a class="linkedin" t-attf-href="https://www.linkedin.com/shareArticle?mini=true&amp;url=#{request.httprequest.url_root}event/#{slug(event)}/#{(not event.menu_id) and 'register' or ''}&amp;title={{event.name}}" target="blank"><i class="fa fa-linkedin fa-2x"></i></a>
+                        </div>
+						<img style="width:100%" t-attf-src="/event/#{slug(event)}/qr"/>
+					</div>
+				</div>
+
+				<div class="pastnextevent_container hidden-md hidden-lg">
+					<div t-if="past_event" t-attf-style="background-image:url('/website/image/event.event/{{past_event.id}}/image'); background-repeat:no-repeat; background-size:cover; background-position:center top; margin-bottom: 5px;">
+						<div style="width:100%; padding:15px; background-color: rgba(34,62,127,.85);">
+							<h4 style="border-bottom:.5px solid rgba(0,0,0,.15); margin:0px; color: #fff">Past Event</h4>
+							<div style="color: #fff">
+								<h5 style="margin: 0px">
+									<a style="color: #fff" t-attf-href="/event/#{slug(past_event)}/#{(not past_event.menu_id) and 'register' or ''}"><t t-esc="past_event.name"/></a>
+								</h5>
+								<strong><span class="fa fa-calendar"/> <span t-esc="past_event._event_date_begin()"/> to <span t-esc="past_event._event_date_end()"/></strong><br/>
+								<strong><span class="fa fa-clock-o"/> <span t-esc="past_event._event_time_from()"/> to <span t-esc="past_event._event_time_to()"/></strong><br/>
+							</div>
+						</div>
+					</div>
+					<div t-if="next_event" t-attf-style="background-image:url('/website/image/event.event/{{next_event.id}}/image'); background-repeat:no-repeat; background-size:cover; background-position:center top">
+						<div style="width:100%; padding:15px; background-color: rgba(34,62,127,.85);">
+							<h4 style="border-bottom:.5px solid rgba(0,0,0,.15); margin:0px; color: #fff">Next Event</h4>
+							<div style="color: #fff">
+								<h5 style="margin: 0px">
+									<a style="color: #fff" t-attf-href="/event/#{slug(next_event)}/#{(not next_event.menu_id) and 'register' or ''}"><t t-esc="next_event.name"/></a>
+								</h5>
+								<strong><span class="fa fa-calendar"/> <span t-esc="next_event._event_date_begin()"/> to <span t-esc="next_event._event_date_end()"/></strong><br/>
+								<strong><span class="fa fa-clock-o"/> <span t-esc="next_event._event_time_from()"/> to <span t-esc="next_event._event_time_to()"/></strong><br/>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<t t-set="head">
+					<t t-raw='head'/>
+					<!-- Facebook and linkedin sharing data -->
+					<meta property="og:type" content="website" />
+					<meta property="og:url" t-att-content="request.httprequest.url" />
+					<meta property="og:description" t-attf-content="#{event.date_begin}" />
+					<meta property="og:image" t-attf-content="#{request.httprequest.url_root}website/image/event.event/#{event.id}/image" />
+					<!--  Twitter sharing data -->
+					<meta name="twitter:card" content="summary" />
+					<meta name="twitter:site" t-attf-content="@#{res_company.name}" />
+					<meta name="twitter:title" t-att-content="event.name" />
+					<meta name="twitter:description" t-att-content="event.date_begin" />
+				</t>
+			</div>
+		</xpath>
+		<xpath expr="//div[contains(@class, 'css_noprint')]" position="after">
+			<div class="col-md-12">
+				<div class="comment_container">
+					<div class="comment_form">
+						<p class="text-muted" style="text-align:center" t-if="not request.session.uid">
+							Login / Register to comment.
+						</p>
+						<form t-if="request.session.uid" method="POST" t-attf-action="/event/#{slug(event)}/comment">
+							<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+							<div class="col-sm-4 form-group">
+								<input type="text" name="name" class="form-control" t-attf-value="#{request.env.user.name}" readonly="1" required="1"/>
+							</div>
+							<div class="col-sm-4 form-group">
+								<input type="text" name="email" class="form-control" t-attf-value="#{request.env.user.login}" readonly="1" required="1"/>
+							</div>
+							<div class="col-sm-12 form-group">
+								<textarea name="comment" class="form-control" placeholder="Comment" rows="5" column="50" required="1"/>
+							</div>
+							<div class="col-sm-12 form-group">
+								<button type="submit" name="submit_comment" class="btn btn-primary"><i class="fa fa-paper-plane"/> Comment</button>
+							</div>
+						</form>
+						<div class="comment_display">
+							<t t-foreach="event.comment_ids" t-as="comment">
+								<div t-if="comment.publish" class="comment_item">
+									<h6><span t-esc="comment.user_id.sudo().name"/></h6>
+									<span t-esc="comment.sudo().comment" /><br/>
+									<span t-field="comment.sudo().with_context(tz=event.date_tz or 'UTC').create_date"/>
+								</div>
+							</t>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<div class="related_container" style="margin-left:-15px;margin-right:-15px">
+					<div style="text-align:center"><h3>Related Events</h3></div>
+					<t t-set="rel_events" t-value="event._event_related()"/>
+					<div t-if="not rel_events" style="text-align:center">No related events</div>
+					<div t-foreach="rel_events" t-as="rel">
+						<div class="card_container col-sm-6 col-md-4 col-lg-3">
+							<div class="card_background" t-attf-style="background-image:url('/website/image/event.event/{{rel.id}}/image')">
+								<div class="card_holder">
+									<div class="card_foreground">
+										<div class="card_header">
+											<div class="card_title"><h5 t-esc="rel.name"/></div>
+	                                        <div class="card_date" t-esc="rel._card_date()"/>
+											<div class="card_address">
+												<p><i class="fa fa-map-marker"/> <t t-esc="rel.address_id.name"/></p>
+											</div>
+										</div>
+										<div class="card_footer">
+											<a t-attf-href="/event/#{slug(rel)}/#{(not rel.menu_id) and 'register' or ''}" style="width:20%;" >
+												<div class="card_btn">
+													<span>View Detail</span>
+												</div>
+											</a>
+											<div class="dropdown card_share">
+												<button class="card_share_button fa fa-share-alt fa-lg" />
+												<div class="dropdown-content card_share_content">
+													<a class="facebook" t-attf-href="https://www.facebook.com/share.php?u=#{request.httprequest.url_root}event/#{slug(rel)}/#{(not rel.menu_id) and 'register' or ''}&amp;title={{rel.name}}" target="blank"><i class="fa fa-facebook"></i></a>
+													<a class="twitter" t-attf-href="https://twitter.com/share?text=Pelatihananya menarik banget nih!%0A%0A%23PQMConsultants %0A%0A&amp;url=#{request.httprequest.url_root}event/#{slug(rel)}/#{(not rel.menu_id) and 'register' or ''}" target="blank"><i class="fa fa-twitter"></i></a>
+													<a class="whatsapp" t-attf-href="whatsapp://send?text=Pelatihananya menarik banget nih!%0A%0A%23PQMConsultants %0A%0A#{request.httprequest.url_root}event/#{slug(rel)}/#{(not rel.menu_id) and 'register' or ''}" target="blank" data-action="share/whatsapp/share"><i class="fa fa-whatsapp"></i></a>
+													<a class="linkedin" t-attf-href="https://www.linkedin.com/shareArticle?mini=true&amp;url=#{request.httprequest.url_root}event/#{slug(rel)}/#{(not rel.menu_id) and 'register' or ''}&amp;title={{rel.name}}" target="blank"><i class="fa fa-linkedin"></i></a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</xpath>
+	</template>
+</odoo>

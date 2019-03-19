@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- disable original -->
+    <record id="sale_approval.view_order_form_extends" model="ir.ui.view">
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_confirm'][1]" position="replace">
+                <button name="action_confirm" states="sent,waiting_for_approval" string="Confirm Sale" class="btn-primary o_sale_confirm"
+                    type="object" />
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="replace">
+                <button name="action_cancel" states="draft,sent,sale,waiting_for_approval" type="object" string="Cancel" />
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="is_need_approval" invisible="True" />
+                <field name="approver_id" readonly="False" domain="[('sale_order_can_approve', '=', 'yes')]" 
+                    attrs="{'required': [('is_need_approval', '=', True)], 'invisible': [('is_need_approval', '=', False)]}" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_approval.view_order_tree_extend" model="ir.ui.view">
+        <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+        <field name="active" eval="False"/>
+    </record>
+
+    <record id="sale_approval.action_sale_approval" model="ir.actions.act_window">
+        <field name="domain">[('state', 'in', ('draft', 'waiting_for_approval')), ('is_need_approval', '=', True), ('approver_id', '=', uid)]</field>
+    </record>
+
+</odoo>

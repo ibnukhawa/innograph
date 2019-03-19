@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+        	<field name="function" position="after">
+        		<field name="is_facilitator"/>
+                <field name="url_facilitator" attrs="{'invisible': [('is_facilitator', '=', False)]}" />
+        	</field>
+
+            <xpath expr="//sheet/notebook" position="inside">
+                <page name="attended_event" string="Attended Event">
+                    <field name="registered_event_ids" readonly="True">
+                        <tree>
+                            <field name="name" />
+                            <field name="event_id" />
+                            <field name="event_ticket_id" />
+                            <field name="event_begin_date" />
+                            <field name="state" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

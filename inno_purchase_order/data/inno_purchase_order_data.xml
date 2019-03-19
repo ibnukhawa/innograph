@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="alarm_2_days_before" model="calendar.alarm">
+        	<field name="name">2 Days</field>
+            <field name="interval">days</field>
+            <field name="amount">2</field>
+            <field name="type">email</field>
+        </record>
+
+        <record model="ir.cron" id="incoming_shipment_check">
+            <field name='name'>Incoming Shipment Check</field>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="model">purchase.order</field>
+            <field name="function">check_incoming_shipment</field>
+            <field name="args">()</field>
+        </record>
+
+        <record id="purchase_reminder_notification_email" model="mail.template">
+        <field name="name">${object.name}</field>
+        <field name="email_from">${object.company_id.name} &lt;${user.email}&gt;</field>
+        <field name="subject">${object.name}</field>
+        <field name="email_to">${ctx['data']['email']}</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="notification" eval="True"/>
+        <field name="auto_delete" eval="False"/>
+        <field name="body_html">
+            <![CDATA[
+                <table style="border-bottom: 1px solid black;width:100%;">
+                    <tr>
+                        <td align="right">
+                            <img src="/logo.png?company=${object.company_id.id}" align="right" style="width:100px;height:auto;" />
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <p>Halo <b>${ctx['data']['name']}</b> mohon untuk memproses penerimaan barang untuk PO berikut:</p>
+                <br/>
+                <table>
+                    <tr>
+                        <td>Vendor Name</td>
+                        <td>:</td>
+                        <td>${object.partner_id.name or '-'}</td>
+                    </tr>
+                    <tr>
+                        <td>Nomor PO </td>
+                        <td>:</td>
+                        <td>${object.name}</td>
+                    </tr>
+                    <tr>
+                        <td>Nomor Penerimaan</td>
+                        <td>:</td>
+                        <td>${ctx['data']['pickings']}</td>
+                    </tr>
+                    <tr>
+                        <td>Purchase Description</td>
+                        <td>:</td>
+                        <td>${ctx['data']['products']}</td>
+                    </tr>
+                    <tr>
+                        <td>Project Name</td>
+                        <td>:</td>
+                        <td>${ctx['data']['project'] or '-'}</td>
+                    </tr>
+                    <tr>
+                        <td>Purchase Amount</td>
+                        <td>:</td>
+                        <td>${ctx['data']['amount']}</td>
+                    </tr>
+                </table>
+                <br/>
+                <p>Mohon cek link dibawah ini untuk melanjutkan proses penerimaan anda. </p>
+
+                <a href="${object.active_url}web#id=${object.id}&view_type=form&model=purchase.order" class="btn btn-default" style="text-decoration:none;color:rgb(218,112,214);background-color:transparent;padding:8px 12px;font-size:12px;color:#ffffff;text-decoration:none!important;font-weight:400;background-color:rgb(51,122,183);border:0px solid rgb(51,122,153);border-radius:3px";">View Purchase Order</a>
+                <br/>
+                <br/>
+                <b>${object.company_id.name}</b>
+            ]]>
+        </field>
+    </record>
+    </data>
+</odoo>

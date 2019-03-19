@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="leave_report_template">
+        <t t-call="report.html_container">
+            <t t-call="report.internal_layout">
+
+                <div class="page" style="page-break-after:always;">
+                    <h2 style="text-align:center">Leave Report <span t-esc="data['month_str']"/> <span t-esc="data['year']"/></h2>
+                    <br/>
+                    <table class="table table-bordered" name="att_leave_lines">
+                        <thead>
+                            <tr>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px" rowspan="2">PQM Members</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Ambil Cuti</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Potong Cuti Reward</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Tambahan Cuti Tahunan</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Sisa Cuti Tahunan</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Sisa Cuti Reward</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Tanggal Cuti</th>
+                            </tr>
+                            <tr>
+                                <t t-foreach="range(0,6)" t-as="x">
+                                    <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Times</th>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="blank_col" t-value="'padding:1px; text-align:center; vertical-align:middle; font-size:13px; border-width: 2px'"/>
+                            <t t-set="yellow_col" t-value="'padding:1px; text-align:center; vertical-align:middle; font-size:13px; border-width: 2px; background-color:#fbff00'"/>
+                            <t t-set="red_col" t-value="'padding:1px; text-align:center; vertical-align:middle; font-size:13px; border-width: 2px; background-color:#ff2b2b'"/>
+                            <t t-foreach="data_line" t-as="line">
+                                <tr>
+                                    <td style="padding:1px; text-align:left; vertical-align:middle; font-size:13px; border-width: 2px; font-weight: bold;">
+                                        <t t-esc="line['employee']"/>
+                                    </td>
+                                    <td t-attf-style="#{blank_col if line['request'] == 0 else yellow_col}">
+                                        <t t-esc="line['request']"/>
+                                    </td>
+                                    <td t-attf-style="#{blank_col if line['reward'] == 0 else yellow_col}">
+                                        <t t-esc="line['reward']"/>
+                                    </td>
+                                    <td t-attf-style="#{blank_col if line['allocation'] == 0 else yellow_col}">
+                                        <t t-esc="line['allocation']"/>
+                                    </td>
+                                    <td t-attf-style="#{blank_col if line['total'] == 0 else yellow_col}">
+                                        <t t-esc="line['total']"/>
+                                    </td>
+                                    <td t-attf-style="#{blank_col if line['total_reward'] == 0 else yellow_col}">
+                                        <t t-esc="line['total_reward']"/>
+                                    </td>
+                                    <td t-attf-style="#{blank_col if line['leave_date'] == '' else yellow_col}">
+                                        <t t-esc="line['leave_date']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+            </t>
+            <t t-call="report.internal_layout">
+                <div class="page" style="page-break-after:always;">
+                     <h2 style="text-align:center">Sick Leave Report <span t-esc="data['month_str']"/> <span t-esc="data['year']"/></h2>
+                    <div id="chart_div" style="width:999px;height:480px;overflow: hidden;">
+                        <img t-attf-src="#{data['link_chart']}" style="margin-top: -20px;"></img>
+                    </div>
+                    <div>
+                        <t t-set="no" t-value="1"/>
+                        <div class="col-xs-4">
+                            <t t-if="data['list_sick'][1]">
+                                <table class="table table-bordered" name="att_leave_lines">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center; vertical-align:middle; border-width: 2px">
+                                                No
+                                            </th>
+                                            <th style="text-align:center; vertical-align:middle; border-width: 2px">
+                                                Employee
+                                            </th>
+                                            <th style="text-align:center; vertical-align:middle; border-width: 2px">
+                                                Sick
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="data['list_sick'][0]" t-as="line">
+                                            <tr>
+                                                <td style="text-align:center; vertical-align:middle;">
+                                                    <t t-esc="no"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="line[0]"/>
+                                                </td>
+                                                <td style="text-align:center; vertical-align:middle;">
+                                                    <t t-esc="line[1]"/>
+                                                </td>
+                                                <t t-set="no" t-value="no+1"/>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                        </div>
+                        <div class="col-xs-4">
+                            <t t-if="data['list_sick'][1]">
+                                <table class="table table-bordered" name="att_leave_lines">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center; vertical-align:middle; border-width: 2px">
+                                                No
+                                            </th>
+                                            <th style="text-align:center; vertical-align:middle; border-width: 2px">
+                                                Employee
+                                            </th>
+                                            <th style="text-align:center; vertical-align:middle; border-width: 2px">
+                                                Sick
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="data['list_sick'][1]" t-as="line">
+                                            <tr>
+                                                <td>
+                                                    <t t-esc="no"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="line[0]"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="line[1]"/>
+                                                </td>
+                                                <t t-set="no" t-value="no+1"/>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                        </div>
+                        <div class="col-xs-4">
+                            <t t-if="data['list_sick'][2]">
+                                <table class="table table-bordered" name="att_leave_lines">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align:center; vertical-align:middle; border-width: 2px">
+                                                No
+                                            </th>
+                                            <th style="text-align:center; vertical-align:middle; border-width: 2px">
+                                                Employee
+                                            </th>
+                                            <th style="text-align:center; vertical-align:middle; border-width: 2px">
+                                                Sick
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <t t-foreach="data['list_sick'][2]" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <t t-esc="no"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line[0]"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="line[1]"/>
+                                            </td>
+                                            <t t-set="no" t-value="no+1"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <report id="leave_report"
+            model="report.pqm_leave_report.leave_report_template"
+            string="Leave Report"
+            report_type="qweb-pdf"
+            name="pqm_leave_report.leave_report_template"
+            file="pqm_leave_report.leave_report_template"
+    />
+
+</odoo>

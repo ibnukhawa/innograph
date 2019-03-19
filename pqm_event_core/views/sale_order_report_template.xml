@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="acquirer_msg_saleorder_report" inherit_id="website_sale.report_shop_saleorder_document">
+    	<xpath expr="//t/table/tbody/tr/td[1]" position="inside">
+    		<div class="pre_msg" t-field="doc.payment_acquirer_id.pre_msg" /><br/>
+    	</xpath>
+    </template>
+</odoo>

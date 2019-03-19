@@ -1,0 +1,126 @@
+<odoo>
+    <record id="email_po_approver" model="mail.template">
+        <field name="name">email ${object.name} to be approved</field>
+        <field name="email_from"/>
+        <field name="subject">${object.name} to be approved</field>
+        <field name="email_to"/>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="notification" eval="True"/>
+        <field name="auto_delete" eval="False"/>
+        <field name="body_html">
+            <![CDATA[
+<div>
+<p>Hello ${object.approver.name}, ${object.create_uid.name} telah membuat ${object.name} dengan rincian sebagai berikut :</p>
+<br/>
+<table border="0">
+    <tr>
+        <td>Vendor Name</td>
+        <td width=10>&nbsp;</td>
+        <td>:</td>
+        <td>${object.partner_id.name}</td>
+    </tr>
+    <tr>
+        <td valign="top">Purchase Description</td>
+        <td width=10>&nbsp;</td>
+        <td valign="top">:</td>
+        <td>${ctx['first_desc']}</td>
+    </tr>
+    %for x in ctx['description']:
+        <tr>
+            <td valign="top">&nbsp;</td>
+            <td width=10>&nbsp;</td>
+            <td valign="top">&nbsp;</td>
+            <td>${x}</td>
+        </tr>
+    %endfor
+    <tr>
+        <td>Project Name</td>
+        <td width=10>&nbsp;</td>
+        <td>:</td>
+        <td>${object.order_line[0].account_analytic_id.name}</td>
+    </tr>
+    <tr>
+        <td>Purchase Amount</td>
+        <td width=10>&nbsp;</td>
+        <td>:</td>
+        <td>${ ctx['symbol']+ ' ' + '{:,.2f}'.format(object.amount_total)}</td>
+    </tr>
+</table>
+<br/>
+<a href="${object.active_url}web#id=${object.id}&view_type=form&model=purchase.order" class="btn btn-default" style="text-decoration:none;color:rgb(33,183,153);background-color:transparent;padding:8px 12px;font-size:12px;color:#ffffff;text-decoration:none!important;font-weight:400;background-color:rgb(51,122,183);border:0px solid rgb(51,122,153);border-radius:3px";">View Purchase Order</a>
+<br/>
+<p>Please  Review and Approve untuk melanjutkan proses pembayaran.</p>
+<br/>
+<br/>
+<br/>
+<br/>
+<p><b>${object.company_id.name}</b></p>
+
+]]>
+        </field>
+    </record>
+
+    <record id="email_po_creator" model="mail.template">
+        <field name="name">email ${object.name} approved</field>
+        <field name="email_from"/>
+        <field name="subject">${object.name} approved</field>
+        <field name="email_to"/>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="notification" eval="True"/>
+        <field name="auto_delete" eval="False"/>
+        <field name="body_html">
+            <![CDATA[
+<div>
+<p>Hello ${object.create_uid.name} , ${object.approver.name} telah berhasil melihat dan menyetujui PO yang telah anda buat :</p>
+<br/>
+<table border="0">
+    <tr>
+        <td>Vendor Name</td>
+        <td width=10>&nbsp;</td>
+        <td>:</td>
+        <td>${object.partner_id.name}</td>
+    </tr>
+    <tr>
+        <td valign="top">Purchase Description</td>
+        <td width=10>&nbsp;</td>
+        <td valign="top">:</td>
+        <td>${ctx['first_desc']}</td>
+    </tr>
+    %for x in ctx['description']:
+        <tr>
+            <td valign="top">&nbsp;</td>
+            <td width=10>&nbsp;</td>
+            <td valign="top">&nbsp;</td>
+            <td>${x}</td>
+        </tr>
+    %endfor
+    <tr>
+        <td>Project Name</td>
+        <td width=10>&nbsp;</td>
+        <td>:</td>
+        <td>${object.order_line[0].account_analytic_id.name}</td>
+    </tr>
+    <tr>
+        <td>Purchase Amount</td>
+        <td width=10>&nbsp;</td>
+        <td>:</td>
+        %if ctx['position'] == 'before':
+            <td>${ ctx['symbol']+ ' ' + '{:,.2f}'.format(object.amount_total)}</td>
+        %endif
+        %if ctx['position'] == 'after':
+            <td>${ '{:,.2f}'.format(object.amount_total) + ' ' + ctx['symbol']}</td>
+        %endif
+    </tr>
+</table>
+<br/>
+<p>Please <a href="${object.active_url}web#id=${object.id}&view_type=form&model=purchase.order" class="btn btn-default" style="text-decoration:none;color:rgb(33,183,153);background-color:transparent;padding:8px 12px;font-size:12px;color:#ffffff;text-decoration:none!important;font-weight:400;background-color:rgb(51,122,183);border:0px solid rgb(51,122,153);border-radius:3px";">View Purchase Order</a>
+ Untuk melanjutkan proses pembelian anda.</p>
+<br/>
+<br/>
+<br/>
+<br/>
+<p><b>${object.company_id.name}</b></p>
+]]>
+        </field>
+    </record>
+</odoo>

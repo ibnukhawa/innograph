@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="project_type_form_view" model="ir.ui.view">
+            <field name="name">project.type.form</field>
+            <field name="model">project.type</field>
+            <field name="arch" type="xml">
+                <form string="Project Type">
+                    <sheet string="Project Type">
+                        <group>
+                            <group>
+                                <field name="code" required="1"/>
+                                <field name="sequence_id"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="income_account_id"/>
+                                <field name="salary_account_id"/>
+                                <field name="accrued_expense_id" string="Salary Allocation"/>
+                                <field name="discount_account_id"/>
+                                <field name="overhead_account_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="cost_account_ids"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

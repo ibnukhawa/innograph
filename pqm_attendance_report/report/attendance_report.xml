@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="attendance_report_template">
+        <t t-call="report.html_container">
+            <t t-call="report.internal_layout">
+                <div class="page" style="page-break-after:always;">
+                    <h2 style="text-align:center; margin-bottom:20px">Attendance Report <span t-esc="data['month_str']"/> <span t-esc="data['year']"/></h2>
+                    <t t-set="meal_line" t-value="[]"/>
+                    <table class="table table-bordered" name="att_leave_lines">
+                        <thead>
+                            <tr>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px" rowspan="2">PQM Members</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Terlambat</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Personal Izin</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Dinas Luar</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Tidak Absen Datang</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Tidak Absen Pulang</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Sakit</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Cuti</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Absen</th>
+                            </tr>
+                            <tr>
+                                <t t-foreach="range(0,8)" t-as="x">
+                                    <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">Times</th>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="blank_col" t-value="'padding:2px; text-align:center; vertical-align:middle; font-size:13px; border-width: 2px'"/>
+                            <t t-set="yellow_col" t-value="'padding:2px; text-align:center; vertical-align:middle; font-size:13px; border-width: 2px; background-color:#fbff00'"/>
+                            <t t-set="red_col" t-value="'padding:2px; text-align:center; vertical-align:middle; font-size:13px; border-width: 2px; background-color:#ff2b2b'"/>
+                            <t t-foreach="generate_line(data['month'], data['year'], data['meal_float'])" t-as="line">
+                                <tr>
+                                    <td style="padding:2px; text-align:left; vertical-align:middle; font-size:13px; border-width: 2px; font-weight: bold;">
+                                        <t t-esc="line['employee']"/>
+                                    </td>
+                                    <td t-attf-style="#{blank_col if line['late'] == 0 else yellow_col if 0 &lt; line['late'] &lt;= 5 else red_col}">
+                                        <t t-esc="line['late']"/>
+                                    </td>
+                                    <td t-attf-style="#{blank_col}">0</td>
+                                    <td t-attf-style="#{blank_col}"><t t-esc="line['outside']"/></td>
+                                    <td t-attf-style="#{blank_col if line['check_in'] == 0 else yellow_col if 0 &lt; line['check_in'] &lt;= 5 else red_col}">
+                                        <t t-esc="line['check_in']"/>
+                                    </td>
+                                    <td t-attf-style="#{blank_col if line['check_out'] == 0 else yellow_col if 0 &lt; line['check_out'] &lt;= 5 else red_col}">
+                                        <t t-esc="line['check_out']"/>
+                                    </td>
+                                    <td t-attf-style="#{blank_col if line['sick'] == 0 else yellow_col if 0 &lt; line['sick'] &lt;= 5 else red_col}">
+                                        <t t-esc="line['sick']"/>
+                                    </td>
+                                    <td t-attf-style="#{blank_col if line['leave'] == 0 else yellow_col if 0 &lt; line['leave'] &lt;= 5 else red_col}">
+                                        <t t-esc="line['leave']"/>
+                                    </td>
+                                    <td t-attf-style="#{blank_col}"><t t-esc="line['attend']"/></td>
+                                    <t t-if="line['meal'] != 0">
+                                        <t t-set="meal_line" t-value="list(meal_line + [{'employee': line['employee'], 'meal': line['meal']}])"/>
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+                    <h4 style="text-align:center; margin-bottom:30px; font-weight:bold">DATA KLAIM MAKAN MALAM KARYAWAN PQM</h4>
+                    <h4 style="text-align:center; font-weight:bold"><t t-esc="'PERIODE: '+ data['month_str'] + ' ' + str(data['year'])"/></h4>
+                    <table class="table table-bordered" name="att_meal">
+                        <thead>
+                            <tr>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">NO</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">NAMA KARYAWAN</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">JUMLAH ABSEN</th>
+                                <th style="padding:4px; text-align:center; vertical-align:middle; border-width: 2px">TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="no_meal" t-value="1"/>
+                            <t t-set="count_meal" t-value="0"/>
+                            <t t-set="total_meal" t-value="0"/>
+                            <t t-foreach="meal_line" t-as="line">
+                                <tr>
+                                    <t t-set="meal_line_price" t-value="line['meal']*data['meal_price']"/>
+                                    <td t-attf-style="#{blank_col}"><t t-esc="no_meal"/></td>
+                                    <td style="padding:2px; text-align:left; vertical-align:middle; font-size:13px; border-width: 2px; font-weight: bold;">
+                                        <t t-esc="line['employee']"/></td>
+                                    <td t-attf-style="#{blank_col}"><t t-esc="line['meal']"/></td>
+                                    <td t-attf-style="#{blank_col.replace('text-align:center', 'text-align:right')}"><t t-esc="'{0:,}'.format(int(meal_line_price)).replace(',', '.')"/></td>
+                                    <t t-set="no_meal" t-value="no_meal+1"/>
+                                    <t t-set="count_meal" t-value="count_meal + line['meal']"/>
+                                    <t t-set="total_meal" t-value="total_meal + meal_line_price"/>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td t-attf-style="#{blank_col + '; font-weight: bold'}" colspan="2"><t t-esc="'TOTAL UANG MAKAN MALAM BULAN ' + data['month_str'].upper()"/></td>
+                                <td t-attf-style="#{blank_col + '; font-weight: bold'}"><t t-esc="count_meal"/></td>
+                                <td t-attf-style="#{blank_col.replace('text-align:center', 'text-align:right') + '; font-weight: bold'}"><t t-esc="'{0:,}'.format(int(total_meal)).replace(',', '.')"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <p>NOTE :</p>
+                    <p><t t-esc="'1. Jam Makan Malam pada ' + str(float_to_time(data['meal_float']))"/></p>
+                    <p><t t-esc="'2. Harga Makan Malam Rp %s / pack' % '{0:,}'.format(int(data['meal_price'])).replace(',', '.')"/></p>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <report id="attendance_report"
+            model="report.pqm_attendance_report.attendance_report_template"
+            string="Attendance Report"
+            report_type="qweb-pdf"
+            name="pqm_attendance_report.attendance_report_template"
+            file="pqm_attendance_report.attendance_report_template"
+    />
+
+</odoo>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="project_sme_form_view" model="ir.ui.view">
+            <field name="name">project.sme.form</field>
+            <field name="model">project.sme</field>
+            <field name="arch" type="xml">
+                <form string="Project SME">
+                    <sheet string="Project SME">
+                        <group>
+                            <group>
+                                <field name="code" required="1"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="sub_sme_ids"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
