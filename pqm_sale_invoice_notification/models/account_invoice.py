@@ -56,7 +56,17 @@ class AccountInvoice(models.Model):
         """
         send email to follower if the state is open
         """
+        project_name = ""
+        project_title = ""
         sale_id = self.env['sale.order'].search([('name', '=', self.origin)])
+        if sale_id:
+            project_name = sale_id.project_id.code
+            project_title = sale_id.project_id.name
+        else:
+            project_ids = self.invoice_line_ids.mapped('account_analytic_id')
+            if any(project_ids):
+                project_name = project_ids[0].code
+                project_title = project_ids[0].name
         symbol = self.currency_id.symbol
         template_id = self.env.\
             ref('pqm_sale_invoice_notification.invoice_open_email_template')
@@ -66,8 +76,8 @@ class AccountInvoice(models.Model):
             })
             template_id.\
                 with_context(symbol=symbol, receipt=rec.partner_id.name,
-                             project_name=sale_id.project_id.code,
-                             project_title=sale_id.project_id.name).\
+                             project_name=project_name,
+                             project_title=project_title).\
                 send_mail(rec_id, force_send=True)
 
     @api.model
