@@ -15,11 +15,12 @@
     'category': 'PQM PHASE 3',
     'sequence': 1,
     'depends': [
-        'website', 
+        'website', 'website_sale'
     ],
     'data': [
         'views/website_menu_views.xml',
         'views/website_templates.xml',
+        'views/sale_order_view.xml',
     ],
     'auto_install': False,
     'installable': True,

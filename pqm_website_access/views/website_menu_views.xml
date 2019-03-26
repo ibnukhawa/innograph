@@ -20,4 +20,25 @@
             <field name="view_mode">list</field>
             <field name="context">{}</field>
     </record>
+
+    <record id="website_menu_view_url_tree" model="ir.ui.view">
+        <field name="name">website.menu.url.view.tree</field>
+        <field name="model">website.menu.url</field>
+        <field name="arch" type="xml">
+            <tree string="Website Menu URL" editable="bottom">
+                <field name="name" />
+                <field name="url" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_website_menu_url" model="ir.actions.act_window">
+        <field name="name">Website Menu URL</field>
+        <field name="res_model">website.menu.url</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="website_menu_view_url_tree"/>
+    </record>
+
+    <menuitem id="menu_website_menu_url" name="Website Menu URL" parent="website.menu_website_global_configuration" action="website.action_website_menu_url" sequence="16"/>
 </odoo>
