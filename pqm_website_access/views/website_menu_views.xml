@@ -37,8 +37,8 @@
         <field name="res_model">website.menu.url</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="website_menu_view_url_tree"/>
+        <field name="view_id" ref="pqm_website_access.website_menu_view_url_tree"/>
     </record>
 
-    <menuitem id="menu_website_menu_url" name="Website Menu URL" parent="website.menu_website_global_configuration" action="website.action_website_menu_url" sequence="16"/>
+    <menuitem id="menu_website_menu_url" name="Website Menu URL" parent="website.menu_website_global_configuration" action="pqm_website_access.action_website_menu_url" sequence="16"/>
 </odoo>
