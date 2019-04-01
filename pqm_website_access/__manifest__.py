@@ -18,6 +18,7 @@
         'website', 'website_sale'
     ],
     'data': [
+        'security/ir.model.access.csv',
         'views/website_menu_views.xml',
         'views/website_templates.xml',
         'views/sale_order_view.xml',
