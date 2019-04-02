@@ -15,13 +15,14 @@
     'category': 'PQM PHASE 3',
     'sequence': 1,
     'depends': [
-        'website', 'website_sale'
+        'website', 'website_sale', 'website_event'
     ],
     'data': [
+        'data/event_mail_template_data.xml',
         'security/ir.model.access.csv',
         'views/website_menu_views.xml',
         'views/website_templates.xml',
-        'views/sale_order_view.xml',
+        'views/origin_url_view.xml',
     ],
     'auto_install': False,
     'installable': True,
