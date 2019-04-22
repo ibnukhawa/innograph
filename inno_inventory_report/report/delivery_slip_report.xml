@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="delivery_slip_report">
+    	<t t-call="report.html_container">
+    		<t t-foreach="docs" t-as="o">
+	    		<t t-set="res_company" t-value="o.company_id" />
+	    		<t t-set="picking_type" t-value="o.picking_type_id.code" />
+	    		<!-- HEADER --> 
+	    		<div class="header">
+	                <div class="row">
+	                    <div class="col-xs-8">
+	                        <img class="image" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="height:80px;display:block;float:left;padding-right:10px;"/>
+	                        <div style="height:80px;display:block;float:left;font-size:11px;width:360px">
+	                            <h5><b t-esc="res_company.name"/></h5>
+	                            <t t-esc="res_company.partner_id.street"/><br/>
+	                            <t t-esc="res_company.partner_id.street2"/>
+	                            <t t-esc="res_company.partner_id.city"/>
+	                            <t t-esc="res_company.partner_id.state_id.name"/>
+	                            <t t-esc="res_company.partner_id.zip"/><br/>
+	                        </div>
+	                    </div>
+	                    <div class="col-xs-4 text-center" style="height: 30px;">
+	                        <div class="text-center" style="padding-left: 4px;">
+	                            <b>
+	                                <div style="letter-spacing:3px;font-size:32px;">SURAT JALAN</div>
+	                            </b>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	    		<div class="page">
+    			
+	    			<div class="row">
+	    				<div class="col-xs-7">
+	    					<table style="width: 100%;">
+	    						<tr>
+	    							<td style="padding: 3px;font-size: 11px;width:17%;">
+	    								TAGIHAN KE
+	    							</td>
+	    							<td style="padding: 3px;font-size: 11px;height:3%;">
+	    								:
+	    							</td>
+	    							<td style="padding: 3px;border: 1px black;font-size: 11px;width:80%;border-style: solid solid dashed solid;">
+	    								<t t-set="partner_set" t-value="0" />
+	    								<t t-set="partner" t-value="o.partner_id" />
+	    								<!-- check if partner have child type invoice -->
+	    								<t t-foreach="partner.child_ids" t-as="child">
+	    									<t t-if="child.type == 'invoice'">
+	    										<t t-set="partner_set" t-value="1" />
+	    										<span t-esc="child.name" /><br/>
+			    								<t t-esc="child.street"/><br/>
+					                            <t t-esc="child.street2"/>
+					                            <t t-esc="child.city"/>
+					                            <t t-esc="child.state_id.name"/>
+					                            <t t-esc="child.zip"/><br/>
+	    									</t>
+	    								</t>
+	    								<!-- If transfer partner is a child, get child type invoice from parent -->
+	    								<t t-if="partner.parent_id and not partner.child_ids">
+	    									<t t-set="parent" t-as="partner.parent_id" />
+	    									<t t-foreach="parent.child_ids" t-as="child">
+		    									<t t-if="child.type == 'invoice'">
+		    										<t t-set="partner_set" t-value="1" />
+		    										<span t-esc="child.name" /><br/>
+				    								<t t-esc="child.street"/><br/>
+						                            <t t-esc="child.street2"/>
+						                            <t t-esc="child.city"/>
+						                            <t t-esc="child.state_id.name"/>
+						                            <t t-esc="child.zip"/><br/>
+		    									</t>
+		    								</t>
+	    								</t>
+	    								<!-- Default partner -->
+	    								<t t-if="partner_set != 1">
+		    								<span t-esc="o.partner_id.name" /><br/>
+		    								<t t-esc="o.partner_id.street"/><br/>
+				                            <t t-esc="o.partner_id.street2"/>
+				                            <t t-esc="o.partner_id.city"/>
+				                            <t t-esc="o.partner_id.state_id.name"/>
+				                            <t t-esc="o.partner_id.zip"/><br/>
+				                        </t>
+	    							</td>
+	    						</tr>
+	    						<tr>
+	    							<td style="padding: 3px;font-size: 11px;width:17%;">
+	    								KIRIM KE
+	    							</td>
+	    							<td style="padding: 3px;font-size: 11px;height:3%;">
+	    								:
+	    							</td>
+	    							<td style="padding: 3px;border: 1px black;font-size: 11px;width:80%;border-style:dashed solid solid solid;">
+	    								<span t-esc="o.partner_id.name" /><br/>
+	    								<t t-esc="o.partner_id.street"/><br/>
+			                            <t t-esc="o.partner_id.street2"/>
+			                            <t t-esc="o.partner_id.city"/>
+			                            <t t-esc="o.partner_id.state_id.name"/>
+			                            <t t-esc="o.partner_id.zip"/><br/>
+	    							</td>
+	    						</tr> 
+	    					</table>
+	    				</div>
+	    				<div class="col-xs-5">
+	    					<table class="table" style="width: 100%;">
+	    						<tr>
+	    							<td style="width: 50%;border: 1px black;border-style: solid dashed dashed solid;padding: 3px;">
+	    								<strong>TGL</strong>
+	    								<span t-field="o.date" t-field-options="{'format': 'dd-MM-yyyy'}" />
+	    							</td>
+	    							<td style="border: 1px black;border-style: solid solid dashed dashed;padding: 3px;">
+	    								<strong>NO. SJ</strong>
+		    							<span t-esc="o.name" />
+		    						</td>
+		    					</tr>
+	    						<tr>
+	    							<td style="border: 1px black;border-style: dashed solid dashed solid;padding: 3px;" colspan="2">
+	    								<strong>PO No.</strong>
+	    								<span t-esc="o.origin" />
+	    							</td>
+	    						</tr>
+	    						<tr>
+	    							<td style="border: 1px black;border-style: dashed solid solid solid;padding: 3px;" colspan="2">
+	    								<strong>SALESMAN</strong>
+	    								<span t-if="o.sale_order_id and o.sale_order_id.user_id" t-esc="o.sale_order_id.user_id.name" />
+	    							</td>
+	    						</tr>
+	    					</table>
+	    				</div>
+	    			</div>
+
+	    			<!-- Outgoing Table -->
+	    			<div class="row" style="margin-top: 20px;">
+	    				<div class="col-xs-12">
+		    				<table style="width: 100%;font-size: 11px;border: 1px solid black;">
+		    					<thead style="font-size: 12px;">
+		    						<tr>
+		    							<td class="text-center" style="border: 1px solid black;width:40%;padding: 3px;">Deskripsi Barang</td>
+		    							<td class="text-center" style="border: 1px solid black;width:15%;padding: 3px;">Qty</td>
+		    							<td class="text-center" style="border: 1px solid black;width:10%;padding: 3px;">Item</td>
+		    							<td class="text-center" style="border: 1px solid black;width:35%;padding: 3px;">So No.</td>
+		    						</tr>
+		    					</thead>
+		    					<tbody>
+		    						<t t-set="i" t-value="0" />
+		    						<t t-foreach="o.move_lines" t-as="move">
+		    							<t set="i" t-value="i+1" />
+		    							<td style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">
+		    								<span t-esc="move.name" />
+		    							</td>
+		    							<td class="text-right" style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">
+		    								<span t-esc="move.quantity_done" />
+		    							</td>
+		    							<td style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;"><span t-esc="move.product_uom.name" /></td>
+		    							<td class="text-right" style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">
+		    								<span t-if="o.sale_order_id" t-esc="o.sale_order_id.name" />
+		    								<t t-if="not o.sale_order_id">&amp;nbsp;</t>
+		    							</td>
+		    						</t>
+		    						<t t-if="i % 35 == 0 or i == 0">
+		    							<t t-set="add_row" t-value="35 - (i % 35)" />
+		    							<tr t-foreach="range(add_row)" t-as="row">
+		    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
+		    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
+		    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
+		    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
+		    							</tr>
+		    						</t>
+		    					</tbody>
+		    				</table>
+		    			</div>
+	    			</div>
+
+	    			<div class="row" style="margin-top: 20px;">
+	    				<div class="col-xs-8">
+		    				<div class="col-xs-4">
+			    				Disiapkan Oleh :<br/><br/><br/><br/><br/>
+			    				<t t-if="o.sale_order_id and o.sale_order_id.user_id">
+			    					( <span t-esc="o.sale_order_id.user_id.name" /> )
+			    					<br/>Tgl. : <span t-field="o.date" t-field-options="{'format': 'dd-MM-yyyy'}" /> 
+			    				</t>
+			    				<t t-if="not o.sale_order_id or not o.sale_order_id.user_id">
+			    					.........................
+			    					<br/>Tgl. :
+			    				</t>
+			    			</div>
+			    			<div class="col-xs-4">
+			    				Diantar Oleh :<br/><br/><br/><br/><br/>
+		    					.........................
+		    					<br/>Tgl. :
+			    			</div>
+			    			<div class="col-xs-4">
+			    				Diterima Oleh :<br/><br/><br/><br/><br/>
+			    				.........................<br/>
+			    				Tgl. :
+			    			</div>
+			    		</div>
+			    		<div class="col-xs-4">
+			    			<table style="width: 100%;">
+			    				<tr>
+			    					<td style="border: 1px solid black;width: 30%;padding: 3px;">Keterangan</td>
+			    					<td>&amp;nbsp;</td>
+			    				</tr>
+			    				<tr>
+			    					<td colspan="2" style="border: 1px solid black;padding: 3px;">
+			    						<t t-if="not o.note">&amp;nbsp;</t>
+			    						<span t-if="o.note" t-field="o.note" />
+			    					</td>
+			    				</tr>
+			    			</table>
+			    		</div>
+		    		</div>	    			
+	    		</div>
+	    		<div class="footer"></div>
+	    	</t>
+    	</t>
+    </template>
+
+    <report 
+        id="inno_delivery_slip_report_action"
+        string="Inno Delivery Slip Report"
+        model="stock.picking" 
+        report_type="qweb-pdf"
+        file="inno_inventory_report.delivery_slip_report" 
+        name="inno_inventory_report.delivery_slip_report"
+        paperformat="inno_inventory_report.paperformat_do_letter"
+    />
+
+</odoo>
