@@ -118,33 +118,33 @@
 			    				<table style="width: 100%;font-size: 11px;border: 1px solid black;">
 			    					<thead style="font-size: 12px;">
 			    						<tr>
-			    							<td class="text-center" style="border: 1px solid black;width:5%;">No.</td>
-			    							<td class="text-center" style="border: 1px solid black;width:20%;">No Item</td>
-			    							<td class="text-center" style="border: 1px solid black;width:30%;">Deskripsi Item</td>
-			    							<td class="text-center" style="border: 1px solid black;width:17%;">Jumlah</td>
-			    							<td class="text-center" style="border: 1px solid black;width:16%;">Barcode</td>
-			    							<td class="text-center" style="border: 1px solid black;width:12%;">Unit</td>
+			    							<td class="text-center" style="padding: 3px;border: 1px solid black;width:5%;">No.</td>
+			    							<td class="text-center" style="padding: 3px;border: 1px solid black;width:20%;">No Item</td>
+			    							<td class="text-center" style="padding: 3px;border: 1px solid black;width:30%;">Deskripsi Item</td>
+			    							<td class="text-center" style="padding: 3px;border: 1px solid black;width:17%;">Jumlah</td>
+			    							<td class="text-center" style="padding: 3px;border: 1px solid black;width:16%;">Barcode</td>
+			    							<td class="text-center" style="padding: 3px;border: 1px solid black;width:12%;">Unit</td>
 			    						</tr>
 			    					</thead>
 			    					<tbody>
 			    						<t t-set="i" t-value="0" />
-			    						<t t-foreach="o.move_lines" t-as="move">
+			    						<tr t-foreach="o.move_lines" t-as="move">
 			    							<t set="i" t-value="i+1" />
-			    							<td class="text-center" style="border-left: 1px solid black;border-right: 1px solid black;">i</td>
-			    							<td style="border-left: 1px solid black;border-right: 1px solid black;">
+			    							<td class="text-center" style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">i</td>
+			    							<td style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">
 			    								<span t-esc="move.product_id.default_code" />
 			    							</td>
-			    							<td style="border-left: 1px solid black;border-right: 1px solid black;">
+			    							<td style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">
 			    								<span t-esc="move.name" />
 			    							</td>
-			    							<td class="text-right" style="border-left: 1px solid black;border-right: 1px solid black;">
+			    							<td class="text-right" style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">
 			    								<span t-esc="move.quantity_done" />
 			    							</td>
-			    							<td style="border-left: 1px solid black;border-right: 1px solid black;"></td>
-			    							<td class="text-right" style="border-left: 1px solid black;border-right: 1px solid black;">
+			    							<td style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;"></td>
+			    							<td class="text-right" style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">
 			    								<span t-esc="move.product_uom.name" />
 			    							</td>
-			    						</t>
+			    						</tr>
 			    						<t t-if="i % 35 == 0 or i == 0">
 			    							<t t-set="add_row" t-value="35 - (i % 35)" />
 			    							<tr t-foreach="range(add_row)" t-as="row">
