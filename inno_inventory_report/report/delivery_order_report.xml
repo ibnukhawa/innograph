@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="delivery_order_report">
+    	<t t-call="report.html_container">
+    		<t t-foreach="docs" t-as="o">
+	    		<t t-set="res_company" t-value="o.company_id" />
+	    		<t t-set="picking_type" t-value="o.picking_type_id.code" />
+	    		<!-- HEADER --> 
+	    		<div class="header">
+	                <div class="row">
+	                    <div class="col-xs-8">
+	                        <img class="image" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="height:80px;display:block;float:left;padding-right:10px;"/>
+	                        <div style="height:80px;display:block;float:left;font-size:11px;width:360px">
+	                            <h5><b t-esc="res_company.name"/></h5>
+	                            <t t-esc="res_company.partner_id.street"/><br/>
+	                            <t t-esc="res_company.partner_id.street2"/>
+	                            <t t-esc="res_company.partner_id.city"/>
+	                            <t t-esc="res_company.partner_id.state_id.name"/>
+	                            <t t-esc="res_company.partner_id.zip"/><br/>
+	                        </div>
+	                    </div>
+	                    <div class="col-xs-4 text-center" style="height: 30px;">
+	                        <div class="text-center" style="padding-left: 4px;">
+	                            <b>
+	                                <t t-if="picking_type == 'outgoing'">
+	                                	<div style="letter-spacing:3px;font-size:18px;">BUKTI BARANG KELUAR</div>
+	                                </t>
+	                                <t t-if="picking_type == 'incoming'">
+	                                	<div style="letter-spacing:3px;font-size:26px;">Recv. Item (BPB)</div>
+	                                </t>
+	                            </b>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	    		<div class="page">
+	    			<!-- Outgoing Info -->
+	    			<t t-if="picking_type == 'outgoing'">
+		    			<div class="row">
+		    				<div class="col-xs-4">
+		    					<table class="table table-bordered" style="height: 100px;">
+		    						<tr>
+		    							<td style="padding: 3px;border: 1px solid black;font-size: 11px;height:20%;">
+		    								<strong>Transfer dari :</strong>
+		    							</td>
+		    						</tr>
+		    						<tr>
+		    							<td style="padding: 3px;border: 1px solid black;font-size: 10px;">
+		    								<span t-esc="o.location_id.display_name" />
+		    							</td>
+		    						</tr> 
+		    					</table>
+		    				</div>
+		    				<div class="col-xs-4">
+		    					<table class="table table-bordered" style="height: 100px;">
+		    						<tr>
+		    							<td style="padding: 3px;border: 1px solid black;font-size: 11px;height:20%;">
+		    								<strong>Transfer ke :</strong>
+		    							</td>
+		    						</tr>
+		    						<tr>
+		    							<td style="padding: 3px;border: 1px solid black;font-size: 10px;">
+		    								<span t-esc="o.partner_id.street" />
+		    							</td>
+		    						</tr> 
+		    					</table>
+		    				</div>
+		    				<div class="col-xs-4">
+		    					<div class="col-xs-6" style="padding-left: 0px;padding-right:2px;">
+			    					<table class="table table-bordered">
+			    						<tr>
+			    							<td class="text-center" style="padding: 3px;border: 1px solid black;font-size: 11px;height:20%;">
+			    								<strong>Transfer No.</strong>
+			    							</td>
+			    						</tr>
+			    						<tr>
+			    							<td style="padding: 3px;border: 1px solid black;font-size: 10px;">
+			    								<span t-esc="o.name" />
+			    							</td>
+			    						</tr>
+			    					</table>
+			    				</div>
+			    				<div class="col-xs-6" style="padding-left:2px;padding-right: 0px;">
+			    					<table class="table table-bordered">
+			    						<tr>
+			    							<td class="text-center" style="padding: 3px;border: 1px solid black;font-size: 11px;height:20%;">
+			    								<strong>Tanggal</strong>
+			    							</td>
+			    						</tr>
+			    						<tr>
+			    							<td style="padding: 3px;border: 1px solid black;font-size: 10px;">
+			    								<span t-field="o.date" t-field-options="{'format': 'dd-MM-yyyy'}" />
+			    							</td>
+			    						</tr>
+			    					</table>
+			    				</div>
+			    				<div class="col-xs-12" style="padding-left: 0px;padding-right: 0px;margin-top: -8px;">
+			    					<table class="table table-bordered">
+			    						<tr>
+			    							<td style="padding: 3px;border: 1px solid black;font-size: 11px;height:20%;">
+			    								<strong>Keterangan</strong>
+			    							</td>
+			    						</tr>
+			    						<tr>
+			    							<td style="padding: 3px;border: 1px solid black;font-size: 10px;">
+			    								<span t-if="o.note" t-esc="o.note" />
+			    								<span t-if="not o.note">&amp;nbsp;</span>
+			    							</td>
+			    						</tr>
+			    					</table>
+			    				</div>
+		    				</div>
+		    			</div>
+
+		    			<!-- Outgoing Table -->
+		    			<div class="row" >
+		    				<div class="col-xs-12">
+			    				<table style="width: 100%;font-size: 11px;border: 1px solid black;">
+			    					<thead style="font-size: 12px;">
+			    						<tr>
+			    							<td class="text-center" style="border: 1px solid black;width:5%;">No.</td>
+			    							<td class="text-center" style="border: 1px solid black;width:20%;">No Item</td>
+			    							<td class="text-center" style="border: 1px solid black;width:30%;">Deskripsi Item</td>
+			    							<td class="text-center" style="border: 1px solid black;width:17%;">Jumlah</td>
+			    							<td class="text-center" style="border: 1px solid black;width:16%;">Barcode</td>
+			    							<td class="text-center" style="border: 1px solid black;width:12%;">Unit</td>
+			    						</tr>
+			    					</thead>
+			    					<tbody>
+			    						<t t-set="i" t-value="0" />
+			    						<t t-foreach="o.move_lines" t-as="move">
+			    							<t set="i" t-value="i+1" />
+			    							<td class="text-center" style="border-left: 1px solid black;border-right: 1px solid black;">i</td>
+			    							<td style="border-left: 1px solid black;border-right: 1px solid black;">
+			    								<span t-esc="move.product_id.default_code" />
+			    							</td>
+			    							<td style="border-left: 1px solid black;border-right: 1px solid black;">
+			    								<span t-esc="move.name" />
+			    							</td>
+			    							<td class="text-right" style="border-left: 1px solid black;border-right: 1px solid black;">
+			    								<span t-esc="move.quantity_done" />
+			    							</td>
+			    							<td style="border-left: 1px solid black;border-right: 1px solid black;"></td>
+			    							<td class="text-right" style="border-left: 1px solid black;border-right: 1px solid black;">
+			    								<span t-esc="move.product_uom.name" />
+			    							</td>
+			    						</t>
+			    						<t t-if="i % 35 == 0 or i == 0">
+			    							<t t-set="add_row" t-value="35 - (i % 35)" />
+			    							<tr t-foreach="range(add_row)" t-as="row">
+			    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
+			    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
+			    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
+			    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
+			    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
+			    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
+			    							</tr>
+			    						</t>
+			    					</tbody>
+			    				</table>
+			    			</div>
+		    			</div>
+
+		    			<div class="row" style="margin-top: 20px;">
+		    				<div class="col-xs-4">
+			    				Disiapkan Oleh :<br/><br/><br/><br/><br/>
+			    				<t t-if="o.sale_order_id and o.sale_order_id.user_id">
+			    					<span t-esc="o.sale_order_id.user_id.name" />
+			    					<br/>Tgl. : <span t-field="o.date" t-field-options="{'format': 'dd-MM-yyyy'}" /> 
+			    				</t>
+			    				<t t-if="not o.sale_order_id or not o.sale_order_id.user_id">
+			    					..............................
+			    					<br/>Tgl. :
+			    				</t>
+			    			</div>
+			    			<div class="col-xs-4">
+			    				Diperiksa Oleh :<br/><br/><br/><br/><br/>
+			    				<t t-if="o.write_uid">
+			    					<span t-esc="o.write_uid.name" />
+			    					<br/>Tgl. : <span t-field="o.write_date" t-field-options="{'format': 'dd-MM-yyyy'}" /> 
+			    				</t>
+			    				<t t-if="not o.write_uid">
+			    					..............................
+			    					<br/>Tgl. :
+			    				</t>
+			    			</div>
+			    			<div class="col-xs-4">
+			    				Diterima Oleh :<br/><br/><br/><br/><br/>
+			    				..............................<br/>
+			    				Tgl. :
+			    			</div>
+			    		</div>
+			    	</t>
+
+	    			<!-- Incoming Info -->
+	    			<t t-if="picking_type == 'incoming'">
+	    				<div class="row">
+	    					<div class="col-xs-4 text-center">
+	    						<strong>Vendor</strong><br/>
+	    						<span t-esc="o.partner_id.name" />
+	    					</div>
+	    					<div class="col-xs-4" style="font-size: 11px;">
+	    						<t t-esc="o.partner_id.street"/><br/>
+	                            <t t-esc="o.partner_id.street2"/>
+	                            <t t-esc="o.partner_id.city"/>
+	                            <t t-esc="o.partner_id.state_id.name"/>
+	                            <t t-esc="o.partner_id.zip"/>
+	    					</div>
+	    					<div class="col-xs-4" style="padding-right: 0px;">
+	    						<table style="width: 100%;font-size: 11px;">
+	    							<tr>
+	    								<td style="padding: 3px;width: 40%;">Invoice No. </td>
+	    								<td style="padding: 3px;width: 2%;">:</td>
+	    								<td style="padding: 3px;width: 58%;"><span t-esc="o.origin" /></td>
+	    							</tr>
+	    							<tr>
+	    								<td style="padding: 3px;">Delivery Date</td>
+	    								<td style="padding: 3px;">:</td>
+	    								<td style="padding: 3px;"><span t-field="o.date" t-field-options="{'format': 'dd-MM-yyyy'}" /></td>
+	    							</tr>
+	    							<tr>
+	    								<td style="padding: 3px;">Form No.</td>
+	    								<td style="padding: 3px;">:</td>
+	    								<td style="padding: 3px;"><span t-esc="o.name" /></td>
+	    							</tr>
+	    						</table>
+	    					</div>
+	    				</div>
+	    				<div class="row">
+	    					<div class="col-xs-2">
+	    						<strong>Description</strong>
+	    					</div>
+	    					<div class="col-xs-10">
+	    						<span t-esc="o.note" />
+	    					</div>
+	    				</div>
+	    				<div class="row">
+	    					<table style="font-size: 11px;">
+	    						<thead>
+	    							<tr>
+	    								<td style="border-top: 1px solid black;border-bottom: 1px solid black;font-size: 12px;width: 5%;" class="text-center">No</td>
+	    								<td style="border-top: 1px solid black;border-bottom: 1px solid black;font-size: 12px;width: 15%;" class="text-center">Item</td>
+	    								<td style="border-top: 1px solid black;border-bottom: 1px solid black;font-size: 12px;width: 30%;" class="text-center">Description</td>
+	    								<td style="border-top: 1px solid black;border-bottom: 1px solid black;font-size: 12px;width: 15%;" class="text-center">Qty</td>
+	    								<td style="border-top: 1px solid black;border-bottom: 1px solid black;font-size: 12px;width: 15%;" class="text-center">Unit</td>
+	    								<td style="border-top: 1px solid black;border-bottom: 1px solid black;font-size: 12px;width: 20%;" class="text-center">PO No.</td>
+	    							</tr>
+	    						</thead>
+	    						<tbody>
+	    							<t t-set="i" t-value="0" /> 
+	    							<tr t-foreach="o.move_lines" t-as="move">
+	    								<t t-set="count" t-value="i+1" />
+	    								<td class="text-center"><span t-esc="i" /></td>
+	    								<td><span t-esc="move.product_id.default_code" /></td>
+	    								<td><span t-esc="move.name" /></td>
+	    								<td><span t-esc="move.quantity_done" /></td>
+	    								<td><span t-esc="move.product_uom.name" /></td>
+	    								<td><span t-esc="o.origin" /></td>
+	    							</tr>
+	    							<t t-if="i % 35 != 0 or i == 0">
+	    								<t t-set="add_row" t-value="35 - (i % 35)" />
+	    								<t t-foreach="range(add_row)" t-as="row">
+	    									<rd>&amp;nbsp;</rd>
+	    									<rd>&amp;nbsp;</rd>
+	    									<rd>&amp;nbsp;</rd>
+	    									<rd>&amp;nbsp;</rd>
+	    									<rd>&amp;nbsp;</rd>
+	    									<rd>&amp;nbsp;</rd>
+	    									<rd>&amp;nbsp;</rd>
+	    								</t>
+	    							</t>
+	    						</tbody>
+	    					</table>
+	    				</div>
+	    			</t>
+	    		</div>
+	    		<div class="footer"></div>
+	    	</t>
+    	</t>
+    </template>
+
+    <record id="paperformat_do_letter" model="report.paperformat">
+        <field name="name">Delivery Order Letter</field>
+        <field name="default" eval="True"/>
+        <field name="format">Letter</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">33</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <report 
+        id="inno_delivery_order_report_action"
+        string="Delivery Order Report"
+        model="stock.picking" 
+        report_type="qweb-pdf"
+        file="inno_inventory_report.delivery_order_report" 
+        name="inno_inventory_report.delivery_order_report"
+        paperformat="inno_inventory_report.paperformat_do_letter"
+    />
+
+</odoo>
