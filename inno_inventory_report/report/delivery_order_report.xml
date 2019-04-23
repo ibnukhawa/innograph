@@ -3,20 +3,25 @@
     <template id="delivery_order_report">
     	<t t-call="report.html_container">
     		<t t-foreach="docs" t-as="o">
-	    		<t t-set="res_company" t-value="o.company_id" />
+	    		<t t-if="o and 'company_id' in o">
+			        <t t-set="company" t-value="o.company_id"></t>
+			    </t>
+			    <t t-if="not o or not 'company_id' in o">
+			        <t t-set="company" t-value="res_company"></t>
+			    </t>
 	    		<t t-set="picking_type" t-value="o.picking_type_id.code" />
 	    		<!-- HEADER --> 
 	    		<div class="header">
 	                <div class="row">
 	                    <div class="col-xs-8">
-	                        <img class="image" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="height:80px;display:block;float:left;padding-right:10px;"/>
+	                        <img class="image" t-att-src="'data:image/png;base64,%s' % company.logo" style="height:80px;display:block;float:left;padding-right:10px;"/>
 	                        <div style="height:80px;display:block;float:left;font-size:11px;width:360px">
-	                            <h5><b t-esc="res_company.name"/></h5>
-	                            <t t-esc="res_company.partner_id.street"/><br/>
-	                            <t t-esc="res_company.partner_id.street2"/>
-	                            <t t-esc="res_company.partner_id.city"/>
-	                            <t t-esc="res_company.partner_id.state_id.name"/>
-	                            <t t-esc="res_company.partner_id.zip"/><br/>
+	                            <h5><b t-esc="company.name"/></h5>
+	                            <t t-esc="company.partner_id.street"/><br/>
+	                            <t t-esc="company.partner_id.street2"/>
+	                            <t t-esc="company.partner_id.city"/>
+	                            <t t-esc="company.partner_id.state_id.name"/>
+	                            <t t-esc="company.partner_id.zip"/><br/>
 	                        </div>
 	                    </div>
 	                    <div class="col-xs-4 text-center" style="height: 30px;">
@@ -145,8 +150,8 @@
 			    								<span t-esc="move.product_uom.name" />
 			    							</td>
 			    						</tr>
-			    						<t t-if="i % 35 == 0 or i == 0">
-			    							<t t-set="add_row" t-value="35 - (i % 35)" />
+			    						<t t-if="i %20 == 0 or i == 0">
+			    							<t t-set="add_row" t-value="20 - (i % 20)" />
 			    							<tr t-foreach="range(add_row)" t-as="row">
 			    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
 			    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
@@ -274,7 +279,39 @@
 	    				</div>
 	    			</t>
 	    		</div>
-	    		<div class="footer"></div>
+	    		<div class="footer">
+	    			<div class="text-center" style="border-top: 0px solid black;">
+	    				<ul t-if="not company.custom_footer" class="list-inline">
+	    					<t t-set="company" t-value="company.sudo()"/>
+	    				</ul><br/>
+	    				<table>
+	    					<tr>
+	    						<td style="padding:15px 20px;border-right:0px;vertical-align:top; width:450px" >
+	    							<img style="width:120px" src="/custom_kwitansi_report/static/src/img/displaystore.png"/>
+	    							<div style="margin-top:5px">https://displaystore.id</div>
+	    						</td>
+								<td></td>
+								<td></td>
+								<td colspan="2" style="padding:8px 0px;border-left:0px;font-size:10px;vertical-align:top">
+									<div style="margin-left:-20px">
+                                        <div style="font-weight:bold;display:inline-block;width:110px">Office</div>: Jl. Lenteng Agung Raya No. 15 (Jl. Baung No. 2) Jakarta Selatan 12610 <br/>
+                                        <div style="font-weight:bold;display:inline-block;width:110px">Phone</div>: (62) 21 7883 1075 <br/>
+                                        <div style="font-weight:bold;display:inline-block;width:110px">Fax</div>: (62) 21 7883 1692 <br/>
+                                        <div style="font-weight:bold;display:inline-block;width:110px">Website</div>: http://innograph.com <br/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <div style="font-size:10px; width:100%; float:left; text-align:center"></div>
+                        <br/>
+			            <ul style="color:white" t-if="not company.custom_footer" class="list-inline" name="financial_infos">
+			                <li t-if="company.vat">TIN: <span t-field="company.vat"/></li>
+			            </ul>
+			            <t t-if="company.custom_footer">
+			                <span t-raw="company.rml_footer"/>
+			            </t>
+			        </div>
+	    		</div>
 	    	</t>
     	</t>
     </template>
@@ -284,12 +321,12 @@
         <field name="default" eval="True"/>
         <field name="format">Letter</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">40</field>
-        <field name="margin_bottom">33</field>
+        <field name="margin_top">35</field>
+        <field name="margin_bottom">30</field>
         <field name="margin_left">7</field>
         <field name="margin_right">7</field>
         <field name="header_line" eval="False"/>
-        <field name="header_spacing">35</field>
+        <field name="header_spacing">30</field>
         <field name="dpi">90</field>
     </record>
 
