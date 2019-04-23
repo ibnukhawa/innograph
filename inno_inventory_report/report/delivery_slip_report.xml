@@ -216,7 +216,7 @@
 
     <report 
         id="inno_delivery_slip_report_action"
-        string="Inno Delivery Slip Report"
+        string="Surat Jalan"
         model="stock.picking" 
         report_type="qweb-pdf"
         file="inno_inventory_report.delivery_slip_report" 
