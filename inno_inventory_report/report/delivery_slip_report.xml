@@ -141,7 +141,7 @@
 		    					</thead>
 		    					<tbody>
 		    						<t t-set="i" t-value="0" />
-		    						<t t-foreach="o.move_lines" t-as="move">
+		    						<tr t-foreach="o.move_lines" t-as="move">
 		    							<t set="i" t-value="i+1" />
 		    							<td style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">
 		    								<span t-esc="move.name" />
@@ -154,7 +154,7 @@
 		    								<span t-if="o.sale_order_id" t-esc="o.sale_order_id.name" />
 		    								<t t-if="not o.sale_order_id">&amp;nbsp;</t>
 		    							</td>
-		    						</t>
+		    						</tr>
 		    						<t t-if="i % 35 == 0 or i == 0">
 		    							<t t-set="add_row" t-value="35 - (i % 35)" />
 		    							<tr t-foreach="range(add_row)" t-as="row">
