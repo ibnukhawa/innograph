@@ -117,7 +117,7 @@
                                 <tr>
                                     <td><strong>Uang sejumlah</strong></td>
                                     <td>:&#160;</td>
-                                        <td class="border-bottom"><em><strong># <span t-esc="terbilang(o.amount_total)"/> #</strong></em></td>
+                                        <td class="border-bottom"><em><strong># <span t-esc="terbilang(o.amount_total)"/> Rupiah #</strong></em></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Untuk Pembayaran</strong></td>
@@ -163,7 +163,7 @@
                                 <br/>
                                 <br/>
                                 <br/>
-                                <u>Hilderia Panjaitan</u><br/>
+                                <u>Hilderia Tambunan</u><br/>
                                 <span>Finance Manager</span>
                             </p>
                         </div>
