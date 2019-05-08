@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mrp_production_form_view" model="ir.ui.view">
+        <field name="name">mrp.production.form</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_task" string="Task" type="action" class="oe_stat_button" icon="fa-gears" attrs=""/>
+                <button name="action_open_project" string="Project" type="action" class="oe_stat_button" icon="fa-list" attrs=""/>
+                <button name="action_open_sale" string="Sale Order" type="action" class="oe_stat_button" icon="fa-files-o" attrs=""/>
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="after">
+                <button name="set_draft" attrs="{'invisible': [('state', '!=', 'cancel')]}" string="Set to Draft" type="object"/>
+            </xpath>
+            <xpath expr="//field[@name='date_planned_start']" position="attributes">
+                <attribute name="string">Start Date</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_planned_start']" position="after">
+                <field name="date_scheduled"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Job Description">
+                    <field name="job_description" placeholder="Add a description..."/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
