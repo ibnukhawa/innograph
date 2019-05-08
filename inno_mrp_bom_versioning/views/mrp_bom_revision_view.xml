@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+	    <record model="ir.ui.view" id="mrp_bom_revision_form_view">
+	        <field name="name">mrp.bom.revision.form</field>
+	        <field name="model">mrp.bom.revision</field>
+	        <field name="arch" type="xml">
+	        	<form string="Bill of Materials Revision">
+	        		<header>
+	        			<button type="object" name="action_submit" string="Submit" attrs="{'invisible': ['|', ('is_responsible', '=', False), ('state', '!=', 'draft')]}" class="btn-primary" />
+	        			<button type="object" name="action_cancel" string="Cancel" attrs="{'invisible': ['|', ('is_responsible', '=', False), ('state', '!=', 'submit')]}" class="btn-primary" />
+	        			<button type="object" name="action_reject" string="Reject" attrs="{'invisible': ['|', ('is_approver', '=', False), ('state', '!=', 'submit')]}" />
+	        			<button type="object" name="action_approve" string="Approve" attrs="{'invisible': ['|', ('is_approver', '=', False), ('state', '!=', 'submit')]}" />
+	        			<button type="object" name="action_draft" string="Set to Draft" states="cancel,reject" />
+	        			<button type="object" name="action_apply" string="Apply Changes" attrs="{'invisible': ['|', ('state', '!=', 'approve'), '&amp;', ('is_approver', '=', False), ('is_responsible', '=', False)]}" class="btn-primary" />
+	        			<field name="state" widget="statusbar" statusbar_visible="draft,submit,approve"/>
+	        		</header>
+	        		<sheet>
+	        			<div class="oe_button_box" name="button_box">
+		        			<button name="action_view_revision"
+	                            type="object"
+	                            class="oe_stat_button"
+	                            icon="fa-pencil-square-o"
+	                            attrs="{'invisible': [('revision_count', '=', 0)]}">
+	                            <field name="revision_count" widget="statinfo" string="Bill of Materials Rev "/>
+	                        </button>
+	                    </div>
+
+	        			<div class="oe_title">
+	        				<h1>
+	        					<field name="name" required="True" placeholder="Short Summary" />
+	        				</h1>
+	        			</div>
+	        			<group>
+	        				<group>
+	        					<field name="product_tmpl_id" />
+	        					<field name="bom_id" />
+	        				</group>
+	        				<group>
+	        					<field name="responsible_id" required="True" />
+	        					<field name="approver_id" required="True" domain="[('groups_id', 'in', [%(mrp.group_mrp_manager)d, %(stock.group_stock_manager)d])]" />
+	        					<field name="is_responsible" invisible="True" />
+	        					<field name="is_approver" invisible="True" />
+	        				</group>
+	        			</group>
+	        			<notebook>
+	        				<page string="Notes">
+	        					<field name="note" placeholder="Description of the change and its reason ..." />
+	        				</page>
+	        				<page string="BOM Changes">
+	        					<field name="bom_change_ids" mode="tree" attrs="{'readonly':[('state', 'in', ['approve', 'reject', 'cancel'])]}">
+	        						<tree string="Bill of Materials Revision Change" editable="bottom">
+		        						<field name="bom_revision_id" invisible="True" />
+		        						<field name="change_type" />
+		        						<field name="product_id" />
+		        						<field name="old_product_qty" />
+		        						<field name="old_uom_id" />
+		        						<field name="new_product_qty" />
+		        						<field name="new_uom_id" />
+		        						<field name="upd_product_qty" />
+		        						<field name="new_bom_id" />
+		        						<!-- <field name="new_bom_revision" /> -->
+		        					</tree>
+	        					</field>
+	        				</page>
+	        			</notebook>
+	        		</sheet>
+	        	</form>
+	        </field>
+	    </record>
+
+	    <record model="ir.ui.view" id="mrp_bom_revision_tree_view">
+	        <field name="name">mrp.bom.revision.tree</field>
+	        <field name="model">mrp.bom.revision</field>
+	        <field name="arch" type="xml">
+	        	<tree string="Bill of Materials Revision" decoration-muted="state=='cancel'">
+	        		<field name="product_tmpl_id" />
+	        		<field name="bom_id" />
+	        		<field name="responsible_id" />
+	        		<field name="approver_id" />
+	        		<field name="state" />
+	        	</tree>
+	        </field>
+	    </record>
+
+	    <record model="ir.ui.view" id="mrp_bom_revision_change_tree_view">
+	        <field name="name">mrp.bom.revision.change.tree</field>
+	        <field name="model">mrp.bom.revision.change</field>
+	        <field name="arch" type="xml">
+	        	<tree string="Bill of Materials Revision Change" editable="bottom">
+	        		<field name="bom_revision_id" invisible="True" />
+					<field name="change_type" />
+					<field name="product_id" />
+					<!-- <field name="old_product_qty" /> -->
+					<!-- <field name="old_uom_id" /> -->
+					<field name="new_product_qty" />
+					<field name="new_uom_id" />
+					<!-- <field name="upd_product_qty" /> -->
+	        	</tree>
+	        </field>
+	    </record>
+
+	    <record model="ir.actions.act_window" id="action_mrp_bom_revision">
+	        <field name="name">Bill of Materials Revision</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">mrp.bom.revision</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <menuitem id="menu_mrp_bom_revision" sequence="101"
+	              parent="mrp.menu_mrp_bom"
+	              action="inno_mrp_bom_versioning.action_mrp_bom_revision" />
+    </data>
+</odoo>
