@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+    	<record model="ir.ui.view" id="product_category_form_view">
+	        <field name="name">product.category.form.inherit</field>
+	        <field name="model">product.category</field>
+	        <field name="inherit_id" ref="product.product_category_form_view" />
+	        <field name="arch" type="xml">
+	        	<group name="first" position="before">
+	        		<group name="image">
+	        			<field name="category_image" widget="image" class="oe_avatar" />
+	        		</group>
+	        	</group>
+	        </field>
+	    </record>
+    </data>
+</odoo>
