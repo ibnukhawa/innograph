@@ -7,8 +7,9 @@
     'website': 'https://www.portcities.net',
     'category': 'Manufacturing',
     'summary': 'Custom Manufacturing Order.',
-    'depends': ['mrp_production_draft'],
+    'depends': ['sale', 'mrp_production_draft', 'stock_mts_mto_rule'],
     'data': [
+        'views/sale_order_view.xml',
         'views/mrp_production_views.xml',
     ],
     'installable': True,
