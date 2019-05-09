@@ -54,11 +54,11 @@
 	        				<page string="BOM Changes">
 	        					<field name="bom_change_ids" mode="tree" readonly="True">
 	        						<tree string="Bill of Materials Revision Change" editable="bottom">
-		        						<field name="bom_revision_id" invisible="True" />
+		        						<field name="bom_revision_id" invisible="True"/>
 		        						<field name="change_type" />
 		        						<field name="product_id" />
-		        						<field name="old_product_qty" />
-		        						<field name="old_uom_id" />
+		        						<field name="old_product_qty" readonly="True"/>
+		        						<field name="old_uom_id" readonly="True"/>
 		        						<field name="new_product_qty" />
 		        						<field name="new_uom_id" />
 		        						<field name="upd_product_qty" />
