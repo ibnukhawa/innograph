@@ -8,7 +8,7 @@ class MrpBomRevision(models.Model):
 
 	name = fields.Char()
 	product_tmpl_id = fields.Many2one('product.template', track_visibility='always', 
-		string="Product Template", domain=[('bom_ids', '!=', False)])
+		string="Product", domain=[('bom_ids', '!=', False)])
 	bom_id = fields.Many2one('mrp.bom', track_visibility='always', string="Bill of Materials")
 	responsible_id = fields.Many2one('res.users', track_visibility='always', string="Responsible", default=lambda self: self.env.user)
 	approver_id = fields.Many2one('res.users', track_visibility='always', string="Approver")
@@ -125,12 +125,12 @@ class MrpBomRevision(models.Model):
 class MrpBomRevisionChange(models.Model):
 	_name = "mrp.bom.revision.change"
 
-	new_product_qty = fields.Float(string="New Revision Qty")
-	old_product_qty = fields.Float(string="Previous Revision Qty")
+	new_product_qty = fields.Float(string="New Qty")
+	old_product_qty = fields.Float(string="Current Qty")
 	upd_product_qty = fields.Float(string="Quantity", compute="compute_qty")
 	bom_revision_id = fields.Many2one('mrp.bom.revision', string="Bom Revision")
-	old_uom_id = fields.Many2one('product.uom', related="product_id.uom_id", string="Previous Product Uom")
-	new_uom_id = fields.Many2one('product.uom', related="product_id.uom_id", string="New Product Uom")
+	old_uom_id = fields.Many2one('product.uom', related="product_id.uom_id", string="Current Uom")
+	new_uom_id = fields.Many2one('product.uom', related="product_id.uom_id", string="New Uom")
 	product_id = fields.Many2one('product.product', string="Product")
 	change_type = fields.Selection([('add', 'Add'), 
 		('remove', 'Remove'), ('update', 'Update')], string="Type")
