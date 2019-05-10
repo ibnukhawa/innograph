@@ -25,7 +25,7 @@
             <field name="origin" position="after">
                 <field name="sale_id"/>
             </field>
-            <xpath expr="//notebook" position="inside">
+            <xpath expr="//notebook/page[2]" position="after">
                 <page string="Job Description">
                     <group>
                         <group string="Graphic">
@@ -40,6 +40,11 @@
                             <field name="finishing_note"/>
                         </group>
                     </group>
+                </page>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Note">
+                    <field name="note" placeholder="Notes for some description related manufacturing order" />
                 </page>
             </xpath>
         </field>

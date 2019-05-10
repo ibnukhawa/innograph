@@ -15,6 +15,7 @@ class MrpProduction(models.Model):
     finishing = fields.Char(related='sale_id.finishing')
     packing = fields.Char(related='sale_id.packing')
     finishing_note = fields.Char(related='sale_id.finishing_note', string="Note")
+    note = fields.Text()
 
 
     @api.multi
