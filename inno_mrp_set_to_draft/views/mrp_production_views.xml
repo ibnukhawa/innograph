@@ -7,10 +7,10 @@
         <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@name='button_box']" position="inside">
-                <button name="action_open_project" string="Project" type="object" class="oe_stat_button" icon="fa-list"
+                <button name="action_open_project" string="Project" type="object" class="oe_stat_button" icon="fa-puzzle-piece"
                         attrs=""/>
                 <button name="action_open_sale" string="Sale Order" type="object" class="oe_stat_button"
-                        icon="fa-files-o" attrs=""/>
+                        icon="fa-usd" attrs=""/>
             </xpath>
             <xpath expr="//button[@name='action_cancel']" position="after">
                 <button name="set_draft" attrs="{'invisible': [('state', '!=', 'cancel')]}" string="Set to Draft"
