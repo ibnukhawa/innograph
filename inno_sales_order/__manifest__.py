@@ -12,12 +12,15 @@
     'depends'       : [
         'sale_stock', 
         'report', 
-        'inno_account_invoice_discount_journal'
+        'inno_account_invoice_discount_journal',
+        'inno_mrp_set_to_draft',
+        'sale_approval',
     ],
     'data'          : [
         'data/ir_sequence_data.xml',
         'report/sale_order_report.xml',
-        'report/sale_order_report_template.xml'
+        'report/sale_order_report_template.xml',
+        'views/sale_order_view.xml',
     ],
     'installable'   : True,
     'application'   : True,

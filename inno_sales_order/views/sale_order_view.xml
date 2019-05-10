@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="button_action_view_order_form" model="ir.ui.view">
+        <field name="name">button.action.sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <button name="action_view_invoice" position="before">
+                <button name="action_view_mo" type="object" class="oe_stat_button" icon="fa-files-o" attrs="{'invisible': [('count_mo', '=', 0)]}">
+                    <field name="count_mo" widget="statinfo" string="Manufacturing Orders"/>
+                </button>
+                <button name="action_view_wo" type="object" class="oe_stat_button" icon="fa-files-o" attrs="{'invisible': [('count_wo', '=', 0)]}">
+                    <field name="count_wo" widget="statinfo" string="Work Orders"/>
+                </button>
+                <button name="action_view_po" type="object" class="oe_stat_button" icon="fa-files-o" attrs="{'invisible': [('count_po', '=', 0)]}">
+                    <field name="count_po" widget="statinfo" string="Purchases"/>
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <record id="button_action_purchase_order_form_inherit" model="ir.ui.view">
+        <field name="name">button.action.purchase.order.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <button name="action_view_invoice" position="before">
+                <button name="action_view_sales" type="object" class="oe_stat_button" icon="fa-files-o" attrs="{'invisible': [('count_so', '=', 0)]}">
+                    <field name="count_so" widget="statinfo" string="Sale Orders"/>
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <record id="button_action_workorder_form_inherit" model="ir.ui.view">
+        <field name="name">button.action.mrp.production.work.order.form</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <button name="action_see_move_scrap" position="before">
+                <button name="action_view_sales" string="Sale Order" type="object" class="oe_stat_button" icon="fa-files-o" />
+            </button>
+        </field>
+    </record>
+
+
+</odoo>

@@ -50,7 +50,6 @@ class MrpBomRevision(models.Model):
 			})
 			self.bom_id.write({'new_bom_id': new_bom.id})
 			self.new_bom_id = new_bom.id
-		view = self.env.ref("mrp.mrp_bom_form_view")
 		return {
 			'name': _("New Bill of Materials"),
 			'type': 'ir.actions.act_window',
