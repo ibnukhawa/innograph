@@ -42,11 +42,6 @@
                     </group>
                 </page>
             </xpath>
-            <xpath expr="//notebook" position="inside">
-                <page string="Note">
-                    <field name="note" placeholder="Notes for some description related manufacturing order" />
-                </page>
-            </xpath>
         </field>
     </record>
 
