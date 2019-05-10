@@ -14,6 +14,12 @@ class SaleOrder(models.Model):
     packing = fields.Char()
     finishing_note = fields.Char(string="Note")
 
+    @api.multi
+    def action_confirm(self):
+        ctx = self.env.context.copy()
+        for order in self:
+            ctx['default_sale_id'] = order.id
+            return super(SaleOrder, order.with_context(ctx)).action_confirm()
 
 
 class ProductTemplate(models.Model):
@@ -29,3 +35,5 @@ class ProductTemplate(models.Model):
         return []
 
     route_ids = fields.Many2many(default=lambda self: self._get_default_route())
+
+
