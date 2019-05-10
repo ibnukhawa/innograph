@@ -12,6 +12,9 @@ class SaleOrder(models.Model):
 	amount_text = fields.Char(compute='terbilang')
 	valid_days = fields.Integer(compute='_get_valid_day')
 	date_planned = fields.Date(compute='_compute_date_planned')
+	count_po = fields.Integer(compute="_compute_po", string="PO Count")
+	count_wo = fields.Integer(compute="_compute_wo", string="WO Count")
+	count_mo = fields.Integer(compute="_compute_mo", string="MO Count")
 
 	@api.multi
 	def _compute_date_planned(self):
@@ -64,3 +67,73 @@ class SaleOrder(models.Model):
 				delta = validity_date - date_order
 				diff = delta.days
 			sale.valid_days = diff
+
+
+	@api.multi
+	def _compute_po(self):
+		for sale in self:
+			po_lines = self.env['purchase.order.line'].search([('sale_order_id', '=', sale.id)])
+			purchase = po_lines.mapped('order_id')
+			sale.count_po = len(purchase)
+
+	@api.multi
+	def _compute_wo(self):
+		for sale in self:
+			mo_src = self.env['mrp.production'].search([('sale_id', '=', sale.id)])
+			workorders = mo_src.mapped('workorder_ids')
+			sale.count_wo = len(workorders)
+
+	@api.multi
+	def _compute_mo(self):
+		for sale in self:
+			mo_src = self.env['mrp.production'].search([('sale_id', '=', sale.id)])
+			sale.count_mo = len(mo_src)
+
+	@api.multi
+	def action_view_po(self):
+		sale_ids = self.mapped('id')
+		po_lines = self.env['purchase.order.line'].search([('sale_order_id', 'in', sale_ids)])
+		purchases = po_lines.mapped('order_id')
+		action = self.env.ref('purchase.purchase_form_action').read()[0]
+		if len(purchases) > 1:
+			action['domain'] = [('id', 'in', purchases.ids)]
+		elif len(purchases) == 1:
+			action['views'] = [(self.env.ref('purchase.purchase_order_form').id, 'form')]
+			action['res_id'] = purchases.ids[0]
+		else:
+			action = {'type': 'ir.actions.act_window_close'}
+		action['context'] = self.env.context
+		return action
+
+	@api.multi
+	def action_view_mo(self):
+		sale_ids = self.mapped('id')
+		mo_src = self.env['mrp.production'].search([('sale_id', 'in', sale_ids)])
+		action = self.env.ref('mrp.mrp_production_action').read()[0]
+		if len(mo_src) > 1:
+			action['domain'] = [('id', 'in', mo_src.ids)]
+		elif len(mo_src) == 1:
+			action['views'] = [(self.env.ref('mrp.mrp_production_form_view').id, 'form')]
+			action['res_id'] = mo_src.ids[0]
+		else:
+			action = {'type': 'ir.actions.act_window_close'}
+		action['context'] = self.env.context
+		return action
+
+	@api.multi
+	def action_view_wo(self):
+		sale_ids = self.mapped('id')
+		mo_src = self.env['mrp.production'].search([('sale_id', 'in', sale_ids)])
+		workorders = mo_src.mapped('workorder_ids')
+		action = self.env.ref('mrp.mrp_workorder_todo').read()[0]
+		if len(workorders) > 1:
+			action['domain'] = [('id', 'in', workorders.ids)]
+		elif len(workorders) == 1:
+			action['views'] = [(self.env.ref('mrp.mrp_production_workcenter_tree_view_inherit').id, 'form')]
+			action['res_id'] = workorders.ids[0]
+		else:
+			action = {'type': 'ir.actions.act_window_close'}
+		action['context'] = self.env.context
+		return action
+
+
