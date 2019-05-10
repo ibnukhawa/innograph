@@ -9,10 +9,10 @@
                 <button name="action_view_mo" type="object" class="oe_stat_button" icon="fa-files-o" attrs="{'invisible': [('count_mo', '=', 0)]}">
                     <field name="count_mo" widget="statinfo" string="Manufacturing Orders"/>
                 </button>
-                <button name="action_view_wo" type="object" class="oe_stat_button" icon="fa-files-o" attrs="{'invisible': [('count_wo', '=', 0)]}">
+                <button name="action_view_wo" type="object" class="oe_stat_button" icon="fa-play-circle-o" attrs="{'invisible': [('count_wo', '=', 0)]}">
                     <field name="count_wo" widget="statinfo" string="Work Orders"/>
                 </button>
-                <button name="action_view_po" type="object" class="oe_stat_button" icon="fa-files-o" attrs="{'invisible': [('count_po', '=', 0)]}">
+                <button name="action_view_po" type="object" class="oe_stat_button" icon="fa-shopping-cart" attrs="{'invisible': [('count_po', '=', 0)]}">
                     <field name="count_po" widget="statinfo" string="Purchases"/>
                 </button>
             </button>
@@ -25,7 +25,7 @@
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
             <button name="action_view_invoice" position="before">
-                <button name="action_view_sales" type="object" class="oe_stat_button" icon="fa-files-o" attrs="{'invisible': [('count_so', '=', 0)]}">
+                <button name="action_view_sales" type="object" class="oe_stat_button" icon="fa-usd" attrs="{'invisible': [('count_so', '=', 0)]}">
                     <field name="count_so" widget="statinfo" string="Sale Orders"/>
                 </button>
             </button>
@@ -38,8 +38,14 @@
         <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
         <field name="arch" type="xml">
             <button name="action_see_move_scrap" position="before">
-                <button name="action_view_sales" string="Sale Order" type="object" class="oe_stat_button" icon="fa-files-o" />
+                <button name="action_view_sales" string="Sale Order" type="object" class="oe_stat_button" icon="fa-usd" />
             </button>
+            <xpath expr="//page/group/group/field[@name='production_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <field name="production_availability" position="after">
+                <field name="production_id" readonly="True" />
+            </field>
         </field>
     </record>
 
