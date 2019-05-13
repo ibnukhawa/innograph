@@ -13,6 +13,7 @@ class SaleOrder(models.Model):
     finishing = fields.Char()
     packing = fields.Char()
     finishing_note = fields.Char(string="Note")
+    proof = fields.Char()
 
     @api.multi
     def action_confirm(self):
