@@ -12,7 +12,7 @@ class SaleOrder(models.Model):
     size_print = fields.Char(string="Print Size")
     finishing = fields.Char()
     packing = fields.Char()
-    finishing_note = fields.Char(string="Note")
+    finishing_note = fields.Text(string="Note")
     proof = fields.Char()
 
     @api.multi

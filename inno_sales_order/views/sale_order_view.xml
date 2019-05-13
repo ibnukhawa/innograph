@@ -32,22 +32,4 @@
         </field>
     </record>
 
-    <record id="button_action_workorder_form_inherit" model="ir.ui.view">
-        <field name="name">button.action.mrp.production.work.order.form</field>
-        <field name="model">mrp.workorder</field>
-        <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
-        <field name="arch" type="xml">
-            <button name="action_see_move_scrap" position="before">
-                <button name="action_view_sales" string="Sale Order" type="object" class="oe_stat_button" icon="fa-usd" />
-            </button>
-            <xpath expr="//page/group/group/field[@name='production_id']" position="attributes">
-                <attribute name="invisible">True</attribute>
-            </xpath>
-            <field name="is_produced" position="before">
-                <field name="production_id" readonly="True" />
-            </field>
-        </field>
-    </record>
-
-
 </odoo>
