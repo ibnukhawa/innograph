@@ -11,7 +11,7 @@
             <xpath expr="//notebook/page[1]" position="after">
                 <page string="Job Description">
                     <group>
-                        <group string="Graphic">
+                        <group string="Graphic/Display">
                             <field name="file_id" string="File Name"/>
                             <field name="size_image"/>
                             <field name="size_frame"/>

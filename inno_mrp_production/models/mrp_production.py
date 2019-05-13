@@ -15,8 +15,9 @@ class MrpProduction(models.Model):
     finishing = fields.Char(related='sale_id.finishing')
     packing = fields.Char(related='sale_id.packing')
     proof = fields.Char()
-    finishing_note = fields.Char(related='sale_id.finishing_note', string="Note")
+    finishing_note = fields.Text(related='sale_id.finishing_note', string="Note")
     note = fields.Text()
+    tasks_count = fields.Integer(compute='_compute_tasks_count')
 
 
     @api.multi
@@ -63,6 +64,27 @@ class MrpProduction(models.Model):
                 'res_id': sale_id.id,
             }
         return False
+
+    @api.multi
+    def _compute_tasks_count(self):
+        for mo in self:
+            task_ids = mo.workorder_ids.mapped('task_ids')
+            mo.tasks_count = len(task_ids)
+
+    @api.multi
+    def action_view_tasks(self):
+        workorder_ids = self.mapped('workorder_ids')
+        task_ids = workorder_ids.mapped('task_ids')
+        action = self.env.ref('project.action_view_task').read()[0]
+        if len(task_ids) > 1:
+            action['domain'] = [('id', 'in', task_ids.ids)]
+        elif len(task_ids) == 1:
+            action['views'] = [(self.env.ref('project.view_task_form2').id, 'form')]
+            action['res_id'] = task_ids.ids[0]
+        else:
+            action = {'type': 'ir.actions.act_window_close'}
+        action['context'] = self.env.context
+        return action
 
     @api.multi
     def button_mark_done(self):
@@ -112,3 +134,61 @@ class MrpProduction(models.Model):
                     line.qty_done = line.product_qty
                 int_pick.do_new_transfer()
         return res
+
+
+class MrpWorkOrder(models.Model):
+    _inherit = "mrp.workorder"
+
+    sale_id = fields.Many2one('sale.order', related='production_id.sale_id', string="Sale Order")
+    file_id = fields.Binary(string="File Name", related="production_id.file_id")
+    size_image = fields.Char(string="Image Size", related="production_id.size_image")
+    size_frame = fields.Char(string="Frame Size", related="production_id.size_frame")
+    size_print = fields.Char(string="Print Size", related="production_id.size_print")
+    finishing = fields.Char(related="production_id.finishing")
+    packing = fields.Char(related="production_id.packing")
+    finishing_note = fields.Text(string="Note", related="production_id.finishing_note")
+    proof = fields.Char()
+    task_ids = fields.One2many('project.task', 'workorder_id', string="Tasks")
+
+    @api.multi
+    def action_view_sales(self):
+        sales = self.mapped('sale_id')
+        action = self.env.ref('sale_approval.action_orders_extends').read()[0]
+        if len(sales) > 1:
+            action['domain'] = [('id', 'in', sales.ids)]
+        elif len(sales) == 1:
+            action['views'] = [(self.env.ref('sale.view_order_form').id, 'form')]
+            action['res_id'] = sales.ids[0]
+        else:
+            action = {'type': 'ir.actions.act_window_close'}
+        action['context'] = self.env.context
+        return action
+
+    @api.multi
+    def action_view_tasks(self):
+        tasks = self.mapped('task_ids')
+        action = self.env.ref('project.action_view_task').read()[0]
+        
+        context = self.env.context.copy()
+        mo_number = self.mapped('production_id')[0].name
+        product = self.mapped('product_id')[0].display_name 
+        context['default_name'] = "%s - %s" % (mo_number, product)
+        context['default_date_deadline'] = self.mapped('production_id')[0].date_scheduled
+        context['default_workorder_id'] = self.mapped('id')[0]
+        action['context'] = context
+        
+        if len(tasks) > 1:
+            action['domain'] = [('id', 'in', tasks.ids)]
+        elif len(tasks) == 1:
+            action['views'] = [(self.env.ref('project.view_task_form2').id, 'form')]
+            action['res_id'] = tasks.ids[0]
+        else:
+            action['views'] = [(self.env.ref('project.view_task_form2').id, 'form')]
+        return action
+
+
+
+class ProjectTask(models.Model):
+    _inherit = 'project.task'
+
+    workorder_id = fields.Many2one('mrp.workorder')
