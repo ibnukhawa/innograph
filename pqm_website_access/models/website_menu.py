@@ -12,16 +12,12 @@ class WebsiteMenu(models.Model):
         ('employee', 'Employee Access')
     ], default='public')
 
-    access_url = fields.Selection([
-        ('all', 'All'),
-        ('event', 'Event'),
-        ('non_event', 'Non Event'),
-    ], default='all')
+    access_url = fields.Many2one('website.menu.url')
 
     @api.model
     def display_menu(self, user, url):
-        if self.access_url != 'all':
-            if self.access_url != self._url_type(url):
+        if self.access_url:
+            if self.access_url.id != self._url_type(url):
                 return False
         
         if self.access_type == 'public':
@@ -40,7 +36,10 @@ class WebsiteMenu(models.Model):
             return False
 
     def _url_type(self, url):
-        if re.search('events.pqm.co.id', url, re.IGNORECASE):
-            return 'event'
-        else:
-            return 'non_event'
+        res = False
+        url_list = self.env['website.menu.url'].search([])
+        for rec in url_list:
+            if re.search(rec.url, url, re.IGNORECASE):
+                res = rec.id
+                break
+        return res

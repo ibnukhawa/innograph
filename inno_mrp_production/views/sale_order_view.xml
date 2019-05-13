@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="scheduled_date_view_order_form" model="ir.ui.view">
+        <field name="name">scheduled.date.sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="validity_date" position="after">
+                <field name="date_scheduled" attrs="{'readonly': [('state', 'not in', ['draft', 'sent'])]}"/>
+            </field>
+            <xpath expr="//notebook/page[1]" position="after">
+                <page string="Job Description">
+                    <group>
+                        <group string="Graphic">
+                            <field name="file_id" string="File Name"/>
+                            <field name="size_image"/>
+                            <field name="size_frame"/>
+                            <field name="size_print"/>
+                        </group>
+                        <group string="Finishing">
+                            <field name="finishing"/>
+                            <field name="packing"/>
+                            <field name="proof" />
+                            <field name="finishing_note"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
