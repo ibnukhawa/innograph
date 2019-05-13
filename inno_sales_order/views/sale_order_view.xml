@@ -43,7 +43,7 @@
             <xpath expr="//page/group/group/field[@name='production_id']" position="attributes">
                 <attribute name="invisible">True</attribute>
             </xpath>
-            <field name="production_availability" position="after">
+            <field name="is_produced" position="before">
                 <field name="production_id" readonly="True" />
             </field>
         </field>

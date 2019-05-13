@@ -14,6 +14,7 @@ class MrpProduction(models.Model):
     size_print = fields.Char(related='sale_id.size_print', string="Print Size")
     finishing = fields.Char(related='sale_id.finishing')
     packing = fields.Char(related='sale_id.packing')
+    proof = fields.Char()
     finishing_note = fields.Char(related='sale_id.finishing_note', string="Note")
     note = fields.Text()
 

@@ -20,6 +20,7 @@
                         <group string="Finishing">
                             <field name="finishing"/>
                             <field name="packing"/>
+                            <field name="proof" />
                             <field name="finishing_note"/>
                         </group>
                     </group>
