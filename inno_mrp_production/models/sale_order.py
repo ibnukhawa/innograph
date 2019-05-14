@@ -7,12 +7,13 @@ class SaleOrder(models.Model):
 
     date_scheduled = fields.Datetime(string="Scheduled Date")
     file_id = fields.Binary(string="File Name")
+    file_name = fields.Char(string="File Name")
     size_image = fields.Char(string="Image Size")
     size_frame = fields.Char(string="Frame Size")
     size_print = fields.Char(string="Print Size")
     finishing = fields.Char()
     packing = fields.Char()
-    finishing_note = fields.Char(string="Note")
+    finishing_note = fields.Text(string="Note")
     proof = fields.Char()
 
     @api.multi

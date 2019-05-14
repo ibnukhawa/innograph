@@ -13,7 +13,7 @@
         'sale_stock', 
         'report', 
         'inno_account_invoice_discount_journal',
-        'inno_mrp_set_to_draft',
+        'inno_mrp_production',
         'sale_approval',
     ],
     'data'          : [

@@ -33,11 +33,13 @@ class SaleOrder(models.Model):
 
 	@api.multi
 	def action_confirm(self):
-		res = super(SaleOrder, self).action_confirm()
 		for sale in self:
-			if sale.state == 'sale':
-				sale.quotation_number = sale.name
-				sale.name = self.env['ir.sequence'].with_context(force_company=sale.company_id.id).next_by_code('inno.sale.order') or sale.name
+			so_name = sale.name.split('-')
+			if so_name[0] == 'SO':
+				continue
+			sale.quotation_number = sale.name
+			sale.name = self.env['ir.sequence'].with_context(force_company=sale.company_id.id).next_by_code('inno.sale.order') or sale.name
+		res = super(SaleOrder, self).action_confirm()
 		return res
 
 	@api.multi
@@ -136,4 +138,12 @@ class SaleOrder(models.Model):
 		action['context'] = self.env.context
 		return action
 
-
+	@api.model
+	def default_get(self, fields):
+		""" Set Default Warehouse to Finished Goods (WHFG) """
+		res = super(SaleOrder, self).default_get(fields)
+		warehouse_obj = self.env['stock.warehouse']
+		warehouse = warehouse_obj.search([('code', '=', 'WHFG')], limit=1)
+		if warehouse:
+			res['warehouse_id'] = warehouse.id
+		return res

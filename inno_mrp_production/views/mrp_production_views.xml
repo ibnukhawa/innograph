@@ -7,32 +7,87 @@
         <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_tasks" type="object" class="oe_stat_button" icon="fa-tasks" attrs="{'invisible': [('tasks_count', '=', 0)]}">
+                    <field name="tasks_count" widget="statinfo" string="Tasks"/>
+                </button>
                 <button name="action_open_project" string="Project" type="object" class="oe_stat_button" icon="fa-puzzle-piece"
                         attrs=""/>
                 <button name="action_open_sale" string="Sale Order" type="object" class="oe_stat_button"
                         icon="fa-usd" attrs=""/>
             </xpath>
+            
             <xpath expr="//button[@name='action_cancel']" position="after">
                 <button name="set_draft" attrs="{'invisible': [('state', '!=', 'cancel')]}" string="Set to Draft"
                         type="object"/>
             </xpath>
+            
             <xpath expr="//field[@name='date_planned_start']" position="attributes">
                 <attribute name="string">Start Date</attribute>
             </xpath>
+            
             <xpath expr="//field[@name='date_planned_start']" position="after">
                 <field name="date_scheduled"/>
             </xpath>
+            
             <field name="origin" position="after">
-                <field name="sale_id"/>
+                <field name="sale_id" invisible="0" />
             </field>
+
             <xpath expr="//notebook/page[2]" position="after">
                 <page string="Job Description">
                     <group>
-                        <group string="Graphic">
-                            <field name="file_id"/>
+                        <group string="Graphic/Display">
+                            <field name="file_id" filename="file_name" string="File Name"/>
                             <field name="size_image"/>
                             <field name="size_frame"/>
                             <field name="size_print"/>
+                            <field name="file_name" invisible="True" />
+                        </group>
+                        <group string="Finishing">
+                            <field name="finishing"/>
+                            <field name="packing"/>
+                            <field name="proof" />
+                            <field name="finishing_note"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+            <xpath expr="//page/group/group/field[@name='location_src_id']" position="replace" />
+            <xpath expr="//page/group/group/field[@name='location_dest_id']" position="replace" />
+
+            <field name="routing_id" position="after">
+                <field name="location_src_id" domain="[('usage','=','internal')]" attrs="{'readonly': [('has_moves', '=', True)]}"/>
+                <field name="location_dest_id" domain="[('usage','=','internal')]" attrs="{'readonly': [('has_moves', '=', True)]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="button_action_workorder_form_inherit" model="ir.ui.view">
+        <field name="name">button.action.mrp.production.work.order.form</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <button name="action_see_move_scrap" position="before">
+                <button name="action_view_tasks" string="Tasks" type="object" class="oe_stat_button" icon="fa-tasks" />
+                <button name="action_view_sales" string="Sale Order" type="object" class="oe_stat_button" icon="fa-usd" />
+            </button>
+
+            <xpath expr="//page/group/group/field[@name='production_id']" position="replace" />
+
+            <field name="is_produced" position="before">
+                <field name="production_id" readonly="True" />
+            </field>
+
+            <xpath expr="//notebook/page[3]" position="after">
+                <page string="Job Description">
+                    <group>
+                        <group string="Graphic/Display">
+                            <field name="file_id" filename="file_name" string="File Name"/>
+                            <field name="size_image"/>
+                            <field name="size_frame"/>
+                            <field name="size_print"/>
+                            <field name="file_name" invisible="True" />
                         </group>
                         <group string="Finishing">
                             <field name="finishing"/>
