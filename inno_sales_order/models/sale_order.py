@@ -135,4 +135,12 @@ class SaleOrder(models.Model):
 		action['context'] = self.env.context
 		return action
 
-
+	@api.model
+	def default_get(self, fields):
+		""" Set Default Warehouse to Finished Goods (WHFG) """
+		res = super(SaleOrder, self).default_get(fields)
+		warehouse_obj = self.env['stock.warehouse']
+		warehouse = warehouse_obj.search([('code', '=', 'WHFG')], limit=1)
+		if warehouse:
+			res['warehouse_id'] = warehouse.id
+		return res
