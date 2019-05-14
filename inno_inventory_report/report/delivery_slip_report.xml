@@ -206,7 +206,13 @@
 			    				</tr>
 			    				<tr>
 			    					<td colspan="2" style="border: 1px solid black;padding: 3px;">
-			    						<t t-if="not o.note">&amp;nbsp;</t>
+			    						<t t-if="not o.note">
+			    							&amp;nbsp;<br/>
+	    									<br/>
+	    									<br/>
+	    									<br/>
+	    									<br/>
+			    						</t>
 			    						<span t-if="o.note" t-field="o.note" />
 			    					</td>
 			    				</tr>

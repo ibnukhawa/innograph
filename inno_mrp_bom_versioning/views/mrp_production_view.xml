@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+    	<record model="ir.ui.view" id="mrp_production_form_view_bom_versioning">
+	        <field name="name">mrp.production.form.bom.versioning</field>
+	        <field name="model">mrp.production</field>
+	        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+	        <field name="arch" type="xml">
+	        	<button name="button_unreserve" position="after">
+	        		<button name="action_create_bom_revision" type="object" string="Revise Bom" attrs="{'invisible': [('state', 'not in', ('draft'))]}"/>
+	        	</button>
+	        </field>
+	    </record>
+    </data>
+</odoo>
