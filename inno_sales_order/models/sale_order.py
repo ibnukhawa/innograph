@@ -34,6 +34,9 @@ class SaleOrder(models.Model):
 	@api.multi
 	def action_confirm(self):
 		for sale in self:
+			so_name = sale.name.split('-')
+			if so_name[0] == 'SO':
+				continue
 			sale.quotation_number = sale.name
 			sale.name = self.env['ir.sequence'].with_context(force_company=sale.company_id.id).next_by_code('inno.sale.order') or sale.name
 		res = super(SaleOrder, self).action_confirm()
