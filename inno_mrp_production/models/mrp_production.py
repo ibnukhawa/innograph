@@ -5,7 +5,7 @@ from odoo import api, fields, models, _
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
-    sale_id = fields.Many2one('sale.order', 'Sales')
+    sale_id = fields.Many2one('sale.order', 'Sales Order')
     analytic_account_id = fields.Many2one('account.analytic.account', string="Analytic Account", related='sale_id.related_project_id')
     date_scheduled = fields.Datetime('Scheduled Date', related='sale_id.date_scheduled')
     file_id = fields.Binary(related='sale_id.file_id', string="File Name")
