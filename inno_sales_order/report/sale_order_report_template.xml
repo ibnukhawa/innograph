@@ -14,8 +14,8 @@
                                     <t t-esc="res_company.partner_id.street2"/>
                                     <t t-esc="res_company.partner_id.city"/>
                                     <t t-esc="res_company.partner_id.state_id.name"/>
-                                    <t t-esc="res_company.partner_id.zip"/><br/>
-                                    <b>NPWP: <t t-esc="res_company.partner_id.npwp"/></b><br/>
+                                    <t t-esc="res_company.partner_id.zip"/>
+                                    <b>NPWP: <t t-esc="res_company.partner_id.npwp"/></b>
                                 </div>
                             </div>
                             <div class="col-xs-4">
@@ -121,13 +121,14 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center" style="border:1px solid #000;font-sie:13px;width:3%;">NO</th>
-                                        <th class="text-center" style="border:1px solid #000;font-sie:13px;width:10%;">ITEM</th>
-                                        <th class="text-center" style="border:1px solid #000;font-sie:13px;width:22%;">PRODUCT DESCRIPTION</th>
-                                        <th class="text-center" style="border:1px solid #000;font-sie:13px;width:10%;">QTY</th>
-                                        <th class="text-center" style="border:1px solid #000;font-sie:13px;width:15%;">UNIT PRICE</th>
+                                        <th class="text-center" style="border:1px solid #000;font-sie:13px;width:12%;">ITEM</th>
+					<th class="text-center" style="border:1px solid #000;font-sie:13px;width:15%;">IMAGE</th>
+                                        <th class="text-center" style="border:1px solid #000;font-sie:13px;width:25%;">PRODUCT DESCRIPTION</th>
+                                        <th class="text-center" style="border:1px solid #000;font-sie:13px;width:7%;">QTY</th>
+                                        <th class="text-center" style="border:1px solid #000;font-sie:13px;width:10%;">UNIT PRICE</th>
                                         <th class="text-center" style="border:1px solid #000;font-sie:13px;width:10%;">TAX</th>
-                                        <th class="text-center" style="border:1px solid #000;font-sie:13px;width:10%;">DISC %</th>
-                                        <th class="text-center" style="border:1px solid #000;font-sie:13px;width:20%;">PRICE</th>
+                                        <th class="text-center" style="border:1px solid #000;font-sie:13px;width:7%;">DISC %</th>
+                                        <th class="text-center" style="border:1px solid #000;font-sie:13px;width:12%;">PRICE</th>
                                     </tr>
                                </thead>
                                <tbody class="sale_tbody">
@@ -137,20 +138,21 @@
                                         
                                         <tr t-if="not l.product_id.is_discount">
                                             <t t-set="count" t-value="count+1" />
-                                            <td style="width:5%;border:1px solid #000;"><span t-esc="count" /></td>
-                                            <td style="border:1px solid #000;"><span t-esc="l.product_id.default_code" /></td>
+                                            <td class="text-center" style="width:5%;border:1px solid #000;"><span t-esc="count" /></td>
+                                            <td class="text-center" style="border:1px solid #000;"><span t-esc="l.product_id.default_code" /></td>
+					    <td class="text-center" style="border:1px solid #000;"><img t-if="l.product_id.image" t-att-src="'data:image/png;base64,%s' % l.product_id.image" style="width:75px; height:75px;"/></td>
                                             <td style="border:1px solid #000;"><span t-field="l.name"/></td>
-                                            <td class="text-right" style="border:1px solid #000;">
+                                            <td class="text-center" style="border:1px solid #000;">
                                                 <span t-field="l.product_uom_qty"/>
-                                                <span t-field="l.product_uom" groups="product.group_uom"/>
+                                                <!--<span t-field="l.product_uom" groups="product.group_uom"/>-->
                                             </td>
                                             <td class="text-right" style="border:1px solid #000;">
                                                 <span t-field="l.price_unit"/>
                                             </td>
-                                            <td class="text-right" style="border:1px solid #000;">
+                                            <td class="text-center" style="border:1px solid #000;">
                                                 <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.tax_id))"/>
                                             </td>
-                                            <td class="text-right" style="border:1px solid #000;">
+                                            <td class="text-center" style="border:1px solid #000;">
                                                 <span t-field="l.discount"/>
                                             </td>
                                             <td class="text-right" style="border:1px solid #000;">
@@ -160,9 +162,9 @@
                                         </tr>
                                     </t>    
                                     <tr>
-                                        <td class="text-center" rowspan="4" colspan="2" style="border:1px solid #000;">Terbilang</td>
-                                        <td class="text-center" rowspan="4" colspan="4" style="border:1px solid #000;">
-                                            <span t-esc="doc.amount_text" />
+                                        <td class="text-center" rowspan="4" colspan="2" style="border:1px solid #000; vertical-align:middle;"><b>Terbilang</b></td>
+                                        <td class="text-center" rowspan="4" colspan="5" style="border:1px solid #000;vertical-align:middle;">
+                                           <b><i> <span t-esc="doc.amount_text" /> Rupiah </i></b>
                                         </td>
                                         <td style="border:1px solid #000;">SUBTOTAL</td>
                                         <td class="text-right" style="border:1px solid #000;"><span t-field="doc.amount" /></td>
@@ -184,10 +186,50 @@
                                 </tbody>
                             </table>
 
-                            <table class="table table-bordered" style="margin-top: 10px;">
-                                <tr><td class="text-center" style="border:1px solid #000;background-color:#999"><b>KETERANGAN</b></td></tr>
-                                <tr><td style="border:1px solid #000;height: 100px;"><span t-field="doc.note" /></td></tr>
-                            </table>
+                            <table class="table table-bordered" style="margin-top: 10px; font-size: 11px;">
+                                <tr><td colspan="2" class="text-center" style="border:1px solid #000;background-color:#999"><b>TERM &amp; CONDITION</b></td></tr>
+                                <tr><td colspan="2" style="border:1px solid #000;height: 100px;"><span t-field="doc.note" /><br/>
+								Demikian penawaran ini kami sampaikan, guna mempercepat proses produksi dan delivery. Mohon konfirmasi dan persetujuannya dengan menandatangani dokumen penawaran serta mengirimkan kembali dokumen kepada sales person kami. Atas perhatian dan kerja samanya kami ucapkan terima kasih.
+								<br/>
+								<br/>
+								<center>
+								<b>PAYMENT TO :</b><br/>
+								<b>BANK BCA CABANG MENARA BIDAKARA</b><br/>
+                                            <b>A/C : 450.300.2305 </b><br/>
+                                            <b>A/N :  PT. INNOVASI SARANA GRAFINDO</b>
+											</center>
+								</td></tr>
+											<tr>				
+								<td class="text-left" style="border:1px solid #000; width:50%;">
+								Jakarta <span t-if="doc.create_date" t-field="doc.create_date" t-field-options="{'format': 'dd-MM-yyyy'}" /><br/>
+                                            Issued by:<br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <u>
+                                            <span t-if="doc.user_id" t-esc="doc.user_id.name" />
+                                            <span t-if="not doc.user_id">-</span>
+                                            </u><br/>
+                                            <span>Sales Person</span>
+                                        </td>
+                                        <td class="text-left" style="border:1px solid #000; width:50%;">
+										<br/>
+                                            Approved By:<br/>
+											<span t-esc="doc.partner_invoice_id.name" />
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <u></u>.....................................<br/>
+                                            <span>Nama :</span>
+                                        </td>
+										</tr>
+										</table>
                         </div>
                     </div>
                     <div class="footer">
