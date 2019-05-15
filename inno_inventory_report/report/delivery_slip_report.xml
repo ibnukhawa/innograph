@@ -50,21 +50,23 @@
 	    								<t t-set="partner_set" t-value="0" />
 	    								<t t-set="partner" t-value="o.partner_id" />
 	    								<!-- check if partner have child type invoice -->
-	    								<t t-foreach="partner.child_ids" t-as="child">
-	    									<t t-if="child.type == 'invoice'">
-	    										<t t-set="partner_set" t-value="1" />
-	    										<span t-esc="child.name" /><br/>
-			    								<t t-esc="child.street"/><br/>
-					                            <t t-esc="child.street2"/>
-					                            <t t-esc="child.city"/>
-					                            <t t-esc="child.state_id.name"/>
-					                            <t t-esc="child.zip"/><br/>
-	    									</t>
+    								   <t t-if="partner.child_ids">
+                                            <t t-foreach="partner.child_ids" t-as="child">
+    	    									<t t-if="child.type == 'invoice'">
+    	    										<t t-set="partner_set" t-value="1" />
+    	    										<span t-esc="child.name" /><br/>
+    			    								<t t-esc="child.street"/><br/>
+    					                            <t t-esc="child.street2"/>
+    					                            <t t-esc="child.city"/>
+    					                            <t t-esc="child.state_id.name"/>
+    					                            <t t-esc="child.zip"/><br/>
+    	    									</t>
+                                            </t>
 	    								</t>
 	    								<!-- If transfer partner is a child, get child type invoice from parent -->
 	    								<t t-if="partner.parent_id and not partner.child_ids">
 	    									<t t-set="parent" t-as="partner.parent_id" />
-	    									<t t-foreach="parent.child_ids" t-as="child">
+	    									<t t-foreach="partner.parent_id.child_ids" t-as="child">
 		    									<t t-if="child.type == 'invoice'">
 		    										<t t-set="partner_set" t-value="1" />
 		    										<span t-esc="child.name" /><br/>
