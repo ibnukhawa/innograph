@@ -11,7 +11,6 @@
     """,
     'depends'       : ['hr', 'hr_contract'],
     'data'          : [
-                        'data/employee_rule_data.xml',
                         'views/hr_employee_view.xml',
                       ],
     'installable'   : True,

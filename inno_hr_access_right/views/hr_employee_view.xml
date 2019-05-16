@@ -11,5 +11,10 @@
 	        	</page>
 	        </field>
 	    </record>
+
+	    <record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
+            <field name="domain"></field>
+            <field name="context">{'access_from_employee_menu': True}</field>
+        </record>
     </data>
 </odoo>
