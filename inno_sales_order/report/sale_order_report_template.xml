@@ -196,7 +196,6 @@
 								<span t-field="doc.note" /><br/>
 								</td></tr>
 								
-								<tr>				
 								<td class="text-left" style="border:1px solid #000; width:50%;">
 								Jakarta <span t-if="doc.create_date" t-field="doc.create_date" t-field-options="{'format': 'dd-MM-yyyy'}" /><br/>
                                             Issued by:<br/>

@@ -108,10 +108,10 @@
 	    					</table>
 	    				</div>
 	    				<div class="col-xs-5">
-	    					<table class="table" style="width: 100%; font-size: 12px;">
+	    					<table class="table" style="width: 100%; font-size: 11px;">
 	    						<tr>
 									<td style="border: 1px black;border-style:solid;padding: 3px; vertical-align:middle;" colspan="2">TANGGAL</td>
-									<td style="border: 1px black;border-style:solid;vertical-align:middle;"><span t-field="o.min_date" t-field-options="{'format': 'dd-MMM-yyyy'}" /></td>
+									<td style="border: 1px black;border-style:solid;vertical-align:middle;"><span t-field="o.date" t-field-options="{'format': 'dd-MMM-yyyy'}" /></td>
 	    						</tr>
 	    						<tr>
 									<td style="border: 1px black;border-style:solid;padding: 3px; vertical-align:middle;" colspan="2">SO NO</td>
@@ -132,10 +132,17 @@
 		    				<table style="width: 100%;font-size: 12px;border: 1px solid black;">
 		    					<thead style="font-size: 12px;">
 		    						<tr>
+<<<<<<< HEAD
 		    							<td class="text-center" style="border: 1px solid black;width:70%;padding: 3px;">Deskripsi Barang</td>
 		    							<td class="text-center" style="border: 1px solid black;width:7%;padding: 3px;">Qty</td>
 		    							<td class="text-center" style="border: 1px solid black;width:7%;padding: 3px;">Item</td>
 		    							<td class="text-center" style="border: 1px solid black;width:16%;padding: 3px;">So No.</td>
+=======
+		    							<td class="text-center" style="border: 1px solid black;width:60%;padding: 3px;">Deskripsi Barang</td>
+		    							<td class="text-center" style="border: 1px solid black;width:10%;padding: 3px;">Qty</td>
+		    							<td class="text-center" style="border: 1px solid black;width:10%;padding: 3px;">Item</td>
+		    							<td class="text-center" style="border: 1px solid black;width:20%;padding: 3px;">So No.</td>
+>>>>>>> 3e6e671df841309b6d1e7554d6c5641b8cdb5b96
 		    						</tr>
 		    					</thead>
 		    					<tbody>
@@ -154,8 +161,13 @@
 		    								<t t-if="not o.sale_order_id">&amp;nbsp;</t>
 		    							</td>
 		    						</tr>
+<<<<<<< HEAD
 		    						<t t-if="i % 5 == 0 or i == 0">
 		    							<t t-set="add_row" t-value="5 - (i % 5)" />
+=======
+		    						<t t-if="i % 7 == 0 or i == 0">
+		    							<t t-set="add_row" t-value="7 - (i % 7)" />
+>>>>>>> 3e6e671df841309b6d1e7554d6c5641b8cdb5b96
 		    							<tr t-foreach="range(add_row)" t-as="row">
 		    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
 		    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
