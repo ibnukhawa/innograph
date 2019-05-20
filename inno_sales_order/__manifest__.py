@@ -21,6 +21,7 @@
         'report/sale_order_report.xml',
         'report/sale_order_report_template.xml',
         'views/sale_order_view.xml',
+        'views/stock_picking_view.xml',
     ],
     'installable'   : True,
     'application'   : True,

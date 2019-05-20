@@ -140,6 +140,27 @@ class MrpBomRevision(models.Model):
 		self.mapped('new_bom_id').apply_new_version()
 		self.write({'state': 'done'})
 
+	@api.model
+	def create(self, vals):
+		res = super(MrpBomRevision, self).create(vals)
+		res.message_subscribe_users([res.approver_id.id])
+		return res
+
+	@api.multi
+	def _track_subtype(self, init_values):
+		self.ensure_one()
+		if 'state' in init_values and self.state == 'submit':
+			return 'inno_mrp_bom_versioning.bom_revision_submitted'
+		elif 'state' in init_values and self.state == 'approve':
+			return 'inno_mrp_bom_versioning.bom_revision_approved'
+		elif 'state' in init_values and self.state == 'cancel':
+			return 'inno_mrp_bom_versioning.bom_revision_cancel'
+		elif 'state' in init_values and self.state == 'reject':
+			return 'inno_mrp_bom_versioning.bom_revision_reject'
+		elif 'state' in init_values and self.state == 'done':
+			return 'inno_mrp_bom_versioning.bom_revision_done'
+		return super(MrpBomRevision, self)._track_subtype(init_values)
+
 class MrpBomRevisionChange(models.Model):
 	_name = "mrp.bom.revision.change"
 

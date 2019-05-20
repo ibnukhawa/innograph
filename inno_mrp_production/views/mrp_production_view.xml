@@ -37,11 +37,10 @@
                 <page string="Job Description">
                     <group>
                         <group string="Graphic/Display">
-                            <field name="file_id" filename="file_name" string="File Name"/>
+                            <field name="file_loc" />
                             <field name="size_image"/>
                             <field name="size_frame"/>
                             <field name="size_print"/>
-                            <field name="file_name" invisible="True" />
                         </group>
                         <group string="Finishing">
                             <field name="finishing"/>
@@ -53,10 +52,10 @@
                 </page>
             </xpath>
 
-            <xpath expr="//page/group/group/field[@name='location_src_id']" position="replace" />
-            <xpath expr="//page/group/group/field[@name='location_dest_id']" position="replace" />
+            <xpath expr="//page[4]/group/group[1]" position="replace" />
 
             <field name="routing_id" position="after">
+                <field name="picking_type_id" domain="[('code', '=', 'mrp_operation')]" attrs="{'readonly': [('has_moves', '=', True)]}"/>
                 <field name="location_src_id" domain="[('usage','=','internal')]" attrs="{'readonly': [('has_moves', '=', True)]}"/>
                 <field name="location_dest_id" domain="[('usage','=','internal')]" attrs="{'readonly': [('has_moves', '=', True)]}"/>
             </field>
@@ -83,11 +82,10 @@
                 <page string="Job Description">
                     <group>
                         <group string="Graphic/Display">
-                            <field name="file_id" filename="file_name" string="File Name"/>
+                            <field name="file_loc" />
                             <field name="size_image"/>
                             <field name="size_frame"/>
                             <field name="size_print"/>
-                            <field name="file_name" invisible="True" />
                         </group>
                         <group string="Finishing">
                             <field name="finishing"/>

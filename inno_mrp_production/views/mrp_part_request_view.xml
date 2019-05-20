@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+	    <record model="ir.ui.view" id="mrp_part_request_form_view">
+	        <field name="name">mrp.part.request.form</field>
+	        <field name="model">mrp.part.request</field>
+	        <field name="arch" type="xml">
+	        	<form string="Bill of Materials Revision">
+	        		<header>
+	        			<button type="object" name="action_draft" string="Set to Draft" attrs="{'invisible': [('state', '!=', 'cancel')]}" class="btn-primary" />
+	        			<button type="object" name="action_confirm" string="Confirm" attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary" />
+	        			<button type="object" name="action_cancel" string="Cancel" attrs="{'invisible': [('state', '!=', 'confirm')]}" />
+	        			<button type="object" name="action_done" string="Set to Done" attrs="{'invisible': [('state', '!=', 'confirm')]}" class="btn-primary" />
+	        			<field name="state" widget="statusbar" statusbar_visible="draft,submit,cancel,done"/>
+	        		</header>
+	        		<sheet>
+	        			<div class="oe_button_box" name="button_box">
+		        			<button name="action_view_picking" type="object" class="oe_stat_button" icon="fa-truck" attrs="{'invisible': [('picking_count', '=', 0)]}">
+				                <field name="picking_count" widget="statinfo" string="Internal Transfer"/>
+				            </button>
+				        </div>
+	        			<div class="oe_title oe_inline">
+	                        <label for="name" class="oe_edit_only"/>
+	                        <h1><field name="name" /></h1>
+	                    </div>
+
+	        			<group>
+	        				<group>
+	        					<field name="product_id" />
+	        					<field name="bom_id" />
+	        					<field name="warehouse_id" required="True" />
+	        					<field name="location_src_id" required="True" />
+	        					<field name="location_dest_id" required="True" />
+	        				</group>
+	        				<group>
+	        					<field name="date_scheduled" />
+	        				</group>
+	        			</group>
+
+	        			<notebook>
+	        				<page string="Part Request Line" name="part_request_line">
+		        				<field name="part_request_ids" mode="tree" >
+		        					<form string="Part Request Line">
+		        						<group>
+		        							<group>
+		        								<field name="product_id" />
+		        								<label for="quantity" />
+		        								<div class="o_row">
+							                        <field name="quantity"/>
+							                        <field name="uom_id" options="{'no_open':True,'no_create':True}" groups="product.group_uom"/>
+							                    </div>
+		        							</group>
+		        							<group>
+		        								<field name="description" />
+		        								<field name="item_size" />
+		        								<field name="item_qty" />
+		        							</group>
+		        						</group>
+		        					</form>
+		        					<tree string="Part Request Line" create="false" editable="bottom" >
+		        						<field name="part_request_id" invisible="True" />
+		        						<field name="product_id" readonly="True" />
+		        						<field name="description" />
+		        						<field name="quantity" />
+		        						<field name="uom_id" readonly="True" />
+		        						<field name="item_size" />
+		        						<field name="item_qty" />
+		        					</tree>
+		        				</field>
+		        			</page>
+	        			</notebook>
+	        		</sheet>
+	        	</form>
+	        </field>
+	    </record>
+
+	    <record model="ir.ui.view" id="mrp_part_request_tree_view">
+	        <field name="name">mrp.part.request.tree</field>
+	        <field name="model">mrp.part.request</field>
+	        <field name="arch" type="xml">
+	        	<tree string="Part Request">
+	        		<field name="date_scheduled" />
+	        		<field name="name" />
+	        		<field name="product_id" />
+	        		<field name="bom_id" />
+	        		<field name="location_src_id" />
+	        		<field name="location_dest_id" />
+	        		<field name="state" />
+	        	</tree>
+	        </field>
+	    </record>
+
+	    <record model="ir.actions.act_window" id="action_mrp_part_request">
+	        <field name="name">Part Request</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">mrp.part.request</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <menuitem id="menu_mrp_part_request" sequence="30"
+	              parent="mrp.menu_mrp_manufacturing"
+	              action="inno_mrp_production.action_mrp_part_request" />
+
+	</data>
+</odoo> 

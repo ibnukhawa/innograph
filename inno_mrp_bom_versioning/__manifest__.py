@@ -12,6 +12,7 @@
     """,
     'depends'       : ['mrp'],
     'data'          : [
+                        'data/mrp_bom_revision_data.xml',
                         'security/ir.model.access.csv',
                         'views/mrp_bom_revision_view.xml',
                         'views/mrp_production_view.xml',
