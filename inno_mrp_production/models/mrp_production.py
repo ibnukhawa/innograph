@@ -8,8 +8,7 @@ class MrpProduction(models.Model):
     sale_id = fields.Many2one('sale.order', 'Sales')
     analytic_account_id = fields.Many2one('account.analytic.account', string="Analytic Account", related='sale_id.related_project_id')
     date_scheduled = fields.Datetime('Scheduled Date', related='sale_id.date_scheduled')
-    file_id = fields.Binary(related='sale_id.file_id', string="File Name")
-    file_name = fields.Char(string="File Name")
+    file_loc = fields.Text(related='sale_id.file_loc', string="File Location")
     size_image = fields.Char(related='sale_id.size_image', string="Image Size")
     size_frame = fields.Char(related='sale_id.size_frame', string="Frame Size")
     size_print = fields.Char(related='sale_id.size_print', string="Print Size")
@@ -19,6 +18,7 @@ class MrpProduction(models.Model):
     finishing_note = fields.Text(related='sale_id.finishing_note', string="Note")
     note = fields.Text()
     tasks_count = fields.Integer(compute='_compute_tasks_count')
+    partner_id = fields.Many2one('res.partner', related='sale_id.partner_id')
 
 
     @api.multi
@@ -141,8 +141,7 @@ class MrpWorkOrder(models.Model):
     _inherit = "mrp.workorder"
 
     sale_id = fields.Many2one('sale.order', related='production_id.sale_id', string="Sale Order")
-    file_id = fields.Binary(string="File Name", related="production_id.file_id")
-    file_name = fields.Char(string="File Name")
+    file_loc = fields.Text(string="File Location", related="production_id.file_loc")
     size_image = fields.Char(string="Image Size", related="production_id.size_image")
     size_frame = fields.Char(string="Frame Size", related="production_id.size_frame")
     size_print = fields.Char(string="Print Size", related="production_id.size_print")
@@ -151,6 +150,7 @@ class MrpWorkOrder(models.Model):
     finishing_note = fields.Text(string="Note", related="production_id.finishing_note")
     proof = fields.Char()
     task_ids = fields.One2many('project.task', 'workorder_id', string="Tasks")
+    partner_id = fields.Many2one('res.partner', related='sale_id.partner_id')
 
     @api.multi
     def action_view_sales(self):

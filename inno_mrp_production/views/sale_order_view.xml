@@ -12,11 +12,10 @@
                 <page string="Job Description">
                     <group>
                         <group string="Graphic/Display">
-                            <field name="file_id" filename="file_name" string="File Name"/>
+                            <field name="file_loc" />
                             <field name="size_image"/>
                             <field name="size_frame"/>
                             <field name="size_print"/>
-                            <field name="file_name" invisible="True" />
                         </group>
                         <group string="Finishing">
                             <field name="finishing"/>

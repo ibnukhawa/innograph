@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_button_sale" model="ir.ui.view">
+        <field name="name">stock.picking.form.button.sale</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+        	<button name="action_see_move_scrap" position="before">
+        		<button name="action_open_sales" string="Sales" type="object" class="oe_stat_button" icon="fa-usd" attrs="{'invisible': [('sale_order_id', '=', False)]}"/>
+        	</button>
+        </field>
+    </record>
+</odoo>
