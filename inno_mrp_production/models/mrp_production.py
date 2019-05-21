@@ -18,6 +18,7 @@ class MrpProduction(models.Model):
     finishing_note = fields.Text(related='sale_id.finishing_note', string="Note")
     note = fields.Text()
     tasks_count = fields.Integer(compute='_compute_tasks_count')
+    partner_id = fields.Many2one('res.partner', related='sale_id.partner_id')
 
 
     @api.multi
@@ -149,6 +150,7 @@ class MrpWorkOrder(models.Model):
     finishing_note = fields.Text(string="Note", related="production_id.finishing_note")
     proof = fields.Char()
     task_ids = fields.One2many('project.task', 'workorder_id', string="Tasks")
+    partner_id = fields.Many2one('res.partner', related='sale_id.partner_id')
 
     @api.multi
     def action_view_sales(self):
