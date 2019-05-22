@@ -11,7 +11,7 @@
 	        			<button type="object" name="action_confirm" string="Confirm" attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary" />
 	        			<button type="object" name="action_cancel" string="Cancel" attrs="{'invisible': [('state', '!=', 'confirm')]}" />
 	        			<button type="object" name="action_done" string="Set to Done" attrs="{'invisible': [('state', '!=', 'confirm')]}" class="btn-primary" />
-	        			<field name="state" widget="statusbar" statusbar_visible="draft,submit,cancel,done"/>
+	        			<field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
 	        		</header>
 	        		<sheet>
 	        			<div class="oe_button_box" name="button_box">
@@ -39,7 +39,7 @@
 
 	        			<notebook>
 	        				<page string="Part Request Line" name="part_request_line">
-		        				<field name="part_request_ids" mode="tree" >
+		        				<field name="part_request_ids" attrs="{'readonly': [('state', '!=', 'draft')]}" mode="tree" >
 		        					<form string="Part Request Line">
 		        						<group>
 		        							<group>
@@ -57,12 +57,12 @@
 		        							</group>
 		        						</group>
 		        					</form>
-		        					<tree string="Part Request Line" create="false" editable="bottom" >
+		        					<tree string="Part Request Line" editable="bottom" >
 		        						<field name="part_request_id" invisible="True" />
-		        						<field name="product_id" readonly="True" />
+		        						<field name="product_id" />
 		        						<field name="description" />
 		        						<field name="quantity" />
-		        						<field name="uom_id" readonly="True" />
+		        						<field name="uom_id" />
 		        						<field name="item_size" />
 		        						<field name="item_qty" />
 		        					</tree>

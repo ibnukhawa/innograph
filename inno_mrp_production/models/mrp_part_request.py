@@ -81,6 +81,7 @@ class MrpPartRequest(models.Model):
 					line.write({'move_id': move.id})
 			picking.action_confirm()
 			picking.action_assign()
+		self.write({'state': 'confirm'})
 
 	@api.multi
 	def compute_picking_count(self):
