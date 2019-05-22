@@ -20,7 +20,6 @@ class SaleOrder(models.Model):
         ctx = self.env.context.copy()
         for order in self:
             ctx['default_sale_id'] = order.id
-            ctx['default_sale_order_id'] = order.id
             return super(SaleOrder, order.with_context(ctx)).action_confirm()
 
 

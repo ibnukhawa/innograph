@@ -119,7 +119,7 @@
 	    						</tr>
 								<tr>
 									<td style="border: 1px black;border-style:solid;padding: 3px; vertical-align:middle;" colspan="2">SALESMAN</td>
-									<td style="border: 1px black;border-style:solid; vertical-align:middle;" ><span t-if="o.sale_order_id and o.sale_order_id.user_id" t-esc="o.sale_order_id.user_id.name" /></td>
+									<td style="border: 1px black;border-style:solid; vertical-align:middle;" ><span t-if="o.sale_id and o.sale_id.user_id" t-esc="o.sale_id.user_id.name" /></td>
 	    						</tr>
 	    						
 	    					</table>
@@ -150,8 +150,8 @@
 		    							</td>
 		    							<td style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;"><span t-esc="move.product_uom.name" /></td>
 		    							<td class="text-right" style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">
-		    								<span t-if="o.sale_order_id" t-esc="o.sale_order_id.name" />
-		    								<t t-if="not o.sale_order_id">&amp;nbsp;</t>
+		    								<span t-if="o.sale_id" t-esc="o.sale_id.name" />
+		    								<t t-if="not o.sale_id">&amp;nbsp;</t>
 		    							</td>
 		    						</tr>
 		    						<t t-if="i % 7 == 0 or i == 0">
@@ -172,11 +172,11 @@
 	    				<div style="font-size:12px;" class="col-xs-8">
 		    				<div class="col-xs-4">
 			    				Disiapkan Oleh :<br/><br/><br/><br/><br/>
-			    				<t t-if="o.sale_order_id and o.sale_order_id.user_id">
-			    					( <span t-esc="o.sale_order_id.user_id.name" /> )
+			    				<t t-if="o.sale_id and o.sale_id.user_id">
+			    					( <span t-esc="o.sale_id.user_id.name" /> )
 			    					<br/>Tgl. : <span t-field="o.date" t-field-options="{'format': 'dd-MM-yyyy'}" /> 
 			    				</t>
-			    				<t t-if="not o.sale_order_id or not o.sale_order_id.user_id">
+			    				<t t-if="not o.sale_id or not o.sale_id.user_id">
 			    					.........................
 			    					<br/>Tgl. :
 			    				</t>
