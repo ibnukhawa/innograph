@@ -31,6 +31,9 @@ class MrpProduction(models.Model):
     @api.multi
     def set_draft(self):
         self.write({'state': 'draft'})
+        for mo in self:
+            mo.move_finished_ids = False
+            mo.move_raw_ids = False
 
     @api.multi
     def action_open_project(self):
