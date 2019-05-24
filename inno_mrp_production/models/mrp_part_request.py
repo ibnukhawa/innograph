@@ -20,6 +20,7 @@ class MrpPartRequest(models.Model):
 	part_request_ids = fields.One2many('mrp.part.request.line', 'part_request_id', string="Part Request Line")
 	warehouse_id = fields.Many2one('stock.warehouse', string="Warehouse")
 	picking_count = fields.Integer(compute="compute_picking_count")
+	production_id = fields.Many2one('mrp.production', string="Production")
 
 	@api.model
 	def default_get(self, fields):
@@ -112,7 +113,11 @@ class MrpPartRequest(models.Model):
 	def action_fill_part_request_lines(self):
 		if self.bom_id:
 			part_line_obj = self.env['mrp.part.request.line']
-			for line in self.bom_id.bom_line_ids:
+			product_not_todo = self.env['product.product']
+			if self.production_id:
+				moves = self.production_id.move_raw_ids
+				product_not_todo = moves.filtered(lambda x: x.state not in ['draft', 'waiting', 'confirmed']).mapped('product_id')
+			for line in self.bom_id.bom_line_ids.filtered(lambda l: l.product_id.id not in product_not_todo.ids):
 				vals = {
 					'product_id': line.product_id.id,
 					'description': line.product_id.display_name,

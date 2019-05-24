@@ -20,6 +20,10 @@
                 <button name="set_draft" attrs="{'invisible': [('state', '!=', 'cancel')]}" string="Set to Draft"
                         type="object"/>
             </xpath>
+
+            <button name="button_unreserve" position="after">
+                <button name="action_create_part_request" type="object" string="Request Parts" attrs="{'invisible': [('state', 'not in', ('confirmed', 'planned', 'progress'))]}"/>
+            </button>
             
             <xpath expr="//field[@name='date_planned_start']" position="attributes">
                 <attribute name="string">Start Date</attribute>
@@ -31,7 +35,7 @@
             
             <field name="origin" position="after">
                 <field name="sale_id" invisible="0" />
-                <field name="partner_id" />
+                <field name="partner_id" readonly="False" />
             </field>
 
             <xpath expr="//notebook/page[2]" position="after">
@@ -61,6 +65,17 @@
                 <field name="location_dest_id" domain="[('usage','=','internal')]" attrs="{'readonly': [('has_moves', '=', True)]}"/>
             </field>
 
+        </field>
+    </record>
+
+    <record id="inno_mrp_production_tree_view" model="ir.ui.view">
+        <field name="name">inno.mrp.production.tree</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="partner_id" />
+            </field>
         </field>
     </record>
 
@@ -118,24 +133,91 @@
         </field>
     </record>
 
+    <record id="inno_workcenter_line_kanban" model="ir.ui.view">
+        <field name="name">inno.mrp.production.work.order.kanban</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.workcenter_line_kanban"/>
+        <field name="arch" type="xml">
+            <field name="production_id" position="after">
+                <field name="partner_id" />
+            </field>
+            <xpath expr="//templates/t/div/div/div[1]" position="inside" >
+                <br/>
+                <span><t t-esc="record.partner_id.value"/></span>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mrp.view_mrp_production_workcenter_form_view_filter" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.select</field>
+        <field name="model">mrp.workorder</field>
+        <field name="arch" type="xml">
+            <search string="Search Work Orders">
+                <field name="name" string="Work Orders"/>
+                <field name="date_planned_start"/>
+                <field name="state"/>
+                <filter string="In Progress" name="progress" domain="[('state','=','progress')]"/>
+                <filter string="Ready" name="ready" domain="[('state','=','ready')]"/>
+                <filter string="Pending" name="pending" domain="[('state','=','pending')]"/>
+                <filter string="Finished" name="finish" domain="[('state','=','done')]"/>
+                <filter string="Available" domain="[('production_availability','=', 'assigned')]"/>
+                <separator/>
+                <filter string="Late" domain="['&amp;', ('date_planned_start','&lt;', current_date), ('state', '=', 'ready')]"
+                    help="Production started late"/>
+                <field name="workcenter_id"/>
+                <field name="production_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Work Center" name="group_workcenter_id" domain="[]" context="{'group_by':'workcenter_id'}"/>
+                    <filter string="Production" name="group_production_id" domain="[]" context="{'group_by':'production_id'}"/>
+                    <filter string="Status" name="group_state" domain="[]" context="{'group_by':'state'}"/>
+                    <filter string="Scheduled Month" name="group_date_planned_start" domain="[]" context="{'group_by':'date_planned_start'}" help="Scheduled Date by Month"/>
+                </group>
+             </search>
+        </field>
+    </record>
+
     <record id="mrp.action_work_orders" model="ir.actions.act_window">
-            <field name="name">Work Orders</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">mrp.workorder</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form,gantt,pivot,graph,calendar</field>
-            <field name="search_view_id" ref="mrp.view_mrp_production_work_order_search"/>
-            <field name="domain">[('workcenter_id', '=', active_id)]</field>
-            <field name="help" type="html">
-              <p class="oe_view_nocontent_create">
+        <field name="name">Work Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.workorder</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,gantt,pivot,graph,calendar</field>
+        <field name="search_view_id" ref="mrp.view_mrp_production_work_order_search"/>
+        <field name="domain">[('workcenter_id', '=', active_id)]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
                 Click to add a work center.
-              </p><p>
+            </p>
+            <p>
                 Work Centers allow you to create and manage manufacturing
                 units. They consist of workers and/or machines, which are
                 considered as units for task assignation as well as capacity
                 and planning forecast.
-              </p>
-            </field>
-        </record>
+            </p>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="mrp.mrp_workorder_todo">
+        <field name="name">Work Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.workorder</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
+        <field name="search_view_id" ref="mrp.view_mrp_production_workcenter_form_view_filter"/>
+        <field name="context">{'search_default_group_state': True}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to start a new work order.
+            </p>
+            <p>
+                Work Orders is the list of operations to be performed for each
+                manufacturing order. Once you start the first work order of a
+                manufacturing order, the manufacturing order is automatically
+                marked as started. Once you finish the latest operation of a
+                manufacturing order, the MO is automatically done and the related
+                products are produced.
+            </p>
+        </field>
+    </record>
 
 </odoo>
