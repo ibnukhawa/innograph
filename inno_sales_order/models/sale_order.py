@@ -40,6 +40,15 @@ class SaleOrder(models.Model):
 			sale.quotation_number = sale.name
 			sale.name = self.env['ir.sequence'].with_context(force_company=sale.company_id.id).next_by_code('inno.sale.order') or sale.name
 		res = super(SaleOrder, self).action_confirm()
+		# Store new created MO to Order Line or Change MO Name from stored in Order Line
+		for order in self:
+			mo_src = self.env['mrp.production'].search([('sale_id', '=', order.id)])
+			for line in order.order_line:
+				line_mo = mo_src.filtered(lambda x: x.product_id.id == line.product_id.id and x.state != 'cancel')
+				if not line.production_no:
+					line.production_no = line_mo.name
+				else:
+					line_mo.name = line.production_no
 		return res
 
 	@api.multi
@@ -147,3 +156,24 @@ class SaleOrder(models.Model):
 		if warehouse:
 			res['warehouse_id'] = warehouse.id
 		return res
+
+	@api.multi
+	def action_cancel(self):
+		""" Cancel SO will delete MO if MO not In Progress/Done """
+		for order in self:
+			mo_src = self.env['mrp.production'].search([('sale_id', '=', order.id)])
+			if len(mo_src.filtered(lambda x: x.state in ['progress', 'done'])) > 0:
+				raise UserError(_("You can not cancel this order because there is related "\
+					"Manufacturing Order with state already In Progress / Done."))
+			mo_src = self.env['mrp.production'].search([('sale_id', '=', order.id)])
+			to_remove_mo = mo_src.filtered(lambda x: x.state in ['draft', 'confirmed'])
+			to_remove_mo.mapped('workorder_ids').unlink()
+			to_remove_mo.action_cancel()
+			mo_src.filtered(lambda x: x.state == 'cancel').unlink()
+		return super(SaleOrder, self).action_cancel()
+
+
+class SaleOrderLine(models.Model):
+	_inherit = 'sale.order.line'
+
+	production_no = fields.Char(string="Number Production")
