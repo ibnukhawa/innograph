@@ -15,7 +15,7 @@ class MrpProduction(models.Model):
     size_print = fields.Char(related='sale_id.size_print', string="Print Size")
     finishing = fields.Char(related='sale_id.finishing')
     packing = fields.Char(related='sale_id.packing')
-    proof = fields.Char()
+    proof = fields.Char(related='sale_id.proof')
     finishing_note = fields.Text(related='sale_id.finishing_note', string="Note")
     note = fields.Text()
     tasks_count = fields.Integer(compute='_compute_tasks_count')
@@ -48,8 +48,9 @@ class MrpProduction(models.Model):
     def set_draft(self):
         self.write({'state': 'draft'})
         for mo in self:
-            mo.move_finished_ids = False
-            mo.move_raw_ids = False
+            mo.move_finished_ids.unlink()
+            mo.move_raw_ids.unlink()
+            mo.workorder_ids.unlink()
 
     @api.multi
     def action_open_project(self):
@@ -167,7 +168,7 @@ class MrpProduction(models.Model):
         ctx['default_product_id'] = self.product_id.product_tmpl_id.id
         ctx['default_bom_id'] = self.bom_id.id
         ctx['default_production_id'] = self.id
-        ctx['location_dest_id'] = self.location_src_id.id
+        ctx['default_location_dest_id'] = self.location_src_id.id
         
         action = self.env.ref('inno_mrp_production.action_mrp_part_request').read()[0]
         action['views'] = [(self.env.ref('inno_mrp_production.mrp_part_request_form_view').id, 'form')]
@@ -178,7 +179,7 @@ class MrpProduction(models.Model):
     def action_cancel(self):
         part_req = self.env['mrp.part.request'].search([('production_id', 'in', self.ids)])
         if part_req.filtered(lambda r: r.state in ['confirm', 'done']):
-            raise UserError(_("You cannot cancel this Manufacturing Order because it has Part Request with status in Confirmed / Done."))
+            raise UserError(_("You cannot cancel this Manufacturing Order because it has Material Request with status in Confirmed / Done."))
         else:
             part_req.unlink()
         return super(MrpProduction, self).action_cancel()
@@ -195,7 +196,7 @@ class MrpWorkOrder(models.Model):
     finishing = fields.Char(related="production_id.finishing")
     packing = fields.Char(related="production_id.packing")
     finishing_note = fields.Text(string="Note", related="production_id.finishing_note")
-    proof = fields.Char()
+    proof = fields.Char(related='sale_id.proof')
     task_ids = fields.One2many('project.task', 'workorder_id', string="Tasks")
     partner_id = fields.Many2one('res.partner', related='sale_id.partner_id')
 
