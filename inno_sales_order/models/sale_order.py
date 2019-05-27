@@ -166,9 +166,9 @@ class SaleOrder(models.Model):
 				raise UserError(_("You can not cancel this order because there is related "\
 					"Manufacturing Order with state already In Progress / Done."))
 			mo_src = self.env['mrp.production'].search([('sale_id', '=', order.id)])
-			to_remove_mo = mo_src.filtered(lambda x: x.state in ['draft', 'confirmed'])
-			to_remove_mo.mapped('workorder_ids').unlink()
+			to_remove_mo = mo_src.filtered(lambda x: x.state in ['draft', 'confirmed', 'planned'])
 			to_remove_mo.action_cancel()
+			# to_remove_mo.mapped('workorder_ids').unlink()
 			mo_src.filtered(lambda x: x.state == 'cancel').unlink()
 		return super(SaleOrder, self).action_cancel()
 
