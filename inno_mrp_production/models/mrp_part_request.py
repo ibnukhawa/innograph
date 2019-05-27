@@ -17,10 +17,11 @@ class MrpPartRequest(models.Model):
 							  ('confirm', 'Confirmed'),
 							  ('cancel', 'Cancel'),
 							  ('done', 'Done')], string="Status", default='draft')
-	part_request_ids = fields.One2many('mrp.part.request.line', 'part_request_id', string="Part Request Line")
+	part_request_ids = fields.One2many('mrp.part.request.line', 'part_request_id', string="Material Request Line")
 	warehouse_id = fields.Many2one('stock.warehouse', string="Warehouse")
 	picking_count = fields.Integer(compute="compute_picking_count")
 	production_id = fields.Many2one('mrp.production', string="Production")
+	partner_id = fields.Many2one('res.partner', related='production_id.partner_id')
 
 	@api.model
 	def default_get(self, fields):
@@ -166,7 +167,7 @@ class MrpPartRequest(models.Model):
 class MrpPartRequestLine(models.Model):
 	_name = 'mrp.part.request.line'
 
-	part_request_id = fields.Many2one('mrp.part.request', string="Part Request")
+	part_request_id = fields.Many2one('mrp.part.request', string="Material Request")
 	product_id = fields.Many2one('product.product', string="Product")
 	description = fields.Char()
 	quantity = fields.Float()

@@ -22,7 +22,7 @@
             </xpath>
 
             <button name="button_unreserve" position="after">
-                <button name="action_create_part_request" type="object" string="Request Parts" attrs="{'invisible': [('state', 'not in', ('confirmed', 'planned', 'progress'))]}"/>
+                <button name="action_create_part_request" type="object" string="Request Material" attrs="{'invisible': [('state', 'not in', ('confirmed', 'planned', 'progress'))]}"/>
             </button>
             
             <xpath expr="//field[@name='date_planned_start']" position="attributes">
@@ -35,6 +35,9 @@
             
             <field name="origin" position="after">
                 <field name="sale_id" invisible="0" />
+            </field>
+
+            <field name="has_moves" position="before">
                 <field name="partner_id" readonly="False" />
             </field>
 
@@ -79,6 +82,51 @@
         </field>
     </record>
 
+    <record id="inno_mrp_production_kanban_view" model="ir.ui.view">
+        <field name="name">inno.mrp.production.kanban</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="class">o_kanban_small_column</attribute>
+            </xpath>
+            <field name="product_id" position="after">
+                <field name="partner_id" />
+            </field>
+            <xpath expr="//templates" position="replace">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <strong><span><t t-esc="record.product_id.value"/></span></strong>
+                                </div>
+                                <div class="col-xs-6">
+                                    <strong><span class="pull-right text-right"><t t-esc="record.product_qty.value"/> <t t-esc="record.product_uom_id.value"/></span></strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <strong><span><t t-esc="record.partner_id.value"/></span></strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 pull-right">
+                                    <span t-attf-class="pull-right text-right label #{['draft', 'cancel'].indexOf(record.state.raw_value) &gt; -1 ? 'label-default' : ['none'].indexOf(record.state.raw_value) &gt; -1 ? 'label-danger' : ['confirmed'].indexOf(record.state.raw_value) &gt; -1 ? 'label-warning' : ['done'].indexOf(record.state.raw_value) &gt; -1 ? 'label-success' : 'label-primary'}"><t t-esc="record.state.value"/></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <span><t t-esc="record.name.value"/> <t t-esc="record.date_planned_start.value and record.date_planned_start.value.split(' ')[0] or False"/></span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </xpath>
+        </field>
+    </record>
+
     <record id="button_action_workorder_form_inherit" model="ir.ui.view">
         <field name="name">button.action.mrp.production.work.order.form</field>
         <field name="model">mrp.workorder</field>
@@ -113,6 +161,10 @@
                     </group>
                 </page>
             </xpath>
+
+            <xpath expr="//sheet/group/group/field[@name='product_id']" position="before">
+                <field name="partner_id" readonly="False" />
+            </xpath>
         </field>
     </record>
 
@@ -141,9 +193,36 @@
             <field name="production_id" position="after">
                 <field name="partner_id" />
             </field>
-            <xpath expr="//templates/t/div/div/div[1]" position="inside" >
-                <br/>
-                <span><t t-esc="record.partner_id.value"/></span>
+            <xpath expr="//templates" position="replace">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <strong><span><t t-esc="record.product_id.value"/></span></strong>
+                                </div>
+                                <div class="col-xs-6">
+                                    <strong><span class="pull-right text-right"><t t-esc="record.qty_production.value"/> <t t-esc="record.product_uom_id.value"/></span></strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <strong><span><t t-esc="record.partner_id.value"/></span></strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 pull-right">
+                                    <span t-attf-class="pull-right text-right label #{['cancel'].indexOf(record.state.raw_value) &gt; -1 ? 'label-default' : ['progress'].indexOf(record.state.raw_value) &gt; -1 ? 'label-primary' : ['pending'].indexOf(record.state.raw_value) &gt; -1 ? 'label-danger' : ['ready'].indexOf(record.state.raw_value) &gt; -1 ? 'label-warning' : ['done'].indexOf(record.state.raw_value) &gt; -1 ? 'label-success' : 'label-primary'}"><t t-esc="record.state.value"/></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <span><t t-esc="record.name.value"/> <t t-esc="record.production_id.value or False"/></span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
             </xpath>
         </field>
     </record>
@@ -176,6 +255,29 @@
         </field>
     </record>
 
+    <record id="mrp.view_mrp_production_work_order_search" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.search</field>
+        <field name="model">mrp.workorder</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="workcenter_id"/>
+                <filter string="Today" name="today" domain="[('date_start','&gt;=',time.strftime('%%Y-%%m-%%d'))]"/>
+                <filter string="This Month" name="thismonth" domain="[('date_start','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+                <filter string="This Year" name="thisyear" domain="[('date_start','&gt;=',time.strftime('%%Y-01-01'))]"/>
+                <separator/>
+                <filter string="Ready" name="ready" domain="[('state','=','ready')]"/>
+                <filter string="Pending" name="pending" domain="[('state','=','pending')]"/>
+                <filter string="In Progress" name="progress" domain="[('state','=','progress')]"/>
+                <filter string="Done" name="done" domain="[('state','=', 'done')]"/>
+                <filter string="Late" name="late" domain="[('date_planned_start','&lt;=',time.strftime('%%Y-%%m-%%d'))]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_state" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record id="mrp.action_work_orders" model="ir.actions.act_window">
         <field name="name">Work Orders</field>
         <field name="type">ir.actions.act_window</field>
@@ -183,6 +285,7 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,gantt,pivot,graph,calendar</field>
         <field name="search_view_id" ref="mrp.view_mrp_production_work_order_search"/>
+        <field name="context">{'search_default_group_state': True}</field>
         <field name="domain">[('workcenter_id', '=', active_id)]</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
@@ -217,6 +320,17 @@
                 manufacturing order, the MO is automatically done and the related
                 products are produced.
             </p>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="inno_mrp_workcenter_kanban">
+        <field name="name">inno.mrp.workcenter.kanban</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_kanban"/>
+        <field name="arch" type="xml">
+            <button name="%(mrp.action_work_orders)d" position="attributes">
+                <attribute name="context">{}</attribute>
+            </button>
         </field>
     </record>
 

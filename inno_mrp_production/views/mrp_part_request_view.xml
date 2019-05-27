@@ -21,11 +21,12 @@
 				        </div>
 	        			<div class="oe_title oe_inline">
 	                        <label for="name" class="oe_edit_only"/>
-	                        <h1><field name="name" /></h1>
+	                        <h1><field name="name" readonly="True" /></h1>
 	                    </div>
 
 	        			<group>
 	        				<group>
+	        					<field name="partner_id" readonly="False" />
 	        					<field name="product_id" />
 	        					<field name="bom_id" />
 	        					<field name="warehouse_id" required="True" />
@@ -39,9 +40,9 @@
 	        			</group>
 
 	        			<notebook>
-	        				<page string="Part Request Line" name="part_request_line">
+	        				<page string="Material Request Line" name="part_request_line">
 		        				<field name="part_request_ids" attrs="{'readonly': [('state', '!=', 'draft')]}" mode="tree" >
-		        					<form string="Part Request Line">
+		        					<form string="Material Request Line">
 		        						<group>
 		        							<group>
 		        								<field name="product_id" />
@@ -58,7 +59,7 @@
 		        							</group>
 		        						</group>
 		        					</form>
-		        					<tree string="Part Request Line" editable="bottom" >
+		        					<tree string="Material Request Line" editable="bottom" >
 		        						<field name="part_request_id" invisible="True" />
 		        						<field name="product_id" />
 		        						<field name="description" />
@@ -79,8 +80,9 @@
 	        <field name="name">mrp.part.request.tree</field>
 	        <field name="model">mrp.part.request</field>
 	        <field name="arch" type="xml">
-	        	<tree string="Part Request">
+	        	<tree string="Material Request">
 	        		<field name="date_scheduled" />
+	        		<field name="partner_id" />
 	        		<field name="name" />
 	        		<field name="product_id" />
 	        		<field name="bom_id" />
@@ -92,7 +94,7 @@
 	    </record>
 
 	    <record model="ir.actions.act_window" id="action_mrp_part_request">
-	        <field name="name">Part Request</field>
+	        <field name="name">Material Request</field>
 	        <field name="type">ir.actions.act_window</field>
 	        <field name="res_model">mrp.part.request</field>
 	        <field name="view_type">form</field>
