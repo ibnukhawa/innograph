@@ -9,34 +9,119 @@
 			    <t t-if="not o or not 'company_id' in o">
 			        <t t-set="company" t-value="res_company"></t>
 			    </t>
-	    		<!-- HEADER --> 
-	    		<div class="header">
-				    <div class="row">
-	                    <img class="image" t-att-src="'data:image/png;base64,%s' % company.logo" style="height:75px;display:block;float:left;padding-right:10px;"/>
-                        <div style="height:75px;display:block;float:left;font-size:12px;width:360px;">
-                            <h5><b t-esc="company.name"/></h5>
+                <t t-foreach="o.get_line_per10()" t-as="l">
+                    <div class="header">
+                        <div class="row" style="border-bottom: 1px solid #000;">
+                            <div class="col-xs-2" style="padding-left: 0px;margin-bottom: 0px;">
+                                <img class="image" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height:85px;"/>
+                            </div>
+                            <div class="col-xs-4" style="margin-left: -60px;padding-top: 10px;margin-right: 60px;margin-bottom: 0px;">
+                                <h5><b t-esc="company.name"/></h5>
+                                <h5 style="font-weight: normal;">Innovative Display Solution</h5>
+                            </div>
+                            <div class="col-xs-6 text-center" style="margin-bottom: 0px;" >
+                                <span style="letter-spacing:0px;font-size:29px;">PERMINTAAN/BUKTI</span> 
+                                <span style="letter-spacing:3px;font-size:29px;">BARANG KELUAR</span>
+                            </div>
                         </div>
-                        <div class="col-xs-4 text-center" style="height: 30px;">
-	                        <div class="text-center" style="padding-left: 8px;">
-	                            <b>
-	                                <div style="letter-spacing:2px;font-size:29px;">MATERIAL REQUEST</div>
-									<div style="margin-top:-6px; letter-spacing:1px;font-size:23px;"><span t-esc="o.name" /></div>
-	                            </b>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="page">
-				   			
-	    			<div class="row">
-	    				<div class="col-xs-12">
-	    					<table style="width: 100%;font-size: 11px;">
-	    						
-	    					</table>
-	    				</div>
-	    			</div>
-	    		</div>
-
+                        <div class="row" style="margin-top: 10px;">
+                            <table class="table" style="font-size: 12px;">
+                                <tr>
+                                    <td style="padding: 2px;border: 1px solid #000;width: 18%;border-right: 0px;">Nama</td>
+                                    <td style="padding: 2px;border: 1px solid #000;border-left: 0px;border-right: 0px;width: 2%;">:</td>
+                                    <td style="padding: 2px;border: 1px solid #000;width: 38%;border-left: 0px;"><span t-field="o.user_id" /></td>
+                                    <td style="padding: 2px;border: 1px solid #000;width: 18%;border-right: 0px;">Tanggal</td>
+                                    <td style="padding: 2px;border: 1px solid #000;border-left: 0px;border-right: 0px;width: 2%;">:</td>
+                                    <td style="padding: 2px;border: 1px solid #000;width: 24%;border-left: 0px;"><span t-field="o.date_scheduled" t-options='{"format": "d-M-Y"}' /></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px;border: 1px solid #000;border-right: 0px;">No Permintaan/Part Req</td>
+                                    <td style="padding: 2px;border: 1px solid #000;border-left: 0px;border-right: 0px;">:</td>
+                                    <td style="padding: 2px;border: 1px solid #000;border-left: 0px;"><span t-esc="o.name" /></td>
+                                    <td style="padding: 2px;border: 1px solid #000;border-right: 0px;">Departemen/bagian</td>
+                                    <td style="padding: 2px;border: 1px solid #000;border-left: 0px;border-right: 0px;">:</td>
+                                    <td style="padding: 2px;border: 1px solid #000;border-left: 0px;"><span t-esc="o.get_department()" /></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 2px;border: 1px solid #000;border-right: 0px;">No. Jobsheet/Customer</td>
+                                    <td style="padding: 2px;border: 1px solid #000;border-left: 0px;border-right: 0px;">:</td>
+                                    <td style="padding: 2px;border: 1px solid #000;border-left: 0px;"><span t-field="o.partner_id" /></td>
+                                    <td style="padding: 2px;border: 1px solid #000;border-right: 0px;">No. Gudang / BBK</td>
+                                    <td style="padding: 2px;border: 1px solid #000;border-left: 0px;border-right: 0px;">:</td>
+                                    <td style="padding: 2px;border: 1px solid #000;border-left: 0px;"><span t-esc="o.get_picking()" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="page" style="page-break-after:always;">
+                        &amp;nbsp;
+                        <div class="row">
+                            <table class="table table-condensed" style="font-size: 11px;">
+                                <tr>
+                                    <th rowspan="2" class="text-center" style="vertical-align:middle;padding: 2px;border: 1px solid #000;background-color: #000; color: #fff;width: 3%;">No.</th>
+                                    <th rowspan="2" class="text-center" style="vertical-align:middle;padding: 2px;border: 1px solid #000;background-color: #000; color: #fff;width: 12%;">No. Barang</th>
+                                    <th rowspan="2" class="text-center" style="vertical-align:middle;padding: 2px;border: 1px solid #000;background-color: #000; color: #fff;width: 40%;">Nama Barang</th>
+                                    <th colspan="2" class="text-center" style="vertical-align:middle;padding: 2px;border: 1px solid #000;background-color: #000; color: #fff;width: 20%;">Jumlah</th>
+                                    <th rowspan="2" class="text-center" style="vertical-align:middle;padding: 2px;border: 1px solid #000;background-color: #000; color: #fff;width: 20%;">Keterangan</th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center" style="vertical-align:middle;border: 1px solid #000;background-color: #000; color: #fff;width: 10%;">Kebutuhan</th>
+                                    <th class="text-center" style="vertical-align:middle;border: 1px solid #000;background-color: #000; color: #fff;width: 10%;">Barang Keluar</th>
+                                </tr>
+                                <t t-set="num" t-value="0" />
+                                <tr t-foreach="l" t-as="p">
+                                    <t t-set="num" t-value="num + 1" />
+                                    <td style="border: 1px solid #000;" class="text-center" ><spam t-esc="num" /></td>
+                                    <td style="border: 1px solid #000;"><span t-esc="p.product_id.default_code" /></td>
+                                    <td style="border: 1px solid #000;"><span t-esc="p.product_id.name" /></td>
+                                    <td style="border: 1px solid #000;" class="text-right"><span t-esc="p.quantity" /> <span t-field="p.uom_id" /></td>
+                                    <td style="border: 1px solid #000;" class="text-right"><t t-esc="p.item_qty" /></td>
+                                    <td style="border: 1px solid #000;">&amp;nbsp;</td>
+                                </tr>
+                                <tr t-foreach="range(max(10-len(l),0))" t-as="p">
+                                    <td style="border:1px solid #000;">&amp;nbsp;</td>
+                                    <td style="border:1px solid #000;">&amp;nbsp;</td>
+                                    <td style="border:1px solid #000;">&amp;nbsp;</td>
+                                    <td style="border:1px solid #000;">&amp;nbsp;</td>
+                                    <td style="border:1px solid #000;">&amp;nbsp;</td>
+                                    <td style="border:1px solid #000;">&amp;nbsp;</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div class="row">
+                            <div class="col-xs-3 text-center">
+                                Diminta
+                                <br/>
+                                <br/>
+                                <br/>
+                                (............................)
+                            </div>
+                            <div class="col-xs-3 text-center">
+                                Disetujui
+                                <br/>
+                                <br/>
+                                <br/>
+                                (............................)
+                            </div>
+                            <div class="col-xs-3 text-center">
+                                Disiapkan (Gudang)
+                                <br/>
+                                <br/>
+                                <br/>
+                                (............................)
+                            </div>
+                            <div class="col-xs-3 text-center">
+                                Diterima
+                                <br/>
+                                <br/>
+                                <br/>
+                                (............................)
+                            </div>
+                        </div>
+                    </div>
+                </t>                
 	        </t>
 	    </t>
     </template>
@@ -44,14 +129,16 @@
     <record id="paperformat_mrp_letter" model="report.paperformat">
         <field name="name">Production Letter</field>
         <field name="default" eval="True"/>
-        <field name="format">Letter</field>
+        <field name="format">custom</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">35</field>
+        <field name="margin_top">37</field>
         <field name="margin_bottom">30</field>
         <field name="margin_left">7</field>
         <field name="margin_right">7</field>
+        <field name="page_height">150</field>
+        <field name="page_width">210</field>
         <field name="header_line" eval="False"/>
-        <field name="header_spacing">30</field>
+        <field name="header_spacing">32</field>
         <field name="dpi">90</field>
     </record>
 
