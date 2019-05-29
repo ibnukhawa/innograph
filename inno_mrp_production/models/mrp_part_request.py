@@ -22,6 +22,8 @@ class MrpPartRequest(models.Model):
 	picking_count = fields.Integer(compute="compute_picking_count")
 	production_id = fields.Many2one('mrp.production', string="Production")
 	partner_id = fields.Many2one('res.partner', related='production_id.partner_id')
+	company_id = fields.Many2one('res.company', string='Company', change_default=True,
+        required=True, readonly=True, default=lambda self: self.env.user.company_id.id)
 
 	@api.model
 	def default_get(self, fields):

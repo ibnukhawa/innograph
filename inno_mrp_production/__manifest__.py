@@ -15,6 +15,7 @@
         'views/mrp_production_view.xml',
         'views/mrp_bom_view.xml',
         'views/mrp_part_request_view.xml',
+        'views/material_request_printout.xml'
     ],
     'installable': True,
     'application': True,

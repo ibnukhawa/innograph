@@ -36,6 +36,7 @@
 	        				<group>
 	        					<field name="date_scheduled" />
 	        					<field name="production_id" />
+	        					<field name="company_id" invisible="True"/>
 	        				</group>
 	        			</group>
 

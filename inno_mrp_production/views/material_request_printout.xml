@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="material_request_report">
+    	<t t-call="report.html_container">
+    		<t t-foreach="docs" t-as="o">
+    			<t t-if="o and 'company_id' in o">
+			        <t t-set="company" t-value="o.company_id"></t>
+			    </t>
+			    <t t-if="not o or not 'company_id' in o">
+			        <t t-set="company" t-value="res_company"></t>
+			    </t>
+	    		<!-- HEADER --> 
+	    		<div class="header">
+				    <div class="row">
+	                    <img class="image" t-att-src="'data:image/png;base64,%s' % company.logo" style="height:75px;display:block;float:left;padding-right:10px;"/>
+                        <div style="height:75px;display:block;float:left;font-size:12px;width:360px;">
+                            <h5><b t-esc="company.name"/></h5>
+                        </div>
+                        <div class="col-xs-4 text-center" style="height: 30px;">
+	                        <div class="text-center" style="padding-left: 8px;">
+	                            <b>
+	                                <div style="letter-spacing:2px;font-size:29px;">MATERIAL REQUEST</div>
+									<div style="margin-top:-6px; letter-spacing:1px;font-size:23px;"><span t-esc="o.name" /></div>
+	                            </b>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="page">
+				   			
+	    			<div class="row">
+	    				<div class="col-xs-12">
+	    					<table style="width: 100%;font-size: 11px;">
+	    						
+	    					</table>
+	    				</div>
+	    			</div>
+	    		</div>
+
+	        </t>
+	    </t>
+    </template>
+
+    <record id="paperformat_mrp_letter" model="report.paperformat">
+        <field name="name">Production Letter</field>
+        <field name="default" eval="True"/>
+        <field name="format">Letter</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">35</field>
+        <field name="margin_bottom">30</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">30</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <report 
+        id="inno_material_request_report_action"
+        string="Material Request"
+        model="mrp.part.request" 
+        report_type="qweb-pdf"
+        file="inno_mrp_production.material_request_report" 
+        name="inno_mrp_production.material_request_report"
+        paperformat="inno_mrp_production.paperformat_mrp_letter"
+    />
+</odoo>
