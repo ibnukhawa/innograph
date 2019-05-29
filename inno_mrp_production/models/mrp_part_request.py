@@ -24,6 +24,7 @@ class MrpPartRequest(models.Model):
 	partner_id = fields.Many2one('res.partner', related='production_id.partner_id')
 	company_id = fields.Many2one('res.company', string='Company', change_default=True,
         required=True, readonly=True, default=lambda self: self.env.user.company_id.id)
+	user_id = fields.Many2one('res.users', default=lambda self: self.env.user)
 
 	@api.model
 	def default_get(self, fields):
@@ -163,6 +164,35 @@ class MrpPartRequest(models.Model):
 			action = {'type': 'ir.actions.act_window_close'}
 		action['context'] = self.env.context
 		return action
+
+	def get_line_per10(self):
+		""" Limit line per Page on Report """
+		res = []
+		all_line = self.part_request_ids
+		total_page = len(all_line) // 10
+		if len(all_line) % 10 != 0:
+			total_page += 1
+		index_slice = 0
+		res_append = res.append
+		for x in range(total_page):
+			res_append(all_line[index_slice:index_slice + 10])
+			index_slice += 10
+		return res
+
+	def get_picking(self):
+		""" Get Picking for Report """
+		moves = self.part_request_ids.mapped('move_id')
+		picking = moves.mapped('picking_id')
+		if picking:
+			return picking[0].name
+
+	def get_department(self):
+		""" Get Department for Report """
+		if self.user_id:
+			emp = self.env['hr.employee'].search([('user_id', '=', self.user_id.id)], limit=1)
+			if emp and emp.department_id:
+				return emp.department_id.name
+
 
 
 
