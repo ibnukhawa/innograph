@@ -21,7 +21,7 @@ class MrpPartRequest(models.Model):
 	warehouse_id = fields.Many2one('stock.warehouse', string="Warehouse")
 	picking_count = fields.Integer(compute="compute_picking_count")
 	production_id = fields.Many2one('mrp.production', string="Production")
-	partner_id = fields.Many2one('res.partner', related='production_id.partner_id')
+	partner_id = fields.Many2one('res.partner')
 	company_id = fields.Many2one('res.company', string='Company', change_default=True,
         required=True, readonly=True, default=lambda self: self.env.user.company_id.id)
 	user_id = fields.Many2one('res.users', default=lambda self: self.env.user)
@@ -35,6 +35,13 @@ class MrpPartRequest(models.Model):
 			res['warehouse_id'] = warehouse.id
 			res['location_src_id'] = warehouse.lot_stock_id.id
 		return res
+
+	@api.multi
+	@api.onchange('production_id')
+	def onchange_production_id(self):
+		for doc in self:
+			if doc.production_id and doc.production_id.partner_id:
+				doc.partner_id = doc.production_id.partner_id.id
 
 	@api.multi
 	@api.onchange('product_id')
