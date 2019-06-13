@@ -5,6 +5,8 @@ from odoo import models, fields, api
 class StockPicking(models.Model):
 	_inherit = 'stock.picking'
 
+	sale_order_id = fields.Many2one('sale.order', string="Sale Order")
+	
 	@api.multi
 	def action_open_sales(self):
 		sales = self.mapped('sale_id')
@@ -18,3 +20,11 @@ class StockPicking(models.Model):
 			action = {'type': 'ir.actions.act_window_close'}
 		action['context'] = self.env.context
 		return action
+	
+	@api.one
+	@api.depends('move_lines.procurement_id.sale_line_id.order_id')
+	def _compute_sale_id(self):
+		res = super(StockPicking, self)._compute_sale_id()
+		if self.sale_order_id and not self.sale_id:
+			self.sale_id = self.sale_order_id.id 
+		return res
