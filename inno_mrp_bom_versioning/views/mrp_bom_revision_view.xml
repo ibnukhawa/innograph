@@ -41,8 +41,8 @@
 	        					<field name="bom_id" />
 	        				</group>
 	        				<group>
-	        					<field name="responsible_id" required="True" />
-	        					<field name="approver_id" required="True" domain="[('groups_id', 'in', [%(mrp.group_mrp_manager)d, %(stock.group_stock_manager)d])]" />
+	        					<field name="responsible_id" required="True" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+	        					<field name="approver_id" required="True" domain="[('groups_id', 'in', [%(mrp.group_mrp_manager)d, %(stock.group_stock_manager)d])]" attrs="{'readonly': [('state', '!=', 'draft')]}" />
 	        					<field name="is_responsible" invisible="True" />
 	        					<field name="is_approver" invisible="True" />
 	        				</group>
@@ -62,8 +62,6 @@
 		        						<field name="new_product_qty" />
 		        						<field name="new_uom_id" />
 		        						<field name="upd_product_qty" />
-		        						<!-- <field name="new_bom_id" /> -->
-		        						<!-- <field name="new_bom_revision" /> -->
 		        					</tree>
 	        					</field>
 	        				</page>

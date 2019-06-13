@@ -6,8 +6,7 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     date_scheduled = fields.Datetime(string="Scheduled Date")
-    file_id = fields.Binary(string="File Name")
-    file_name = fields.Char(string="File Name")
+    file_loc = fields.Text(string="File Location")
     size_image = fields.Char(string="Image Size")
     size_frame = fields.Char(string="Frame Size")
     size_print = fields.Char(string="Print Size")

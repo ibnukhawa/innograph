@@ -9,8 +9,13 @@
     'summary': 'Custom Manufacturing Order.',
     'depends': ['sale', 'mrp_production_draft', 'stock_mts_mto_rule'],
     'data': [
+        'data/ir_sequence_data.xml',
+        'security/ir.model.access.csv',
         'views/sale_order_view.xml',
-        'views/mrp_production_views.xml',
+        'views/mrp_production_view.xml',
+        'views/mrp_bom_view.xml',
+        'views/mrp_part_request_view.xml',
+        'views/material_request_printout.xml'
     ],
     'installable': True,
     'application': True,

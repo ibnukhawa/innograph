@@ -69,7 +69,7 @@ class MrpBomRevision(models.Model):
 			for line in self.new_bom_id.bom_line_ids:
 				key = (line.product_id, line.product_uom_id, tuple(line.attribute_value_ids.ids),)
 				old_line = old_bom_lines.pop(key, None)
-				if old_line and tools.float_compare(old_line.product_qty, line.product_qty, line.product_uom_id.rounding) != 0:
+				if old_line and tools.float_compare(old_line.product_qty, line.product_qty, precision_rounding=line.product_uom_id.rounding) != 0:
 					new_bom_commands += [(0, 0, {
 						'change_type': 'update',
 						'product_id': line.product_id.id,
@@ -117,28 +117,51 @@ class MrpBomRevision(models.Model):
 
 	@api.multi
 	def action_approve(self):
-		for doc in self:
-			doc.write({'state': 'approve'})
+		self.write({'state': 'approve'})
 
 	@api.multi
 	def action_reject(self):
-		for doc in self:
-			doc.write({'state': 'reject'})
+		self.write({'state': 'reject'})
 
 	@api.multi
 	def action_cancel(self):
-		for doc in self:
-			doc.write({'state': 'cancel'})
+		self.write({'state': 'cancel'})
 
 	@api.multi
 	def action_draft(self):
 		for doc in self:
-			doc.write({'state': 'draft'})
+			doc.bom_change_ids = False
+		self.write({'state': 'draft'})
 
 	@api.multi
 	def action_apply(self):
 		self.mapped('new_bom_id').apply_new_version()
 		self.write({'state': 'done'})
+		for rev in self:
+			domain = [('bom_id', '=', rev.bom_id.id), ('state', '=', 'draft')]
+			productions = self.env['mrp.production'].search(domain)
+			productions.write({'bom_id': rev.new_bom_id.id})
+
+	@api.model
+	def create(self, vals):
+		res = super(MrpBomRevision, self).create(vals)
+		res.message_subscribe_users([res.approver_id.id])
+		return res
+
+	@api.multi
+	def _track_subtype(self, init_values):
+		self.ensure_one()
+		if 'state' in init_values and self.state == 'submit':
+			return 'inno_mrp_bom_versioning.bom_revision_submitted'
+		elif 'state' in init_values and self.state == 'approve':
+			return 'inno_mrp_bom_versioning.bom_revision_approved'
+		elif 'state' in init_values and self.state == 'cancel':
+			return 'inno_mrp_bom_versioning.bom_revision_cancel'
+		elif 'state' in init_values and self.state == 'reject':
+			return 'inno_mrp_bom_versioning.bom_revision_reject'
+		elif 'state' in init_values and self.state == 'done':
+			return 'inno_mrp_bom_versioning.bom_revision_done'
+		return super(MrpBomRevision, self)._track_subtype(init_values)
 
 class MrpBomRevisionChange(models.Model):
 	_name = "mrp.bom.revision.change"

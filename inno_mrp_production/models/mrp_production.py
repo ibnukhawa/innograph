@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class MrpProduction(models.Model):
@@ -8,18 +9,33 @@ class MrpProduction(models.Model):
     sale_id = fields.Many2one('sale.order', 'Sales Order')
     analytic_account_id = fields.Many2one('account.analytic.account', string="Analytic Account", related='sale_id.related_project_id')
     date_scheduled = fields.Datetime('Scheduled Date', related='sale_id.date_scheduled')
-    file_id = fields.Binary(related='sale_id.file_id', string="File Name")
-    file_name = fields.Char(string="File Name")
+    file_loc = fields.Text(related='sale_id.file_loc', string="File Location")
     size_image = fields.Char(related='sale_id.size_image', string="Image Size")
     size_frame = fields.Char(related='sale_id.size_frame', string="Frame Size")
     size_print = fields.Char(related='sale_id.size_print', string="Print Size")
     finishing = fields.Char(related='sale_id.finishing')
     packing = fields.Char(related='sale_id.packing')
-    proof = fields.Char()
+    proof = fields.Char(related='sale_id.proof')
     finishing_note = fields.Text(related='sale_id.finishing_note', string="Note")
     note = fields.Text()
     tasks_count = fields.Integer(compute='_compute_tasks_count')
+    partner_id = fields.Many2one('res.partner', related='sale_id.partner_id')
 
+    @api.model
+    def default_get(self, fields):
+        """ Change Default Picking Type to WHFG Picking Type """
+        res = super(MrpProduction, self).default_get(fields)
+        warehouse_obj = self.env['stock.warehouse']
+        warehouse = warehouse_obj.search([('code', '=', 'WHFG')], limit=1)
+        if warehouse:
+            pick_type = self.env['stock.picking.type'].search([('code', '=', 'mrp_operation'), 
+                ('warehouse_id.company_id', 'in', [self.env.context.get('company_id', self.env.user.company_id.id), False]),
+                ('warehouse_id', '=', warehouse.id)], limit=1)
+            if pick_type:
+                res['picking_type_id'] = pick_type.id
+                res['location_src_id'] = pick_type.default_location_src_id.id
+                res['location_dest_id'] = pick_type.default_location_dest_id.id
+        return res
 
     @api.multi
     @api.depends('move_raw_ids')
@@ -31,6 +47,10 @@ class MrpProduction(models.Model):
     @api.multi
     def set_draft(self):
         self.write({'state': 'draft'})
+        for mo in self:
+            mo.move_finished_ids.unlink()
+            mo.move_raw_ids.unlink()
+            mo.workorder_ids.unlink()
 
     @api.multi
     def action_open_project(self):
@@ -136,21 +156,49 @@ class MrpProduction(models.Model):
                 int_pick.do_new_transfer()
         return res
 
+    def action_create_part_request(self):
+        req_part = self.env['mrp.part.request']
+        req_part_src = req_part.search([('bom_id', '=', self.bom_id.id), 
+                                        ('production_id', '=', self.id), 
+                                        ('state', 'not in', ['done'])])
+        if req_part_src:
+            raise UserError(_("You already requested parts for this Manufacturing Order."))
+            
+        ctx = self.env.context.copy()
+        ctx['default_product_id'] = self.product_id.product_tmpl_id.id
+        ctx['default_bom_id'] = self.bom_id.id
+        ctx['default_production_id'] = self.id
+        ctx['default_location_dest_id'] = self.location_src_id.id
+        
+        action = self.env.ref('inno_mrp_production.action_mrp_part_request').read()[0]
+        action['views'] = [(self.env.ref('inno_mrp_production.mrp_part_request_form_view').id, 'form')]
+        action['context'] = ctx
+        return action
+
+    @api.multi
+    def action_cancel(self):
+        part_req = self.env['mrp.part.request'].search([('production_id', 'in', self.ids)])
+        if part_req.filtered(lambda r: r.state in ['confirm', 'done']):
+            raise UserError(_("You cannot cancel this Manufacturing Order because it has Material Request with status in Confirmed / Done."))
+        else:
+            part_req.unlink()
+        return super(MrpProduction, self).action_cancel()
+
 
 class MrpWorkOrder(models.Model):
     _inherit = "mrp.workorder"
 
     sale_id = fields.Many2one('sale.order', related='production_id.sale_id', string="Sale Order")
-    file_id = fields.Binary(string="File Name", related="production_id.file_id")
-    file_name = fields.Char(string="File Name")
+    file_loc = fields.Text(string="File Location", related="production_id.file_loc")
     size_image = fields.Char(string="Image Size", related="production_id.size_image")
     size_frame = fields.Char(string="Frame Size", related="production_id.size_frame")
     size_print = fields.Char(string="Print Size", related="production_id.size_print")
     finishing = fields.Char(related="production_id.finishing")
     packing = fields.Char(related="production_id.packing")
     finishing_note = fields.Text(string="Note", related="production_id.finishing_note")
-    proof = fields.Char()
+    proof = fields.Char(related='sale_id.proof')
     task_ids = fields.One2many('project.task', 'workorder_id', string="Tasks")
+    partner_id = fields.Many2one('res.partner', related='sale_id.partner_id')
 
     @api.multi
     def action_view_sales(self):
