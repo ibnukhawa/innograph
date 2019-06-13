@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="delivery_slip_report">
+    	<t t-call="report.html_container">
+    		<t t-foreach="docs" t-as="o">
+    			<t t-if="o and 'company_id' in o">
+			        <t t-set="company" t-value="o.company_id"></t>
+			    </t>
+			    <t t-if="not o or not 'company_id' in o">
+			        <t t-set="company" t-value="res_company"></t>
+			    </t>
+	    		<t t-set="picking_type" t-value="o.picking_type_id.code" />
+	    		<!-- HEADER --> 
+	    		<div class="header">
+	                <div class="row">
+	                    <div class="col-xs-8">
+	                        <img class="image" t-att-src="'data:image/png;base64,%s' % company.logo" style="height:70px;display:block;float:left;padding-right:10px;"/>
+	                        <div style="height:70px;display:block;float:left;font-size:11px;width:360px">
+	                            <h5><b t-esc="company.name"/></h5>
+	                            <t t-esc="company.partner_id.street"/><br/>
+	                            <t t-esc="company.partner_id.street2"/>
+	                            <t t-esc="company.partner_id.city"/>
+	                            <t t-esc="company.partner_id.state_id.name"/>
+	                            <t t-esc="company.partner_id.zip"/><br/>
+	                        </div>
+	                    </div>
+	                    <div class="col-xs-4 text-center" style="height: 30px;">
+	                        <div class="text-center" style="padding-left: 8px;">
+	                            <b>
+	                                <div style="letter-spacing:2px;font-size:29px;">SURAT JALAN</div>
+									<div style="margin-top:-6px; letter-spacing:1px;font-size:23px;"><span t-esc="o.name" /></div>
+	                            </b>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	    		<div class="page">
+    			
+	    			<div class="row">
+	    				<div class="col-xs-7">
+	    					<table style="width: 100%;">
+	    						<tr>
+	    							<td style="padding: 3px;font-size: 11px;width:17%;">
+	    								TAGIHAN KE
+	    							</td>
+	    							<td style="padding: 3px;font-size: 11px;height:3%;">
+	    								:
+	    							</td>
+	    							<td style="padding: 3px;border: 1px black;font-size: 11px;width:80%;border-style: solid solid dashed solid;">
+	    								<t t-set="partner_set" t-value="0" />
+	    								<t t-set="partner" t-value="o.partner_id" />
+	    								<!-- check if partner have child type invoice -->
+    								   <t t-if="partner.child_ids">
+                                            <t t-foreach="partner.child_ids" t-as="child">
+    	    									<t t-if="child.type == 'invoice'">
+    	    										<t t-set="partner_set" t-value="1" />
+    	    										<span t-esc="child.name" /><br/>
+    			    								<t t-esc="child.street"/><br/>
+    					                            <t t-esc="child.street2"/>
+    					                            <t t-esc="child.city"/>
+    					                            <t t-esc="child.state_id.name"/>
+    					                            <t t-esc="child.zip"/><br/>
+    	    									</t>
+                                            </t>
+	    								</t>
+	    								<!-- If transfer partner is a child, get child type invoice from parent -->
+	    								<t t-if="partner.parent_id and not partner.child_ids">
+	    									<t t-set="parent" t-as="partner.parent_id" />
+	    									<t t-foreach="partner.parent_id.child_ids" t-as="child">
+		    									<t t-if="child.type == 'invoice'">
+		    										<t t-set="partner_set" t-value="1" />
+		    										<span t-esc="child.name" /><br/>
+				    								<t t-esc="child.street"/><br/>
+						                            <t t-esc="child.street2"/>
+						                            <t t-esc="child.city"/>
+						                            <t t-esc="child.state_id.name"/>
+						                            <t t-esc="child.zip"/><br/>
+		    									</t>
+		    								</t>
+	    								</t>
+	    								<!-- Default partner -->
+	    								<t t-if="partner_set != 1">
+		    								<span t-esc="o.partner_id.name" /><br/>
+		    								<t t-esc="o.partner_id.street"/><br/>
+				                            <t t-esc="o.partner_id.street2"/>
+				                            <t t-esc="o.partner_id.city"/>
+				                            <t t-esc="o.partner_id.state_id.name"/>
+				                            <t t-esc="o.partner_id.zip"/><br/>
+				                        </t>
+	    							</td>
+	    						</tr>
+	    						<tr>
+	    							<td style="padding: 3px;font-size: 11px;width:17%;">
+	    								KIRIM KE
+	    							</td>
+	    							<td style="padding: 3px;font-size: 11px;height:3%;">
+	    								:
+	    							</td>
+	    							<td style="padding: 3px;border: 1px black;font-size: 11px;width:80%;border-style:solid;">
+	    								<span t-esc="o.partner_id.name" /><br/>
+	    								<t t-esc="o.partner_id.street"/><br/>
+			                            <t t-esc="o.partner_id.street2"/>
+			                            <t t-esc="o.partner_id.city"/>
+			                            <t t-esc="o.partner_id.state_id.name"/>
+			                            <t t-esc="o.partner_id.zip"/><br/>
+	    							</td>
+	    						</tr> 
+	    					</table>
+	    				</div>
+	    				<div class="col-xs-5">
+	    					<table class="table" style="width: 100%; font-size: 11px;">
+	    						<tr>
+									<td style="border: 1px black;border-style:solid;padding: 3px; vertical-align:middle;" colspan="2">TANGGAL</td>
+									<td style="border: 1px black;border-style:solid;vertical-align:middle;"><span t-field="o.date" t-field-options="{'format': 'dd-MMM-yyyy'}" /></td>
+	    						</tr>
+	    						<tr>
+									<td style="border: 1px black;border-style:solid;padding: 3px; vertical-align:middle;" colspan="2">SO NO</td>
+									<td style="border: 1px black;border-style:solid;vertical-align:middle;"><span t-esc="o.origin" /></td>
+	    						</tr>
+								<tr>
+									<td style="border: 1px black;border-style:solid;padding: 3px; vertical-align:middle;" colspan="2">SALESMAN</td>
+									<td style="border: 1px black;border-style:solid; vertical-align:middle;" ><span t-if="o.sale_order_id and o.sale_order_id.user_id" t-esc="o.sale_order_id.user_id.name" /></td>
+	    						</tr>
+	    						
+	    					</table>
+	    				</div>
+	    			</div>
+
+	    			<!-- Outgoing Table -->
+	    			<div class="row" style="margin-top: 20px;">
+	    				<div class="col-xs-12">
+		    				<table style="width: 100%;font-size: 12px;border: 1px solid black;">
+		    					<thead style="font-size: 12px;">
+		    						<tr>
+<<<<<<< HEAD
+		    							<td class="text-center" style="border: 1px solid black;width:70%;padding: 3px;">Deskripsi Barang</td>
+		    							<td class="text-center" style="border: 1px solid black;width:7%;padding: 3px;">Qty</td>
+		    							<td class="text-center" style="border: 1px solid black;width:7%;padding: 3px;">Item</td>
+		    							<td class="text-center" style="border: 1px solid black;width:16%;padding: 3px;">So No.</td>
+=======
+		    							<td class="text-center" style="border: 1px solid black;width:60%;padding: 3px;">Deskripsi Barang</td>
+		    							<td class="text-center" style="border: 1px solid black;width:10%;padding: 3px;">Qty</td>
+		    							<td class="text-center" style="border: 1px solid black;width:10%;padding: 3px;">Item</td>
+		    							<td class="text-center" style="border: 1px solid black;width:20%;padding: 3px;">So No.</td>
+>>>>>>> 3e6e671df841309b6d1e7554d6c5641b8cdb5b96
+		    						</tr>
+		    					</thead>
+		    					<tbody>
+		    						<t t-set="i" t-value="0" />
+		    						<tr t-foreach="o.move_lines" t-as="move">
+		    							<t set="i" t-value="i+1" />
+		    							<td style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">
+		    								<span t-esc="move.name" />
+		    							</td>
+		    							<td class="text-center" style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">
+		    								<span t-esc="move.product_uom_qty" />
+		    							</td>
+		    							<td class="text-center" style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;"><span t-esc="move.product_uom.name" /></td>
+		    							<td class="text-center" style="border-left: 1px solid black;border-right: 1px solid black;padding: 3px;">
+		    								<span t-if="o.sale_order_id" t-esc="o.sale_order_id.name" />
+		    								<t t-if="not o.sale_order_id">&amp;nbsp;</t>
+		    							</td>
+		    						</tr>
+<<<<<<< HEAD
+		    						<t t-if="i % 5 == 0 or i == 0">
+		    							<t t-set="add_row" t-value="5 - (i % 5)" />
+=======
+		    						<t t-if="i % 7 == 0 or i == 0">
+		    							<t t-set="add_row" t-value="7 - (i % 7)" />
+>>>>>>> 3e6e671df841309b6d1e7554d6c5641b8cdb5b96
+		    							<tr t-foreach="range(add_row)" t-as="row">
+		    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
+		    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
+		    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
+		    								<td style="border-left: 1px solid black;border-right: 1px solid black;">&amp;nbsp;</td>
+		    							</tr>
+		    						</t>
+		    					</tbody>
+		    				</table>
+		    			</div>
+	    			</div>
+
+	    			<div class="row" style="margin-top: 20px;">
+	    				<div style="font-size:12px;" class="col-xs-8">
+		    				<div class="col-xs-4">
+			    				Disiapkan Oleh :<br/><br/><br/><br/><br/>
+			    				<t>
+			    					<span style="text-decoration:underline" t-esc="user.name" />
+			    					<br/>  Tgl. : <span t-field="o.date" t-field-options="{'format': 'dd-MM-yyyy'}" /> 
+			    				</t>
+			    			</div>
+			    			<div class="col-xs-4">
+			    				Diantar Oleh :<br/><br/><br/><br/><br/>
+		    					...........................
+		    					<br/>Tgl. :
+			    			</div>
+			    			<div class="col-xs-4">
+			    				Diterima Oleh :<br/><br/><br/><br/><br/>
+			    				...........................<br/>
+			    				Tgl. :
+			    			</div>
+			    		</div>
+			    		<div style="font-size:12px;" class="col-xs-4">
+			    			<table style="width: 100%;">
+			    				<tr>
+			    					<td style="border: 1px solid black;padding: 3px;">Keterangan :</td>
+			    					</tr>
+			    				<tr>
+			    					<td colspan="3" style="border: 1px solid black;padding: 3px;">
+			    						<t t-if="not o.note">
+			    							&amp;nbsp;<br/>
+	    									<br/>
+	    									<br/>
+	    									<br/>
+	    									<br/>
+			    						</t>
+			    						<span t-if="o.note" t-field="o.note" />
+			    					</td>
+			    				</tr>
+			    			</table>
+			    		</div>
+		    		</div>	    			
+	    		</div>
+	    		<!--<div class="footer">
+		            <div class="row">
+	                    <table style="font-size: 12px;width: 100%;">
+	                        <tr>
+	                            <td style="padding:15px 20px;vertical-align:top">
+	                                <img style="width:120px" src="/inno_sales_order/static/src/img/displaystore.png"/>
+	                                <div style="margin-top:5px">https://displaystore.id</div>
+	                            </td>
+	                            <td colspan="2" style="padding:15px 0px;font-size:9px;vertical-align:top">
+	                                <div style="margin-left: 220px;">
+	                                    <div style="font-weight:bold;display:inline-block;width:70px">Office</div>: Jl. Lenteng Agung Raya No. 15 (Jl. Baung No. 2) Jakarta Selatan 12610 <br/>
+	                                    <div style="font-weight:bold;display:inline-block;width:70px">Phone</div>: (62) 21 7883 1075 <br/>
+	                                    <div style="font-weight:bold;display:inline-block;width:70px">Fax</div>: (62) 21 7883 1075 <br/>
+	                                    <div style="font-weight:bold;display:inline-block;width:70px">Phone</div>: (62) 21 7883 1692 <br/>
+	                                    <div style="font-weight:bold;display:inline-block;width:70px">Website</div>: http://innograph.com <br/>
+	                                </div>
+	                            </td>
+	                        </tr>
+	                    </table>
+	                </div>
+		        </div>-->
+	    	</t>
+    	</t>
+    </template>
+
+    <report 
+        id="inno_delivery_slip_report_action"
+        string="Surat Jalan"
+        model="stock.picking" 
+        report_type="qweb-pdf"
+        file="inno_inventory_report.delivery_slip_report" 
+        name="inno_inventory_report.delivery_slip_report"
+        paperformat="inno_inventory_report.paperformat_do_letter"
+    />
+
+</odoo>

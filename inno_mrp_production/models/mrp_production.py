@@ -6,7 +6,7 @@ from odoo.exceptions import UserError
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
-    sale_id = fields.Many2one('sale.order', 'Sales')
+    sale_id = fields.Many2one('sale.order', 'Sales Order')
     analytic_account_id = fields.Many2one('account.analytic.account', string="Analytic Account", related='sale_id.related_project_id')
     date_scheduled = fields.Datetime('Scheduled Date', related='sale_id.date_scheduled')
     file_loc = fields.Text(related='sale_id.file_loc', string="File Location")

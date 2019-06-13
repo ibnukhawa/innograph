@@ -187,19 +187,23 @@
                             </table>
 
                             <table class="table table-bordered" style="margin-top: 10px; font-size: 11px;">
-                                <tr><td colspan="2" class="text-center" style="border:1px solid #000;background-color:#999"><b>TERM &amp; CONDITION</b></td></tr>
-                                <tr><td colspan="2" style="border:1px solid #000;height: 100px;"><span t-field="doc.note" /><br/>
-								Demikian penawaran ini kami sampaikan, guna mempercepat proses produksi dan delivery. Mohon konfirmasi dan persetujuannya dengan menandatangani dokumen penawaran serta mengirimkan kembali dokumen kepada sales person kami. Atas perhatian dan kerja samanya kami ucapkan terima kasih.
-								<br/>
-								<br/>
-								<center>
-								<b>PAYMENT TO :</b><br/>
-								<b>BANK BCA CABANG MENARA BIDAKARA</b><br/>
-                                            <b>A/C : 450.300.2305 </b><br/>
-                                            <b>A/N :  PT. INNOVASI SARANA GRAFINDO</b>
-											</center>
-								</td></tr>
-											<tr>				
+                                <tr>
+                                    <td colspan="2" class="text-center" style="border:1px solid #000;background-color:#999">
+                                        
+                                    <b>TERM &amp; CONDITION</b></td>
+                                    
+                                    </tr>
+								
+								<tr>
+    								<br/>
+	       							<td colspan="2" style="border:1px solid #000;height: 100px;">
+			     		      			<span>Demikian penawaran ini kami sampaikan. Guna mempercepat proses produksi dan pengiriman, mohon konfirmasi dan persetujuannya dengan menandatangani dokumen penawaran ini serta mengirimkannya kembali kepada kami. Terima kasih atas perhatian dan kerjasamanya.</span><br/>
+				    			     	<br/>
+					   			     <span t-field="doc.note" /><br/>
+								    </td>
+								    
+								</tr>
+								<tr>
 								<td class="text-left" style="border:1px solid #000; width:50%;">
 								Jakarta <span t-if="doc.create_date" t-field="doc.create_date" t-field-options="{'format': 'dd-MM-yyyy'}" /><br/>
                                             Issued by:<br/>
@@ -229,7 +233,9 @@
                                             <span>Nama :</span>
                                         </td>
 										</tr>
-										</table>
+								
+								</table>
+										
                         </div>
                     </div>
                     <div class="footer">
