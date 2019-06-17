@@ -199,6 +199,7 @@ class MrpWorkOrder(models.Model):
     proof = fields.Char(related='sale_id.proof')
     task_ids = fields.One2many('project.task', 'workorder_id', string="Tasks")
     partner_id = fields.Many2one('res.partner', related='sale_id.partner_id')
+    workorder_part_ids = fields.One2many('mrp.workorder.part', 'workorder_id', string="Consumed Material")
 
     @api.multi
     def action_view_sales(self):
@@ -236,9 +237,58 @@ class MrpWorkOrder(models.Model):
             action['views'] = [(self.env.ref('project.view_task_form2').id, 'form')]
         return action
 
+    @api.multi
+    def button_start(self):
+        self.ensure_one()
+        res = super(MrpWorkOrder, self).button_start()
+        wo_part_obj = self.env['mrp.workorder.part']
+        parts = []
+        for move in self.move_raw_ids:
+            vals = {
+                'product_id': move.product_id.id,
+                'name': move.product_id.display_name,
+                'quantity': move.product_uom_qty,
+                'uom_id': move.product_uom.id
+            }
+            new_part = wo_part_obj.create(vals)
+            parts.append(new_part.id)
+        self.write({'workorder_part_ids': [(6, 0, parts)]})
+        return res
+
+    @api.multi
+    def record_production(self):
+        self.ensure_one()
+        res = super(MrpWorkOrder, self).record_production()
+        self.production_id.button_unreserve()
+        for move in self.move_raw_ids:
+            consume = self.workorder_part_ids.filtered(lambda w: w.product_id.id == move.product_id.id)
+            vals = {'initial_qty': move.product_uom_qty}
+            if not consume:
+                vals['ordered_qty'] = 0
+                vals['product_uom_qty'] = 0
+                vals['quantity_done'] = 0
+            else:
+                new_qty = consume.uom_id._compute_quantity(consume.quantity, move.product_uom)
+                vals['ordered_qty'] = new_qty
+                vals['product_uom_qty'] = new_qty
+                vals['quantity_done'] = new_qty
+            move.write(vals)
+        self.production_id.action_assign()
+        return res
+
 
 
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
     workorder_id = fields.Many2one('mrp.workorder')
+
+
+class MrpWorkorderPart(models.Model):
+    _name = 'mrp.workorder.part'
+
+    workorder_id = fields.Many2one('mrp.workorder', string="Workorder")
+    product_id = fields.Many2one('product.product', string="Product")
+    name = fields.Char(string="Description")
+    quantity = fields.Float()
+    uom_id = fields.Many2one('product.uom', string="Unit of Measure")
