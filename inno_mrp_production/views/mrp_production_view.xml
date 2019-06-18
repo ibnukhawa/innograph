@@ -68,6 +68,9 @@
                 <field name="location_dest_id" domain="[('usage','=','internal')]" attrs="{'readonly': [('has_moves', '=', True)]}"/>
             </field>
 
+            <xpath expr="//page/field[@name='move_raw_ids']/tree/field[@name='quantity_available']" position="before">
+                <field name="qty_initial" />
+            </xpath>
         </field>
     </record>
 
