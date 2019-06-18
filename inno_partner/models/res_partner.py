@@ -12,6 +12,8 @@ class LineOfBusiness(models.Model):
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
+    WRITEABLE_FIELDS = ['no_pkp', 'nik', 'npwp']
+
     vendor_specialization = fields.Char(string='Spesialisasi / Kompetensi 1')
     lob_id = fields.Many2one('res.partner.lob', 'Line of Business')
     specialization_product = fields.Many2many('product.product', 'product_partner_specialization_rel',
@@ -37,3 +39,14 @@ class ResPartner(models.Model):
                   'Silahkan input nama yang lain.'))
 
         return super(ResPartner, self).create(vals)
+
+
+    @api.multi
+    def write(self, vals):
+        if self.env.user.has_group('hr.group_hr_manager'):
+            for key in vals.keys():
+                if not (key in self.WRITEABLE_FIELDS or key.startswith('context_')):
+                    break
+            else:
+                self = self.sudo()
+        return super(ResPartner, self).write(vals)
