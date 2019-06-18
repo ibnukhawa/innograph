@@ -184,6 +184,11 @@ class MrpProduction(models.Model):
             part_req.unlink()
         return super(MrpProduction, self).action_cancel()
 
+    def _generate_raw_move(self, bom_line, line_data):
+        res = super(MrpProduction, self)._generate_raw_move(bom_line, line_data)
+        res.qty_initial = line_data['qty']
+        return res
+
 
 class MrpWorkOrder(models.Model):
     _inherit = "mrp.workorder"
@@ -262,7 +267,7 @@ class MrpWorkOrder(models.Model):
         self.production_id.button_unreserve()
         for move in self.move_raw_ids:
             consume = self.workorder_part_ids.filtered(lambda w: w.product_id.id == move.product_id.id)
-            vals = {'initial_qty': move.product_uom_qty}
+            vals = {}
             if not consume:
                 vals['ordered_qty'] = 0
                 vals['product_uom_qty'] = 0
