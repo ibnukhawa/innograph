@@ -75,7 +75,8 @@ class MrpPartRequest(models.Model):
 				'location_dest_id': dst_loc.id,
 				'min_date': req.date_scheduled,
 				'origin': req.name,
-				'picking_type_id': picking_type.id
+				'picking_type_id': picking_type.id,
+				'request_material_id': req.id
 			}
 			picking = self.env['stock.picking'].create(values)
 			for line in req.part_request_ids:

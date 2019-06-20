@@ -264,6 +264,18 @@ class MrpWorkOrder(models.Model):
     def record_production(self):
         self.ensure_one()
         res = super(MrpWorkOrder, self).record_production()
+        self._update_move_raw_ids()
+        return res
+
+    @api.multi
+    def button_finish(self):
+        self.ensure_one
+        res = super(MrpWorkOrder, self).button_finish()
+        self._update_move_raw_ids()
+        return res
+
+    @api.multi
+    def _update_move_raw_ids(self):
         self.production_id.button_unreserve()
         for move in self.move_raw_ids:
             consume = self.workorder_part_ids.filtered(lambda w: w.product_id.id == move.product_id.id)
@@ -279,7 +291,6 @@ class MrpWorkOrder(models.Model):
                 vals['quantity_done'] = new_qty
             move.write(vals)
         self.production_id.action_assign()
-        return res
 
 
 
