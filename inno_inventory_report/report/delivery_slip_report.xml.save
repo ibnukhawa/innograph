@@ -254,6 +254,7 @@
         file="inno_inventory_report.delivery_slip_report" 
         name="inno_inventory_report.delivery_slip_report"
         paperformat="inno_inventory_report.paperformat_do_letter"
+        menu="False"
     />
 
 </odoo>

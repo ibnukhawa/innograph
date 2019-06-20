@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inno_inv_report_picking_form" model="ir.ui.view">
+        <field name="name">inno.inv.reportstock.picking.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+        	<button name="%(stock.action_report_delivery)d" position="attributes">
+        		<attribute name="invisible">True</attribute>
+        	</button>
+        	<button name="do_print_picking" position="attributes">
+        		<attribute name="invisible">True</attribute>
+        	</button>
+        	<button name="do_print_picking" position="after">
+        		<button name="print_surat_jalan" string="Print Surat Jalan" groups="stock.group_stock_user" type="object" attrs="{'invisible': ['|', ('picking_type_code', '!=', 'outgoing'), ('state', 'not in', ('assigned', 'partially_available', 'done'))]}"/>
+        		<button name="print_bbk" string="Print BBK" groups="stock.group_stock_user" type="object" attrs="{'invisible': ['|', ('picking_type_code', '!=', 'internal'), ('state', 'not in', ('assigned', 'partially_available', 'done'))]}"/>
+        		<button name="print_bpb" string="Print BPB" groups="stock.group_stock_user" type="object" attrs="{'invisible': ['|', ('picking_type_code', '!=', 'incoming'), ('state', 'not in', ('assigned', 'partially_available', 'done'))]}"/>
+        	</button>
+        </field>
+    </record>
+</odoo>

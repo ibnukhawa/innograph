@@ -15,6 +15,7 @@
     'data': [
         'report/delivery_order_report.xml',
         'report/delivery_slip_report.xml',
+        'views/stock_picking_view.xml',
     ],
     'installable': True,
     'application': True,

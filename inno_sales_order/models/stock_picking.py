@@ -20,6 +20,20 @@ class StockPicking(models.Model):
 			action = {'type': 'ir.actions.act_window_close'}
 		action['context'] = self.env.context
 		return action
+
+	@api.model
+	def create(self, vals):
+		if 'sale_order_id' in vals and 'group_id' not in vals:
+			sale = self.env['sale.order'].search([('id', '=', vals.get('sale_order_id'))])
+			vals['group_id'] = sale.procurement_group_id.id
+		return super(StockPicking, self).create(vals)
+
+	@api.multi
+	def write(self, vals):
+		if 'sale_order_id' in vals:
+			sale = self.env['sale.order'].search([('id', '=', vals.get('sale_order_id'))])
+			vals['group_id'] = sale.procurement_group_id.id
+		return super(StockPicking, self).write(vals)
 	
 	@api.one
 	@api.depends('move_lines.procurement_id.sale_line_id.order_id')
