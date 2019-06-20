@@ -47,9 +47,8 @@ class Employee(models.Model):
         start = date(date.today().year, 1, 1)
         end = date(date.today().year + 1, 1, 1)
         today = date.today()
-
         expense_obj = self.env['hr.expense']
-        for emp in self.sudo():
+        for emp in self:
             contract = False
             # Search latest Running Contract
             running_contract = emp.contract_ids.filtered(lambda x: x.state == 'open')
@@ -73,6 +72,7 @@ class Employee(models.Model):
                                               ('date', '>=', start),
                                               ('date', '<', end),
                                               ('state', 'in', ['done'])])
+            print (">>>>",expense_ids)
             expense_ids = expense_ids.filtered(
                 lambda x: x.category_id.is_medical or x.product_id.categ_id.is_medical)
             consum = sum(expense_ids.mapped('total_amount'))
