@@ -9,7 +9,7 @@
 			    <t t-if="not o or not 'company_id' in o">
 			        <t t-set="company" t-value="res_company"></t>
 			    </t>
-	    		<t t-set="picking_type" t-value="o.picking_type_id.code" />
+	    		<t t-set="picking_type" t-value="o.picking_type_id" />
 	    		<!-- HEADER --> 
 	    		<div class="header">
 	                <div class="row">
@@ -27,10 +27,15 @@
 	                    <div class="col-xs-4 text-center" style="height: 30px;">
 	                        <div class="text-center" style="padding-left: 4px;">
 	                            <b>
-	                                <t t-if="picking_type == 'internal'">
-	                                	<div style="letter-spacing:3px;font-size:18px;">BUKTI BARANG KELUAR</div>
+	                                <t t-if="picking_type.code == 'internal'">
+	                                	<t t-set="show_bbk" t-value="True" />
+	                                	<t t-if="(picking_type.default_location_src_id and picking_type.default_location_src_id.usage == 'transit') or (picking_type.default_location_dest_id and picking_type.default_location_dest_id.usage == 'transit')">
+	                                		<div style="letter-spacing:3px;font-size:18px;">SURAT PENGIRIMAN BARANG</div>
+	                                		<t t-set="show_bbk" t-value="False" />
+	                                	</t>
+	                                	<div t-if="show_bbk" style="letter-spacing:3px;font-size:18px;">BUKTI BARANG KELUAR</div>
 	                                </t>
-	                                <t t-if="picking_type == 'incoming'">
+	                                <t t-if="picking_type.code == 'incoming'">
 	                                	<div style="letter-spacing:3px;font-size:26px;">Recv. Item (BPB)</div>
 	                                </t>
 	                            </b>
@@ -40,7 +45,7 @@
 	            </div>
 	    		<div class="page">
 	    			<!-- Internal Info -->
-	    			<t t-if="picking_type == 'internal'">
+	    			<t t-if="picking_type.code == 'internal'">
 		    			<div class="row">
 		    				<div class="col-xs-4">
 		    					<table class="table table-bordered" style="height: 100px;">
@@ -65,7 +70,7 @@
 		    						</tr>
 		    						<tr>
 		    							<td style="padding: 3px;border: 1px solid black;font-size: 10px;">
-		    								<span t-esc="o.partner_id.street" />
+		    								<span t-esc="o.location_dest_id.display_name" />
 		    							</td>
 		    						</tr> 
 		    					</table>
@@ -198,7 +203,7 @@
 			    	</t>
 
 	    			<!-- Incoming Info -->
-	    			<t t-if="picking_type == 'incoming'">
+	    			<t t-if="picking_type.code == 'incoming'">
 	    				<div class="row">
 	    					<div class="col-xs-4 text-center">
 	    						<strong>Vendor</strong><br/>

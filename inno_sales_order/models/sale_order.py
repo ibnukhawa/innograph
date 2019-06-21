@@ -180,6 +180,7 @@ class SaleOrder(models.Model):
 			if order.procurement_group_id: 
 				pickings += self.env['stock.picking'].search([('group_id', '=', order.procurement_group_id.id), ('id', 'not in', pickings.ids)])  
 			order.picking_ids = pickings
+			pickings.write({'sale_order_id': order.id})
 			order.delivery_count = len(order.picking_ids)
 
 
