@@ -37,7 +37,7 @@ class StockPicking(models.Model):
 		if 'sale_order_id' in vals:
 			sale = self.env['sale.order'].search([('id', '=', vals.get('sale_order_id'))])
 			vals['group_id'] = sale.procurement_group_id.id
-			if not all('outgoing' == p for p in self.mapped('picking_type_code')):
+			if all('outgoing' == p for p in self.mapped('picking_type_code')):
 				vals['origin'] = sale.client_order_ref
 		return super(StockPicking, self).write(vals)
 	
