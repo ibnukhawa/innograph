@@ -16,6 +16,9 @@
                     <field name="count_po" widget="statinfo" string="Purchases"/>
                 </button>
             </button>
+            <field name="client_order_ref" position="attributes">
+                <attribute name="required">True</attribute>
+            </field>
         </field>
     </record>
 

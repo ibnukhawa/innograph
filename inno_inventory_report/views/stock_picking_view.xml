@@ -12,9 +12,12 @@
         		<attribute name="invisible">True</attribute>
         	</button>
         	<button name="do_print_picking" position="after">
+                <field name="show_bbk" invisible="True" />
+                <field name="show_spb" invisible="True" />
         		<button name="print_surat_jalan" string="Print Surat Jalan" groups="stock.group_stock_user" type="object" attrs="{'invisible': ['|', ('picking_type_code', '!=', 'outgoing'), ('state', 'not in', ('assigned', 'partially_available', 'done'))]}"/>
-        		<button name="print_bbk" string="Print BBK" groups="stock.group_stock_user" type="object" attrs="{'invisible': ['|', ('picking_type_code', '!=', 'internal'), ('state', 'not in', ('assigned', 'partially_available', 'done'))]}"/>
         		<button name="print_bpb" string="Print BPB" groups="stock.group_stock_user" type="object" attrs="{'invisible': ['|', ('picking_type_code', '!=', 'incoming'), ('state', 'not in', ('assigned', 'partially_available', 'done'))]}"/>
+        		<button name="print_bbk" string="Print BBK" groups="stock.group_stock_user" type="object" attrs="{'invisible': [('show_bbk', '=', False)]}"/>
+                <button name="print_spb" string="Print SPB" groups="stock.group_stock_user" type="object" attrs="{'invisible': [('show_spb', '=', False)]}"/>
         	</button>
         </field>
     </record>

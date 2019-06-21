@@ -97,29 +97,15 @@
                     </div>
                     <div class="footer">
                         <div class="row">
-                            <div class="col-xs-3 text-center">
-                                Diminta
-                                <br/>
-                                <br/>
-                                <br/>
-                                (............................)
-                            </div>
-                            <div class="col-xs-3 text-center">
-                                Disetujui
-                                <br/>
-                                <br/>
-                                <br/>
-                                (............................)
-                            </div>
-                            <div class="col-xs-3 text-center">
-                                Disiapkan (Gudang)
-                                <br/>
-                                <br/>
-                                <br/>
-                                (............................)
-                            </div>
-                            <div class="col-xs-3 text-center">
+                            <div class="col-xs-3 text-center pull-right">
                                 Diterima
+                                <br/>
+                                <br/>
+                                <br/>
+                                (............................)
+                            </div>
+                            <div class="col-xs-3 text-center pull-right">
+                                Disiapkan (Gudang)
                                 <br/>
                                 <br/>
                                 <br/>
