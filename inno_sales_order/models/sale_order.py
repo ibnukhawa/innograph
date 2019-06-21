@@ -49,6 +49,8 @@ class SaleOrder(models.Model):
 					line.production_no = line_mo.name
 				else:
 					line_mo.name = line.production_no
+			for pick in order.picking_ids:
+				pick.sale_order_id = order.id
 		return res
 
 	@api.multi
@@ -179,8 +181,8 @@ class SaleOrder(models.Model):
 			pickings = self.env['stock.picking'].search([('sale_order_id', '=', order.id)])
 			if order.procurement_group_id: 
 				pickings += self.env['stock.picking'].search([('group_id', '=', order.procurement_group_id.id), ('id', 'not in', pickings.ids)])  
+				# pickings.write({'sale_order_id': order.id})
 			order.picking_ids = pickings
-			pickings.write({'sale_order_id': order.id})
 			order.delivery_count = len(order.picking_ids)
 
 
