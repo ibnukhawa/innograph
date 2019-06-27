@@ -42,10 +42,11 @@ class MrpPartRequest(models.Model):
 		'production_id.bom_id', 'production_id.product_id')
 	def onchange_production_id(self):
 		for doc in self:
-			if doc.production_id and doc.production_id.partner_id:
-				doc.partner_id = doc.production_id.partner_id.id
-				doc.bom_id = doc.production_id.bom_id.id
-				doc.product_id = doc.production_id.product_id.product_tmpl_id.id
+			if doc.production_id:
+				prod_id = doc.production_id
+				doc.partner_id = prod_id.partner_id and prod_id.partner_id.id or False
+				doc.bom_id = prod_id.bom_id.id
+				doc.product_id = prod_id.product_id.product_tmpl_id.id
 
 	@api.multi
 	@api.onchange('product_id')
