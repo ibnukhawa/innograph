@@ -160,19 +160,20 @@ class MrpProduction(models.Model):
         req_part = self.env['mrp.part.request']
         req_part_src = req_part.search([('bom_id', '=', self.bom_id.id), 
                                         ('production_id', '=', self.id), 
-                                        ('state', 'not in', ['done'])])
-        if req_part_src:
-            raise UserError(_("You already requested parts for this Manufacturing Order."))
-            
-        ctx = self.env.context.copy()
-        ctx['default_product_id'] = self.product_id.product_tmpl_id.id
-        ctx['default_bom_id'] = self.bom_id.id
-        ctx['default_production_id'] = self.id
-        ctx['default_location_dest_id'] = self.location_src_id.id
-        
+                                        ('state', 'not in', ['done'])], limit=1)
         action = self.env.ref('inno_mrp_production.action_mrp_part_request').read()[0]
         action['views'] = [(self.env.ref('inno_mrp_production.mrp_part_request_form_view').id, 'form')]
-        action['context'] = ctx
+
+        if req_part_src:
+            action['views'] = [(self.env.ref('inno_mrp_production.mrp_part_request_form_view').id, 'form')]
+            action['res_id'] = req_part_src.id
+        else:                
+            ctx = self.env.context.copy()
+            ctx['default_product_id'] = self.product_id.product_tmpl_id.id
+            ctx['default_bom_id'] = self.bom_id.id
+            ctx['default_production_id'] = self.id
+            ctx['default_location_dest_id'] = self.location_src_id.id    
+            action['context'] = ctx
         return action
 
     @api.multi

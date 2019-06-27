@@ -44,6 +44,7 @@ class SaleOrder(models.Model):
 		for order in self:
 			mo_src = self.env['mrp.production'].search([('sale_id', '=', order.id)])
 			for line in order.order_line:
+				# For MO
 				line_mo = mo_src.filtered(lambda x: x.product_id.id == line.product_id.id and x.state != 'cancel')
 				if not line.production_no:
 					line.production_no = line_mo.name
@@ -51,6 +52,7 @@ class SaleOrder(models.Model):
 					line_mo.name = line.production_no
 			for pick in order.picking_ids:
 				pick.sale_order_id = order.id
+
 		return res
 
 	@api.multi
