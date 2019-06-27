@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class MrpPartRequest(models.Model):
@@ -10,8 +11,8 @@ class MrpPartRequest(models.Model):
 	name = fields.Char(string="Reference")
 	product_id = fields.Many2one('product.template', string="Product")
 	bom_id = fields.Many2one('mrp.bom', string="Bill of Materials")
-	location_src_id = fields.Many2one('stock.location', string="Source Location")
-	location_dest_id = fields.Many2one('stock.location', string="Destination Location")
+	location_src_id = fields.Many2one('stock.location', string="Source Location", domain=[('usage', '=', 'internal')])
+	location_dest_id = fields.Many2one('stock.location', string="Destination Location", domain=[('usage', '=', 'internal')])
 	date_scheduled = fields.Datetime(string="Scheduled Date")
 	state = fields.Selection([('draft', 'Draft'),
 							  ('confirm', 'Confirmed'),
@@ -21,7 +22,7 @@ class MrpPartRequest(models.Model):
 	warehouse_id = fields.Many2one('stock.warehouse', string="Warehouse")
 	picking_count = fields.Integer(compute="compute_picking_count")
 	production_id = fields.Many2one('mrp.production', string="Production")
-	partner_id = fields.Many2one('res.partner')
+	partner_id = fields.Many2one('res.partner', string="Customer")
 	company_id = fields.Many2one('res.company', string='Company', change_default=True,
         required=True, readonly=True, default=lambda self: self.env.user.company_id.id)
 	user_id = fields.Many2one('res.users', default=lambda self: self.env.user)
@@ -37,11 +38,14 @@ class MrpPartRequest(models.Model):
 		return res
 
 	@api.multi
-	@api.onchange('production_id')
+	@api.onchange('production_id', 'production_id.partner_id', 
+		'production_id.bom_id', 'production_id.product_id')
 	def onchange_production_id(self):
 		for doc in self:
 			if doc.production_id and doc.production_id.partner_id:
 				doc.partner_id = doc.production_id.partner_id.id
+				doc.bom_id = doc.production_id.bom_id.id
+				doc.product_id = doc.production_id.product_id.product_tmpl_id.id
 
 	@api.multi
 	@api.onchange('product_id')
@@ -105,7 +109,13 @@ class MrpPartRequest(models.Model):
 
 	@api.multi
 	def action_done(self):
-		self.write({'state': 'done'})
+		for req in self:
+			moves = req.part_request_ids.mapped('move_id')
+			pickings = moves.mapped('picking_id')
+			if all([pick.state == 'done' for pick in pickings]):
+				req.write({'state': 'done'})
+			else:
+				raise UserError(_('You can not Set to Done this Request if 1 or more pickings still not Done.'))
 
 	@api.multi
 	def action_cancel(self):
@@ -122,21 +132,26 @@ class MrpPartRequest(models.Model):
 	def action_draft(self):
 		self.write({'state': 'draft'})
 
+	@api.multi
 	def action_fill_part_request_lines(self):
-		if self.bom_id:
+		for req in self:
 			part_line_obj = self.env['mrp.part.request.line']
-			product_not_todo = self.env['product.product']
-			if self.production_id:
-				moves = self.production_id.move_raw_ids
-				product_not_todo = moves.filtered(lambda x: x.state not in ['draft', 'waiting', 'confirmed']).mapped('product_id')
-			for line in self.bom_id.bom_line_ids.filtered(lambda l: l.product_id.id not in product_not_todo.ids):
+			moves_todo = self.env['stock.move']
+			if req.production_id:
+				moves = req.production_id.move_raw_ids
+				moves_todo = moves.filtered(lambda x: x.state in ['draft', 'waiting', 'confirmed'])
+			bom_id = req.bom_id or req.production_id.bom_id
+			bom_lines = bom_id and bom_id.bom_line_ids or self.env['mrp.bom.line']
+			for move in moves_todo:
+				line = bom_lines.filtered(lambda l: l.product_id.id == move.product_id.id)
+				qty = (move.product_uom_qty - move.reserved_availability)
 				vals = {
-					'product_id': line.product_id.id,
-					'description': line.product_id.display_name,
-					'uom_id': line.product_uom_id.id,
-					'quantity': line.product_qty,
-					'item_size': line.item_size,
-					'item_qty': line.item_qty
+					'product_id': move.product_id.id,
+					'description': move.product_id.display_name,
+					'uom_id': move.product_uom.id,
+					'quantity': qty,
+					'item_size': line and line.item_size or False,
+					'item_qty': line and line.item_qty or 0
 				}
 				new_line = part_line_obj.create(vals)
 				self.write({'part_request_ids': [(4, new_line.id)]})
@@ -147,14 +162,13 @@ class MrpPartRequest(models.Model):
 		if not vals.get('name', False) or vals['name'] == _('New'):
 			vals['name'] = self.env['ir.sequence'].next_by_code('mrp.part.request') or _('New')
 		res = super(MrpPartRequest, self).create(vals)
-		if vals.get('bom_id'):
+		if vals.get('bom_id') or vals.get('production_id'):
 			res.action_fill_part_request_lines()
 		return res
 
 	@api.multi
 	def write(self, vals):
-		if 'bom_id' in vals:
-			self.part_request_ids = False
+		if 'bom_id' in vals or 'production_id' in vals:
 			self.action_fill_part_request_lines()
 		return super(MrpPartRequest, self).write(vals)
 
@@ -201,7 +215,12 @@ class MrpPartRequest(models.Model):
 			if emp and emp.department_id:
 				return emp.department_id.name
 
-
+	@api.multi
+	def unlink(self):
+		for req in self:
+			if req.state != 'draft':
+				raise UserError(_("You can not delete Material Request that not in Draft."))
+		return super(MrpPartRequest, self).unlink()
 
 
 class MrpPartRequestLine(models.Model):
@@ -215,3 +234,9 @@ class MrpPartRequestLine(models.Model):
 	item_size = fields.Char()
 	item_qty = fields.Integer()
 	move_id = fields.Many2one('stock.move', string="Stock Move")
+
+	@api.multi
+	@api.onchange('product_id')
+	def onchange_product_id(self):
+		for line in self:
+			line.uom_id = line.product_id and line.product_id.uom_id.id or False
