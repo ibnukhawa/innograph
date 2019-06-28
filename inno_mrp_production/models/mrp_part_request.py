@@ -138,24 +138,40 @@ class MrpPartRequest(models.Model):
 		for req in self:
 			part_line_obj = self.env['mrp.part.request.line']
 			moves_todo = self.env['stock.move']
+			new_line_ids = []
 			if req.production_id:
+				# if have MO
 				moves = req.production_id.move_raw_ids
 				moves_todo = moves.filtered(lambda x: x.state in ['draft', 'waiting', 'confirmed'])
-			bom_id = req.bom_id or req.production_id.bom_id
-			bom_lines = bom_id and bom_id.bom_line_ids or self.env['mrp.bom.line']
-			for move in moves_todo:
-				line = bom_lines.filtered(lambda l: l.product_id.id == move.product_id.id)
-				qty = (move.product_uom_qty - move.reserved_availability)
-				vals = {
-					'product_id': move.product_id.id,
-					'description': move.product_id.display_name,
-					'uom_id': move.product_uom.id,
-					'quantity': qty,
-					'item_size': line and line.item_size or False,
-					'item_qty': line and line.item_qty or 0
-				}
-				new_line = part_line_obj.create(vals)
-				self.write({'part_request_ids': [(4, new_line.id)]})
+				bom_lines = req.bom_id and req.bom_id.bom_line_ids or self.env['mrp.bom.line']
+				for move in moves_todo:
+					line = bom_lines.filtered(lambda l: l.product_id.id == move.product_id.id)
+					qty = (move.product_uom_qty - move.reserved_availability)
+					vals = {
+						'product_id': move.product_id.id,
+						'description': move.product_id.display_name,
+						'uom_id': move.product_uom.id,
+						'quantity': qty,
+						'item_size': line and line.item_size or False,
+						'item_qty': line and line.item_qty or 0
+					}
+					new_line = part_line_obj.create(vals)
+					new_line_ids.append(new_line.id)
+			elif not req.production_id and req.bom_id:
+				# If don't MO but have Bill of Materials
+				for line in req.bom_id.bom_line_ids:
+					vals = {
+						'product_id': line.product_id.id,
+						'description': line.product_id.display_name,
+						'uom_id': line.product_uom_id.id,
+						'quantity': line.product_qty,
+						'item_size': line.item_size,
+						'item_qty': line.item_qty
+					}
+					new_line = part_line_obj.create(vals)
+					new_line_ids.append(new_line.id)
+			if new_line_ids:
+				req.write({'part_request_ids': [(6, 0, new_line_ids)]}) 
 		return True
 
 	@api.model
@@ -169,9 +185,10 @@ class MrpPartRequest(models.Model):
 
 	@api.multi
 	def write(self, vals):
+		res = super(MrpPartRequest, self).write(vals)
 		if 'bom_id' in vals or 'production_id' in vals:
 			self.action_fill_part_request_lines()
-		return super(MrpPartRequest, self).write(vals)
+		return res
 
 	@api.multi
 	def action_view_picking(self):
