@@ -44,15 +44,17 @@ class SaleOrder(models.Model):
 		for order in self:
 			mo_src = self.env['mrp.production'].search([('sale_id', '=', order.id)])
 			line_mo = False
-			for line in order.order_line:
-				if not line_mo:
-					line_mo = mo_src.filtered(lambda x: x.product_id.id == line.product_id.id and x.state != 'cancel')[0]
-				else:
-					line_mo = mo_src.filtered(lambda x: x.product_id.id == line.product_id.id and x.state != 'cancel' and x.id!=line_mo.id)[0]
-				if not line.production_no:
-					line.production_no = line_mo.name
-				else:
-					line_mo.name = line.production_no
+			if mo_src:
+				for line in order.order_line:
+					# For MO
+					if not line_mo:
+						line_mo = mo_src.filtered(lambda x: x.product_id.id == line.product_id.id and x.state != 'cancel')[0]
+					else:
+						line_mo = mo_src.filtered(lambda x: x.product_id.id == line.product_id.id and x.state != 'cancel' and x.id!=line_mo.id)[0]
+					if not line.production_no:
+						line.production_no = line_mo.name
+					else:
+						line_mo.name = line.production_no
 		return res
 
 	@api.multi
