@@ -20,6 +20,26 @@ class StockPicking(models.Model):
 			action = {'type': 'ir.actions.act_window_close'}
 		action['context'] = self.env.context
 		return action
+
+	@api.model
+	def create(self, vals):
+		if 'sale_order_id' in vals and 'group_id' not in vals:
+			sale = self.env['sale.order'].search([('id', '=', vals.get('sale_order_id'))])
+			vals['group_id'] = sale.procurement_group_id.id
+			picking_type_code = self.env['stock.picking.type'].\
+				search([('id', '=', vals.get('picking_type_id'))]).code
+			if picking_type_code == 'outgoing':
+				vals['origin'] = sale.client_order_ref
+		return super(StockPicking, self).create(vals)
+
+	@api.multi
+	def write(self, vals):
+		if 'sale_order_id' in vals:
+			sale = self.env['sale.order'].search([('id', '=', vals.get('sale_order_id'))])
+			vals['group_id'] = sale.procurement_group_id.id
+			if all('outgoing' == p for p in self.mapped('picking_type_code')):
+				vals['origin'] = sale.client_order_ref
+		return super(StockPicking, self).write(vals)
 	
 	@api.one
 	@api.depends('move_lines.procurement_id.sale_line_id.order_id')

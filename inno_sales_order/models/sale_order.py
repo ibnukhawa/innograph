@@ -55,6 +55,9 @@ class SaleOrder(models.Model):
 						line.production_no = line_mo.name
 					else:
 						line_mo.name = line.production_no
+			for pick in order.picking_ids:
+				pick.sale_order_id = order.id
+
 		return res
 
 	@api.multi
@@ -177,6 +180,17 @@ class SaleOrder(models.Model):
 			# to_remove_mo.mapped('workorder_ids').unlink()
 			mo_src.filtered(lambda x: x.state == 'cancel').unlink()
 		return super(SaleOrder, self).action_cancel()
+
+	@api.multi
+	@api.depends('procurement_group_id')
+	def _compute_picking_ids(self):
+		for order in self:
+			pickings = self.env['stock.picking'].search([('sale_order_id', '=', order.id)])
+			if order.procurement_group_id: 
+				pickings += self.env['stock.picking'].search([('group_id', '=', order.procurement_group_id.id), ('id', 'not in', pickings.ids)])  
+				# pickings.write({'sale_order_id': order.id})
+			order.picking_ids = pickings
+			order.delivery_count = len(order.picking_ids)
 
 
 class SaleOrderLine(models.Model):
