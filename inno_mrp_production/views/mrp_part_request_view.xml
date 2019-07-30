@@ -26,17 +26,17 @@
 
 	        			<group>
 	        				<group>
-	        					<field name="partner_id" readonly="False" />
-	        					<field name="product_id" />
-	        					<field name="bom_id" />
-	        					<field name="warehouse_id" required="True" />
-	        					<field name="location_src_id" required="True" />
-	        					<field name="location_dest_id" required="True" />
+	        					<field name="partner_id" readonly="False" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+	        					<field name="product_id" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+	        					<field name="bom_id" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+	        					<field name="warehouse_id" attrs="{'readonly': [('state', '!=', 'draft')]}" required="True" />
+	        					<field name="location_src_id" attrs="{'readonly': [('state', '!=', 'draft')]}" required="True" />
+	        					<field name="location_dest_id" attrs="{'readonly': [('state', '!=', 'draft')]}" required="True" />
 	        				</group>
 	        				<group>
-	        					<field name="date_scheduled" />
-	        					<field name="production_id" />
-	        					<field name="user_id" string="Reponsible" />
+	        					<field name="date_scheduled" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+	        					<field name="production_id" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+	        					<field name="user_id" string="Reponsible" attrs="{'readonly': [('state', '!=', 'draft')]}" />
 	        					<field name="company_id" invisible="True"/>
 	        				</group>
 	        			</group>
