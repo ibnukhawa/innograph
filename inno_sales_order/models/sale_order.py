@@ -15,6 +15,7 @@ class SaleOrder(models.Model):
 	count_po = fields.Integer(compute="_compute_po", string="PO Count")
 	count_wo = fields.Integer(compute="_compute_wo", string="WO Count")
 	count_mo = fields.Integer(compute="_compute_mo", string="MO Count")
+	client_order_ref = fields.Char(string='Customer Reference', copy=False, default="-")
 
 	@api.multi
 	def _compute_date_planned(self):
