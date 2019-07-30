@@ -64,12 +64,13 @@
                                 <tr>
                                     <th rowspan="2" class="text-center" style="vertical-align:middle;padding: 2px;border: 1px solid #000;background-color: #000; color: #fff;width: 3%;">No.</th>
                                     <th rowspan="2" class="text-center" style="vertical-align:middle;padding: 2px;border: 1px solid #000;background-color: #000; color: #fff;width: 12%;">No. Barang</th>
-                                    <th rowspan="2" class="text-center" style="vertical-align:middle;padding: 2px;border: 1px solid #000;background-color: #000; color: #fff;width: 40%;">Nama Barang</th>
-                                    <th colspan="2" class="text-center" style="vertical-align:middle;padding: 2px;border: 1px solid #000;background-color: #000; color: #fff;width: 20%;">Jumlah</th>
+                                    <th rowspan="2" class="text-center" style="vertical-align:middle;padding: 2px;border: 1px solid #000;background-color: #000; color: #fff;width: 30%;">Nama Barang</th>
+                                    <th colspan="3" class="text-center" style="vertical-align:middle;padding: 2px;border: 1px solid #000;background-color: #000; color: #fff;width: 30%;">Jumlah</th>
                                     <th rowspan="2" class="text-center" style="vertical-align:middle;padding: 2px;border: 1px solid #000;background-color: #000; color: #fff;width: 20%;">Keterangan</th>
                                 </tr>
                                 <tr>
                                     <th class="text-center" style="vertical-align:middle;border: 1px solid #000;background-color: #000; color: #fff;width: 10%;">Kebutuhan</th>
+                                    <th class="text-center" style="vertical-align:middle;border: 1px solid #000;background-color: #000; color: #fff;width: 10%;">Ukuran</th>
                                     <th class="text-center" style="vertical-align:middle;border: 1px solid #000;background-color: #000; color: #fff;width: 10%;">Barang Keluar</th>
                                 </tr>
                                 <tr t-foreach="l" t-as="p">
@@ -78,10 +79,12 @@
                                     <td style="border: 1px solid #000;"><span t-esc="p.product_id.default_code" /></td>
                                     <td style="border: 1px solid #000;"><span t-esc="p.product_id.name" /></td>
                                     <td style="border: 1px solid #000;" class="text-right"><span t-esc="p.quantity" /> <span t-field="p.uom_id" /></td>
+                                    <td style="border: 1px solid #000;" class="text-right"><t t-esc="p.item_size" /></td>
                                     <td style="border: 1px solid #000;" class="text-right"><t t-esc="p.item_qty" /></td>
                                     <td style="border: 1px solid #000;">&amp;nbsp;</td>
                                 </tr>
                                 <tr t-foreach="range(max(10-len(l),0))" t-as="p">
+                                    <td style="border:1px solid #000;">&amp;nbsp;</td>
                                     <td style="border:1px solid #000;">&amp;nbsp;</td>
                                     <td style="border:1px solid #000;">&amp;nbsp;</td>
                                     <td style="border:1px solid #000;">&amp;nbsp;</td>
@@ -94,29 +97,15 @@
                     </div>
                     <div class="footer">
                         <div class="row">
-                            <div class="col-xs-3 text-center">
-                                Diminta
-                                <br/>
-                                <br/>
-                                <br/>
-                                (............................)
-                            </div>
-                            <div class="col-xs-3 text-center">
-                                Disetujui
-                                <br/>
-                                <br/>
-                                <br/>
-                                (............................)
-                            </div>
-                            <div class="col-xs-3 text-center">
-                                Disiapkan (Gudang)
-                                <br/>
-                                <br/>
-                                <br/>
-                                (............................)
-                            </div>
-                            <div class="col-xs-3 text-center">
+                            <div class="col-xs-3 text-center pull-right">
                                 Diterima
+                                <br/>
+                                <br/>
+                                <br/>
+                                (............................)
+                            </div>
+                            <div class="col-xs-3 text-center pull-right">
+                                Disiapkan (Gudang)
                                 <br/>
                                 <br/>
                                 <br/>

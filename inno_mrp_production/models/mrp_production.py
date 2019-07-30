@@ -160,19 +160,20 @@ class MrpProduction(models.Model):
         req_part = self.env['mrp.part.request']
         req_part_src = req_part.search([('bom_id', '=', self.bom_id.id), 
                                         ('production_id', '=', self.id), 
-                                        ('state', 'not in', ['done'])])
-        if req_part_src:
-            raise UserError(_("You already requested parts for this Manufacturing Order."))
-            
-        ctx = self.env.context.copy()
-        ctx['default_product_id'] = self.product_id.product_tmpl_id.id
-        ctx['default_bom_id'] = self.bom_id.id
-        ctx['default_production_id'] = self.id
-        ctx['default_location_dest_id'] = self.location_src_id.id
-        
+                                        ('state', 'not in', ['done'])], limit=1)
         action = self.env.ref('inno_mrp_production.action_mrp_part_request').read()[0]
         action['views'] = [(self.env.ref('inno_mrp_production.mrp_part_request_form_view').id, 'form')]
-        action['context'] = ctx
+
+        if req_part_src:
+            action['views'] = [(self.env.ref('inno_mrp_production.mrp_part_request_form_view').id, 'form')]
+            action['res_id'] = req_part_src.id
+        else:                
+            ctx = self.env.context.copy()
+            ctx['default_product_id'] = self.product_id.product_tmpl_id.id
+            ctx['default_bom_id'] = self.bom_id.id
+            ctx['default_production_id'] = self.id
+            ctx['default_location_dest_id'] = self.location_src_id.id    
+            action['context'] = ctx
         return action
 
     @api.multi
@@ -183,6 +184,11 @@ class MrpProduction(models.Model):
         else:
             part_req.unlink()
         return super(MrpProduction, self).action_cancel()
+
+    def _generate_raw_move(self, bom_line, line_data):
+        res = super(MrpProduction, self)._generate_raw_move(bom_line, line_data)
+        res.qty_initial = line_data['qty']
+        return res
 
 
 class MrpWorkOrder(models.Model):
@@ -199,6 +205,7 @@ class MrpWorkOrder(models.Model):
     proof = fields.Char(related='sale_id.proof')
     task_ids = fields.One2many('project.task', 'workorder_id', string="Tasks")
     partner_id = fields.Many2one('res.partner', related='sale_id.partner_id')
+    workorder_part_ids = fields.One2many('mrp.workorder.part', 'workorder_id', string="Consumed Material")
 
     @api.multi
     def action_view_sales(self):
@@ -236,9 +243,69 @@ class MrpWorkOrder(models.Model):
             action['views'] = [(self.env.ref('project.view_task_form2').id, 'form')]
         return action
 
+    @api.multi
+    def button_start(self):
+        self.ensure_one()
+        res = super(MrpWorkOrder, self).button_start()
+        wo_part_obj = self.env['mrp.workorder.part']
+        parts = []
+        for move in self.move_raw_ids:
+            vals = {
+                'product_id': move.product_id.id,
+                'name': move.product_id.display_name,
+                'quantity': move.product_uom_qty,
+                'uom_id': move.product_uom.id
+            }
+            new_part = wo_part_obj.create(vals)
+            parts.append(new_part.id)
+        self.write({'workorder_part_ids': [(6, 0, parts)]})
+        return res
+
+    @api.multi
+    def record_production(self):
+        self.ensure_one()
+        res = super(MrpWorkOrder, self).record_production()
+        self._update_move_raw_ids()
+        return res
+
+    @api.multi
+    def button_finish(self):
+        self.ensure_one
+        res = super(MrpWorkOrder, self).button_finish()
+        self._update_move_raw_ids()
+        return res
+
+    @api.multi
+    def _update_move_raw_ids(self):
+        self.production_id.button_unreserve()
+        for move in self.move_raw_ids:
+            consume = self.workorder_part_ids.filtered(lambda w: w.product_id.id == move.product_id.id)
+            vals = {}
+            if not consume:
+                vals['ordered_qty'] = 0
+                vals['product_uom_qty'] = 0
+                vals['quantity_done'] = 0
+            else:
+                new_qty = consume.uom_id._compute_quantity(consume.quantity, move.product_uom)
+                vals['ordered_qty'] = new_qty
+                vals['product_uom_qty'] = new_qty
+                vals['quantity_done'] = new_qty
+            move.write(vals)
+        self.production_id.action_assign()
+
 
 
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
     workorder_id = fields.Many2one('mrp.workorder')
+
+
+class MrpWorkorderPart(models.Model):
+    _name = 'mrp.workorder.part'
+
+    workorder_id = fields.Many2one('mrp.workorder', string="Workorder")
+    product_id = fields.Many2one('product.product', string="Product")
+    name = fields.Char(string="Description")
+    quantity = fields.Float()
+    uom_id = fields.Many2one('product.uom', string="Unit of Measure")

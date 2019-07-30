@@ -47,12 +47,11 @@ class Employee(models.Model):
         start = date(date.today().year, 1, 1)
         end = date(date.today().year + 1, 1, 1)
         today = date.today()
-
         expense_obj = self.env['hr.expense']
-        for emp in self.sudo():
+        for emp in self:
             contract = False
             # Search latest Running Contract
-            running_contract = emp.contract_ids.filtered(lambda x: x.state == 'open')
+            running_contract = emp.sudo().contract_ids.filtered(lambda x: x.state == 'open')
             running_contract = running_contract.sorted('date_start', reverse=True)
             if any(running_contract):
                 contract = running_contract[0]

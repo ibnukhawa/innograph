@@ -11,10 +11,11 @@
         Add Custom Delivery Slip \n
         *Author : Dwiki Adnan F.
     """,
-    'depends': ['stock'],
+    'depends': ['inno_mrp_production'],
     'data': [
         'report/delivery_order_report.xml',
         'report/delivery_slip_report.xml',
+        'views/stock_picking_view.xml',
     ],
     'installable': True,
     'application': True,
