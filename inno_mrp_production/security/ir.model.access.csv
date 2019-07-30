@@ -1,5 +1,7 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_mrp_part_request_user,access.mrp.part.request.user,model_mrp_part_request,mrp.group_mrp_user,1,0,0,0
-access_mrp_part_request_manager,access.mrp.part.request.manager,model_mrp_part_request,mrp.group_mrp_manager,1,1,1,1
-access_mrp_part_request_line_user,access.mrp.part.request.line.user,model_mrp_part_request_line,mrp.group_mrp_user,1,0,0,0
-access_mrp_part_request_line_manager,access.mrp.part.request.line.manager,model_mrp_part_request_line,mrp.group_mrp_manager,1,1,1,1
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_mrp_part_request_user","access.mrp.part.request.user","model_mrp_part_request","mrp.group_mrp_user",1,0,0,0
+"access_mrp_part_request_manager","access.mrp.part.request.manager","model_mrp_part_request","mrp.group_mrp_manager",1,1,1,1
+"access_mrp_part_request_line_user","access.mrp.part.request.line.user","model_mrp_part_request_line","mrp.group_mrp_user",1,0,0,0
+"access_mrp_part_request_line_manager","access.mrp.part.request.line.manager","model_mrp_part_request_line","mrp.group_mrp_manager",1,1,1,1
+"access_mrp_workorder_part_user","access.mrp.workorder.part.user","model_mrp_workorder_part","mrp.group_mrp_user",1,1,1,1
+"access_mrp_workorder_part_manager","access.mrp.workorder.part.manager","model_mrp_workorder_part","mrp.group_mrp_manager",1,1,1,1
