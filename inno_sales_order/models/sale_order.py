@@ -15,6 +15,7 @@ class SaleOrder(models.Model):
 	count_po = fields.Integer(compute="_compute_po", string="PO Count")
 	count_wo = fields.Integer(compute="_compute_wo", string="WO Count")
 	count_mo = fields.Integer(compute="_compute_mo", string="MO Count")
+	client_order_ref = fields.Char(string='Customer Reference', copy=False, default="-")
 
 	@api.multi
 	def _compute_date_planned(self):
@@ -43,19 +44,21 @@ class SaleOrder(models.Model):
 		# Store new created MO to Order Line or Change MO Name from stored in Order Line
 		for order in self:
 			mo_src = self.env['mrp.production'].search([('sale_id', '=', order.id)])
-			line_mo = False
+			line_mos = []
 			if mo_src:
 				for line in order.order_line:
 					# For MO
-					if not line_mo:
+					if not line_mos:
 						line_mo = mo_src.filtered(lambda x: x.product_id.id == line.product_id.id and x.state != 'cancel')
 					else:
-						line_mo = mo_src.filtered(lambda x: x.product_id.id == line.product_id.id and x.state != 'cancel' and x.id!=line_mo.id)
+						line_mo = mo_src.filtered(lambda x: x.product_id.id == line.product_id.id and x.state != 'cancel' and x.id not in (tuple(line_mos)))
 					if line_mo:
+						line_mo = line_mo[0]
+						line_mos.append(line_mo.id)
 						if not line.production_no:
-							line.production_no = line_mo[0].name
+							line.production_no = line_mo.name
 						else:
-							line_mo[0].name = line.production_no
+							line_mo.name = line.production_no
 			for pick in order.picking_ids:
 				pick.sale_order_id = order.id
 
@@ -197,4 +200,4 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
 	_inherit = 'sale.order.line'
 
-	production_no = fields.Char(string="Number Production")
+	production_no = fields.Char(string="Number Production", copy=False)
