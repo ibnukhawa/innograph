@@ -52,10 +52,11 @@ class SaleOrder(models.Model):
 					else:
 						line_mo = mo_src.filtered(lambda x: x.product_id.id == line.product_id.id and x.state != 'cancel' and x.id!=line_mo.id)
 					if line_mo:
+						line_mo = line_mo[0]
 						if not line.production_no:
-							line.production_no = line_mo[0].name
+							line.production_no = line_mo.name
 						else:
-							line_mo[0].name = line.production_no
+							line_mo.name = line.production_no
 			for pick in order.picking_ids:
 				pick.sale_order_id = order.id
 
