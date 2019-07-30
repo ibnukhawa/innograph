@@ -43,16 +43,17 @@ class SaleOrder(models.Model):
 		# Store new created MO to Order Line or Change MO Name from stored in Order Line
 		for order in self:
 			mo_src = self.env['mrp.production'].search([('sale_id', '=', order.id)])
-			line_mo = False
+			line_mos = []
 			if mo_src:
 				for line in order.order_line:
 					# For MO
-					if not line_mo:
+					if not line_mos:
 						line_mo = mo_src.filtered(lambda x: x.product_id.id == line.product_id.id and x.state != 'cancel')
 					else:
-						line_mo = mo_src.filtered(lambda x: x.product_id.id == line.product_id.id and x.state != 'cancel' and x.id!=line_mo.id)
+						line_mo = mo_src.filtered(lambda x: x.product_id.id == line.product_id.id and x.state != 'cancel' and x.id not in (tuple(line_mos)))
 					if line_mo:
 						line_mo = line_mo[0]
+						line_mos.append(line_mo.id)
 						if not line.production_no:
 							line.production_no = line_mo.name
 						else:
