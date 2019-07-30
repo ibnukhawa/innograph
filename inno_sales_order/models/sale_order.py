@@ -199,4 +199,4 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
 	_inherit = 'sale.order.line'
 
-	production_no = fields.Char(string="Number Production")
+	production_no = fields.Char(string="Number Production", copy=False)
