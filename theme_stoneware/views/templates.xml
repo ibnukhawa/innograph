@@ -391,7 +391,19 @@
 						<t t-set="max_rate" t-value="5"/>
 						<t t-set="min_rate" t-value="1"/>
 					  </t>
-			      <div class="pro-action">
+			      			<div class="pro-action">
+                	</div>
+
+
+			      			<div class="pro-compare">
+										<a class="btn-xs btn-compare o_add_compare" t-att-data-template-id="product.id" data-action="o_comparelist" >
+												<button class="button btn-compare" title="Add to Compare" type="button">
+													<span>Add to Compare</span><i class="fa fa-exchange"></i>
+												</button>
+										</a>
+			
+									<!-- <a class="btn btn-default btn-xs hidden-xs o_add_compare" title="Add to Compare" t-att-data-template-id="product.id" data-action="o_comparelist"><span class="fa fa-exchange"/></a> -->
+
                 	</div>
                 </div>
                 
@@ -488,6 +500,7 @@
     </t>
   </xpath>
 </template>
+
 
 <template id="products_add_to_cart" inherit_id="product_items" active="False" customize_show="True" name="Add to Cart">
   <xpath expr="//div[@class='pro-action']" position="inside">

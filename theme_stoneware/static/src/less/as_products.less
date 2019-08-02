@@ -217,7 +217,59 @@
 					
 				}
 			}
-
+		
+		.pro-compare{
+				width: 40px;
+				height: 40px;
+				display: inline-block;
+				vertical-align: top;
+				padding: 0;
+				position: absolute;
+				bottom: 90px;
+				left: 20px;
+				margin: auto;
+				z-index: 9;
+					
+				a.btn-compare{
+					display: inline-block;
+					margin: 0;
+					padding: 0;
+				}
+				.button.btn-compare{
+					border: 1px solid @as-dark;
+					height: 40px;
+					line-height: 40px;
+					width: 40px;
+					border-radius: 50%;
+					text-align: center;
+					display: inline-block;
+					vertical-align: middle;
+					padding: 0;
+					color: @as-dark;
+					background: @as-light;
+					.transition(all, 0.5s, ease); 
+					position: absolute;
+					left: 0; 
+					right: 0;
+					top: 0;
+					bottom: 0;
+					margin: auto;
+					.fa{
+						font-size: @as-font-size-base + 3;
+					}
+					span{
+						text-transform: uppercase;
+						font-weight: 600;
+						font-size: @as-font-base - 2;
+						display: none;
+					}
+					&:hover{
+						background: @as-dark;
+						color: @as-light;
+					}
+					
+				}
+		}	
 		.pro-info{
 			width: 100%;
 			float: left;
