@@ -254,7 +254,8 @@ class MrpWorkOrder(models.Model):
                 'product_id': move.product_id.id,
                 'name': move.product_id.display_name,
                 'quantity': move.product_uom_qty,
-                'uom_id': move.product_uom.id
+                'uom_id': move.product_uom.id,
+                'move_id': move.id,
             }
             new_part = wo_part_obj.create(vals)
             parts.append(new_part.id)
@@ -279,7 +280,7 @@ class MrpWorkOrder(models.Model):
     def _update_move_raw_ids(self):
         self.production_id.button_unreserve()
         for move in self.move_raw_ids:
-            consume = self.workorder_part_ids.filtered(lambda w: w.product_id.id == move.product_id.id)
+            consume = self.workorder_part_ids.filtered(lambda w: w.move_id.id == move.id)
             vals = {}
             if not consume:
                 vals['ordered_qty'] = 0
@@ -309,3 +310,4 @@ class MrpWorkorderPart(models.Model):
     name = fields.Char(string="Description")
     quantity = fields.Float()
     uom_id = fields.Many2one('product.uom', string="Unit of Measure")
+    move_id = fields.Many2one('stock.move', string="Related Move")
