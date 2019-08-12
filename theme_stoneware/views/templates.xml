@@ -634,17 +634,46 @@
 	<div class="row" id="product_more_info">
 		<div class="col-md-9 pd_info">
         	<div class="pd-more-info">
-        		<ul class="nav nav-tabs" role="tablist">
+						<h4 class="text-center">Specification <span t-field="product.name"/></h4>
+        		<!-- <ul class="nav nav-tabs" role="tablist">
                 	<li role="presentation" class="active">
-                		<a href="#more_info" aria-controls="more_info" role="tab" data-toggle="tab">
-Specification</a>
+                		<a href="#more_info" aria-controls="more_info" role="tab" data-toggle="tab">Specification</a>
             		</li>
             	</ul>
-            	<div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="more_info">
+							 -->
+            	
+										<!-- <t t-call="website_sale.variants">
+											<t t-set="ul_class" t-value="'nav-stacked'"/>
+										</t> -->
+
+            <div role="tabpanel" class="tab-pane active" id="more_info">
+							  <t t-name="website_sale.variants_new">
+									<t t-set="attribute_value_ids" t-value="get_attribute_value_ids(product)"/>
+												
+									<table class="table table-striped table-hover" >
+											<t t-foreach="product.attribute_line_ids.sorted(key=lambda x: x.attribute_id.sequence)" t-as="variant_id">
+													
+												<tr>
+														<td><strong t-field="variant_id.attribute_id.name"/></td>
+														<td>
+
+																<t t-set="inc" t-value="0"/>
+																<t t-foreach="variant_id.value_ids" t-as="value_id">
+																	
+																	<label t-field="value_id.name" />
+
+																<t t-set="inc" t-value="inc+1"/>
+															</t>
+														</td>
+												</tr>
+
+													</t>
+										</table>
+
+									</t>
         				<div itemprop="description" t-field="product.website_description" class="oe_structure mt16" id="product_full_description"/>
-                    </div>
-                </div>
+            </div>
+                
         	</div>
 		</div>
 	</div>
