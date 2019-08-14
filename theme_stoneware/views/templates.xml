@@ -668,7 +668,6 @@
 																	<t t-set="inc" t-value="inc+1"/>
 																</t>
 														</td>
-														<t t-set="category_before" t-value="variant_id.attribute_id.category_id"/>
 													</tr>
 												</t>
 
@@ -686,9 +685,10 @@
 																	
 																		</t>
 																</td>
-																<t t-set="category_before" t-value="variant_id.attribute_id.category_id"/>
 														</tr>
 												</t>
+
+												<t t-set="category_before" t-value="variant_id.attribute_id.category_id"/>
 
 											</t>
 										</table>
