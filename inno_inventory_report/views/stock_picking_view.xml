@@ -9,7 +9,7 @@
         		<attribute name="invisible">True</attribute>
         	</button>
         	<button name="do_print_picking" position="attributes">
-        		<attribute name="invisible">False</attribute>
+        		<attribute name="invisible">True</attribute>
         	</button>
         	<button name="do_print_picking" position="after">
                 <field name="show_bbk" invisible="True" />
