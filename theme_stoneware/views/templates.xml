@@ -387,24 +387,14 @@
                         </b>
                     </div>
 			      	<t t-call="rating.rating_card">
-						<t t-set="rating_stat" t-value="product.rating_get_stats([('website_published', '=', True)])"/>
-						<t t-set="max_rate" t-value="5"/>
-						<t t-set="min_rate" t-value="1"/>
-					  </t>
-			      			<div class="pro-action">
-                	</div>
+							<t t-set="rating_stat" t-value="product.rating_get_stats([('website_published', '=', True)])"/>
+							<t t-set="max_rate" t-value="5"/>
+							<t t-set="min_rate" t-value="1"/>
+							</t>
+			      		<div class="pro-action">
+									
+								</div>
 
-
-			      			<div class="pro-compare">
-										<a class="btn-xs btn-compare o_add_compare" t-att-data-template-id="product.id" data-action="o_comparelist" >
-												<button class="button btn-compare" title="Add to Compare" type="button">
-													<span>Add to Compare</span><i class="fa fa-exchange"></i>
-												</button>
-										</a>
-			
-									<!-- <a class="btn btn-default btn-xs hidden-xs o_add_compare" title="Add to Compare" t-att-data-template-id="product.id" data-action="o_comparelist"><span class="fa fa-exchange"/></a> -->
-
-                	</div>
                 </div>
                 
             </div>
@@ -506,18 +496,38 @@
   <xpath expr="//div[@class='pro-action']" position="inside">
     <input name="product_id" t-att-value="product.product_variant_id.id" type="hidden"/>    
     <t t-if="len(product.product_variant_ids) == 1">
-		<a class="btn-xs a-submit btn-cart">
-		<button class="button btn-cart" title="Add to Cart" type="button">
-        <span>Add to Cart</span><i class="fa fa-shopping-cart"></i>
-        </button></a>
+		
+			<!-- <a class="btn-xs a-submit btn-cart"> -->
+			<a class="btn btn-primary btn-md  a-submit">
+					<!-- <button class="button btn-cart" title="Add to Cart" type="button"> -->
+					<span>Add to Cart</span><i class="fa fa-shopping-cart"></i>
+					<!-- </button> -->
+			</a>
+
+			<t t-if="product.env.ref('website_product_comparison_73lines.add_to_compare_shortlist').active">
+					<a class="btn btn-primary btn-md  o_add_compare" t-att-data-template-id="product.id" data-action="o_comparelist" >
+							<i class="fa fa-exchange"></i>
+					</a>
+												
+			</t> 
+			
     </t>
     <t t-if="len(product.product_variant_ids) &gt; 1">
-      <a t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))">
-	  	<button class="button btn-cart" title="Add to Cart" type="button">
-	    <span>Add to Cart</span><i class="fa fa-shopping-cart"></i>
-	    </button>
+      <a t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))" class="btn btn-primary btn-md  a-submit">
+				<!-- <button class="button btn-cart" title="Add to Cart" type="button"> -->
+					<span>Add to Cart</span><i class="fa fa-shopping-cart"></i>
+				<!-- </button> -->
       </a>
-    </t>    
+
+			<t t-if="product.env.ref('website_product_comparison_73lines.add_to_compare_shortlist').active">
+					<a class="btn btn-primary btn-md  o_add_compare" t-att-data-template-id="product.id" data-action="o_comparelist" >
+							<i class="fa fa-exchange"></i>
+					</a>
+												
+			</t> 
+    </t>  
+		
+	 
   </xpath>
 </template>
 
