@@ -69,9 +69,11 @@
                 <div class="oe_structure"/>
                 <div class="container oe_website_sale">
                     <section class="container">
-                        <h3 t-esc="'Compare ' + ' vs '.join([product.name for product in products])"/>
+                        <!-- <h3 t-esc="'Compare ' + ' vs '.join([product.name for product in products])"/> -->
+                        <h3>Product Comparison</h3>
                         <table class="table table-bordered text-center mt16">
                             <tr>
+                                <td></td>
                                 <td t-foreach="products" t-as="product">
                                     <a t-attf-href="/shop/compare/?products=#{','.join([str(id) for id in products._ids if id != product.id])}" t-att-data-template_id="product.id" class="o_comparelist_remove" t-if="len(products) > 2">
                                         <strong class='pull-right'>x</strong>
