@@ -222,7 +222,6 @@ class LKPPController(Controller):
             res = request.env.cr.dictfetchall()
             total = len(res)
 
-            print(res[0]['name'])
             total_page = math.ceil(total/per_page)
             for record in res:
 
