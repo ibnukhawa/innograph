@@ -225,22 +225,24 @@ class LKPPController(Controller):
             total_page = math.ceil(total/per_page)
             for record in res:
 
-                url_produk='http://localhost:8069/shop/product/'+str(record.id)
-                url_50='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/50x50'
-                url_100='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/100x100'
-                url_300='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/300x300'
-                url_800='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/800x800'
+                result=request.env['product.template'].sudo().search([('id', '=', record['id'])])
+
+                url_produk='http://localhost:8069/shop/product/'+str(record['id'])
+                url_50='http://localhost:8069/web/image/product.template/'+str(record['id'])+'/image/50x50'
+                url_100='http://localhost:8069/web/image/product.template/'+str(record['id'])+'/image/100x100'
+                url_300='http://localhost:8069/web/image/product.template/'+str(record['id'])+'/image/300x300'
+                url_800='http://localhost:8069/web/image/product.template/'+str(record['id'])+'/image/800x800'
                 
                 product_informasi=({
                     'unspsc':record['unspsc'],
                     'id_kategori_produk_lkpp':record['lkpp_category_id'],
                     'nama_produk':record['name'],
-                    'no_produk_penyedia':record.default_code,
+                    'no_produk_penyedia':record['default_code'],
                     'id_manufaktur':record['lkpp_manufacturer_id'],
                     'id_unit_pengukuran_lkpp':False,
                     'deskripsi_singkat':record['description_sale'],
                     'deskripsi_lengkap':record['description_sale'],
-                    'kuantitas_stok':record.qty_available,
+                    'kuantitas_stok':result.qty_available,
                     'tanggal_update':record['write_date'],
                     'produk_aktif':record['active_product'],
                     'apakah_produk_lokal':record['local_product'],
