@@ -6,6 +6,10 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
+            <field name="list_price" position="before">
+                <field name="website_price_new" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+            </field>
+            
             <xpath expr="//notebook" position="inside">
                 <page string="LKPP Sync. Data" name="lkpp_data">
                     <group>
@@ -18,8 +22,8 @@
                             <field name="valid_date"/>
                             <field name="lkpp_category_id"/>
                             <field name="lkpp_manufacturer_id"/>
-                            <field name="lkpp_sell_price"/>
-                            <field name="lkpp_govt_price"/>
+                            <!-- <field name="lkpp_sell_price" widget='monetary' options="{'currency_field': 'currency_id'}"/> -->
+                            <field name="lkpp_govt_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                         </group>
                     </group>
                     <group>
