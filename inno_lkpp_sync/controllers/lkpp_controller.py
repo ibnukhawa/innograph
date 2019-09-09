@@ -9,12 +9,15 @@ from odoo.http import Controller, Response, request, route
 
 from datetime import datetime, date, timedelta
 
+from collections import OrderedDict
+
 API = 'https://e-katalog.lkpp.go.id/api/'
+URL = 'http://demo.innograph.com'
 
 
 class LKPPController(Controller):
     """ Controller for JSON, switch the type between 'http' and 'json' if trouble happens. """
-
+  
     # @route('/lkpp/all_produk', methods=['GET', 'POST'], type='http', auth='none')
     # def lkpp_all_product(self, **kwargs):
     #     # URL Parameters
@@ -64,113 +67,144 @@ class LKPPController(Controller):
 
     #     return Response(json.dumps(data), content_type='application/json')
 
-    @route('/lkpp/all_produk', methods=['GET', 'POST'], type='http', auth='none')
+    @route('/lkpp/all_produk', methods=['GET', 'POST'], type='http', auth='none', csrf=False)
     def lkpp_all_product(self, **kwargs):
         # URL Parameters
         key = kwargs.get('secretkey')
         per_page_url = kwargs.get('per_page', '500')
         per_page = int(per_page_url)
-        page_url = kwargs.get('page', '1')
+        page_url = kwargs.get('page', '0')
         page = int(page_url)
         order_by = kwargs.get('order_by', 'create_date')
         sort = kwargs.get('sort', 'desc')
 
         orderby=order_by+" "+sort
         
-        data_product = []
+        data_all = []
         data_config=request.env['ir.config_parameter'].sudo().get_param('lkpp.secretkey', default='')
-        
+        domain=[
+            ('active', '=', True),
+            ('active_product', '=', True),
+            ('unspsc', '!=', False),
+            ('lkpp_category_id', '!=', False),
+            ('lkpp_manufacturer_id', '!=', False),
+            ('uom_id.lkpp_uom_id', '!=', False),
+            ('valid_date', '!=', False)
+        ]
         if data_config == key:
-            records = request.env['product.template'].sudo().search([],offset=page, limit=per_page,order=orderby)
-            total = records.search_count([])
+            records = request.env['product.template'].sudo().search(domain,offset=page, limit=per_page,order=orderby)
+            total = records.search_count(domain)
 
             total_page = math.ceil(total/per_page)
             for record in records:
-                print(str(record.default_code))
-                url_produk='http://localhost:8069/shop/product/'+str(record.id)
-                url_50='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/50x50'
-                url_100='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/100x100'
-                url_300='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/300x300'
-                url_800='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/800x800'
-                product_informasi=({
-                    'unspsc':record.unspsc,
-                    'id_kategori_produk_lkpp':record.lkpp_category_id,
-                    'nama_produk':record.name,
-                    'no_produk_penyedia':record.default_code,
-                    'id_manufaktur':record.lkpp_manufacturer_id,
-                    'id_unit_pengukuran_lkpp':False,
-                    'deskripsi_singkat':record.description_sale,
-                    'deskripsi_lengkap':record.description_sale,
-                    'kuantitas_stok':record.qty_available,
-                    'tanggal_update':record.write_date,
-                    'produk_aktif':record.active_product,
-                    'apakah_produk_lokal':record.local_product,
-                    'berlaku_sampai':record.valid_date,
-                    'url_produk':url_produk,
-                    'image_50x50':url_50,
-                    'image_100x100':url_100,
-                    'image_300x300':url_300,
-                    'image_800x800':url_800,
-                })
 
-                attribute=[]
 
+                data_product = OrderedDict()
+                url_produk=URL+'/shop/product/'+str(record.id)
+                url_50=URL+'/web/image/product.template/'+str(record.id)+'/image/50x50'
+                url_100=URL+'/web/image/product.template/'+str(record.id)+'/image/100x100'
+                url_300=URL+'/web/image/product.template/'+str(record.id)+'/image/300x300'
+                url_800=URL+'/web/image/product.template/'+str(record.id)+'/image/800x800'
+
+                product_informasi = OrderedDict()
+                
+                product_informasi['unspsc'] = record.unspsc
+                product_informasi['id_kategori_produk_lkpp'] = record.lkpp_category_id
+                product_informasi['nama_produk'] = record.name
+                product_informasi['no_produk_penyedia'] = record.default_code
+                product_informasi['id_manufaktur'] = record.lkpp_manufacturer_id
+                product_informasi['id_unit_pengukuran_lkpp'] = record.uom_id.lkpp_uom_id
+
+                if record.description_sale == False:
+                    description_sale = None
+                else:
+                    description_sale = record.description_sale
+
+                product_informasi['deskripsi_singkat'] = description_sale
+                product_informasi['deskripsi_lengkap'] = description_sale
+                product_informasi['kuantitas_stok'] = record.qty_available
+                product_informasi['tanggal_update'] = record.write_date
+
+                if record.active_product == True:
+                    active_product = 1
+                else:
+                    active_product = 0
+                
+                product_informasi['produk_aktif'] = active_product
+
+
+                if record.local_product == False:
+                    local_product = 0
+                else:
+                    local_product = 1
+
+                product_informasi['apakah_produk_lokal'] = local_product
+                product_informasi['berlaku_sampai'] = record.valid_date
+                product_informasi['url_produk'] = url_produk
+                product_informasi['image_50x50'] = url_50
+                product_informasi['image_100x100'] = url_100
+                product_informasi['image_300x300'] = url_300
+                product_informasi['image_800x800'] = url_800
+
+
+                data_attr_all = []
                 product_variants=request.env['product.attribute'].search([('attribute_line_ids.product_tmpl_id', '=', record.id)])
 
                 for attr in product_variants:
+
+                    attribute = OrderedDict()
                     deskripsi = ""
                     for value in attr.value_ids:
                         deskripsi = deskripsi +" "+value.name
-
-                    attribute.append({
-                        'label': attr.name,
-                        'deskripsi': deskripsi
-                    })
+                    
+                    attribute['label'] = attr.name
+                    attribute['deskripsi'] = deskripsi
+                    data_attr_all.append(attribute)
 
                 product_spesifikasi=({
-                    'item':attribute,
+                    'item':data_attr_all,
                     'tanggal_update':record.write_date
                 })
 
-                image=({
-                    'deskripsi':record.description_sale,
-                    'image_50x50':url_50,
-                    'image_100x100':url_100,
-                    'image_300x300':url_300,
-                    'image_800x800':url_800,
-                })
+                image = OrderedDict()
+                image['deskripsi']=description_sale
+                image['image_50x50']=url_50
+                image['image_100x100']=url_100
+                image['image_300x300']=url_300
+                image['image_800x800']=url_800
 
                 data_image=({
                     'item':image,
                     'tanggal_update':record.write_date
                 })
 
-                data_harga=({
-                    'harga_retail':record.lkpp_sell_price,
-                    'harga_pemerintah':record.lkpp_govt_price,
-                    'ongkos_kirim':False,
-                    'kurs_id':False,
-                    'tanggal_update':record.write_date,
-                })
+                data_harga = OrderedDict()
+                data_harga['harga_retail'] = record.list_price
+                data_harga['harga_pemerintah'] = record.lkpp_govt_price
+                data_harga['ongkos_kirim'] = 0
+                data_harga['kurs_id'] = 1
+                data_harga['tanggal_update'] = record.write_date
 
-                data_product.append({
-                    'informasi':product_informasi,
-                    'spesifikasi':product_spesifikasi,
-                    'image':data_image,
-                    'harga':data_harga,
-                    'lampiran':False
-                })   
+                # input data to data_product
 
-            data = {'total': total,
-                'current_page': page,
-                'per_page': per_page,
-                'total_page': total_page,
-                'produk':data_product
-            }
+                data_product['informasi']=product_informasi
+                data_product['spesifikasi'] = product_spesifikasi
+                data_product['image'] = data_image
+                data_product['harga'] = data_harga
+                data_product['lampiran'] = None
+                data_all.append(data_product)
+            
+            data = OrderedDict()
+            data['total'] = total
+            data['current_page'] = page
+            data['per_page'] = per_page
+            data['total_page'] = total_page
+            data['produk'] = data_all
+            
         else:
             data = {'error': data_config
             }
-
+        
         return Response(json.dumps(data), content_type='application/json')
 
 
@@ -196,26 +230,18 @@ class LKPPController(Controller):
         if start_date == False:
             start_date = start_obj
             end_date = end_obj
-        print(start_date)
-        print(end_date)
-
-        # domain=[
-        #         ('write_date','>',start_date),
-        #         ('write_date','<',end_date)
-        #     ]
 
         orderby=order_by+" "+sort
         
-        data_product = []
+        data_all = []
         data_config=request.env['ir.config_parameter'].sudo().get_param('lkpp.secretkey', default='')
         
         if data_config == key:
             
             # records = request.env['product.template'].sudo().search(domain,offset=page, limit=per_page,order=orderby)
             
-            query="SELECT * from product_template where to_char(write_date, 'yyyy-mm-dd HH24:MI:SS') BETWEEN '"+str(start_date)+"' and '"+str(end_date)+"' order by "+orderby+" OFFSET "+str((page-1)*per_page)+" LIMIT "+str(per_page)
-            print(query)
-            print(query)
+            query="SELECT * from product_template where to_char(write_date, 'yyyy-mm-dd HH24:MI:SS') BETWEEN '"+str(start_date)+"' and '"+str(end_date)+"' and active != False and active_product != False order by "+orderby+" OFFSET "+str((page-1)*per_page)+" LIMIT "+str(per_page)
+            
             records = request.env.cr.execute(query)
 
             
@@ -225,87 +251,105 @@ class LKPPController(Controller):
             total_page = math.ceil(total/per_page)
             for record in res:
 
-                url_produk='http://localhost:8069/shop/product/'+str(record.id)
-                url_50='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/50x50'
-                url_100='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/100x100'
-                url_300='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/300x300'
-                url_800='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/800x800'
+                data_product = OrderedDict()
+                result=request.env['product.template'].sudo().search([('id', '=', record['id'])])
                 
-                product_informasi=({
-                    'unspsc':record['unspsc'],
-                    'id_kategori_produk_lkpp':record['lkpp_category_id'],
-                    'nama_produk':record['name'],
-                    'no_produk_penyedia':record.default_code,
-                    'id_manufaktur':record['lkpp_manufacturer_id'],
-                    'id_unit_pengukuran_lkpp':False,
-                    'deskripsi_singkat':record['description_sale'],
-                    'deskripsi_lengkap':record['description_sale'],
-                    'kuantitas_stok':record.qty_available,
-                    'tanggal_update':record['write_date'],
-                    'produk_aktif':record['active_product'],
-                    'apakah_produk_lokal':record['local_product'],
-                    'berlaku_sampai':record['valid_date'],
-                    'url_produk':url_produk,
-                    'image_50x50':url_50,
-                    'image_100x100':url_100,
-                    'image_300x300':url_300,
-                    'image_800x800':url_800,
-                })
+                url_produk=URL+'/shop/product/'+str(record['id'])
+                url_50=URL+'/web/image/product.template/'+str(record['id'])+'/image/50x50'
+                url_100=URL+'/web/image/product.template/'+str(record['id'])+'/image/100x100'
+                url_300=URL+'/web/image/product.template/'+str(record['id'])+'/image/300x300'
+                url_800=URL+'/web/image/product.template/'+str(record['id'])+'/image/800x800'
+                
+                product_informasi = OrderedDict()
 
-                attribute=[]
+                product_informasi['unspsc'] = record['unspsc']
+                product_informasi['id_kategori_produk_lkpp'] = record['lkpp_category_id']
+                product_informasi['nama_produk'] = record['name']
+                product_informasi['no_produk_penyedia'] = record['default_code']
+                product_informasi['id_manufaktur'] = record['lkpp_manufacturer_id']
+                product_informasi['id_unit_pengukuran_lkpp'] = result.uom_id.lkpp_uom_id
 
+                if result.description_sale == False:
+                    description_sale = None
+                else:
+                    description_sale = result.description_sale
+
+                product_informasi['deskripsi_singkat'] = description_sale
+                product_informasi['deskripsi_lengkap'] = description_sale
+                product_informasi['kuantitas_stok'] = result.qty_available
+                product_informasi['tanggal_update'] = record['write_date']
+
+                if record['active_product'] == True:
+                    active_product = 1
+                else:
+                    active_product = 0
+                
+                product_informasi['produk_aktif'] = active_product
+
+                if record['local_product'] == False:
+                    local_product = 0
+                else:
+                    local_product = 1
+
+                product_informasi['apakah_produk_lokal'] = local_product
+                product_informasi['berlaku_sampai'] = record['valid_date']
+                product_informasi['url_produk'] = url_produk
+                product_informasi['image_50x50'] = url_50
+                product_informasi['image_100x100'] = url_100
+                product_informasi['image_300x300'] = url_300
+                product_informasi['image_800x800'] = url_800
+
+                data_attr_all = []
                 product_variants=request.env['product.attribute'].search([('attribute_line_ids.product_tmpl_id', '=', record['id'])])
 
                 for attr in product_variants:
+                    attribute = OrderedDict()
                     deskripsi = ""
                     for value in attr.value_ids:
                         deskripsi = deskripsi +" "+value.name
-
-                    attribute.append({
-                        'label': attr.name,
-                        'deskripsi': deskripsi
-                    })
+                    
+                    attribute['label'] = attr.name
+                    attribute['deskripsi'] = deskripsi
+                    data_attr_all.append(attribute)
+                    
 
                 product_spesifikasi=({
-                    'item':attribute,
-                    'tanggal_update':record['write_date']
+                    'item':data_attr_all,
+                    'tanggal_update':result.write_date
                 })
 
-                image=({
-                    'deskripsi':record['description_sale'],
-                    'image_50x50':url_50,
-                    'image_100x100':url_100,
-                    'image_300x300':url_300,
-                    'image_800x800':url_800,
-                })
+                image = OrderedDict()
+                image['deskripsi']=description_sale
+                image['image_50x50']=url_50
+                image['image_100x100']=url_100
+                image['image_300x300']=url_300
+                image['image_800x800']=url_800
 
                 data_image=({
                     'item':image,
-                    'tanggal_update':record['write_date']
+                    'tanggal_update':result.write_date
                 })
 
-                data_harga=({
-                    'harga_retail':record['lkpp_sell_price'],
-                    'harga_pemerintah':record['lkpp_govt_price'],
-                    'ongkos_kirim':False,
-                    'kurs_id':False,
-                    'tanggal_update':record['write_date'],
-                })
+                data_harga = OrderedDict()
+                data_harga['harga_retail'] = result.list_price
+                data_harga['harga_pemerintah'] = result.lkpp_govt_price
+                data_harga['ongkos_kirim'] = 0
+                data_harga['kurs_id'] = 1
+                data_harga['tanggal_update'] = result.write_date
 
-                data_product.append({
-                    'informasi':product_informasi,
-                    'spesifikasi':product_spesifikasi,
-                    'image':data_image,
-                    'harga':data_harga,
-                    'lampiran':False
-                })   
-
-            data = {'total': total,
-                'current_page': page,
-                'per_page': per_page,
-                'total_page': total_page,
-                'produk':data_product
-            }
+                data_product['informasi'] = product_informasi
+                data_product['spesifikasi'] = product_spesifikasi
+                data_product['image'] = data_image
+                data_product['harga'] = data_harga
+                data_product['lampiran'] = None
+                data_all.append(data_product)
+            
+            data = OrderedDict()
+            data['total'] = total
+            data['current_page'] = page
+            data['per_page'] = per_page
+            data['total_page'] = total_page
+            data['produk'] = data_all
         else:
             data = {'error': data_config
             }
@@ -322,92 +366,115 @@ class LKPPController(Controller):
         if not no_produk_penyedia:
             return Response('No. produk penyedia tidak valid!', status=400)
 
-        data_product = []
+        data_product = OrderedDict()
         data_config=request.env['ir.config_parameter'].sudo().get_param('lkpp.secretkey', default='')
-        
+        domain=[
+            ('default_code','=',no_produk_penyedia),
+            ('active', '=', True),
+            ('active_product', '=', True)
+        ]
         if data_config == key:
-            records = request.env['product.template'].sudo().search([('default_code','=',no_produk_penyedia)])
+            records = request.env['product.template'].sudo().search(domain)
             
             for record in records:
-                
-                url_produk='http://localhost:8069/shop/product/'+str(record.id)
-                url_50='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/50x50'
-                url_100='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/100x100'
-                url_300='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/300x300'
-                url_800='http://localhost:8069/web/image/product.template/'+str(record.id)+'/image/800x800'
-                
-                product_informasi=({
-                    'unspsc':record.unspsc,
-                    'id_kategori_produk_lkpp':record.lkpp_category_id,
-                    'nama_produk':record.name,
-                    'no_produk_penyedia':record.default_code,
-                    'id_manufaktur':record.lkpp_manufacturer_id,
-                    'id_unit_pengukuran_lkpp':False,
-                    'deskripsi_singkat':record.description_sale,
-                    'deskripsi_lengkap':record.description_sale,
-                    'kuantitas_stok':record.qty_available,
-                    'tanggal_update':record.write_date,
-                    'produk_aktif':record.active_product,
-                    'apakah_produk_lokal':record.local_product,
-                    'berlaku_sampai':record.valid_date,
-                    'url_produk':url_produk,
-                    'image_50x50':url_50,
-                    'image_100x100':url_100,
-                    'image_300x300':url_300,
-                    'image_800x800':url_800,
-                })
 
-                attribute=[]
+                url_produk=URL+'/shop/product/'+str(record.id)
+                url_50=URL+'/web/image/product.template/'+str(record.id)+'/image/50x50'
+                url_100=URL+'/web/image/product.template/'+str(record.id)+'/image/100x100'
+                url_300=URL+'/web/image/product.template/'+str(record.id)+'/image/300x300'
+                url_800=URL+'/web/image/product.template/'+str(record.id)+'/image/800x800'
 
+                product_informasi = OrderedDict()
+
+                product_informasi['unspsc'] = record.unspsc
+                product_informasi['id_kategori_produk_lkpp'] = record.lkpp_category_id
+                product_informasi['nama_produk'] = record.name
+                product_informasi['no_produk_penyedia'] = record.default_code
+                product_informasi['id_manufaktur'] = record.lkpp_manufacturer_id
+                product_informasi['id_unit_pengukuran_lkpp'] = record.uom_id.lkpp_uom_id
+
+                if record.description_sale == False:
+                    description_sale = None
+                else:
+                    description_sale = record.description_sale
+
+                product_informasi['deskripsi_singkat'] = description_sale
+                product_informasi['deskripsi_lengkap'] = description_sale
+                product_informasi['kuantitas_stok'] = record.qty_available
+                product_informasi['tanggal_update'] = record.write_date
+
+                if record.active_product == True:
+                    active_product = 1
+                else:
+                    active_product = 0
+                
+                product_informasi['produk_aktif'] = active_product
+
+
+                if record.local_product == False:
+                    local_product = 0
+                else:
+                    local_product = 1
+
+                product_informasi['apakah_produk_lokal'] = local_product
+                product_informasi['berlaku_sampai'] = record.valid_date
+                product_informasi['url_produk'] = url_produk
+                product_informasi['image_50x50'] = url_50
+                product_informasi['image_100x100'] = url_100
+                product_informasi['image_300x300'] = url_300
+                product_informasi['image_800x800'] = url_800
+
+
+                
+                data_attr_all = []
                 product_variants=request.env['product.attribute'].search([('attribute_line_ids.product_tmpl_id', '=', record.id)])
 
                 for attr in product_variants:
+                    attribute = OrderedDict()
                     deskripsi = ""
                     for value in attr.value_ids:
                         deskripsi = deskripsi +" "+value.name
-
-                    attribute.append({
-                        'label': attr.name,
-                        'deskripsi': deskripsi
-                    })
+                    
+                    attribute['label'] = attr.name
+                    attribute['deskripsi'] = deskripsi
+                    data_attr_all.append(attribute)
 
                 product_spesifikasi=({
-                    'item':attribute,
+                    'item':data_attr_all,
                     'tanggal_update':record.write_date
                 })
 
-                image=({
-                    'deskripsi':record.description_sale,
-                    'image_50x50':url_50,
-                    'image_100x100':url_100,
-                    'image_300x300':url_300,
-                    'image_800x800':url_800,
-                })
+                image = OrderedDict()
+                image['deskripsi']=description_sale
+                image['image_50x50']=url_50
+                image['image_100x100']=url_100
+                image['image_300x300']=url_300
+                image['image_800x800']=url_800
 
                 data_image=({
                     'item':image,
                     'tanggal_update':record.write_date
                 })
 
-                data_harga=({
-                    'harga_retail':record.lkpp_sell_price,
-                    'harga_pemerintah':record.lkpp_govt_price,
-                    'ongkos_kirim':False,
-                    'kurs_id':False,
-                    'tanggal_update':record.write_date,
-                })
+                data_harga = OrderedDict()
+                data_harga['harga_retail'] = record.list_price
+                data_harga['harga_pemerintah'] = record.lkpp_govt_price
+                data_harga['ongkos_kirim'] = 0
+                data_harga['kurs_id'] = 1
+                data_harga['tanggal_update'] = record.write_date
 
-                data_product.append({
-                    'informasi':product_informasi,
-                    'spesifikasi':product_spesifikasi,
-                    'image':data_image,
-                    'harga':data_harga,
-                    'lampiran':False
-                })   
+                # input data to data_product
 
-            data = {
-                'produk':data_product
-            }
+                data_product['informasi'] = product_informasi
+                data_product['spesifikasi'] = product_spesifikasi
+                data_product['image'] = data_image
+                data_product['harga'] = data_harga
+                data_product['lampiran'] = None
+
+            
+            data = OrderedDict()
+            data['produk'] = data_product
+            
         else:
             data = {'error': data_config
             }
