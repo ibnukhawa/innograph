@@ -82,6 +82,7 @@ class LKPPController(Controller):
         
         data_all = []
         data_config=request.env['ir.config_parameter'].sudo().get_param('lkpp.secretkey', default='')
+        id_penawaran_lkpp=request.env['ir.config_parameter'].sudo().get_param('lkpp.penawaran_id', default=None)
         domain=[
             ('active', '=', True),
             ('active_product', '=', True),
@@ -109,6 +110,7 @@ class LKPPController(Controller):
                 product_informasi = OrderedDict()
                 
                 product_informasi['unspsc'] = record.unspsc
+                product_informasi['id_penawaran_lkpp'] = id_penawaran_lkpp
                 product_informasi['id_kategori_produk_lkpp'] = record.lkpp_category_id
                 product_informasi['nama_produk'] = record.name
                 product_informasi['no_produk_penyedia'] = record.default_code
@@ -235,6 +237,7 @@ class LKPPController(Controller):
         
         data_all = []
         data_config=request.env['ir.config_parameter'].sudo().get_param('lkpp.secretkey', default='')
+        id_penawaran_lkpp=request.env['ir.config_parameter'].sudo().get_param('lkpp.penawaran_id', default=None)
         
         if data_config == key:
             
@@ -263,6 +266,7 @@ class LKPPController(Controller):
                 product_informasi = OrderedDict()
 
                 product_informasi['unspsc'] = record['unspsc']
+                product_informasi['id_penawaran_lkpp'] = id_penawaran_lkpp
                 product_informasi['id_kategori_produk_lkpp'] = record['lkpp_category_id']
                 product_informasi['nama_produk'] = record['name']
                 product_informasi['no_produk_penyedia'] = record['default_code']
@@ -368,6 +372,7 @@ class LKPPController(Controller):
 
         data_product = OrderedDict()
         data_config=request.env['ir.config_parameter'].sudo().get_param('lkpp.secretkey', default='')
+        id_penawaran_lkpp=request.env['ir.config_parameter'].sudo().get_param('lkpp.penawaran_id', default=None)
         domain=[
             ('default_code','=',no_produk_penyedia),
             ('active', '=', True),
@@ -387,6 +392,7 @@ class LKPPController(Controller):
                 product_informasi = OrderedDict()
 
                 product_informasi['unspsc'] = record.unspsc
+                product_informasi['id_penawaran_lkpp'] = id_penawaran_lkpp
                 product_informasi['id_kategori_produk_lkpp'] = record.lkpp_category_id
                 product_informasi['nama_produk'] = record.name
                 product_informasi['no_produk_penyedia'] = record.default_code

@@ -13,6 +13,7 @@
                     <field name="lkpp_manufacture_key"/>
                     <field name="lkpp_currency_key"/>
                     <field name="lkpp_secretkey"/>
+                    <field name="id_penawaran_lkpp"/>
                 </group>
             </xpath>
         </field>
