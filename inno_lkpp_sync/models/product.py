@@ -21,6 +21,8 @@ class ProductTemplate(models.Model):
 
     list_price = fields.Float(string='Website Price',compute='_computed_price_website')
 
+    deskripsi_lengkap = fields.Text(string="Deskripsi Lengkap")
+    deskripsi_singkat = fields.Text(string="Deskripsi Singkat")
 
     @api.depends("website_price_new")
     def _computed_price_website(self):

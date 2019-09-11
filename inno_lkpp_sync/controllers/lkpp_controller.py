@@ -117,13 +117,19 @@ class LKPPController(Controller):
                 product_informasi['id_manufaktur'] = record.lkpp_manufacturer_id
                 product_informasi['id_unit_pengukuran_lkpp'] = record.uom_id.lkpp_uom_id
 
-                if record.description_sale == False:
-                    description_sale = None
+                if record.deskripsi_singkat == False:
+                    deskripsi_singkat = None
                 else:
-                    description_sale = record.description_sale
+                    deskripsi_singkat = record.deskripsi_singkat
 
-                product_informasi['deskripsi_singkat'] = description_sale
-                product_informasi['deskripsi_lengkap'] = description_sale
+                product_informasi['deskripsi_singkat'] = deskripsi_singkat
+
+                if record.deskripsi_lengkap == False:
+                    deskripsi_lengkap = None
+                else:
+                    deskripsi_lengkap = record.deskripsi_lengkap
+
+                product_informasi['deskripsi_lengkap'] = deskripsi_lengkap
                 product_informasi['kuantitas_stok'] = record.qty_available
                 product_informasi['tanggal_update'] = record.write_date
 
@@ -169,7 +175,7 @@ class LKPPController(Controller):
                 })
 
                 image = OrderedDict()
-                image['deskripsi']=description_sale
+                image['deskripsi']=deskripsi_singkat
                 image['image_50x50']=url_50
                 image['image_100x100']=url_100
                 image['image_300x300']=url_300
@@ -273,13 +279,20 @@ class LKPPController(Controller):
                 product_informasi['id_manufaktur'] = record['lkpp_manufacturer_id']
                 product_informasi['id_unit_pengukuran_lkpp'] = result.uom_id.lkpp_uom_id
 
-                if result.description_sale == False:
-                    description_sale = None
-                else:
-                    description_sale = result.description_sale
 
-                product_informasi['deskripsi_singkat'] = description_sale
-                product_informasi['deskripsi_lengkap'] = description_sale
+                if result.deskripsi_singkat == False:
+                    deskripsi_singkat = None
+                else:
+                    deskripsi_singkat = result.deskripsi_singkat
+
+                product_informasi['deskripsi_singkat'] = deskripsi_singkat
+
+                if result.deskripsi_lengkap == False:
+                    deskripsi_lengkap = None
+                else:
+                    deskripsi_lengkap = result.deskripsi_lengkap
+                
+                product_informasi['deskripsi_lengkap'] = deskripsi_lengkap
                 product_informasi['kuantitas_stok'] = result.qty_available
                 product_informasi['tanggal_update'] = record['write_date']
 
@@ -323,7 +336,7 @@ class LKPPController(Controller):
                 })
 
                 image = OrderedDict()
-                image['deskripsi']=description_sale
+                image['deskripsi']=deskripsi_singkat
                 image['image_50x50']=url_50
                 image['image_100x100']=url_100
                 image['image_300x300']=url_300
@@ -399,13 +412,19 @@ class LKPPController(Controller):
                 product_informasi['id_manufaktur'] = record.lkpp_manufacturer_id
                 product_informasi['id_unit_pengukuran_lkpp'] = record.uom_id.lkpp_uom_id
 
-                if record.description_sale == False:
-                    description_sale = None
+                if record.deskripsi_singkat == False:
+                    deskripsi_singkat = None
                 else:
-                    description_sale = record.description_sale
+                    deskripsi_singkat = record.deskripsi_singkat
 
-                product_informasi['deskripsi_singkat'] = description_sale
-                product_informasi['deskripsi_lengkap'] = description_sale
+                product_informasi['deskripsi_singkat'] = deskripsi_singkat
+
+                if record.deskripsi_lengkap == False:
+                    deskripsi_lengkap = None
+                else:
+                    deskripsi_lengkap = record.deskripsi_lengkap
+
+                product_informasi['deskripsi_lengkap'] = deskripsi_lengkap
                 product_informasi['kuantitas_stok'] = record.qty_available
                 product_informasi['tanggal_update'] = record.write_date
 
@@ -451,7 +470,7 @@ class LKPPController(Controller):
                 })
 
                 image = OrderedDict()
-                image['deskripsi']=description_sale
+                image['deskripsi']=deskripsi_singkat
                 image['image_50x50']=url_50
                 image['image_100x100']=url_100
                 image['image_300x300']=url_300

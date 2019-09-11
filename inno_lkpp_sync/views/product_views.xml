@@ -16,6 +16,8 @@
                         <group>
                             <field name="active_product"/>
                             <field name="local_product"/>
+                            <field name="deskripsi_singkat"/>
+                            <field name="deskripsi_lengkap"/>
                         </group>
                         <group>
                             <field name="unspsc"/>
