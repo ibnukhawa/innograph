@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="web.assets_frontend" name="Website Frontend Assets">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/inno_web_footer/static/css/footer.css"/>
+        </xpath>
+    </template>
+    <template id="pci_footer" inherit_id="theme_stoneware.footer_default">
+        <xpath expr="//div[@id='footer']" position="replace">
+            <div id="footer">
+                <div id="footer">
+                    <!--<div class="footer-newsletter">-->
+                        <!--<div class="container">-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-md-3 footer-logo">-->
+                                    <!--<a href="/"><img src="/theme_stoneware/static/src/img/logo.png" title="Stoneware" alt="Stoneware" /></a>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-9 fn-right-form">-->
+                                    <!--<div class="newsletter-inner">-->
+                                        <!--<div class="title-new">-->
+                                            <!--<h3>send newsletter</h3>-->
+                                        <!--</div>-->
+                                        <!--<div class="ftr-ns">-->
+                                            <!--<div class="oe_snippet_body input-group js_subscribe"-->
+                                                 <!--data-list-id="0">-->
+                                                <!--<input type="email" name="email" class="js_subscribe_email form-control" placeholder="Enter your email address"/>-->
+                                                <!--<span class="input-group-btn">-->
+                                                    <!--<a href="#" class="btn btn-primary js_subscribe_btn">Subscribe</a>-->
+                                                    <!--<a href="#" class="btn btn-success js_subscribed_btn hidden" disabled="disabled">Thanks</a>-->
+                                                <!--</span>-->
+                                                <!--<div class="alert alert-success hidden">Thanks for your subscription!</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="middle-footer">
+                        <div class="container">
+                            <div class="row" style="padding-bottom: 40px;">
+                                <div class="col-md-6">
+                                    <div class="newsletter-inner">
+                                        <div class="title-new">
+                                            <h3>NEWSLETTER</h3>
+                                        </div>
+                                        <div class="ftr-ns">
+                                            <div class="oe_snippet_body input-group js_subscribe"
+                                                 data-list-id="0">
+                                                <input type="email" name="email" class="js_subscribe_email form-control" placeholder="Enter your email address"/>
+                                                <span class="input-group-btn">
+                                                    <a href="#" class="btn btn-primary js_subscribe_btn">Subscribe</a>
+                                                    <a href="#" class="btn btn-success js_subscribed_btn hidden" disabled="disabled">Thanks</a>
+                                                </span>
+                                                <div class="alert alert-success hidden">Thanks for your subscription!</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="title-new">
+                                        <h3>Follows</h3>
+                                    </div>
+                                    <div class="title-new">
+                                        <a href="#"><i class="fa fa-instagram instagram-icon" aria-hidden="true"/></a>
+                                        <a href="#"><i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/></a>
+                                        <a href="#"><i class="fa fa-facebook facebook-icon" aria-hidden="true"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" >
+                                    <h3 class="block-title">Bantuan</h3>
+                                    <ul class="list-unstyled" id="help">
+                                        <li>
+                                            <a href="#">Cara membuat penawaran</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">F.A.Q</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Cara membeli</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Metode pembayaran</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Cara menjadi partner</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Pengiriman</a>
+                                        </li>
+                                    </ul>
+                                    <section class="f-social">
+                                        <ul>
+                                            <li t-if="website.social_facebook"><a t-att-href="website.social_facebook" t-if="website.social_facebook"><i class="fa fa-facebook"/></a></li>
+                                            <li t-if="website.social_twitter"><a t-att-href="website.social_twitter" t-if="website.social_twitter"><i class="fa fa-twitter"/></a></li>
+                                            <li t-if="website.social_googleplus"><a t-att-href="website.social_googleplus" t-if="website.social_googleplus" rel="publisher"><i class="fa fa-google-plus"/></a></li>
+                                            <li t-if="website.social_youtube"><a t-att-href="website.social_youtube" t-if="website.social_youtube"><i class="fa fa-youtube-play"/></a></li>
+                                        </ul>
+                                    </section>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" >
+                                    <h3 class="block-title">Displaystore</h3>
+                                    <ul class="list-unstyled" id="products">
+                                        <li>
+                                            <a href="#">Tentang Displaystore</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Press media</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Daftar partner</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Sitemap</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Kebijakan privasi</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="display: none;">
+                                    <h3 class="block-title">Links</h3>
+                                    <div id="info">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <a href="#">Site Map</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Search Terms</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Advanced Search</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Mobile</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Contact us</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Discount Code</a>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <h3 class="block-title">Location</h3>
+                                    <div class="fot-address">
+                                        <address itemscope="itemscope" itemtype="http://schema.org/Organization">
+                                        <!-- TODO widget contact must add itemprop attributes -->
+                                        <div t-field="res_company.partner_id" t-options='{
+                                                "widget": "contact",
+                                                "fields": ["name", "address", "phone", "mobile", "fax", "email"]}'/>
+                                        </address>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <h3 class="block-title">
+                                        View Maps
+                                    </h3>
+                                    <div id="maps">
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.6734509967455!2d106.83671751471717!3d-6.306563295435727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69edf2f9a6c2e3%3A0xaca525818eec30b0!2sDisplaystore.id!5e0!3m2!1sen!2sid!4v1568691117917!5m2!1sen!2sid"
+                                                width="450"
+                                                height="300"
+                                                frameborder="0"
+                                                style="border:0;"
+                                                allowfullscreen=""/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="support-footer">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12 col-xs-12 box1">
+                                    <div class="iner-box">
+                                        <div class="icon">
+                                            <i class="fa fa-phone" />
+                                            <p><span>Do you have</span> a question?</p>
+                                        </div>
+                                        <div class="text">
+                                            <h3>+0123 456 789</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-xs-12 box2">
+                                    <div class="iner-box">
+                                        <div class="icon">
+                                            <i class="fa fa-envelope-o" />
+                                            <p><span>offer</span> question?</p>
+                                        </div>
+                                        <div class="text">
+                                            <h3>contact@stoneware.com</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-xs-12 box3">
+                                    <div class="iner-box">
+                                        <div class="icon">
+                                            <i class="fa fa-support" />
+                                            <p><span>Support</span> question?</p>
+                                        </div>
+                                        <div class="text">
+                                            <h3>support@stoneware.com</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-footer">
+                        <div class="container">
+                            <div class="copyright">
+                                <p>Copyright  © 2017 Stoneware. All Rights Reserved.</p>
+                            </div>
+                            <p class="footer-payment">
+                                <img src="/theme_stoneware/static/src/img/payment.png" title="Stoneware" alt="Stoneware" />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
