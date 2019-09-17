@@ -79,6 +79,7 @@
                                         <li t-if="website.social_youtube"><a t-att-href="website.social_youtube" t-if="website.social_youtube"><i class="fa fa-youtube-play"/></a></li>
                                     </ul>
                                 </section>
+                                <h6 class="copyright"> Copyright 2019. Displaystore</h6>
                             </div>
 
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" >
