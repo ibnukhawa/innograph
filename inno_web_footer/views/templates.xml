@@ -71,14 +71,14 @@
                                     <img class="permata-logo" src="/inno_web_footer/static/img/PermataBank_logo.png" title="Permata Logo" alt="PermataBank"/>
                                     <img class="danamon-logo" src="/inno_web_footer/static/img/Danamon_logo.png" title="Danamon Logo" alt="Danamon"/>
                                 </div>
-                                <section class="f-social">
-                                    <ul>
-                                        <li t-if="website.social_facebook"><a t-att-href="website.social_facebook" t-if="website.social_facebook"><i class="fa fa-facebook"/></a></li>
-                                        <li t-if="website.social_twitter"><a t-att-href="website.social_twitter" t-if="website.social_twitter"><i class="fa fa-twitter"/></a></li>
-                                        <li t-if="website.social_googleplus"><a t-att-href="website.social_googleplus" t-if="website.social_googleplus" rel="publisher"><i class="fa fa-google-plus"/></a></li>
-                                        <li t-if="website.social_youtube"><a t-att-href="website.social_youtube" t-if="website.social_youtube"><i class="fa fa-youtube-play"/></a></li>
-                                    </ul>
-                                </section>
+                                <!--<section class="f-social">-->
+                                    <!--<ul>-->
+                                        <!--<li t-if="website.social_facebook"><a t-att-href="website.social_facebook" t-if="website.social_facebook"><i class="fa fa-facebook"/></a></li>-->
+                                        <!--<li t-if="website.social_twitter"><a t-att-href="website.social_twitter" t-if="website.social_twitter"><i class="fa fa-twitter"/></a></li>-->
+                                        <!--<li t-if="website.social_googleplus"><a t-att-href="website.social_googleplus" t-if="website.social_googleplus" rel="publisher"><i class="fa fa-google-plus"/></a></li>-->
+                                        <!--<li t-if="website.social_youtube"><a t-att-href="website.social_youtube" t-if="website.social_youtube"><i class="fa fa-youtube-play"/></a></li>-->
+                                    <!--</ul>-->
+                                <!--</section>-->
                                 <h6 class="copyright"> Copyright 2019. Displaystore</h6>
                             </div>
 
