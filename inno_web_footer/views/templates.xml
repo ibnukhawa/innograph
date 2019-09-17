@@ -133,7 +133,7 @@
                                 </ul>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="display: none;">
                                 <h3 class="block-title">Location</h3>
                                 <div class="fot-address">
                                     <address itemscope="itemscope" itemtype="http://schema.org/Organization">
@@ -142,6 +142,23 @@
                                             "widget": "contact",
                                             "fields": ["name", "address", "phone", "mobile", "fax", "email"]}'/>
                                     </address>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <h3 class="block-title">
+                                    Hubungi Kami
+                                </h3>
+                                <div id="contact_us">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 inno-container">
+                                            <img class="inno-logo" src="/inno_web_footer/static/img/inno_logo.jpg" title="Inno" alt="innoGraph"/>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <p>(021) 7883 1023</p>
+                                            <p>Senin-Jumat: 09.00 - 17.00</p>
+                                            <p>email. cs@displaystore.id</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">

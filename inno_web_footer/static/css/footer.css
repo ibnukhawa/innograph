@@ -44,3 +44,12 @@
     padding-top: 40px;
     text-align: left !important;
 }
+.inno-logo{
+    width: 200px;
+    height: 80px;
+}
+.inno-container{
+    width: 110px;
+    height: 100px;
+    margin-right: inherit;
+}
