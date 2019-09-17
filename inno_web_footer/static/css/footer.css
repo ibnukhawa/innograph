@@ -3,9 +3,14 @@
 }
 .youtube-icon{
     font-size: 40px;
-    color: red !important;
-    border-radius: 23%;
+    color: red;
+    background: #FFFFFF;
+    border-radius: 10%;
     margin-left: 10px;
+}
+.youtube-icon:hover{
+    background: red;
+    color: #FFFFFF;
 }
 .facebook-icon{
     font-size: 35px;
@@ -19,12 +24,19 @@
     padding-top: 5px;
     padding-left: 15px;
 }
+.facebook-icon:hover{
+    background: #FFFFFF;
+    color: #3B5998;
+}
 .instagram-icon{
     font-size: 40px;
-    color: #FFFFFF !important;
+    color: #FFFFFF;
     background: #125688;
-    border-radius: 15%;
-    height: 35px;
+    border-radius: 10%;
+}
+.instagram-icon:hover{
+    background: #FFFFFF;
+    color: #125688;
 }
 .second-title{
     margin-top: 20px !important;
