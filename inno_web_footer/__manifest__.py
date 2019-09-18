@@ -10,6 +10,7 @@
     """,
     'depends': [
         'website_sale',
+        'website_mass_mailing',
         'theme_stoneware',
     ],
     'data': [
