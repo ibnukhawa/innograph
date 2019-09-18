@@ -11,7 +11,7 @@
                 <div class="middle-footer">
                     <div class="container">
                         <div class="row" style="padding-bottom: 20px;">
-                            <div class="col-md-6">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="newsletter-inner">
                                     <div class="title-new">
                                         <h3>NEWSLETTER</h3>
@@ -29,7 +29,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="title-new">
                                     <h3>Follows</h3>
                                 </div>
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" >
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 footer-content" >
                                 <h3 class="block-title">Bantuan</h3>
                                 <ul class="list-unstyled" id="help">
                                     <li>
@@ -79,10 +79,9 @@
                                         <!--<li t-if="website.social_youtube"><a t-att-href="website.social_youtube" t-if="website.social_youtube"><i class="fa fa-youtube-play"/></a></li>-->
                                     <!--</ul>-->
                                 <!--</section>-->
-                                <h6 class="copyright"> Copyright 2019. Displaystore</h6>
                             </div>
 
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" >
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 footer-content" >
                                 <h3 class="block-title">Displaystore</h3>
                                 <ul class="list-unstyled" id="products">
                                     <li>
@@ -144,7 +143,7 @@
                                     </address>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 footer-content">
                                 <h3 class="block-title">
                                     Hubungi Kami
                                 </h3>
@@ -161,16 +160,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 footer-content">
                                 <h3 class="block-title">
                                     View Maps
                                 </h3>
                                 <div id="maps">
                                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.6734509967455!2d106.83671751471717!3d-6.306563295435727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69edf2f9a6c2e3%3A0xaca525818eec30b0!2sDisplaystore.id!5e0!3m2!1sen!2sid!4v1568691117917!5m2!1sen!2sid"
-                                            width="400"
-                                            height="300"
+                                            class="gmaps"
                                             frameborder="0"
-                                            style="border:0;"
                                             allowfullscreen=""/>
                                 </div>
                             </div>
@@ -216,14 +213,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="bottom-footer" style="display: none;">
+                <div class="bottom-footer">
                     <div class="container">
                         <div class="copyright">
-                            <p>Copyright  © 2017 Stoneware. All Rights Reserved.</p>
+                            <h6> Copyright 2019. Displaystore</h6>
                         </div>
-                        <p class="footer-payment">
-                            <img src="/theme_stoneware/static/src/img/payment.png" title="Stoneware" alt="Stoneware" />
-                        </p>
                     </div>
                 </div>
             </div>
