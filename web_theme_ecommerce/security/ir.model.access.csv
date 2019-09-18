@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_slider_banner_satu,access_slider_banner_satu,theme_stoneware.model_slider_banner_satu,base.group_user,1,1,1,1
+access_slider_banner_dua,access_slider_banner_dua,theme_stoneware.model_slider_banner_dua,base.group_user,1,1,1,1
+access_slider_banner_tiga,access_slider_banner_tiga,theme_stoneware.model_slider_banner_tiga,base.group_user,1,1,1,1
+access_slider_tabs,access_slider_tabs,theme_stoneware.model_slider_tabs,base.group_user,1,1,1,1

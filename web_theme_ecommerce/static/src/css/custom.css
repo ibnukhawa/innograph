@@ -1,0 +1,73 @@
+/* custome style for task [113568] Adjust interface ecommerce homepage */
+header .navbar-default .navbar-collapse {
+    width: 100%;
+    float: left;
+    background: #ffffff;
+    margin-top: 34px !important;
+}
+ .banner{
+    width: 100%;
+    height: 100%;
+}
+
+.banner_sub{
+    width: 100%;
+    height: 100%;
+} 
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > {
+    color: #555555;
+    background-color: #fff;
+    border: none;
+    border-bottom-color: transparent;
+    cursor: default;
+}
+.nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    /* border: 1px solid transparent; */
+    border-radius: 4px 4px 0 0;
+    border-right: 1px solid #ddd !important;
+}
+
+
+/* style setting tabs slider */
+
+/* style slider category */
+
+.box_category{
+    margin: 15px;
+    color: #ffffff;
+    padding: 10px;
+}
+.row_category{
+    background-color: #ecf0f1;
+}
+
+.tab-content>.tab-pane {display: block;visibility: hidden;}
+.tab-content>.tab-pane.active {visibility: visible;}
+.tab-content{position: relative;}
+.tab-pane:not(:first-child){position: absolute;width: 100%;height: 100%;top: 0;left: 0;}
+
+.box_slider_satu{
+    height: 400px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.box_slider_sub{
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.ptop{
+    padding-top: 10px;
+}
+
+.pbottom{
+    padding-bottom: 10px;
+}
+
+.slick-slider .slick-slide{
+   
+    justify-content: center;
+    align-items: center;
+  }
