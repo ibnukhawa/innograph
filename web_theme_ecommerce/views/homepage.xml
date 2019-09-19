@@ -16,10 +16,7 @@
             
                 <div class="container-fluid">
                     <div class="row" id="banner_slider">
-                        <div class="col-md-12">
-                            
-                        </div>
-                            <div class="header_slider_1 col-xs-6 col-sm-6 col-md-6">
+                            <div class="header_slider_1 col-xs-12 col-sm-6 col-md-6">
                                 <!-- <div class="" style="background:#ffffff;"> -->
                                     
                                     <!-- <div>
@@ -34,8 +31,8 @@
                                 <!-- </div> -->
                             </div>
                         
-                            <div class="col-xs-6 col-sm-6 col-md-6 ">
-                                <div class="header_slider_2 col-xs-12 col-sm-12 col-md-12" style="min-height:100% !important">
+                            <div class=" header_slider_sub col-xs-12 col-sm-6 col-md-6 ">
+                                <div class="header_slider_2" style="min-height:100% !important">
                                     
                                     <!-- <div>
                                         <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-4.jpg"/>
@@ -47,7 +44,7 @@
                                         <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-1.jpg"/>
                                     </div> -->
                                 </div>
-                                <div class="header_slider_3 col-xs-12 col-sm-12 col-md-12" style="min-height:100% !important">
+                                <div class="header_slider_3" style="min-height:100% !important">
                                     <!-- <div>
                                         <img class="banner" src="/theme_stoneware/static/src/img/catbanner/banner1.png"/>
                                     </div>

@@ -13,6 +13,7 @@ from datetime import datetime, date, timedelta
 
 from collections import OrderedDict
 import logging
+import re
 
 # import psycopg2
 
@@ -91,10 +92,15 @@ class HomePage(Controller):
             data_product = []
         
             for product in slider_tab.product_ids:
-                name_product = product.name
+                price =product.currency_id.symbol+' '+'{:,.2f}'.format(product.list_price)
+                
+                name_product = re.sub('[^A-Za-z0-9]+', '', product.name)
+                a = name_product.lower()
+                url_name = a.replace(" ", "-")
+                
                 image_product = '/web/image/product.template/'+str(product.id)+'/image/300x300'
                 # print(str(product.list_price)+" "+name_product)
-                data_product.append({'name':product.name, 'image':image_product, 'price': product.list_price})
+                data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.list_price, 'currency':product.currency_id.symbol})
             
             data_slider['id_tab'] = slider_tab.id
             data_slider['name_tab'] = slider_tab.name

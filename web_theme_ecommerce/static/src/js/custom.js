@@ -162,6 +162,8 @@ $(window).scroll(function() {
 
 $(document).ready(function() {
 
+    
+
     $.get("/API/load_banner", function(data){
         // alfif
         // $(".result").html( data );
@@ -234,6 +236,27 @@ $(document).ready(function() {
             variableWidth: true,
 
         });
+
+
+        // alert($(window).width());
+        if($(window).width() < 768){
+            $(".header_slider_2").addClass('col-xs-6');
+            $(".header_slider_3").addClass('col-xs-6');
+        }
+        else
+        {
+            $(".header_slider_2").removeClass('col-xs-6');
+            $(".header_slider_3").removeClass('col-xs-6');
+        }
+        
+        
+        var width_slider = $(".header_slider_1").width();
+        var width_slider_sub = $(".header_slider_2").width();
+
+        $(".box_slider_satu").css("max-width",width_slider);
+        $(".box_slider_sub").css("max-width",width_slider_sub);
+
+        
     });
 
 
@@ -254,9 +277,11 @@ $(document).ready(function() {
 
 
         $('.slider_main_category').slick({
+            // autoplay: true,
+            // autoplaySpeed: 4000,
             infinite: true,
             slidesToShow: 6,
-            slidesToScroll: 6,
+            slidesToScroll: 3,
             pagination: true,
             arrows: false,
             responsive: [
@@ -264,14 +289,14 @@ $(document).ready(function() {
                   breakpoint: 1024,
                   settings: {
                     slidesToShow: 5,
-                    slidesToScroll: 5,
+                    slidesToScroll: 2,
                   }
                 },
                 {
-                  breakpoint: 600,
+                  breakpoint: 800,
                   settings: {
                     slidesToShow: 4,
-                    slidesToScroll: 4
+                    slidesToScroll: 2
                   }
                 },
                 {
@@ -295,14 +320,18 @@ $(document).ready(function() {
                 var html_product="";
                 if(index == 0){
                     html_li += "<li role='presentation' class='active' id='"+value.id_tab+"'>";
+
+                    html_li += "<a href='#more_product"+index+"' aria-controls='more_product' role='tab' data-toggle='tab'>";
+                    html_li += "<p class='text_tabs'>"+value.name_tab+"</p>";
                 }
                 else
                 {
                     html_li += "<li role='presentation' id='"+value.id_tab+"'>";
+
+                    html_li += "<a href='#more_product"+index+"' id='text_tabs' aria-controls='more_product' role='tab' data-toggle='tab'>";
+                    html_li += "<p class='text_tabs'>"+value.name_tab+"</p>";
                 }
 
-                html_li += "<a href='#more_product"+index+"' aria-controls='more_product' role='tab' data-toggle='tab'>";
-                html_li += value.name_tab;
                 html_li += "</a>";
                 html_li += "</li>";
                 
@@ -327,10 +356,14 @@ $(document).ready(function() {
                 $.each(value.data_products, function( index_product, product ) {
 
                     html_product += "<div class='card card-tab'>";
+                    html_product += "<div class='card-header'>";
                     html_product += "<img class='banner_tab_slider' src='"+product.image+"' />";
+                    html_product += "</div>";
                     html_product += "<div class='card-body'>";
+                    html_product += "<a href='/shop/product/"+product.url_name+"-"+product.id+"'>";
                     html_product += "<p class='card-text title_product'>"+product.name+"</p>";
-                    html_product += "<p class='card-text price'>"+product.price+"</p>";
+                    html_product += "</a>";
+                    html_product += "<p class='card-text price'>"+product.price_label+"</p>";
                     html_product += "</div>";
                     html_product += "</div>";
                     
@@ -340,8 +373,10 @@ $(document).ready(function() {
 
                 $('.product_panels'+index).slick({
                     infinite: true,
+                    // autoplay: true,
+                    // autoplaySpeed: 4000,
                     slidesToShow: 6,
-                    slidesToScroll: 6,
+                    slidesToScroll: 3,
                     pagination: true,
                     arrows: false,
                     responsive: [
@@ -349,14 +384,14 @@ $(document).ready(function() {
                           breakpoint: 1024,
                           settings: {
                             slidesToShow: 5,
-                            slidesToScroll: 5,
+                            slidesToScroll: 2,
                           }
                         },
                         {
-                          breakpoint: 600,
+                          breakpoint: 800,
                           settings: {
                             slidesToShow: 4,
-                            slidesToScroll: 4
+                            slidesToScroll: 2
                           }
                         },
                         {
@@ -374,7 +409,7 @@ $(document).ready(function() {
 
             
             
-        });
+    });
 
     $("#as-pro-slide").owlCarousel({
         items: 4,
@@ -448,6 +483,8 @@ $(document).ready(function() {
         navigation: true,
         pagination: false
     });
+
+    
 
     /*
     $('.slider_category_1').slick({
@@ -544,15 +581,43 @@ $(document).ready(function() {
     }
 
 
-    /*full widht banner*/
-    function setHeight() {
+    /*full width banner*/
+
+      function setWidth(){
+        // alfif
+        // add function to set width in slick slider
+    
+        var width_slider = $(".header_slider_1").width();
+        var width_slider_sub = $(".header_slider_2").width();
+
+        $(".box_slider_satu").css("max-width",width_slider);
+        $(".box_slider_sub").css("max-width",width_slider_sub);
+      }
+
+      function setHeight() {
         windowHeight = $(window).innerHeight() - $('header').outerHeight();
         $('.as-animated-slider .slide').css('min-height', windowHeight);
       };
+
       setHeight();
       
       $(window).resize(function() {
+        
+        if($(window).width() < 768){
+            $(".header_slider_2").addClass('col-xs-6');
+            $(".header_slider_3").addClass('col-xs-6');
+        }
+        else
+        {
+            $(".header_slider_2").removeClass('col-xs-6');
+            $(".header_slider_3").removeClass('col-xs-6');
+        }
+        
         setHeight();
+        setWidth();
+        // alert($(window).width());
+        
+        // if($(window).width() > 767)
       });
 
       /**/
