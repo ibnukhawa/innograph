@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Alfif -->
+<odoo>
+
+     <record id="slider_banner_satu_tree_view" model="ir.ui.view">
+        <field name="name">slider.banner_satu.tree</field>
+        <field name="model">slider.banner_satu</field>
+        <field name="arch" type="xml">
+            <tree string="Slider Banner 1" editable='bottom'>
+                <field name="image"/>
+            </tree>
+        </field>
+    </record>
+
+	<record id="slider_banner_satu_action" model="ir.actions.act_window">
+        <field name="name">Slider Banner 1</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">slider.banner_satu</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="slider_banner_satu_tree_view"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add a new Slider Banner 1.
+            </p><p>
+                This application helps you to track Slider Banner 1.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="slider_menu_banner_satu_action"
+        name="Slider Banner 1"
+        parent="website_slides.menu_website_slides_root"
+        action="slider_banner_satu_action"
+        sequence="55"/>
+    
+
+     <record id="slider_banner_dua_tree_view" model="ir.ui.view">
+        <field name="name">slider.banner_dua.tree</field>
+        <field name="model">slider.banner_dua</field>
+        <field name="arch" type="xml">
+            <tree string="Slider Banner 2" editable='bottom'>
+                <field name="image"/>
+            </tree>
+        </field>
+    </record>
+
+	<record id="slider_banner_dua_action" model="ir.actions.act_window">
+        <field name="name">Slider Banner 2</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">slider.banner_dua</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="slider_banner_dua_tree_view"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add a new Slider Banner 2.
+            </p><p>
+                This application helps you to track Slider Banner 2.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="slider_menu_banner_dua_action"
+        name="Slider Banner 2"
+        parent="website_slides.menu_website_slides_root"
+        action="slider_banner_dua_action"
+        sequence="56"/>
+    
+    
+    
+    <record id="slider_banner_tiga_tree_view" model="ir.ui.view">
+        <field name="name">slider.banner_tiga.tree</field>
+        <field name="model">slider.banner_tiga</field>
+        <field name="arch" type="xml">
+            <tree string="Slider Banner 3" editable='bottom'>
+                <field name="image"/>
+            </tree>
+        </field>
+    </record>
+
+	<record id="slider_banner_tiga_action" model="ir.actions.act_window">
+        <field name="name">Slider Banner 3</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">slider.banner_tiga</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="slider_banner_tiga_tree_view"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add a new Slider Banner 3.
+            </p><p>
+                This application helps you to track Slider Banner 3.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="slider_menu_banner_tiga_action"
+        name="Slider Banner 3"
+        parent="website_slides.menu_website_slides_root"
+        action="slider_banner_tiga_action"
+        sequence="57"/>
+
+    
+    <record id="slider_tabs_tree_view" model="ir.ui.view">
+        <field name="name">slider.tabs.tree</field>
+        <field name="model">slider.tabs</field>
+        <field name="arch" type="xml">
+            <tree string="Slider Tabs" editable='bottom'>
+                <field name="name"/>
+                <field name="product_ids" widget="many2many_tags"/>
+                <field name="sequence" />
+                <field name="is_active" />
+            </tree>
+        </field>
+    </record>
+
+	<record id="slider_tabs_action" model="ir.actions.act_window">
+        <field name="name">Slider Tabs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">slider.tabs</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="slider_tabs_tree_view"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add a new Slider tabs.
+            </p><p>
+                This application helps you to track Slider tabs.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="slider_menu_tabs_action"
+        name="Slider Tabs"
+        parent="website_slides.menu_website_slides_root"
+        action="slider_tabs_action"
+        sequence="57"/>
+    
+    
+</odoo>
