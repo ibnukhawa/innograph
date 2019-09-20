@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="layout_header" inherit_id="website.layout">
+        <xpath expr="//div[@class='header-top']" position="replace">
+            <div class="header-top" style="background-color:white;"></div>
+        </xpath>
         <xpath expr="//div[@class='container']/div[@class='navbar-header']" position="replace">
-            <div class="navbar-header">
+            <div class="navbar-header fixed-header">
                 <div class="navbar-header-top">
                     <div class="container">
                         <nav class="navbar navbar-expand-lg navbar-light">
@@ -39,7 +42,8 @@
                                                 <li class="hm-cart-item nav-item center" style="font-size:20px;padding-top:10px;">
                                                     <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
                                                     <i class="fa fa-shopping-cart"></i>
-                                                    <span class="my_cart_quantity badge" t-esc="website_sale_order and website_sale_order.cart_quantity or '0'"/>
+                                                    <span class="my_cart_quantity badge" t-esc="website_sale_order and website_sale_order.cart_quantity or '0'"
+                                                    style="background-color: #2196f3;"/>
                                                 </li>
                                             </ul>
                                         </div>
@@ -66,7 +70,12 @@
                                                         <div class="col-sm-3">
                                                             <ul class="navbar-nav">
                                                                 <li>
-                                                                    <t t-esc="user_id.image" t-options='{"widget": "image", "class": "rounded-circle"}'/>
+                                                                    <t t-if="user_id.image">
+                                                                        <t t-esc="user_id.image" t-options='{"widget": "image", "class": "rounded-circle"}'/>
+                                                                    </t>
+                                                                    <t t-if="not user_id.image">
+                                                                        <img/>
+                                                                    </t>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -119,8 +128,6 @@
                     </nav>
                 </div>
             </div>
-        </xpath>
-        <xpath expr="//div[@class='ht-right']" position="replace">
         </xpath>
     </template>
     <!-- Product Cart -->

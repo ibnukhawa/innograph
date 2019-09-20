@@ -14,8 +14,8 @@
             'website_sale','website_mass_mailing','website_crm','website_blog','website_event'
     ],
     'data': [
-        'views/home.xml',
-        'views/homepage.xml',
+        # 'views/home.xml',
+        # 'views/homepage.xml',
         'views/template_header.xml',
         'views/custom_template.xml',
         'views/assets.xml',
