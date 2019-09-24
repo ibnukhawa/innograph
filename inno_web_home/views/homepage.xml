@@ -113,7 +113,8 @@
                     </div>
                 </section> 
                         
-                    
+                <div class="oe_structure oe_empty">
+                </div>
 
 
         </xpath>
