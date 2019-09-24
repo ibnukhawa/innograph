@@ -98,13 +98,33 @@ li.active >a > p.text_tabs{
     padding-right: 10px;
     text-transform: uppercase;
     margin: 0px;
+    font-weight:bold;
 }
 #text_tabs{
     padding-left: 7px;
 }
 #slide_tab{
-    padding-top: 20px;
+    /* padding-top: 20px; */
 }
+.s_banner_homepage{
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.s_slider_tab{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.s_slider_category{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.s_slider_multiple_category{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .card-tab{
     padding-right: 10px;
     padding-top: 10px;
@@ -126,7 +146,7 @@ li.active >a > p.text_tabs{
 }
 
 #banner_slider{
-    padding-top: 15px;
+    /* padding-top: 15px; */
 }
 hr{
     padding: 0px;

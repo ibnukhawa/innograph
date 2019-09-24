@@ -3,16 +3,17 @@
     <template id="assets_frontend_slick" inherit_id="web.assets_frontend" name="Website Frontend Assets">
         <xpath expr="//link[last()]" position="after">
             <link rel="stylesheet" type="text/less" href="/inno_web_home/static/src/slick/slick.css"/>
-            <link rel="stylesheet" type="text/less" href="/inno_web_home/static/src/slick/slick.css"/>
+            <!-- <link rel="stylesheet" type="text/less" href="/inno_web_home/static/src/slick/slick.css"/> -->
             <link rel="stylesheet" type="text/less" href="/inno_web_home/static/src/css/custom.css"/>
         </xpath>
         <xpath expr="//script[last()]" position="after">
             <script type="text/javascript" src="/inno_web_home/static/src/slick/slick.min.js"></script>
             <script type="text/javascript" src="/inno_web_home/static/src/js/custom.js"></script>
+            <!-- <script type="text/javascript" src="/inno_web_home/static/src/js/custom.js"></script> -->
         </xpath> 
     </template>
     <template id="s_banner_home" inherit_id="website.homepage" name="Banner" >
-        <xpath expr="//div[@class='oe_structure oe_empty']" position="inside">
+        <xpath expr="//div[@class='oe_structure oe_empty']" position="after">
                 <section class="s_banner_homepage">
                     <div class="container">
                         <div class="row" id="banner_slider">

@@ -489,7 +489,7 @@ $(document).ready(function() {
             $.each(data, function( index, value ) {
                 var html_box = "";
                 var html_card = "";
-                html_box += "<div class='col-sm-6 col-md-6 col-xs-6'>";
+                html_box += "<div class='col-sm-6 col-md-6 col-xs-12'>";
                 html_box += "<h5>"+value.title+"</h5>";
                 html_box += "<hr>";
                 html_box += "<div class='slider_category_"+index+"'>";
@@ -532,15 +532,15 @@ $(document).ready(function() {
                         {
                           breakpoint: 600,
                           settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 2
+                            slidesToShow: 3,
+                            slidesToScroll: 3
                           }
                         },
                         {
                           breakpoint: 480,
                           settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 2
+                            slidesToShow: 3,
+                            slidesToScroll: 3
                           }
                         }
                     ]

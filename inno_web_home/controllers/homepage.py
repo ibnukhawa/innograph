@@ -41,7 +41,7 @@ class HomePage(Controller):
     @http.route(['/API/load_banner'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
     def load_banner(self):
 
-        master_banner_satu=request.env['slider.banner_satu'].search([])
+        master_banner_satu=request.env['slider.banner_satu'].search([],limit=5)
 
         banner_satu=[]
 
@@ -51,7 +51,7 @@ class HomePage(Controller):
             banner_satu.append(value_satu)
         
 
-        master_banner_dua=request.env['slider.banner_dua'].search([])
+        master_banner_dua=request.env['slider.banner_dua'].search([],limit=5)
 
         banner_dua=[]
 
@@ -60,7 +60,7 @@ class HomePage(Controller):
             value_dua['image'] = '/web/image/slider.banner_dua/'+str(banner.id)+'/image'
             banner_dua.append(value_dua)
 
-        master_banner_tiga=request.env['slider.banner_tiga'].search([])
+        master_banner_tiga=request.env['slider.banner_tiga'].search([],limit=5)
 
         banner_tiga=[]
 

@@ -111,7 +111,7 @@
         <field name="arch" type="xml">
             <tree string="Slider Tabs" editable='bottom'>
                 <field name="name"/>
-                <field name="product_ids" widget="many2many_tags"/>
+                <field name="product_ids" option="{'limit':18}" widget="many2many_tags" />
                 <field name="sequence" />
                 <field name="is_active" />
             </tree>
