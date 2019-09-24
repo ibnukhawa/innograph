@@ -157,7 +157,8 @@ class HomePage(Controller):
                 
                 for product in master_product:
 
-                    price =product.currency_id.symbol+' '+'{:,.2f}'.format(product.list_price)
+                    # price =product.currency_id.symbol+' '+'{:,.2f}'.format(product.list_price)
+                    price =product.currency_id.symbol+' '+'{:,.0f}'.format(product.list_price)
                     name_product = re.sub('[^A-Za-z0-9]+', '', product.name)
                     a = name_product.lower()
                     url_name = a.replace(" ", "-")

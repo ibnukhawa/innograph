@@ -514,6 +514,8 @@ $(document).ready(function() {
                 $(".multiple_category").append(html_box);
                 $(".slider_category_"+index).append(html_card)
                 $(".slider_category_"+index).slick({
+                    autoplay: true,
+                    autoplaySpeed: 7000,
                     infinite: true,
                     slidesToShow: 3,
                     slidesToScroll: 3,
@@ -537,8 +539,8 @@ $(document).ready(function() {
                         {
                           breakpoint: 480,
                           settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
+                            slidesToShow: 2,
+                            slidesToScroll: 2
                           }
                         }
                     ]

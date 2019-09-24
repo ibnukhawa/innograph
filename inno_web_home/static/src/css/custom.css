@@ -112,15 +112,6 @@ li.active >a > p.text_tabs{
 .card-header{
     border: 1px solid #6f6a6a40;
 }
-.title_product{
-    margin-top: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.price{
-    color:red;
-}
 
 .header_slider_2{
     padding-left: 0px;
@@ -147,6 +138,24 @@ hr{
 
 @media (min-width: 320.00px)
 {
+
+    h5{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .title_product{
+        margin-top: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: xx-small;
+    }
+    .price{
+        font-size: xx-small;
+        color:red;
+    }
     
     .box_slider_satu{
         height: 190px !important;
@@ -177,6 +186,18 @@ hr{
 
 @media (min-width: 768.00px)
 {   
+    .title_product{
+        margin-top: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: inherit;
+    }
+    .price{
+        font-size: inherit;
+        color:red;
+    }
+
     .box_slider_satu{
         height: 365px !important;
         /* max-width: 793px; */
@@ -213,6 +234,25 @@ hr{
 }
 @media (min-width: 1024.00px)
 {
+    h5{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 19px;
+    }
+
+    .title_product{
+        margin-top: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: medium;
+    }
+    .price{
+        font-size: medium;
+        color:red;
+    }
+
     .box_slider_satu{
         height: 415px !important;
         /* max-width: 793px; */
