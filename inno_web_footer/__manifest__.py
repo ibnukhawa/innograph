@@ -10,11 +10,14 @@
     """,
     'depends': [
         'website_sale',
+        'website',
         'website_mass_mailing',
         'theme_stoneware',
     ],
     'data': [
         'views/templates.xml',
+        'views/website_views.xml',
+        'views/res_config_views.xml',
     ],
     'installable': True,
     'application': True,

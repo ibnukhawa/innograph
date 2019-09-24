@@ -34,9 +34,24 @@
                                     <h3>Follows</h3>
                                 </div>
                                 <div class="title-new">
-                                    <a href="#"><i class="fa fa-instagram instagram-icon" aria-hidden="true"/></a>
-                                    <a href="#"><i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/></a>
-                                    <a href="#"><i class="fa fa-facebook facebook-icon" aria-hidden="true"/></a>
+                                    <t t-if="website.social_instagram">
+                                        <a t-att-href="website.social_instagram" target="_blank"><i class="fa fa-instagram instagram-icon" aria-hidden="true"/></a>
+                                    </t>
+                                    <t t-if="not website.social_instagram">
+                                        <a href="#"><i class="fa fa-instagram instagram-icon" aria-hidden="true"/></a>
+                                    </t>
+                                    <t t-if="website.social_youtube">
+                                        <a t-att-href="website.social_youtube" target="_blank"><i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/></a>
+                                    </t>
+                                    <t t-if="not website.social_youtube">
+                                        <a href="#"><i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/></a>
+                                    </t>
+                                    <t t-if="website.social_facebook">
+                                        <a t-att-href="website.social_facebook" target="_blank"><i class="fa fa-facebook facebook-icon" aria-hidden="true"/></a>
+                                    </t>
+                                    <t t-if="not website.social_facebook">
+                                        <a href="#"><i class="fa fa-facebook facebook-icon" aria-hidden="true"/></a>
+                                    </t>
                                 </div>
                             </div>
                         </div>

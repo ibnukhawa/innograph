@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="homepage_inherit" inherit_id="website.homepage">
+        <xpath expr="//t[@t-call='website.layout']" position="replace">
+            <t t-call="website_header.home"/>
+        </xpath>
+    </template>
+    <!--<template id="event_inherit" inherit_id="website_event.index">-->
+        <!--<xpath expr="//t[@t-call='website.layout']" position="replace">-->
+            <!--<t t-call="website_pci_v2.events"/>-->
+        <!--</xpath>-->
+    <!--</template>-->
+    <!--<template id="joinus_inherit" inherit_id="website_hr_recruitment.index">-->
+        <!--<xpath expr="//t[@t-call='website.layout']" position="replace">-->
+            <!--<t t-call="website_pci_v2.join_us"/>-->
+        <!--</xpath>-->
+    <!--</template>-->
+
+</odoo>
