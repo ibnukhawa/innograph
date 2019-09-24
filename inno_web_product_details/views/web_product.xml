@@ -1,0 +1,10 @@
+<odoo>
+    <template id="product_details" inherit_id="theme_stoneware.product_details" name="Product Website">
+        <xpath expr="//div/div/div/t/div/t/div[@class='item']" position="replace">
+            <div class="item product_images">
+                <a t-att-href="website.image_url(pimg,'image')" class="slider-popup-product"/>
+                <img class="img img-responsive sub-images" t-attf-src="/website/image/product.image/{{pimg.id}}/image" t-att-alt="pimg.name"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>
