@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="layout_header" inherit_id="website.layout">
+        <xpath expr="//div[@class='header-top']" position="replace">
+            <div class="header-top" style="background-color:white;"></div>
+        </xpath>
+        <xpath expr="//div[@class='container']/div[@class='navbar-header']" position="replace">
+            <div class="navbar-header fixed-header">
+                <div class="navbar-header-top">
+                    <div class="container">
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                        <!--<div class="row">-->
+                            <div class="col-sm-3">
+                                <div class="col-sm-6"></div>
+                                <div class="logo col-sm-6" align="right">
+                                    <a href="/">
+                                        <img src="/theme_stoneware/static/src/img/logo.png" title="Innograph" alt="Innograph"/>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="smallsearch col-sm-6 col-xs-6">
+                                <div class="container">
+                                    <div class="row">
+                                        <form action='/shop' method="get" role="search" class="navbar-form">
+                                            <div class="input-group col-sm-12">
+                                                <div class="input-group-box">
+                                                    <input class="form-control" type="text" name="search" placeholder="Search" t-att-value="search" style="width:100%;"/>
+                                                </div>
+                                                <div class="input-group-btn" style="width:1;">
+                                                    <button class="btn btn-default fa fa-search"/>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hm-cart col-sm-3">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="cart-box col-sm-4">
+                                            <ul class="navbar-nav">
+                                                <li class="hm-cart-item nav-item center" style="font-size:20px;padding-top:10px;">
+                                                    <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                    <span class="my_cart_quantity badge" t-esc="website_sale_order and website_sale_order.cart_quantity or '0'"
+                                                    style="background-color: #2196f3;"/>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="account-login col-sm-8">
+                                            <div class="container">
+                                                <div class="row navbar-nav">
+                                                    <t t-if="not(website.user_id != user_id)">
+                                                        <div class="col-sm-6">
+                                                            <ul class="navbar-nav">
+                                                                <li>
+                                                                    <a href="/web/login" class="btn btn-default">Login</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <ul class="navbar-nav">
+                                                                <li>
+                                                                    <a href="/web/signup" class="btn btn-default">Daftar</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </t>
+                                                    <t t-if="website.user_id != user_id">
+                                                        <div class="col-sm-3">
+                                                            <ul class="navbar-nav">
+                                                                <li>
+                                                                    <t t-if="user_id.image">
+                                                                        <t t-esc="user_id.image" t-options='{"widget": "image", "class": "rounded-circle"}'/>
+                                                                    </t>
+                                                                    <t t-if="not user_id.image">
+                                                                        <img/>
+                                                                    </t>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-sm-9" style="padding-top: 15px;">
+                                                            <ul class="navbar-nav">
+                                                                <li>
+                                                                    <t t-esc="user_id.name"/>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!--</div>-->
+                        </nav>
+                    </div>
+                </div>
+                <div class="navbar-header-bottom">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                            <div class="navbar-nav">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="/">Home
+                                            <span class="sr-only">(current)</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/contactus">Contact Us</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/shop">Shop</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/event">Events</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/blog">Blog</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/presentation">Presentations</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </xpath>
+    </template>
+    <!-- Product Cart -->
+    <template id="product_cart">
+        <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+        <span>
+            <span class="my_cart_quantity" t-esc="website_sale_order and website_sale_order.cart_quantity or '0'"/>
+            item(s) <i class="fa fa-shopping-cart"></i>
+            <span class="fa fa-angle-down"></span>
+        </span>
+        <div t-if="not website_sale_order or not website_sale_order.website_order_line" class="">
+            Your cart is empty!
+        </div>
+        <t t-if="website_sale_order and website_sale_order.website_order_line">
+            <ul>
+                <t t-foreach="website_sale_order.website_order_line" t-as="line">
+                    <li t-if="line.product_id and line.product_id.product_tmpl_id">
+                        <div class="hci-row">
+                            <span class="img">
+                                <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                                    <span t-field="line.product_id.image_small"
+                                          t-options='{"widget": "image", "class": "img-responsive"}'/>
+                                </a>
+                            </span>
+                            <div class="hm-cart-info">
+                                <label class="name">
+                                    <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                                        <strong t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
+                                    </a>
+                                </label>
+                                <label class="quantity">
+                                    <t t-esc="line.product_uom_qty"/>
+                                    x
+                                </label>
+                                <label class="total">
+                                    <span t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}"
+                                          t-field="line.price_unit" style="white-space: nowrap;"/>
+                                </label>
+                            </div>
+                        </div>
+                    </li>
+                </t>
+                <div class="summary">
+                    <p class="total">
+                        <span class="label" style="color:#000">Total:</span>
+                        <span class="price" t-field="website_sale_order.amount_total" style="white-space: nowrap;"
+                              t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
+                    </p>
+                </div>
+                <div class="actions">
+                    <div class="view-cart">
+                        <a href="/shop/cart">Checkout</a>
+                    </div>
+                </div>
+            </ul>
+        </t>
+
+    </template>
+</odoo>
