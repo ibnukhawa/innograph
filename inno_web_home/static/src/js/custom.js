@@ -310,75 +310,60 @@ $(document).ready(function() {
         });
     });
 
-    $.get("/API/load_slider_tab", function(data){
-        // alfif
 
-            $.each(data, function( index, value ) {
+    function addForYou(){
+        var html_li_1 = "" ;
+        var html_panel_1 = "" ;
+        var html_product_1 = "" ;
+
+
+        $.get("/API/load_for_you", function(data){
                 
-                var html_li = "";
-                var html_panel="";
-                var html_product="";
-                if(index == 0){
-                    html_li += "<li role='presentation' class='active' id='"+value.id_tab+"'>";
-
-                    html_li += "<a href='#more_product"+index+"' aria-controls='more_product' role='tab' data-toggle='tab'>";
-                    html_li += "<p class='text_tabs'>"+value.name_tab+"</p>";
-                }
-                else
-                {
-                    html_li += "<li role='presentation' id='"+value.id_tab+"'>";
-
-                    html_li += "<a href='#more_product"+index+"' id='text_tabs' aria-controls='more_product' role='tab' data-toggle='tab'>";
-                    html_li += "<p class='text_tabs'>"+value.name_tab+"</p>";
-                }
-
-                html_li += "</a>";
-                html_li += "</li>";
+            if(data[0].status == true){
                 
+                html_li_1 += "<li role='presentation' id='menu_for_you'>";
+
+                html_li_1 += "<a href='#for_you' aria-controls='more_product' role='tab' data-toggle='tab'>";
+                html_li_1 += "<p class='text_tabs'>For You</p>";
+                html_li_1 += "</a>";
+                html_li_1 += "</li>";
+
+                $(".menu_tabs").append(html_li_1);
+                html_panel_1 += "<div role='tabpanel' class='tab-pane' id='for_you'>";
+                
+                html_panel_1 += "<div class='product_panels_for_you' style='background:#ffffff;'>";
+                html_panel_1 += "</div>";
+                html_panel_1 += "</div>";
+
+                $(".content_slider_tabs").append(html_panel_1);
 
                 
-                if(index == 0){
-                    html_panel += "<div role='tabpanel' class='tab-pane active' id='more_product"+index+"'>";
-                }
-                else
-                {
-                    html_panel += "<div role='tabpanel' class='tab-pane' id='more_product"+index+"'>";
-                }
-                html_panel += "<div class='product_panels"+index+"' style='background:#ffffff;'>";
-                html_panel += "</div>";
-                html_panel += "</div>";
+                $.each(data[0].data_products, function( index_product, product ) {
 
-
-                $(".menu_tabs").append(html_li);
-                $(".content_slider_tabs").append(html_panel);
-
-
-                $.each(value.data_products, function( index_product, product ) {
-
-                    html_product += "<div class='card card-tab'>";
-                    html_product += "<div class='card-header'>";
-                    html_product += "<img class='banner_tab_slider' src='"+product.image+"' />";
-                    html_product += "</div>";
-                    html_product += "<div class='card-body'>";
-                    html_product += "<a href='/shop/product/"+product.url_name+"-"+product.id+"'>";
-                    html_product += "<p class='card-text title_product'>"+product.name+"</p>";
-                    html_product += "</a>";
-                    html_product += "<p class='card-text price'>"+product.price_label+"</p>";
-                    html_product += "</div>";
-                    html_product += "</div>";
+                    html_product_1 += "<div class='card card-tab'>";
+                    html_product_1 += "<div class='card-header'>";
+                    html_product_1 += "<img class='banner_tab_slider' src='"+product.image+"' />";
+                    html_product_1 += "</div>";
+                    html_product_1 += "<div class='card-body'>";
+                    html_product_1 += "<a href='/shop/product/"+product.url_name+"-"+product.id+"'>";
+                    html_product_1 += "<p class='card-text title_product'>"+product.name+"</p>";
+                    html_product_1 += "</a>";
+                    html_product_1 += "<p class='card-text price'>"+product.price_label+"</p>";
+                    html_product_1 += "</div>";
+                    html_product_1 += "</div>";
                     
                 });
-                console.log(html_product);
-                $(".product_panels"+index).append(html_product);
                 
-                $("#more_product"+index).append("<p class='pull-right' style='padding-right:10px;'><a href='/shop/tabs/"+value.id_tab+"'>...Lihat Semua</a></p>");
+                $(".product_panels_for_you").append(html_product_1);
+                
+                $("#for_you").append("<p class='pull-right' style='padding-right:10px;'><a href='/shop/tabs/for_you'>...Lihat Semua</a></p>");
 
-                $('.product_panels'+index).slick({
+                $('.product_panels_for_you').slick({
                     infinite: true,
-                    // autoplay: true,
-                    // autoplaySpeed: 4000,
+                    autoplay: true,
+                    autoplaySpeed: 10000,
                     slidesToShow: 6,
-                    slidesToScroll: 3,
+                    slidesToScroll: 6,
                     pagination: true,
                     arrows: false,
                     responsive: [
@@ -386,14 +371,14 @@ $(document).ready(function() {
                           breakpoint: 1024,
                           settings: {
                             slidesToShow: 5,
-                            slidesToScroll: 2,
+                            slidesToScroll: 5,
                           }
                         },
                         {
                           breakpoint: 800,
                           settings: {
                             slidesToShow: 4,
-                            slidesToScroll: 2
+                            slidesToScroll: 4
                           }
                         },
                         {
@@ -405,10 +390,125 @@ $(document).ready(function() {
                         }
                     ]
                 });
+
+            }
+            else{
+                $('#menu_for_you').remove();
+            }
+
+        });
+    }
+
+    function addTabs(){
+        $.get("/API/load_slider_tab", function(data){
+            // alfif
+                $.each(data, function( index, value ) {
+                    
+                    var html_li = "";
+                    var html_panel="";
+                    var html_product="";
+                    if(index == 0){
+                        html_li += "<li role='presentation'  id='"+value.id_tab+"'>";
+
+                        html_li += "<a href='#more_product"+index+"' aria-controls='more_product' role='tab' data-toggle='tab'>";
+                        html_li += "<p class='text_tabs'>"+value.name_tab+"</p>";
+                    }
+                    else
+                    {
+                        html_li += "<li role='presentation' id='"+value.id_tab+"'>";
+
+                        html_li += "<a href='#more_product"+index+"' id='text_tabs' aria-controls='more_product' role='tab' data-toggle='tab'>";
+                        html_li += "<p class='text_tabs'>"+value.name_tab+"</p>";
+                    }
+
+                    html_li += "</a>";
+                    html_li += "</li>";
+                    
+
+                    
+                    if(index == 0){
+                        html_panel += "<div role='tabpanel' class='tab-pane' id='more_product"+index+"'>";
+                    }
+                    else
+                    {
+                        html_panel += "<div role='tabpanel' class='tab-pane' id='more_product"+index+"'>";
+                    }
+                    html_panel += "<div class='product_panels"+index+"' style='background:#ffffff;'>";
+                    html_panel += "</div>";
+                    html_panel += "</div>";
+
+
+                    $(".menu_tabs").append(html_li);
+                    $(".content_slider_tabs").append(html_panel);
+
+
+                    $.each(value.data_products, function( index_product, product ) {
+
+                        html_product += "<div class='card card-tab'>";
+                        html_product += "<div class='card-header'>";
+                        html_product += "<img class='banner_tab_slider' src='"+product.image+"' />";
+                        html_product += "</div>";
+                        html_product += "<div class='card-body'>";
+                        html_product += "<a href='/shop/product/"+product.url_name+"-"+product.id+"'>";
+                        html_product += "<p class='card-text title_product'>"+product.name+"</p>";
+                        html_product += "</a>";
+                        html_product += "<p class='card-text price'>"+product.price_label+"</p>";
+                        html_product += "</div>";
+                        html_product += "</div>";
+                        
+                    });
+
+                    $(".product_panels"+index).append(html_product);
+                    
+                    $("#more_product"+index).append("<p class='pull-right' style='padding-right:10px;'><a href='/shop/tabs/"+value.id_tab+"'>...Lihat Semua</a></p>");
+
+
+                    $(".menu_tabs li").first().addClass("active");
+                    $(".tab-pane").first().addClass("active");
+
+                    $('.product_panels'+index).slick({
+                        infinite: true,
+                        autoplay: true,
+                        autoplaySpeed: 10000,
+                        slidesToShow: 6,
+                        slidesToScroll: 6,
+                        pagination: true,
+                        arrows: false,
+                        responsive: [
+                            {
+                            breakpoint: 1024,
+                            settings: {
+                                slidesToShow: 5,
+                                slidesToScroll: 5,
+                            }
+                            },
+                            {
+                            breakpoint: 800,
+                            settings: {
+                                slidesToShow: 4,
+                                slidesToScroll: 4
+                            }
+                            },
+                            {
+                            breakpoint: 480,
+                            settings: {
+                                slidesToShow: 3,
+                                slidesToScroll: 3
+                            }
+                            }
+                        ]
+                    });
+                    
+                });    
                 
-            });           
-            
-    });
+        });
+    }    
+    
+    function setViewTabs(){
+        addForYou();
+        addTabs();
+    }
+    setViewTabs();
 
     // $("#as-pro-slide").owlCarousel({
     //     items: 4,

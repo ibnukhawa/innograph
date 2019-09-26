@@ -37,22 +37,6 @@ _logger = logging.getLogger(__name__)
 
 class HomePage(Controller):
 
-    # @http.route('/', type='http', auth="public", website=True)
-    # def index(self, **kw):
-    #     page = 'homepage'
-    #     main_menu = request.website.menu_id or request.env.ref('website.main_menu', raise_if_not_found=False)
-    #     if main_menu:
-    #         first_menu = main_menu.child_id and main_menu.child_id[0]
-    #         if first_menu:
-    #             if first_menu.url and (not (first_menu.url.startswith(('/page/', '/?', '/#')) or (first_menu.url == '/'))):
-    #                 return request.redirect(first_menu.url)
-    #             if first_menu.url and first_menu.url.startswith('/page/'):
-    #                 return request.env['ir.http'].reroute(first_menu.url)
-
-    #     # return self.page(page)
-    #     return http.request.render('website_pci_v2.home')    
-
-
     @http.route(['/API/load_banner'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
     def load_banner(self):
 
@@ -131,7 +115,6 @@ class HomePage(Controller):
                 url_name = a.replace(" ", "-")
                 
                 image_product = '/web/image/product.template/'+str(product.id)+'/image/300x300'
-                # print(str(product.list_price)+" "+name_product)
                 data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.list_price, 'currency':product.currency_id.symbol})
             
             data_slider['id_tab'] = slider_tab.id
@@ -148,15 +131,13 @@ class HomePage(Controller):
             ('is_active', '=', True)
         ]
 
-        data_slider_multiple_category =request.env['slider.multiple_category'].search(domain)
+        data_slider_multiple_category =request.env['slider.multiple_category'].search(domain,limit=4)
         data= []
 
         for slider_multi in data_slider_multiple_category:
             
             data_slider = OrderedDict()
-            # data_product = []
             title = ''
-            # data_slider['category_ids'] = slider_multi.category_ids
             data_product = []
                 
             for category in slider_multi.category_ids:
@@ -164,15 +145,13 @@ class HomePage(Controller):
                     title = category.name
                 else:
                     title = title +", "+ category.name    
-                # print("Test category" + str(title) + "id "+ str(category.id))
                 domain=[
                     ('public_categ_ids', '=', category.id)
                 ]
-                master_product = request.env['product.template'].search(domain)
+                master_product = request.env['product.template'].search(domain,limit=6)
                 
                 for product in master_product:
 
-                    # price =product.currency_id.symbol+' '+'{:,.2f}'.format(product.list_price)
                     price =product.currency_id.symbol+' '+'{:,.0f}'.format(product.list_price)
                     name_product = re.sub('[^A-Za-z0-9]+', '', product.name)
                     a = name_product.lower()
@@ -187,9 +166,50 @@ class HomePage(Controller):
         
         return Response(json.dumps(data), content_type='application/json')
 
+    @http.route(['/API/load_for_you'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
+    def for_you(self):
+
+        user_id = request.uid
+        
+        data_res_users = request.env['res.users'].search([('id', '=', user_id)])
+        data_slider= OrderedDict()
+        data= []
+        data_product = []
+        if data_res_users.login != False :
+            limit = 18
+            for index, product in enumerate(data_res_users.product_ids):
+                
+                price =product.currency_id.symbol+' '+'{:,.2f}'.format(product.list_price)
+                
+                name_product = re.sub('[^A-Za-z0-9]+', '', product.name)
+                a = name_product.lower()
+                url_name = a.replace(" ", "-")
+                
+                image_product = '/web/image/product.template/'+str(product.id)+'/image/300x300'
+                data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.list_price, 'currency':product.currency_id.symbol})
+
+                if index == limit:
+                    break
+
+            data_slider['status'] = True
+            data_slider['message'] = "Lanjutkan Brow !!"
+            data_slider['data_products'] = data_product
+
+        else:
+
+            data_slider['status'] = False
+            data_slider['message'] = "User id tidak di temukan"
+            data_slider['data_products'] = data_product
+
+
+        data.append(data_slider)
+        
+        
+        return Response(json.dumps(data), content_type='application/json')
+
     @http.route(['/shop/tabs/<id>','/shop/tabs/<id>/page/<int:page>'], type='http', auth="public", website=True)
     def tabs_list(self, page=0, id='', category=None, search='', ppg=False, **post):
-
+        user_id = request.uid
         if ppg:
             try:
                 ppg = int(ppg)
@@ -208,13 +228,16 @@ class HomePage(Controller):
         attrib_values = [map(int, v.split("-")) for v in attrib_list if v]
         attributes_ids = set([v[0] for v in attrib_values])
         attrib_set = set([v[1] for v in attrib_values])
-
-        filter_product = request.env['slider.tabs'].search([('id', '=', id)])
+        
+        if id == 'for_you':
+            filter_product = request.env['res.users'].search([('id', '=', user_id)])
+        else:   
+            filter_product = request.env['slider.tabs'].search([('id', '=', id)])
         id_products = []
+
         for value in filter_product.product_ids:
             id_products.append(value.id)
         
-        # domain = self._get_search_domain(search, category, attrib_values)
         domain = [('id', 'in', id_products)]
 
         keep = QueryURL('/shop', category=category and int(category), search=search, attrib=attrib_list, order=post.get('order'))
@@ -251,7 +274,6 @@ class HomePage(Controller):
 
         ProductAttribute = request.env['product.attribute']
         if products:
-            # get all products without limit
             selected_products = Product.search(domain, limit=False)
             attributes = ProductAttribute.search([('attribute_line_ids.product_tmpl_id', 'in', selected_products.ids)])
         else:
@@ -294,9 +316,8 @@ class WebsiteSale(WebsiteSale):
         for prod in data_user.product_ids:
             data_product.append(prod.id)
 
-        data_product.append(product.id)
+        if (product.id not in data_product):
+            data_product.insert(0,product.id)
 
         data_user.write({'product_ids': [(6, 0, data_product)]})
-
-
         return r
