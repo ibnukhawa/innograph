@@ -11,7 +11,11 @@
     """,
     'depends': ['website',
             'theme_stoneware',
-            'website_sale','website_mass_mailing','website_crm','website_blog','website_event'
+            'website_sale',
+            'website_mass_mailing',
+            'website_crm',
+            'website_blog',
+            'website_event',
     ],
     'data': [
         # 'views/home.xml',

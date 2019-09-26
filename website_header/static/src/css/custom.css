@@ -1,26 +1,4 @@
-.hm-cart {
-  padding: 20px 0 40px 0;
-  background: #F8F8F8;
-  font-size: 16px;
-
-  ul {
-
-    li {
-      display: inline;
-      padding-left: 20px;
-      a {
-        color: #2196f3;
-        text-decoration: none;
-
-        &:hover {
-          color: black;
-        }
-      }
-    }
-  }
-}
-
-.badge {
+.badges {
     background-color: #2196f3;
     border-radius: 10px;
     color: white;
@@ -32,3 +10,173 @@
     vertical-align: middle;
     white-space: nowrap;
 }
+
+.account-login{
+    ul.dropdown-account{
+        min-width:250px;
+    }
+    ul.dropdown-account li .item{
+        display:block;
+        padding:3px 10px;
+        margin: 3px 0;
+    }
+    ul.dropdown-account li .item:hover{
+        background-color:#f3f3f3;
+    }
+    ul.dropdown-account li .item:after{
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        content: " ";
+        clear: both;
+        height: 0;
+    }
+
+    ul.dropdown-account li .item-left{
+        float:left;
+    }
+    ul.dropdown-account li .item-left img,
+    ul.dropdown-cart li .item-left span.item-info{
+        float:left;
+    }
+    ul.dropdown-account li .item-left span.item-info{
+        margin-left:10px;
+    }
+    ul.dropdown-account li .item-left span.item-info span{
+        display:block;
+    }
+    ul.dropdown-account li .item-right{
+        float:right;
+    }
+    ul.dropdown-account li .item-right button{
+        margin-top:14px;
+    }
+}
+
+.cart-view-drop{
+    ul.dropdown-carts-view{
+        display: none;
+        position: absolute;
+        top: 100%;
+        .transition(all, 0.2s, ease);
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+        background: white;
+        width: 340px;
+        padding: 20px;
+        right: 0;
+        z-index: 1;
+        @media (max-width:767px){
+            right: auto;
+            left: 15px;
+            width: 280px;
+            top: 30px;
+        }
+    }
+    ul.dropdown-carts-view li.empty{
+        padding: 25px
+    }
+    ul.dropdown-carts-view li .items{
+    }
+        display:block;
+        position: relative;
+		min-height: 55px;
+    }
+    ul.dropdown-carts-view li .items:hover{
+        background-color:#f3f3f3;
+    }
+    ul.dropdown-carts-view li .items:after{
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        content: " ";
+        clear: both;
+        height: 0;
+    }
+
+    ul.dropdown-carts-view li .items-left{
+        width: 35px;
+        height: 35px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border: 1px solid darken(#ffffff, 10%);
+        padding-top:20px;
+    }
+
+    ul.dropdown-carts-view li .items-info{
+        padding-left: 40px;
+		padding-bottom: 10px;
+		padding-top: 15px;
+        text-align: left;
+        width: 100%;
+        display: inline-block;
+        vertical-align: top;
+        letter-spacing: -0.31em;
+    }
+    ul.dropdown-carts-view li .items-info label{
+        display: inline-block;
+        vertical-align: middle;
+        padding: 0 10px;
+        letter-spacing: normal;
+    }
+    ul.dropdown-carts-view li .items-info label.names{
+        width: 50%;
+        @media (max-width:767px){
+            width: 100%;
+        }
+        strong {
+            font-weight: 400;
+        }
+    }
+    ul.dropdown-carts-view li .items-info span.quantitys{
+        white-space: nowrap;
+        width: 15%;
+        @media (max-width:767px){
+            width: 40%;
+        }
+    }
+    ul.dropdown-carts-view li .items-info span.totals{
+        text-align: right;
+        width: 35%;
+        @media (max-width:767px){
+            width: 50%;
+        }
+    }
+    ul.dropdown-carts-view .cart-summary{
+        width: 100%;
+	    display: inline-block;
+        vertical-align: top;
+        border-top: 1px solid #dedede;
+        padding: 15px 10px 0;
+        margin: 15px 10px 0;
+        text-align: right;
+    }
+    ul.dropdown-carts-view .cart-summary .cart-total{
+        padding-right: 17px
+    }
+    ul.dropdown-carts-view .cart-summary .cart-total span.label{
+        font-size: 16px;
+    }
+    ul.dropdown-carts-view .cart-actions{
+        width: 100%;
+        display: inline-block;
+        vertical-align: top;
+        padding: 15px 15px 15px;
+        text-align: right;
+        color: white;
+    }
+    ul.dropdown-carts-view .cart-actions .view-carts{
+        background: #009dff;
+        color: white;
+        padding: 10px 15px;
+        text-transform: uppercase;
+        font-size: 12px;
+        display: inline-block;
+        border:1px solid #009dff;
+    }
+    ul.dropdown-carts-view .cart-actions .view-carts:hover{
+        color:#009dff;
+        background: white;
+    }
+}
+
