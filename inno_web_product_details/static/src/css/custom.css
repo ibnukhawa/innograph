@@ -1,4 +1,24 @@
+.css_quantity {
+    max-width: 125px;
+    float: left;
+    width: 30% !important;
+}
 /* viewer product */
+.product_share{
+    width: 70%;
+    height: 54px;
+    float: right;
+}
+.clearfix::after,.clearfix::before {
+    display: table;
+    line-height: 0;
+    content: ""
+}
+
+.clearfix::after {
+    clear: both
+}
+
 .det-product-info_item_value{
     font-weight: 600;
     font-size: 14px;
@@ -35,7 +55,7 @@
     border-radius:100%;
     text-align: center;
     padding-top: 8px;
-    margin: 10px 0;
+    /* margin: 10px 0; */
     width: 38px;
     height: 38px;	
 }

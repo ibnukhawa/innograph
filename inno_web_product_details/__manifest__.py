@@ -9,8 +9,7 @@
         *Author : Saiful Rijal
     """,
     'depends': [
-        'theme_stoneware', 
-        'product',
+        'website_sale',
     ],
     'data': [
         'views/templates.xml', 
