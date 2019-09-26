@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_slider_banner_satu,access_slider_banner_satu,inno_web_home.model_slider_banner_satu,base.group_public,1,1,1,1
+access_slider_banner_dua,access_slider_banner_dua,inno_web_home.model_slider_banner_dua,base.group_public,1,1,1,1
+access_slider_banner_tiga,access_slider_banner_tiga,inno_web_home.model_slider_banner_tiga,base.group_public,1,1,1,1
+access_slider_tabs,access_slider_tabs,inno_web_home.model_slider_tabs,base.group_public,1,1,1,1
+access_slider_multiple_category,access_slider_multiple_category,inno_web_home.model_slider_multiple_category,base.group_public,1,1,1,1
