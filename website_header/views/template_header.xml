@@ -68,7 +68,7 @@
                                                             <ul class="navbar-nav">
                                                                 <li>
                                                                     <t t-if="user_id.image">
-                                                                        <span t-field="user_id.image_small" t-options='{"widget": "image", "class": "img-responsive"}'/>
+                                                                        <span t-field="user_id.image_small" t-options='{"widget": "image", "class": "images"}'/>
                                                                     </t>
                                                                     <t t-if="not user_id.image">
                                                                         <span/>

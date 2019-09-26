@@ -53,6 +53,12 @@
     }
 }
 
+img.images{
+    height:40px;
+    width: 40px;
+    max-width: 300%;
+}
+
 .cart-view-drop{
     ul.dropdown-carts-view{
         display: none;
