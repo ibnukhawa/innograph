@@ -370,6 +370,8 @@ $(document).ready(function() {
                 });
                 console.log(html_product);
                 $(".product_panels"+index).append(html_product);
+                
+                $("#more_product"+index).append("<p class='pull-right' style='padding-right:10px;'><a href='/shop/tabs/"+value.id_tab+"'>...Lihat Semua</a></p>");
 
                 $('.product_panels'+index).slick({
                     infinite: true,
@@ -404,10 +406,7 @@ $(document).ready(function() {
                     ]
                 });
                 
-            });
-            
-
-            
+            });           
             
     });
 

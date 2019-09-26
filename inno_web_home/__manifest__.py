@@ -16,7 +16,6 @@
     'depends': [
         'website_sale',
         'website_mass_mailing',
-        'website_crm',
         'website_blog',
         'website_event',
         'web',
