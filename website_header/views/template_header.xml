@@ -11,23 +11,24 @@
                         <nav class="navbar navbar-expand-lg navbar-light">
                         <!--<div class="row">-->
                             <div class="col-sm-3">
-                                <div class="col-sm-6"></div>
-                                <div class="logo col-sm-6" align="right">
-                                    <a href="/">
-                                        <img src="/theme_stoneware/static/src/img/logo.png" title="Innograph" alt="Innograph"/>
-                                    </a>
+                                <div class="container">
+                                    <div class="row">
+                                        <a href="/">
+                                            <img class="logos" src="/website_header/static/src/img/logo.png" title="Innograph" alt="Innograph"/>
+                                            <p class="text_logo">Digital Signage &amp; Display Promotion Solution</p>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="smallsearch col-sm-6 col-xs-6">
+                            <div class="col-sm-6">
                                 <div class="container">
                                     <div class="row">
                                         <form action='/shop' method="get" role="search" class="navbar-form">
-                                            <div class="input-group col-sm-12">
-                                                <div class="input-group-box">
-                                                    <input class="form-control" type="text" name="search" placeholder="Search" t-att-value="search" style="width:100%;"/>
-                                                </div>
-                                                <div class="input-group-btn" style="width:1;">
-                                                    <button class="btn btn-default fa fa-search"/>
+                                            <div class="col-sm-12">
+                                                <div class="">
+                                                    <button class="btn btn-default fa fa-search btn_search"/>
+                                                    <input class="form-control" type="text" name="search" placeholder="Search" t-att-value="search"
+                                                           style="width:95%;position:absolute;"/>
                                                 </div>
                                             </div>
                                         </form>
@@ -64,69 +65,68 @@
                                                         </div>
                                                     </t>
                                                     <t t-if="website.user_id != user_id">
-                                                        <div class="col-sm-3">
+                                                        <div>
                                                             <ul class="navbar-nav">
                                                                 <li>
-                                                                    <t t-if="user_id.image">
-                                                                        <span t-field="user_id.image_small" t-options='{"widget": "image", "class": "images"}'/>
-                                                                    </t>
-                                                                    <t t-if="not user_id.image">
-                                                                        <span/>
-                                                                    </t>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="col-sm-9" style="padding-top: 15px;">
-                                                            <ul class="navbar-nav">
-                                                                <li>
-                                                                    <label aria-expanded="false" data-toggle="dropdown" type="button" data-caret="true"
-                                                                           class="dropdown-toggle">
-                                                                        <t t-esc="user_id.name" style="padding-top: 15px;"/>
-                                                                    </label>
-                                                                    <ul class="dropdown-menu dropdown-account" role="menu">
-                                                                        <li>
-                                                                            <span class="item">
-                                                                                <span class="item-left">
-                                                                                    <i class="fa fa-user"></i>
-                                                                                    <span class="item-info">
-                                                                                        <a href="/my/home" t-if="website.user_id != user_id">
-                                                                                            My Account
-                                                                                        </a>
+                                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
+                                                                        style="line-height:0px;padding:0px;">
+                                                                        <t t-if="user_id.image">
+                                                                            <span t-field="user_id.image_small" t-options='{"widget": "image", "class": "images"}' style="position:fixed;"/>
+                                                                        </t>
+                                                                        <t t-if="not user_id.image">
+                                                                            <span align="left"/>
+                                                                        </t>
+                                                                        <label style="padding-top:15px;margin-bottom:0px;padding-left:45px;">
+                                                                            <t t-esc="user_id.name" style="padding-top: 15px;"/>
+                                                                        </label>
+                                                                        <label style="font-weight: normal;margin-bottom:0px;padding-left:45px;">
+                                                                            Customer
+                                                                        </label>
+                                                                        <ul class="dropdown-menu dropdown-account" role="menu">
+                                                                            <li>
+                                                                                <span class="item">
+                                                                                    <span class="item-left">
+                                                                                        <i class="fa fa-user" style="position:absolute;"></i>
+                                                                                        <span class="item-info">
+                                                                                            <a href="/my/home" t-if="website.user_id != user_id" style="padding:0px;padding-left:15px;">
+                                                                                                My Account
+                                                                                            </a>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                    <span class="item-right">
                                                                                     </span>
                                                                                 </span>
-                                                                                <span class="item-right">
-                                                                                </span>
-                                                                            </span>
-                                                                        </li>
-                                                                        <li>
-                                                                            <span class="item">
-                                                                                <span class="item-left">
-                                                                                    <i class="fa fa-heart-o"></i>
-                                                                                    <span class="item-info">
-                                                                                        <a href="/shop/product/whishlists">
-                                                                                            Wishlist
-                                                                                        </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <span class="item">
+                                                                                    <span class="item-left">
+                                                                                        <i class="fa fa-heart-o"></i>
+                                                                                        <span class="item-info">
+                                                                                            <a href="/shop/product/whishlists">
+                                                                                                Wishlist
+                                                                                            </a>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                    <span class="item-right">
                                                                                     </span>
                                                                                 </span>
-                                                                                <span class="item-right">
-                                                                                </span>
-                                                                            </span>
-                                                                        </li>
-                                                                        <li>
-                                                                            <span class="item">
-                                                                                <span class="item-left">
-                                                                                    <i class="fa fa-sign-out"></i>
-                                                                                    <span class="item-info">
-                                                                                        <a t-attf-href="/web/session/logout?redirect=/" t-if="website.user_id != user_id">
-                                                                                            Logout
-                                                                                        </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <span class="item">
+                                                                                    <span class="item-left">
+                                                                                        <i class="fa fa-sign-out"></i>
+                                                                                        <span class="item-info">
+                                                                                            <a t-attf-href="/web/session/logout?redirect=/" t-if="website.user_id != user_id">
+                                                                                                Logout
+                                                                                            </a>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                    <span class="item-right">
                                                                                     </span>
                                                                                 </span>
-                                                                                <span class="item-right">
-                                                                                </span>
-                                                                            </span>
-                                                                        </li>
-                                                                    </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </a>
                                                                 </li>
                                                             </ul>
                                                         </div>

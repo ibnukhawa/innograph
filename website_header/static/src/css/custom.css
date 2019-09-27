@@ -53,6 +53,27 @@
     }
 }
 
+img.logos{
+    height: 65px;
+    width: 170px;
+    position: absolute;
+    padding:3px;
+}
+
+p.text_logo{
+    position: absolute;
+    overflow-wrap: break-word;
+    padding-left: 170px;
+    padding-top: 6px;
+    font-size: 14px;
+}
+
+button.btn_search{
+    position:absolute;
+    width:8%;
+    left:97%;
+}
+
 img.images{
     height:40px;
     width: 40px;
