@@ -201,7 +201,6 @@ class HomePage(Controller):
             data_slider['message'] = "User id tidak di temukan"
             data_slider['data_products'] = data_product
 
-
         data.append(data_slider)
         
         

@@ -318,8 +318,8 @@ $(document).ready(function() {
 
 
         $.get("/API/load_for_you", function(data){
-                
-            if(data[0].status == true){
+            // console.log(data[0].data_products.length)
+            if(data[0].status == true && data[0].data_products.length > 0){
                 
                 html_li_1 += "<li role='presentation' id='menu_for_you'>";
 
@@ -396,6 +396,10 @@ $(document).ready(function() {
                 $('#menu_for_you').remove();
             }
 
+
+            $(".menu_tabs li").first().addClass("active");
+            $(".tab-pane").first().addClass("active");
+
         });
     }
 
@@ -463,9 +467,6 @@ $(document).ready(function() {
                     $("#more_product"+index).append("<p class='pull-right' style='padding-right:10px;'><a href='/shop/tabs/"+value.id_tab+"'>...Lihat Semua</a></p>");
 
 
-                    $(".menu_tabs li").first().addClass("active");
-                    $(".tab-pane").first().addClass("active");
-
                     $('.product_panels'+index).slick({
                         infinite: true,
                         autoplay: true,
@@ -507,6 +508,7 @@ $(document).ready(function() {
     function setViewTabs(){
         addForYou();
         addTabs();
+
     }
     setViewTabs();
 
