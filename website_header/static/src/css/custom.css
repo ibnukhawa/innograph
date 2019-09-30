@@ -11,12 +11,34 @@
     white-space: nowrap;
 }
 
+a.btn-red{
+    background: #f32121;
+    border-color: #f32121;
+    color: white;
+    line-height: 23px;
+    font-size: 17px;
+}
+
+a.btn-blue{
+    background: #2196F3;
+    border-color: #2196F3;
+    color: white;
+    line-height: 23px;
+    font-size: 17px;
+}
+
 .account-login{
     ul.dropdown-account{
         min-width:250px;
+        list-style: none;
     }
     ul.dropdown-account li{
         color: white;
+    }
+    ul.dropdown-account li:before{
+        color: white;
+        width: 1em;
+        margin-left: -1em;
     }
     ul.dropdown-account li .item{
         display:block;
@@ -104,6 +126,12 @@ img.images{
     }
     ul.dropdown-carts-view li{
         color: white;
+    }
+
+    ul.dropdown-carts-view li:before{
+        color: white;
+        width: 1em;
+        margin-left: -1em;
     }
     ul.dropdown-carts-view li.empty{
         padding: 25px

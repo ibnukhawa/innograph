@@ -5,7 +5,7 @@
             <div class="ht-right"/>
         </xpath>
         <xpath expr="//div[@class='container']/div[@class='navbar-header']" position="replace">
-            <div class="navbar-header fixed-header">
+            <div class="navbar-header fixed-header collapse navbar-collapse" style="margin-top: 0px !important;">
                 <div class="navbar-header-top">
                     <div class="container">
                         <nav class="navbar navbar-expand-lg navbar-light">
@@ -40,34 +40,24 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <ul class="navbar-nav">
-                                                <li class="dropdown" style="font-size:20px;padding-top:10px;">
+                                                <li class="dropdown" style="font-size:20px;padding-top:10px;color:white;">
                                                     <t t-call="website_header.product_carts"/>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="account-login col-sm-8">
                                             <div class="container">
-                                                <div class="row navbar-nav">
+                                                <div class="row">
                                                     <t t-if="not(website.user_id != user_id)">
-                                                        <div class="col-sm-6">
-                                                            <ul class="navbar-nav">
-                                                                <li>
-                                                                    <a href="/web/login" class="btn btn-default">Login</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <ul class="navbar-nav">
-                                                                <li>
-                                                                    <a href="/web/signup" class="btn btn-default">Daftar</a>
-                                                                </li>
-                                                            </ul>
+                                                        <div class="navbar-account" style="padding-top:7px;">
+                                                            <a href="/web/login" class="btn btn-blue">Masuk</a>
+                                                            <a href="/web/signup" class="btn btn-red">Daftar</a>
                                                         </div>
                                                     </t>
                                                     <t t-if="website.user_id != user_id">
                                                         <div>
                                                             <ul class="navbar-nav">
-                                                                <li>
+                                                                <li style="color: white">
                                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
                                                                         style="line-height:0px;padding:0px;">
                                                                         <t t-if="user_id.image">
