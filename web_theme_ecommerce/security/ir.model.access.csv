@@ -1,6 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-
-access_slider_banner_satu,access_slider_banner_satu,web_theme_ecommerce.model_slider_banner_satu,base.group_public,1,1,1,1
-access_slider_banner_dua,access_slider_banner_dua,web_theme_ecommerce.model_slider_banner_dua,base.group_public,1,1,1,1
-access_slider_banner_tiga,access_slider_banner_tiga,web_theme_ecommerce.model_slider_banner_tiga,base.group_public,1,1,1,1
-access_slider_tabs,access_slider_tabs,web_theme_ecommerce.model_slider_tabs,base.group_public,1,1,1,1
