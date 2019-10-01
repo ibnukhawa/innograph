@@ -10,10 +10,10 @@
     """,
     'depends': [
         'theme_stoneware', 
-        'product',
+        'product', 
+        'website',
     ],
     'data': [
-        'views/templates.xml', 
         'views/product_template_view.xml',
         'views/web_product.xml',
     ],
