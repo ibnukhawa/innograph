@@ -1,5 +1,5 @@
 {
-    'name': 'Website Header',
+    'name': 'Inno Website Header',
     'version': '1.0',
     'category': 'Website',
     'summary': "Header on Website",
@@ -18,8 +18,6 @@
             'website_event',
     ],
     'data': [
-        # 'views/home.xml',
-        # 'views/homepage.xml',
         'views/template_header.xml',
         'views/custom_template.xml',
         'views/assets.xml',

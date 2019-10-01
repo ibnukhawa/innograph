@@ -25,7 +25,7 @@
                                     <div class="row">
                                         <form action='/shop' method="get" role="search" class="navbar-form">
                                             <div class="col-sm-12">
-                                                <div class="">
+                                                <div>
                                                     <button class="btn btn-default fa fa-search btn_search"/>
                                                     <input class="form-control" type="text" name="search" placeholder="Search" t-att-value="search"
                                                            style="width:95%;position:absolute;"/>
@@ -40,7 +40,7 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <ul class="navbar-nav">
-                                                <li class="dropdown" style="font-size:20px;padding-top:10px;color:white;">
+                                                <li class="dropdown" style="font-size:20px;padding-top:10px;">
                                                     <t t-call="website_header.product_carts"/>
                                                 </li>
                                             </ul>
@@ -57,7 +57,7 @@
                                                     <t t-if="website.user_id != user_id">
                                                         <div>
                                                             <ul class="navbar-nav">
-                                                                <li style="color: white">
+                                                                <li>
                                                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
                                                                         style="line-height:0px;padding:0px;">
                                                                         <t t-if="user_id.image">
