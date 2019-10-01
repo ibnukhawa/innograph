@@ -1,0 +1,15 @@
+/* Custom view in product list /shop */
+
+.product_card{
+    padding-right: 5px;
+    padding-left: 5px;
+}
+.pro-img{
+    height:200px;
+}
+#products_grid .as-product-list{
+    letter-spacing: 0em;
+}
+.as-product .asp-inner .pro-img{
+    height: 210px;
+}

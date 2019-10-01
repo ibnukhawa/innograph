@@ -318,7 +318,6 @@ $(document).ready(function() {
 
 
         $.get("/API/load_for_you", function(data){
-            // console.log(data[0].data_products.length)
             if(data[0].status == true && data[0].data_products.length > 0){
                 
                 html_li_1 += "<li role='presentation' id='menu_for_you'>";
