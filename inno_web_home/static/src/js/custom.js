@@ -308,6 +308,7 @@ $(document).ready(function() {
                 }
             ]
         });
+        
     });
 
 
@@ -500,7 +501,9 @@ $(document).ready(function() {
                     });
                     
                 });    
-                
+            
+                $(".menu_tabs li").first().addClass("active");
+                $(".tab-pane").first().addClass("active");    
         });
     }    
     
