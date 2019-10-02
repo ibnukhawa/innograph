@@ -13,9 +13,9 @@ class WebsiteSaleInherit(WebsiteSale):
             sale_order = request.env['sale.order']
             sales = sale_order.sudo().search([ ('state','=','done')])
             for s in sales:
-                orders = order_line.sudo().search([('order_id','=',s.id),('product_id','=',product.id)])
+                orders = order_line.sudo().search([('order_id','=',s.id),('product_id','=',product.product_variant_id.id)])
                 for order in orders:
-                        qty += order.product_uom_qty
+                    qty += order.product_uom_qty
             product.sudo().write({'counter_view': product.counter_view+1, 
                            'sold_product': qty})
         r = super(WebsiteSaleInherit, self).product(product, category, search, **kwargs)

@@ -35,7 +35,7 @@
                     <div class="va-middle">
                         <div class="det-product-info_item_content">Dilihat</div>
                         <div class="det-product-info_item_value">
-                            <span>19</span>
+                            <span t-esc="product.counter_view"/>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                     <div class="va-middle">
                         <div class="det-product-info_item_content">Terkirim</div>
                         <div class="det-product-info_item_value">
-                            <span>0</span>
+                            <span t-esc="product.sold_product"/>
                         </div>
                     </div>
                 </div>
