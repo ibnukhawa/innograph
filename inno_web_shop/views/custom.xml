@@ -3,9 +3,22 @@
 
     <template id="assets_frontend_shop" inherit_id="web.assets_frontend" name="Website Frontend Assets">
         <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/less" href="/inno_web_shop/static/src/css/custom_all.css"/>
+        </xpath>
+    </template>
+
+    <template id="assets_option_theme_stoneware" inherit_id="theme_stoneware.option_product1" name="Assets for option 1 product option">
+        <xpath expr="//link[last()]" position="after">
             <link rel="stylesheet" type="text/less" href="/inno_web_shop/static/src/css/custom_shop.css"/>
         </xpath>
     </template>
+<!-- 
+    <template id="option_product1" name="theme_laze_option_product1" inherit_id="website.assets_frontend" active="False">
+        <xpath expr="." position="inside">
+            <link href="/theme_stoneware/static/src/less/options/products/as_product1.less" rel="stylesheet" type="text/less"/>
+        </xpath>
+    </template> -->
+
 	<!-- Shop page listing view -->
 	<template id="modify_shop" inherit_id="theme_stoneware.modify_shop" name="Shop">
 	

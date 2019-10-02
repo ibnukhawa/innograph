@@ -17,13 +17,13 @@
             <a class="btn btn-default btn-xs hidden-xs o_add_compare" title="Add to Compare" t-att-data-template-id="product.id" data-action="o_comparelist"><span class="fa fa-exchange"/></a>
         </xpath>
     </template>
-    
+
     <template id="nav_compare_menu" inherit_id="website.layout" name="Nav compare Menu">
         <xpath expr="//ul[@id='top_menu']" position="inside">
             <li id="user_li"></li>
         </xpath>
     </template>
-    
+
     <template id="product_add_to_compare" inherit_id="website_sale.product">
         <xpath expr="//a[@id='add_to_cart']" position="after">
             <t t-if="product.env.ref('website_product_comparison_73lines.add_to_compare_shortlist').active">
