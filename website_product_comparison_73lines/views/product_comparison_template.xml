@@ -17,13 +17,114 @@
             <a class="btn btn-default btn-xs hidden-xs o_add_compare" title="Add to Compare" t-att-data-template-id="product.id" data-action="o_comparelist"><span class="fa fa-exchange"/></a>
         </xpath>
     </template>
-
-    <template id="nav_compare_menu" inherit_id="website.layout" name="Nav compare Menu">
+    <!-- default compare before change header -->
+    <!-- <template id="nav_compare_menu" inherit_id="website.layout" name="Nav compare Menu">
         <xpath expr="//ul[@id='top_menu']" position="inside">
             <li id="user_li"></li>
         </xpath>
-    </template>
+    </template> -->
 
+    <!-- new for bug fixing double header-->
+    <!-- alfif  01-10-2019 -->
+
+    <template id="nav_compare_menu_2" inherit_id="website_header.layout_header" name="Nav compare Menu">
+        <xpath expr="//div[@class='navbar-header fixed-header collapse navbar-collapse']/div[@class='navbar-header-top']/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light']/div[3]/div[1]" position="replace">
+            <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <ul class="navbar-nav">
+                                                <li id="user_li"></li>
+                                                <li class="dropdown" style="font-size:17px;padding-top:14px;color:black;">
+                                                    <t t-call="website_header.product_carts"/>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="account-login col-sm-6">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <t t-if="not(website.user_id != user_id)">
+                                                        <div class="navbar-account" style="padding-top:7px;">
+                                                            <a href="/web/login" class="btn btn-xs btn-blue">Masuk</a>
+                                                            <a href="/web/signup" class="btn btn-xs btn-red">Daftar</a>
+                                                        </div>
+                                                    </t>
+                                                    <t t-if="website.user_id != user_id">
+                                                        <div>
+                                                            <ul class="navbar-nav">
+                                                                <li style="color: white">
+                                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
+                                                                        style="line-height:0px;padding:0px;">
+                                                                        <t t-if="user_id.image">
+                                                                            <span t-field="user_id.image_small" t-options='{"widget": "image", "class": "images"}' style="position:fixed;"/>
+                                                                        </t>
+                                                                        <t t-if="not user_id.image">
+                                                                            <span align="left"/>
+                                                                        </t>
+                                                                        <label style="padding-top:15px;margin-bottom:0px;padding-left:45px;">
+                                                                            <t t-esc="user_id.name" style="padding-top: 15px;"/>
+                                                                        </label>
+                                                                        <label style="font-weight: normal;margin-bottom:0px;padding-left:45px;">
+                                                                            Customer
+                                                                        </label>
+                                                                        <ul class="dropdown-menu dropdown-account" role="menu">
+                                                                            <li>
+                                                                                <span class="item">
+                                                                                    <span class="item-left">
+                                                                                        <i class="fa fa-user" style="position:absolute;"></i>
+                                                                                        <span class="item-info">
+                                                                                            <a href="/my/home" t-if="website.user_id != user_id" style="padding:0px;padding-left:15px;">
+                                                                                                My Account
+                                                                                            </a>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                    <span class="item-right">
+                                                                                    </span>
+                                                                                </span>
+                                                                            </li>
+                                                                            <li>
+                                                                                <span class="item">
+                                                                                    <span class="item-left">
+                                                                                        <i class="fa fa-heart-o"></i>
+                                                                                        <span class="item-info">
+                                                                                            <a href="/shop/product/whishlists">
+                                                                                                Wishlist
+                                                                                            </a>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                    <span class="item-right">
+                                                                                    </span>
+                                                                                </span>
+                                                                            </li>
+                                                                            <li>
+                                                                                <span class="item">
+                                                                                    <span class="item-left">
+                                                                                        <i class="fa fa-sign-out"></i>
+                                                                                        <span class="item-info">
+                                                                                            <a t-attf-href="/web/session/logout?redirect=/" t-if="website.user_id != user_id">
+                                                                                                Logout
+                                                                                            </a>
+                                                                                        </span>
+                                                                                    </span>
+                                                                                    <span class="item-right">
+                                                                                    </span>
+                                                                                </span>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        </xpath>
+    </template>
+    <!-- end -->
+    
     <template id="product_add_to_compare" inherit_id="website_sale.product">
         <xpath expr="//a[@id='add_to_cart']" position="after">
             <t t-if="product.env.ref('website_product_comparison_73lines.add_to_compare_shortlist').active">

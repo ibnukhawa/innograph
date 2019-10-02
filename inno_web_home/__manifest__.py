@@ -25,6 +25,7 @@
         'views/product_category_view.xml',
         'views/homepage.xml',
 		'views/website_admin.xml',
+		'views/menu_header.xml'
     ],
     'installable': True,
     'application': True,

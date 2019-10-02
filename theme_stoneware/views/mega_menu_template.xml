@@ -178,8 +178,9 @@
         </ul>
     </li>
 </template>  
+<!-- alfif for fix bugs double header -->
 
-<template id="layout_1" inherit_id="website.layout">
+<!-- <template id="layout_1" inherit_id="website.layout">
     <xpath expr="//ul[@id='top_menu']"  position="replace">
         <ul class="nav navbar-nav navbar-right" id="top_menu">
             <t t-foreach="website.menu_id.child_id" t-as="submenu">
@@ -199,6 +200,7 @@
             </li>
         </ul>
     </xpath>
-</template>   
+</template>    -->
+<!-- end -->
 </odoo>
 
