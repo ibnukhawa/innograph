@@ -10,7 +10,7 @@
     'version': '10.0.1.0.0',
     'author': '73Lines',
     'website': 'https://www.73lines.com/',
-    'depends': ['website_sale','website_header'],
+    'depends': ['website_sale'],
     'data': [
         'security/ir.model.access.csv',
         'views/product_comparison_template.xml',

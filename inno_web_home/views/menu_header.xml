@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<odoo>
-    <!-- alfif for fix bugs double header -->
-    <template id="replace_menu" inherit_id="website.layout">
-        <xpath expr="//div[@class='collapse navbar-collapse navbar-top-collapse']"  position="replace">
-        
-        </xpath> 
-    </template>   
-</odoo>

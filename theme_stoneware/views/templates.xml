@@ -1083,11 +1083,11 @@
   </t>
 </template>
 <!-- alfif for fix bugs double header -->
-<!-- 
+
 <template id="website.show_sign_in" customize_show="True" inherit_id="website.layout" name="Show Sign In">
     <xpath expr="//ul[@id='top_menu']" position="inside">
     </xpath>
-</template> -->
+</template>
 
 <!-- end -->
 

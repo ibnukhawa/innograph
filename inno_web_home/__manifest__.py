@@ -24,8 +24,7 @@
 		'security/ir.model.access.csv',                                                         
         'views/product_category_view.xml',
         'views/homepage.xml',
-		'views/website_admin.xml',
-		'views/menu_header.xml'
+		'views/website_admin.xml'
     ],
     'installable': True,
     'application': True,
