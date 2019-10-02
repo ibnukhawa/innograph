@@ -3,7 +3,7 @@
         <xpath expr="//div[@class='css_quantity input-group oe_website_spinner']" position="after">
         <!-- social share -->
             <div>
-                <button type="button" class="btn btn-dark" id="btn_share" style="margin-left: 20%;">
+                <button type="button" class="btn btn-dark" id="btn_share" style="margin-left: 3%;">
                     <i class="fa fa-share-alt"></i>Bagikan
                 </button>
             </div>
