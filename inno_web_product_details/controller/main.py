@@ -9,13 +9,19 @@ class WebsiteSaleInherit(WebsiteSale):
     def product(self, product, category='', search='', **kwargs):
         if product:
             qty = 0
-            order_line = request.env['sale.order.line']
+            picking = request.env['stock.picking']
             sale_order = request.env['sale.order']
-            sales = sale_order.sudo().search([ ('state','=','done')])
+            sales = sale_order.sudo().search([ ('state','in',['sale','done'])])
+            dt_list = []
             for s in sales:
-                orders = order_line.sudo().search([('order_id','=',s.id),('product_id','=',product.product_variant_id.id)])
-                for order in orders:
-                    qty += order.product_uom_qty
+                picking_orders = picking.sudo().search([('sale_order_id','=',s.id),('state','=','done')])
+                
+                for order in picking_orders:
+                    for qty_product in order.pack_operation_product_ids:
+                        if qty_product.product_id.id == product.product_variant_id.id:
+                            dt_list.append(qty_product.qty_done)
+            if len(dt_list) > 0:
+                qty = int(sum(dt_list))
             product.sudo().write({'counter_view': product.counter_view+1, 
                            'sold_product': qty})
         r = super(WebsiteSaleInherit, self).product(product, category, search, **kwargs)
