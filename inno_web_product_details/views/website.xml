@@ -2,9 +2,15 @@
     <template id="product_quantity_inherit" inherit_id="website_sale.product_quantity" name="Select Quantity Inherit">
         <xpath expr="//div[@class='css_quantity input-group oe_website_spinner']" position="after">
         <!-- social share -->
-            <div class="product_share">
-                <div class="oe_share s_share">
-                    <a target="_Blank" href="https://www.facebook.com/sharer/sharer.php?u={url}" class="oe_share_icon facebook-icon">
+            <div>
+                <button type="button" class="btn btn-dark" id="btn_share" style="margin-left: 20%;">
+                    <i class="fa fa-share-alt"></i>Bagikan
+                </button>
+            </div>
+            <div class="product_share pull-right" style="position: absolute;right: 0px;">
+                
+                <div class="oe_share s_share invisible" id="social_share" style="margin-top: 10px;">
+                    <a target="_Blank" href="#facebook" class="oe_share_icon facebook-icon">
                         <i class="fa fa-facebook"></i>
                     </a>
                     <a target="_Blank" href="https://twitter.com/intent/tweet?text={title}&amp;url={url}" class="oe_share_icon twitter-icon">
@@ -21,6 +27,7 @@
                     </a>
                 </div>
             </div>
+            <div class="clearfix"></div>
         <!-- viewer product -->
             <div class="det-product-info">
                 <div class="det-product-info_item">
@@ -28,7 +35,7 @@
                     <div class="va-middle">
                         <div class="det-product-info_item_content">Dilihat</div>
                         <div class="det-product-info_item_value">
-                            <span t-esc='product.counter_view'/>
+                            <span>19</span>
                         </div>
                     </div>
                 </div>
@@ -37,10 +44,11 @@
                     <div class="va-middle">
                         <div class="det-product-info_item_content">Terkirim</div>
                         <div class="det-product-info_item_value">
-                            <span t-esc='product.sold_product'/>
+                            <span>0</span>
                         </div>
                     </div>
                 </div>
+
                 <div class="clearfix"></div>
             </div>
         </xpath>

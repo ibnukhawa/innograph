@@ -11,7 +11,7 @@ class WebsiteSaleInherit(WebsiteSale):
             qty = 0
             order_line = request.env['sale.order.line']
             sale_order = request.env['sale.order']
-            sales = sale_order.sudo().search([ ('state','in',('sale','done'))])
+            sales = sale_order.sudo().search([ ('state','=','done')])
             for s in sales:
                 orders = order_line.sudo().search([('order_id','=',s.id),('product_id','=',product.id)])
                 for order in orders:

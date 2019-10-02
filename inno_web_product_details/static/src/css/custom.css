@@ -49,6 +49,9 @@
     align-items: center;
 }
 /* social share */
+.oe_share .s_share{
+    position: relative;
+}
 .oe_share_icon {
     display: inline-block;
     background: transparent;
@@ -57,7 +60,7 @@
     padding-top: 8px;
     /* margin: 10px 0; */
     width: 38px;
-    height: 38px;	
+    height: 38px;
 }
 .facebook-icon{
     background: #3B5998;
