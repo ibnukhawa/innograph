@@ -14,7 +14,7 @@
                                 <div class="container">
                                     <div class="row">
                                         <a href="/">
-                                            <img class="logos" src="/website_header/static/src/img/logo.png" title="Innograph" alt="Innograph"/>
+                                            <img class="logos" src="/inno_web_header/static/src/img/logo.png" title="Innograph" alt="Innograph"/>
                                             <p class="text_logo">Digital Signage &amp; Display Promotion Solution</p>
                                         </a>
                                     </div>
@@ -41,7 +41,7 @@
                                         <div class="col-sm-4">
                                             <ul class="navbar-nav">
                                                 <li class="dropdown" style="font-size:20px;padding-top:10px;">
-                                                    <t t-call="website_header.product_carts"/>
+                                                    <t t-call="inno_web_header.product_carts"/>
                                                 </li>
                                             </ul>
                                         </div>

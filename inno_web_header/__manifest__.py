@@ -1,8 +1,8 @@
 {
-    'name': 'Inno Website Header',
+    'name': 'Innograph Custom Website Header',
     'version': '1.0',
     'category': 'Website',
-    'summary': "Header on Website",
+    'summary': "Customizing eCommerce website header",
     'author': 'Portcities Ltd',
     'company': 'Portcities Ltd',
     'website': 'http://www.portcities.net',
