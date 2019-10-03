@@ -162,8 +162,7 @@ $(window).scroll(function() {
 
 $(document).ready(function() {
 
-    $(".slider").not('.slick-initialized').slick()
-
+function createBanner3(){
     $.get("/API/load_banner", function(data){
         // alfif
         // $(".result").html( data );
@@ -171,7 +170,7 @@ $(document).ready(function() {
             if(index == 'banner_satu'){
                 var html_img = "";
                 $.each(value, function( image, url ) {
-                    html_img += "<div class='box_slider_satu'><img class='banner' src='"+url.image+"'/></div>"
+                    html_img += "<div class='disable_customize box_slider_satu'><img class='disable_customize banner' src='"+url.image+"'/></div>"
                 });
                 $(".header_slider_1").append(html_img);
 
@@ -180,7 +179,7 @@ $(document).ready(function() {
             if(index == 'banner_dua'){
                 var html_img = "";
                 $.each(value, function( image, url ) {
-                    html_img += "<div class='box_slider_sub'><img class='banner_sub' src='"+url.image+"'/></div>"
+                    html_img += "<div class='disable_customize box_slider_sub'><img class='disable_customize banner_sub' src='"+url.image+"'/></div>"
                 });
                 $(".header_slider_2").append(html_img);
             }
@@ -188,23 +187,46 @@ $(document).ready(function() {
             if(index == 'banner_tiga'){
                 var html_img = "";
                 $.each(value, function( image, url ) {
-                    html_img += "<div class='box_slider_sub'><img class='banner_sub' src='"+url.image+"'/></div>"
+                    html_img += "<div class='disable_customize box_slider_sub'><img class='disable_customize banner_sub' src='"+url.image+"'/></div>"
                 });
                 $(".header_slider_3").append(html_img);
             }
         });
 
         // alert( "Load was performed." );
-
-        $('.header_slider_1').slick({
+        $('.header_slider_1').not('.slick-initialized').slick({
             autoplay: true,
             autoplaySpeed: 6000,
             slidesToShow: 1,
+            slidesToScroll: 1,
             adaptiveHeight: false,
             dots: false,
             infinite: true,
             arrows: false,
             variableWidth: true,
+            responsive: [
+                {
+                  breakpoint: 1024,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                },
+                {
+                  breakpoint: 800,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                },
+                {
+                  breakpoint: 480,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                }
+            ]
             
 
         })
@@ -212,7 +234,7 @@ $(document).ready(function() {
             slick.$slides.css('height', slick.$slideTrack.height() + 'px');
         });
 
-        $('.header_slider_2').slick({
+        $('.header_slider_2').not('.slick-initialized').slick({
             autoplay: true,
             autoplaySpeed: 4000,
             slidesToShow: 1,
@@ -221,11 +243,34 @@ $(document).ready(function() {
             infinite: true,
             arrows: false,
             variableWidth: true,
+            responsive: [
+                {
+                  breakpoint: 1024,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                },
+                {
+                  breakpoint: 800,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                },
+                {
+                  breakpoint: 480,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                }
+            ]
 
 
         });
 
-        $('.header_slider_3').slick({
+        $('.header_slider_3').not('.slick-initialized').slick({
             autoplay: true,
             autoplaySpeed: 3400,
             slidesToShow: 1,
@@ -234,6 +279,29 @@ $(document).ready(function() {
             infinite: true,
             arrows: false,
             variableWidth: true,
+            responsive: [
+                {
+                  breakpoint: 1024,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                },
+                {
+                  breakpoint: 800,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                },
+                {
+                  breakpoint: 480,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                }
+            ]
 
         });
 
@@ -258,6 +326,11 @@ $(document).ready(function() {
 
         
     });
+}
+
+createBanner3();
+
+    
 
 
     $.get("/API/load_category", function(data){
@@ -265,10 +338,10 @@ $(document).ready(function() {
         var html = "";
         $.each(data, function( index, value ) {
             // alert(value.image);
-            html += "<div class='box_category' style='background-color:"+value.background+"'>"
+            html += "<div class='disable_customize box_category' style='background-color:"+value.background+"'>"
             html += "<a href='/shop/category/"+value.name_url+"'>"
-            html += "<img class='banner' src='"+value.image+"'/>"
-            html += "<p class='text-center title_product'>"+value.name+"</p>"
+            html += "<img class='disable_customize banner' src='"+value.image+"'/>"
+            html += "<p class='disable_customize text-center title_product'>"+value.name+"</p>"
             html += "</a>"
             html += "</div>"
         });
@@ -276,7 +349,7 @@ $(document).ready(function() {
         $(".slider_main_category").append(html);
 
 
-        $('.slider_main_category').slick({
+        $('.slider_main_category').not('.slick-initialized').slick({
             // autoplay: true,
             // autoplaySpeed: 4000,
             infinite: true,
@@ -321,17 +394,17 @@ $(document).ready(function() {
         $.get("/API/load_for_you", function(data){
             if(data[0].status == true && data[0].data_products.length > 0){
                 
-                html_li_1 += "<li role='presentation' id='menu_for_you'>";
+                html_li_1 += "<li role='presentation' id='menu_for_you' class='disable_customize'>";
 
                 html_li_1 += "<a href='#for_you' aria-controls='more_product' role='tab' data-toggle='tab'>";
-                html_li_1 += "<p class='text_tabs'>For You</p>";
+                html_li_1 += "<p class='disable_customize text_tabs'>For You</p>";
                 html_li_1 += "</a>";
                 html_li_1 += "</li>";
 
                 $(".menu_tabs").append(html_li_1);
-                html_panel_1 += "<div role='tabpanel' class='tab-pane' id='for_you'>";
+                html_panel_1 += "<div role='tabpanel' class='disable_customize tab-pane' id='for_you'>";
                 
-                html_panel_1 += "<div class='product_panels_for_you' style='background:#ffffff;'>";
+                html_panel_1 += "<div class='disable_customize product_panels_for_you' style='background:#ffffff;'>";
                 html_panel_1 += "</div>";
                 html_panel_1 += "</div>";
 
@@ -340,15 +413,15 @@ $(document).ready(function() {
                 
                 $.each(data[0].data_products, function( index_product, product ) {
 
-                    html_product_1 += "<div class='card card-tab'>";
-                    html_product_1 += "<div class='card-header'>";
-                    html_product_1 += "<img class='banner_tab_slider' src='"+product.image+"' />";
+                    html_product_1 += "<div class='disable_customize card card-tab'>";
+                    html_product_1 += "<div class='disable_customize card-header'>";
+                    html_product_1 += "<img class='disable_customize banner_tab_slider' src='"+product.image+"' />";
                     html_product_1 += "</div>";
-                    html_product_1 += "<div class='card-body'>";
+                    html_product_1 += "<div class='disable_customize card-body'>";
                     html_product_1 += "<a href='/shop/product/"+product.url_name+"-"+product.id+"'>";
-                    html_product_1 += "<p class='card-text title_product'>"+product.name+"</p>";
+                    html_product_1 += "<p class='disable_customize card-text title_product'>"+product.name+"</p>";
                     html_product_1 += "</a>";
-                    html_product_1 += "<p class='card-text price'>"+product.price_label+"</p>";
+                    html_product_1 += "<p class='disable_customize card-text price'>"+product.price_label+"</p>";
                     html_product_1 += "</div>";
                     html_product_1 += "</div>";
                     
@@ -356,9 +429,9 @@ $(document).ready(function() {
                 
                 $(".product_panels_for_you").append(html_product_1);
                 
-                $("#for_you").append("<p class='pull-right' style='padding-right:10px;'><a href='/shop/tabs/for_you'>...Lihat Semua</a></p>");
+                $("#for_you").append("<p class='disable_customize pull-right' style='padding-right:10px;'><a href='/shop/tabs/for_you'>...Lihat Semua</a></p>");
 
-                $('.product_panels_for_you').slick({
+                $('.product_panels_for_you').not('.slick-initialized').slick({
                     infinite: true,
                     autoplay: true,
                     autoplaySpeed: 10000,
@@ -412,17 +485,17 @@ $(document).ready(function() {
                     var html_panel="";
                     var html_product="";
                     if(index == 0){
-                        html_li += "<li role='presentation'  id='"+value.id_tab+"'>";
+                        html_li += "<li role='presentation'  id='"+value.id_tab+"' class='disable_customize'>";
 
                         html_li += "<a href='#more_product"+index+"' aria-controls='more_product' role='tab' data-toggle='tab'>";
-                        html_li += "<p class='text_tabs'>"+value.name_tab+"</p>";
+                        html_li += "<p class='disable_customize text_tabs'>"+value.name_tab+"</p>";
                     }
                     else
                     {
                         html_li += "<li role='presentation' id='"+value.id_tab+"'>";
 
                         html_li += "<a href='#more_product"+index+"' id='text_tabs' aria-controls='more_product' role='tab' data-toggle='tab'>";
-                        html_li += "<p class='text_tabs'>"+value.name_tab+"</p>";
+                        html_li += "<p class='disable_customize text_tabs'>"+value.name_tab+"</p>";
                     }
 
                     html_li += "</a>";
@@ -431,13 +504,13 @@ $(document).ready(function() {
 
                     
                     if(index == 0){
-                        html_panel += "<div role='tabpanel' class='tab-pane' id='more_product"+index+"'>";
+                        html_panel += "<div role='tabpanel' class='disable_customize tab-pane' id='more_product"+index+"'>";
                     }
                     else
                     {
-                        html_panel += "<div role='tabpanel' class='tab-pane' id='more_product"+index+"'>";
+                        html_panel += "<div role='tabpanel' class='disable_customize tab-pane' id='more_product"+index+"'>";
                     }
-                    html_panel += "<div class='product_panels"+index+"' style='background:#ffffff;'>";
+                    html_panel += "<div class='disable_customize product_panels"+index+"' style='background:#ffffff;'>";
                     html_panel += "</div>";
                     html_panel += "</div>";
 
@@ -448,15 +521,15 @@ $(document).ready(function() {
 
                     $.each(value.data_products, function( index_product, product ) {
 
-                        html_product += "<div class='card card-tab'>";
-                        html_product += "<div class='card-header'>";
-                        html_product += "<img class='banner_tab_slider' src='"+product.image+"' />";
+                        html_product += "<div class='disable_customize card card-tab'>";
+                        html_product += "<div class='disable_customize card-header'>";
+                        html_product += "<img class='disable_customize banner_tab_slider' src='"+product.image+"' />";
                         html_product += "</div>";
-                        html_product += "<div class='card-body'>";
+                        html_product += "<div class='disable_customize card-body'>";
                         html_product += "<a href='/shop/product/"+product.url_name+"-"+product.id+"'>";
-                        html_product += "<p class='card-text title_product'>"+product.name+"</p>";
+                        html_product += "<p class='disable_customize card-text title_product'>"+product.name+"</p>";
                         html_product += "</a>";
-                        html_product += "<p class='card-text price'>"+product.price_label+"</p>";
+                        html_product += "<p class='disable_customize card-text price'>"+product.price_label+"</p>";
                         html_product += "</div>";
                         html_product += "</div>";
                         
@@ -464,10 +537,10 @@ $(document).ready(function() {
 
                     $(".product_panels"+index).append(html_product);
                     
-                    $("#more_product"+index).append("<p class='pull-right' style='padding-right:10px;'><a href='/shop/tabs/"+value.id_tab+"'>...Lihat Semua</a></p>");
+                    $("#more_product"+index).append("<p class='disable_customize pull-right' style='padding-right:10px;'><a href='/shop/tabs/"+value.id_tab+"'>...Lihat Semua</a></p>");
 
 
-                    $('.product_panels'+index).slick({
+                    $('.product_panels'+index).not('.slick-initialized').slick({
                         infinite: true,
                         autoplay: true,
                         autoplaySpeed: 10000,
@@ -592,31 +665,32 @@ $(document).ready(function() {
             $.each(data, function( index, value ) {
                 var html_box = "";
                 var html_card = "";
-                html_box += "<div class='col-sm-6 col-md-6 col-xs-12'>";
-                html_box += "<h5>"+value.title+"</h5>";
-                html_box += "<hr>";
-                html_box += "<div class='slider_category_"+index+"'>";
+                html_box += "<div class='disable_customize col-sm-6 col-md-6 col-xs-12'>";
+                html_box += "<h5 class='disable_customize'>"+value.title+"</h5>";
+                html_box += "<hr class='disable_customize'>";
+                html_box += "<div class='disable_customize slider_category_"+index+"'>";
                 html_box += "</div>";
                 html_box += "</div>";
                 // alert(value.title);
 
                 $.each(value.data_product, function( index, product) {
-                    html_card += "<div class='card card-tab'>";
-                    html_card += "<div class='card-header'>";
-                    html_card += "<img class='banner_tab_slider' src='"+product.image+"' />";
+                    html_card += "<div class='disable_customize card card-tab'>";
+                    html_card += "<div class='disable_customize card-header'>";
+                    html_card += "<img class='disable_customize banner_tab_slider' src='"+product.image+"' />";
                     html_card += "</div>";
-                    html_card += "<div class='card-body'>";
+                    html_card += "<div class='disable_customize card-body'>";
                     html_card += "<a href='/shop/product/"+product.url_name+"-"+product.id+"' title='"+product.name+"'>";
-                    html_card += "<p class='card-text title_product'>"+product.name+"</p>";
+                    html_card += "<p class='disable_customize card-text title_product'>"+product.name+"</p>";
                     html_card += "</a>";
-                    html_card += "<p class='card-text price'>"+product.price_label+"</p>";
+                    html_card += "<p class='disable_customize card-text price'>"+product.price_label+"</p>";
                     html_card += "</div>";
                     html_card += "</div>";
                 });
 
                 $(".multiple_category").append(html_box);
-                $(".slider_category_"+index).append(html_card)
-                $(".slider_category_"+index).slick({
+                $(".slider_category_"+index).append(html_card);
+                
+                $(".slider_category_"+index).not('.slick-initialized').slick({
                     autoplay: true,
                     autoplaySpeed: 7000,
                     infinite: true,

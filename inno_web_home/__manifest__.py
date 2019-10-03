@@ -18,7 +18,7 @@
         'website_mass_mailing',
         'website_blog',
         'website_event',
-        'web',
+        'web','web_editor',
         'website_slides'],
     'data': [
 		'security/ir.model.access.csv',                                                         
