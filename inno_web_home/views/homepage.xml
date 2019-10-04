@@ -9,15 +9,17 @@
         <xpath expr="//script[last()]" position="after">
             <script type="text/javascript" src="/inno_web_home/static/src/slick/slick.min.js"></script>
             <script type="text/javascript" src="/inno_web_home/static/src/js/custom.js"></script>
+            <script type="text/javascript" src="/inno_web_home/static/src/js/snippets.editor.js"></script>
+            
             <!-- <script type="text/javascript" src="/inno_web_home/static/src/js/custom.js"></script> -->
         </xpath> 
     </template>
     <template id="s_banner_home" inherit_id="website.homepage" name="Banner" >
         <xpath expr="//div[@class='oe_structure oe_empty']" position="after">
-                <section class="s_banner_homepage">
-                    <div class="container">
-                        <div class="row" id="banner_slider">
-                                <div class="header_slider_1 col-xs-12 col-sm-6 col-md-6">
+                <section class="disable_customize s_banner_homepage">
+                    <div class="disable_customize container">
+                        <div class="disable_customize row" id="banner_slider">
+                                <div class="disable_customize header_slider_1 col-xs-12 col-sm-6 col-md-6">
                                     <!-- <div class="" style="background:#ffffff;"> -->
                                         
                                         <!-- <div>
@@ -32,8 +34,8 @@
                                     <!-- </div> -->
                                 </div>
                             
-                                <div class="header_slider_sub col-xs-12 col-sm-6 col-md-6 ">
-                                    <div class="header_slider_2" style="min-height:100% !important">
+                                <div class="disable_customize header_slider_sub col-xs-12 col-sm-6 col-md-6 ">
+                                    <div class="disable_customize header_slider_2" style="min-height:100% !important">
                                         
                                         <!-- <div>
                                             <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-4.jpg"/>
@@ -45,7 +47,7 @@
                                             <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-1.jpg"/>
                                         </div> -->
                                     </div>
-                                    <div class="header_slider_3" style="min-height:100% !important">
+                                    <div class="disable_customize header_slider_3" style="min-height:100% !important">
                                         <!-- <div>
                                             <img class="banner" src="/theme_stoneware/static/src/img/catbanner/banner1.png"/>
                                         </div>
@@ -61,14 +63,14 @@
                     </div>
                 </section>
        
-                <section class="s_slider_tab">
-                    <div class="container">
-                        <div class="row" id="slide_tab">
-                            <div class="col-md-12">
-                                <ul class="nav nav-tabs menu_tabs" role="tablist">
+                <section class="disable_customize s_slider_tab">
+                    <div class="disable_customize container">
+                        <div class="disable_customize row" id="slide_tab">
+                            <div class="disable_customize col-md-12">
+                                <ul class="disable_customize nav nav-tabs menu_tabs" role="tablist">
                                    
                                 </ul>
-                                <div class="tab-content content_slider_tabs">
+                                <div class="disable_customize tab-content content_slider_tabs">
                                     
                                 </div>
                             </div> 
@@ -76,23 +78,22 @@
                     </div>
                 </section>
 
-                <section class="s_slider_category">
-                    <div class="container">
-                        <div class="row row_category">
-                            <div class="col-sm-12 col-md-12 col-xs-12">
-                                <h5>Lihat Kategory Lainnya</h5>
-                                <div class="slider_main_category">
+                <section class="disable_customize s_slider_category">
+                    <div class="disable_customize container">
+                        <div class="disable_customize row row_category">
+                            <div class="disable_customize col-sm-12 col-md-12 col-xs-12">
+                                <h5 class="disable_customize">Lihat Kategory Lainnya</h5>
+                                <div class="disable_customize slider_main_category">
                                     
                                 </div>
-                                <h5></h5>
                             </div>
                         </div>
                     </div>
                 </section>    
                 
-                <section class="s_slider_multiple_category">
-                    <div class="container">
-                        <div class="row multiple_category">
+                <section class="disable_customize s_slider_multiple_category">
+                    <div class="disable_customize container">
+                        <div class="disable_customize row multiple_category">
                             <!-- <div class="col-sm-6 col-md-6 col-xs-6">
                                 <h5></h5>
                                 <div class="slider_category_1" style="background:#ffffff;">

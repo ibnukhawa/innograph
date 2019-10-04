@@ -178,6 +178,7 @@
         </ul>
     </li>
 </template>  
+<!-- alfif for fix bugs double header -->
 
 <template id="layout_1" inherit_id="website.layout">
     <xpath expr="//ul[@id='top_menu']"  position="replace">
@@ -200,5 +201,6 @@
         </ul>
     </xpath>
 </template>   
+<!-- end -->
 </odoo>
 

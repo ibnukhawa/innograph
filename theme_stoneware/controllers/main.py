@@ -16,7 +16,7 @@ from odoo.addons.website_sale.controllers.main import TableCompute
 from odoo.addons.website_sale.controllers.main import QueryURL
 from odoo.addons.website_sale.controllers import main
 
-main.PPG = 18
+main.PPG = 24
 PPG=main.PPG
 
 

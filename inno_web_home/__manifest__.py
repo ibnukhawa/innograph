@@ -18,13 +18,13 @@
         'website_mass_mailing',
         'website_blog',
         'website_event',
-        'web',
+        'web','web_editor',
         'website_slides'],
     'data': [
 		'security/ir.model.access.csv',                                                         
         'views/product_category_view.xml',
         'views/homepage.xml',
-		'views/website_admin.xml',
+		'views/website_admin.xml'
     ],
     'installable': True,
     'application': True,
