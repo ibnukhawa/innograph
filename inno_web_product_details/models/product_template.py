@@ -5,5 +5,7 @@ from odoo import models, fields, api
 class ProductTemplate(models.Model):
 	_inherit = 'product.template'
 
-	counter_view = fields.Integer(string='Viewer')
-	sold_product = fields.Integer(string='Product Sold')
+	short_description = fields.Html(string='Deskripsi singkat')
+	product_detail = fields.Html(string='Detail Produk')
+	installation_instructions = fields.Html(string='Petunjuk Pemasangan')
+	product_gallery = fields.Html(string='Galery Produk')
