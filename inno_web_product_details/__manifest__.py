@@ -9,13 +9,16 @@
         *Author : Saiful Rijal
     """,
     'depends': [
-        'theme_stoneware', 
-        'product', 
+        'theme_stoneware',
+        'product',
         'website',
+	'website_sale',
     ],
     'data': [
         'views/product_template_view.xml',
+        'views/templates.xml',
         'views/web_product.xml',
+        'views/website.xml',
     ],
     'installable': True,
     'application': True,
