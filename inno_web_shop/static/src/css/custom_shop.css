@@ -9,14 +9,14 @@
 }
 
 .as-product:hover .asp-inner .pro-action {
-    top: 260px;
+    top: 266px;
     bottom: auto;
     position: absolute;
     display: contents;
 }
 
 .as-product:hover .asp-inner .pro-img {
-    height: 176px;
+    height: 170px;
 }
 
 .as-product .asp-inner .pro-img:after {
