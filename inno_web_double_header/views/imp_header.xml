@@ -16,7 +16,7 @@
     <!-- alfif  01-10-2019 -->
 
     <template id="nav_compare_menu_2" inherit_id="inno_web_header.layout_header" name="Nav compare Menu">
-        <xpath expr="//div[@class='navbar-header fixed-header collapse navbar-collapse']/div[@class='navbar-header-top']/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light']/div[3]/div[1]" position="replace">
+        <xpath expr="//div[@class='navbar-header fixed-header collapse navbar-collapse']/div[@class='navbar-header-top']/div[@class='container']/nav[@class='navbar navbar-expand-lg navbar-light']/div[4]/div[1]" position="replace">
             <div class="container">
                                     <div class="row">
                                         <div class="col-sm-6">
