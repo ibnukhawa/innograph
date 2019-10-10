@@ -1,6 +1,6 @@
 /* custom for customize theme product style option 1 */
 .as-product .asp-inner .pro-img{
-    height: 210px;
+    height: 200px;
     border: none;
 }
 
@@ -16,7 +16,7 @@
 }
 
 .as-product:hover .asp-inner .pro-img {
-    height: 170px;
+    height: 160px;
 }
 
 .as-product .asp-inner .pro-img:after {
@@ -32,6 +32,20 @@
     top: 0;
     left: 0;
     opacity: 0;
+}
+
+.as-product .asp-inner .pro-info h3{
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 6px;
+    padding: 0 0 10px;
+    white-space: pre-wrap;
+    width: 100%;
+    text-overflow: none;
+    border: none;
+    height: 2em;
+    overflow: hidden;
+    margin-top:-10px;
 }
 
 .as-product .asp-inner .pro-action {
