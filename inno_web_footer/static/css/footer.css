@@ -161,7 +161,7 @@
         margin-right: inherit;
     }
     .gmaps{
-        width: 150px;
+        width: 155px;
         height: 200px;
         border: 0;
     }
@@ -245,7 +245,7 @@
         margin-right: inherit;
     }
     .gmaps{
-        width: 250px;
+        width: 210px;
         height: 300px;
         border: 0;
     }
@@ -329,7 +329,7 @@
         margin-right: inherit;
     }
     .gmaps{
-        width: 350px;
+        width: 260px;
         height: 300px;
         border: 0;
     }
@@ -410,8 +410,11 @@
         margin-right: inherit;
     }
     .gmaps{
-        width: 400px;
-        height: 300px;
+        width: 260px;
+        height: 250px;
         border: 0;
+    }
+    .black-font{
+        color: black !important;
     }
 }

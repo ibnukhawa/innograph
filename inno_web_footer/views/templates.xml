@@ -8,12 +8,12 @@
     <template id="pci_footer" inherit_id="theme_stoneware.footer_default">
         <xpath expr="//div[@id='footer']" position="replace">
             <div id="footer">
-                <div class="middle-footer">
+                <div class="middle-footer" style="background-color: #d7d8da;">
                     <div class="container">
                         <div class="row" style="padding-bottom: 20px;">
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="newsletter-inner">
-                                    <div class="title-new">
+                                    <div class="title-new black-font">
                                         <h3>NEWSLETTER</h3>
                                     </div>
                                     <div class="ftr-ns">
@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="title-new">
+                                <div class="title-new black-font">
                                     <h3>Follows</h3>
                                 </div>
                                 <div class="title-new">
@@ -57,28 +57,28 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 footer-content" >
-                                <h3 class="block-title">Bantuan</h3>
+                                <h3 class="block-title black-font">Bantuan</h3>
                                 <ul class="list-unstyled" id="help">
                                     <li>
-                                        <a href="#">Cara membuat penawaran</a>
+                                        <a class="black-font" href="#">Cara membuat penawaran</a>
                                     </li>
                                     <li>
-                                        <a href="#">F.A.Q</a>
+                                        <a class="black-font" href="#">F.A.Q</a>
                                     </li>
                                     <li>
-                                        <a href="#">Cara membeli</a>
+                                        <a class="black-font" href="#">Cara membeli</a>
                                     </li>
                                     <li>
-                                        <a href="#">Metode pembayaran</a>
+                                        <a class="black-font" href="#">Metode pembayaran</a>
                                     </li>
                                     <li>
-                                        <a href="#">Cara menjadi partner</a>
+                                        <a class="black-font" href="#">Cara menjadi partner</a>
                                     </li>
                                     <li>
-                                        <a href="#">Pengiriman</a>
+                                        <a class="black-font" href="#">Pengiriman</a>
                                     </li>
                                 </ul>
-                                <h3 class="block-title second-title">Bank Transfer</h3>
+                                <h3 class="block-title second-title black-font">Bank Transfer</h3>
                                 <div>
                                     <img class="bca-logo" src="/inno_web_footer/static/img/bca-logo.png" title="BCA Logo" alt="BCA"/>
                                     <img class="bri-logo" src="/inno_web_footer/static/img/Logo_BRI.png" title="BRI Logo" alt="BRI"/>
@@ -97,25 +97,25 @@
                             </div>
 
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 footer-content" >
-                                <h3 class="block-title">Displaystore</h3>
+                                <h3 class="block-title black-font">Displaystore</h3>
                                 <ul class="list-unstyled" id="products">
                                     <li>
-                                        <a href="#">Tentang Displaystore</a>
+                                        <a class="black-font" href="#">Tentang Displaystore</a>
                                     </li>
                                     <li>
-                                        <a href="#">Press media</a>
+                                        <a class="black-font" href="#">Press media</a>
                                     </li>
                                     <li>
-                                        <a href="#">Daftar partner</a>
+                                        <a class="black-font" href="#">Daftar partner</a>
                                     </li>
                                     <li>
-                                        <a href="#">Sitemap</a>
+                                        <a class="black-font" href="#">Sitemap</a>
                                     </li>
                                     <li>
-                                        <a href="#">Kebijakan privasi</a>
+                                        <a class="black-font" href="#">Kebijakan privasi</a>
                                     </li>
                                 </ul>
-                                <h3 class="block-title second-title">Keamanan Berbelanja</h3>
+                                <h3 class="block-title second-title black-font">Keamanan Berbelanja</h3>
                                 <div>
                                     <img class="bca-logo" src="/inno_web_footer/static/img/logo-idea.jpg" title="idEA" alt="idEA"/>
                                     <img class="bri-logo" src="/inno_web_footer/static/img/comodo-secure-logo.png" title="Comodo Secure" alt="Comodo"/>
@@ -123,32 +123,32 @@
                             </div>
 
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="display: none;">
-                                <h3 class="block-title">Links</h3>
+                                <h3 class="block-title black-font">Links</h3>
                                 <div id="info">
-                                <ul class="list-unstyled">
+                                <ul class="list-unstyled" style="color: black;">
                                     <li>
-                                        <a href="#">Site Map</a>
+                                        <a class="black-font" href="#">Site Map</a>
                                     </li>
                                     <li>
-                                        <a href="#">Search Terms</a>
+                                        <a class="black-font" href="#">Search Terms</a>
                                     </li>
                                     <li>
-                                        <a href="#">Advanced Search</a>
+                                        <a class="black-font" href="#">Advanced Search</a>
                                     </li>
                                     <li>
-                                        <a href="#">Mobile</a>
+                                        <a class="black-font" href="#">Mobile</a>
                                     </li>
                                     <li>
-                                        <a href="#">Contact us</a>
+                                        <a class="black-font" href="#">Contact us</a>
                                     </li>
                                     <li>
-                                        <a href="#">Discount Code</a>
+                                        <a class="black-font" href="#">Discount Code</a>
                                     </li>
                                 </ul>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="display: none;">
-                                <h3 class="block-title">Location</h3>
+                                <h3 class="block-title black-font">Location</h3>
                                 <div class="fot-address">
                                     <address itemscope="itemscope" itemtype="http://schema.org/Organization">
                                     <!-- TODO widget contact must add itemprop attributes -->
@@ -159,7 +159,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 footer-content">
-                                <h3 class="block-title">
+                                <h3 class="block-title black-font">
                                     Hubungi Kami
                                 </h3>
                                 <div id="contact_us">
@@ -167,7 +167,7 @@
                                         <div class="col-lg-4 col-md-4 inno-container">
                                             <img class="inno-logo" src="/inno_web_footer/static/img/inno_logo.jpg" title="Inno" alt="innoGraph"/>
                                         </div>
-                                        <div class="col-lg-8 col-md-8">
+                                        <div class="col-lg-8 col-md-8 black-font">
                                             <p>(021) 7883 1023</p>
                                             <p>Senin-Jumat: 09.00 - 17.00</p>
                                             <p>email. cs@displaystore.id</p>
@@ -176,7 +176,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 footer-content">
-                                <h3 class="block-title">
+                                <h3 class="block-title black-font">
                                     View Maps
                                 </h3>
                                 <div id="maps">
@@ -228,9 +228,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="bottom-footer">
+                <div class="bottom-footer" style="background-color: #d7d8da;">
                     <div class="container">
-                        <div class="copyright">
+                        <div class="copyright black-font">
                             <h6> Copyright 2019. Displaystore</h6>
                         </div>
                     </div>
