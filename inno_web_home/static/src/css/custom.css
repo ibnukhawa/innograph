@@ -167,9 +167,12 @@ hr{
 
     .title_product{
         margin-top: 10px;
-        white-space: nowrap;
+        /* white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
+        text-overflow: ellipsis; */
+        line-height: 1.5em;
+        height: 3em;
+        overflow: hidden;
         font-size: xx-small;
     }
     .price{
@@ -208,9 +211,12 @@ hr{
 {   
     .title_product{
         margin-top: 10px;
-        white-space: nowrap;
+        /* white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
+        text-overflow: ellipsis; */
+        line-height: 1.5em;
+        height: 3em;
+        overflow: hidden;
         font-size: inherit;
     }
     .price{
@@ -263,9 +269,12 @@ hr{
 
     .title_product{
         margin-top: 10px;
-        white-space: nowrap;
+        /* white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
+        text-overflow: ellipsis; */
+        line-height: 1.5em;
+        height: 3em;
+        overflow: hidden;
         font-size: medium;
     }
     .price{

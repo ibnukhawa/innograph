@@ -63,7 +63,6 @@
                                                         
                     </t> 
 
-			
                  </t>
                  
                 <t t-if="len(product.product_variant_ids) &gt; 1">

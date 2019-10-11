@@ -414,15 +414,15 @@ createBanner3();
                 $.each(data[0].data_products, function( index_product, product ) {
 
                     html_product_1 += "<div class='disable_customize card card-tab'>";
+                    html_product_1 += "<a href='/shop/product/"+product.url_name+"-"+product.id+"'>";
                     html_product_1 += "<div class='disable_customize card-header'>";
                     html_product_1 += "<img class='disable_customize banner_tab_slider' src='"+product.image+"' />";
                     html_product_1 += "</div>";
                     html_product_1 += "<div class='disable_customize card-body'>";
-                    html_product_1 += "<a href='/shop/product/"+product.url_name+"-"+product.id+"'>";
                     html_product_1 += "<p class='disable_customize card-text title_product'>"+product.name+"</p>";
-                    html_product_1 += "</a>";
                     html_product_1 += "<p class='disable_customize card-text price'>"+product.price_label+"</p>";
                     html_product_1 += "</div>";
+                    html_product_1 += "</a>";
                     html_product_1 += "</div>";
                     
                 });
@@ -522,15 +522,15 @@ createBanner3();
                     $.each(value.data_products, function( index_product, product ) {
 
                         html_product += "<div class='disable_customize card card-tab'>";
+                        html_product += "<a href='/shop/product/"+product.url_name+"-"+product.id+"'>";
                         html_product += "<div class='disable_customize card-header'>";
                         html_product += "<img class='disable_customize banner_tab_slider' src='"+product.image+"' />";
                         html_product += "</div>";
                         html_product += "<div class='disable_customize card-body'>";
-                        html_product += "<a href='/shop/product/"+product.url_name+"-"+product.id+"'>";
                         html_product += "<p class='disable_customize card-text title_product'>"+product.name+"</p>";
-                        html_product += "</a>";
                         html_product += "<p class='disable_customize card-text price'>"+product.price_label+"</p>";
                         html_product += "</div>";
+                        html_product += "</a>";
                         html_product += "</div>";
                         
                     });
@@ -675,15 +675,15 @@ createBanner3();
 
                 $.each(value.data_product, function( index, product) {
                     html_card += "<div class='disable_customize card card-tab'>";
+                    html_card += "<a href='/shop/product/"+product.url_name+"-"+product.id+"' title='"+product.name+"'>";
                     html_card += "<div class='disable_customize card-header'>";
                     html_card += "<img class='disable_customize banner_tab_slider' src='"+product.image+"' />";
                     html_card += "</div>";
                     html_card += "<div class='disable_customize card-body'>";
-                    html_card += "<a href='/shop/product/"+product.url_name+"-"+product.id+"' title='"+product.name+"'>";
                     html_card += "<p class='disable_customize card-text title_product'>"+product.name+"</p>";
-                    html_card += "</a>";
                     html_card += "<p class='disable_customize card-text price'>"+product.price_label+"</p>";
                     html_card += "</div>";
+                    html_card += "</a>";
                     html_card += "</div>";
                 });
 
