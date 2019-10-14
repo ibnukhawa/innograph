@@ -135,8 +135,8 @@ li.active >a > p.text_tabs{
 
 .header_slider_2{
     padding-left: 0px;
-    padding-right: 7px;
-    padding-top: 15px;
+    padding-right: 3px;
+    padding-top: 6px;
 }
 
 .header_slider_3{
@@ -154,6 +154,21 @@ hr{
     margin-bottom: 10px;
     border: 0;
     border-top: 1px solid #eeeeee;
+}
+
+.btn_slider{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 @media (min-width: 320.00px)
@@ -181,7 +196,7 @@ hr{
     }
     
     .box_slider_satu{
-        height: 190px !important;
+        height: 220px !important;
         /* max-width: 793px; */
         background-repeat: no-repeat;
         background-size: cover;
@@ -196,14 +211,14 @@ hr{
 
     .header_slider_2{
         padding-left: 0px;
-        padding-right: 7px;
-        padding-top: 15px;
+        padding-right: 3px;
+        padding-top: 6px;
     }
     
     .header_slider_3{
         padding-right: 0px;
-        padding-left: 7px;
-        padding-top: 15px;
+        padding-left: 3px;
+        padding-top: 6px;
     }
 }
 
@@ -225,7 +240,7 @@ hr{
     }
 
     .box_slider_satu{
-        height: 365px !important;
+        height: 355px !important;
         /* max-width: 793px; */
         background-repeat: no-repeat;
         background-size: cover;
@@ -239,23 +254,24 @@ hr{
     }
 
     .header_slider_1{
-        padding-right: 7px;
+        padding-right: 1px;
     }
 
     .header_slider_sub{
-        padding-left: 7px;
+        padding-left: 4px;
     }
 
     .header_slider_2{
         padding-left: 0px;
         padding-right: 0px;
         padding-top: 0px;
+        padding-bottom: 5px;
     }
     
     .header_slider_3{
         padding-right: 0px;
         padding-left: 0px;
-        padding-top: 15px;
+        padding-top: 0px;
     }
 }
 @media (min-width: 1024.00px)
@@ -283,7 +299,7 @@ hr{
     }
 
     .box_slider_satu{
-        height: 415px !important;
+        height: 405px !important;
         /* max-width: 793px; */
         background-repeat: no-repeat;
         background-size: cover;

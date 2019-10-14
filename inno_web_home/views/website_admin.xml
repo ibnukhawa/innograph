@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <tree string="Slider Banner 1" editable='bottom'>
                 <field name="image"/>
+                <field name="url"/>
             </tree>
         </field>
     </record>
@@ -42,6 +43,7 @@
         <field name="arch" type="xml">
             <tree string="Slider Banner 2" editable='bottom'>
                 <field name="image"/>
+                <field name="url"/>
             </tree>
         </field>
     </record>
@@ -77,6 +79,7 @@
         <field name="arch" type="xml">
             <tree string="Slider Banner 3" editable='bottom'>
                 <field name="image"/>
+                <field name="url"/>
             </tree>
         </field>
     </record>
