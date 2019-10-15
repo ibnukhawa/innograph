@@ -684,14 +684,14 @@
 	<div class="row product_more_info" id="product_more_info">
 		<div class="col-md-9 pd_info">
 				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active">
+					<li role="presentation">
 							<a href="#more_info" aria-controls="more_info" role="tab" data-toggle="tab">Specification</a>
 					</li>
   			</ul>
 				<div class="tab-content">
 
 					
-					<div role="tabpanel" class="tab-pane active" id="more_info">
+					<div role="tabpanel" class="tab-pane" id="more_info">
 							<div class="pd-more-info">
 									<h4 class="text-center">Specification <span t-field="product.name"/></h4>        
 							</div>
