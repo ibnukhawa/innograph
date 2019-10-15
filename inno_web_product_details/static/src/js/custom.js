@@ -9,7 +9,7 @@ $(document).ready(function() {
             $('#social_share').addClass('invisible')
         }
     });
-    $(".facebook-icon").click(function(e) {
+    $(".facebook-icons").click(function(e) {
         var target = window.location.href
         window.open("https://www.facebook.com/sharer/sharer.php?u="+target, '_blank');
     });
