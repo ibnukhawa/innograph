@@ -11,12 +11,17 @@
     white-space: nowrap;
 }
 
+.header-top .htl-social li a{
+    color:#ffffff !important;
+}
+
 a.btn-red{
     background: #f32121;
     border-color: #f32121;
     color: white;
     line-height: 23px;
-    font-size: 17px;
+    font-size: 15px;
+    width: 27%;
 }
 
 a.btn-blue{
@@ -24,7 +29,8 @@ a.btn-blue{
     border-color: #2196F3;
     color: white;
     line-height: 23px;
-    font-size: 17px;
+    font-size: 15px;
+    width: 27%;
 }
 
 .account-login{
@@ -80,7 +86,7 @@ a.btn-blue{
 
 img.logos{
     height: 65px;
-    width: 170px;
+    width: 180px;
     position: absolute;
     padding:3px;
 }
@@ -88,15 +94,22 @@ img.logos{
 p.text_logo{
     position: absolute;
     overflow-wrap: break-word;
-    padding-left: 170px;
-    padding-top: 6px;
-    font-size: 14px;
+    padding-left: 192px;
+    padding-top: 25px;
+    font-size: 15px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.menu_icon{
+    padding: 20px 0px 0px 0px;
 }
 
 button.btn_search{
     position:absolute;
-    width:8%;
-    left:97%;
+    width:10%;
+    left:93%;
+    margin-top: 25px;
 }
 
 img.images{
@@ -240,4 +253,3 @@ img.images{
         background: white;
     }
 }
-
