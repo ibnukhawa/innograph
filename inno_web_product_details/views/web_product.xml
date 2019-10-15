@@ -23,12 +23,12 @@
             </div>
         </xpath>
         <xpath expr="//ul[@class='nav nav-tabs']/li" position="before">
-            <li role="presentation" >
+            <li role="presentation" class="active">
                  <a href="#detail_product" aria-controls="detail_product" role="tab" data-toggle="tab">Detail Product</a>
             </li>
         </xpath>
         <xpath expr="//div[@id='more_info']" position='before'>
-            <div role="tabpanel" class="tab-pane" id="detail_product">
+            <div role="tabpanel" class="tab-pane active" id="detail_product">
                 <div itemprop="description" t-field="product.product_detail" class="oe_structure mt16" id="product_full_description"/>
             </div>
         </xpath>

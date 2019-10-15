@@ -79,3 +79,12 @@
     background: #dd4b39;
     color: #FFFFFF;
 }
+
+.tab-content > .tab-pane {
+    /* visibility: hidden; */
+    position: absolute;
+}
+.tab-content > .tab-pane.active{
+    visibility: visible;
+    position: relative;
+}
