@@ -94,7 +94,8 @@ img.logos{
 p.text_logo{
     position: absolute;
     overflow-wrap: break-word;
-    padding-left: 192px;
+    padding-left: 220px;
+    /* padding-left: 192px; */
     padding-top: 25px;
     font-size: 15px;
     vertical-align: middle;
@@ -103,6 +104,10 @@ p.text_logo{
 
 .menu_icon{
     padding: 20px 0px 0px 0px;
+}
+
+.header_left{
+    margin-left: 70px;
 }
 
 button.btn_search{
