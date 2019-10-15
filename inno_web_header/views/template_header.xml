@@ -13,7 +13,7 @@
     <template id="layout_header" inherit_id="website.layout">
         <xpath expr="//div[@class='header-top']" position="replace">
             <div class="header-top collapse navbar-collapse" style="background:#2196F3;border-bottom: 1px solid #2196F3;margin-top: 0px !important;">
-                <div class="ht-left" style="margin-left:12.6%%">
+                <div class="ht-left header_left">
                     <ul class="htl-social">
                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -28,12 +28,11 @@
         <xpath expr="//div[@class='container']/div[@class='navbar-header']" position="replace">
             <div class="navbar-header fixed-header collapse navbar-collapse" style="margin-top: 0px !important;width:100%;padding:0px !important">
                 <div class="navbar-header-top">
-                    <div class="container">
+                    <!-- <div class="container"> -->
                         <nav class="navbar navbar-expand-lg navbar-light" style="margin-bottom: 0px !important;">
                         <!--<div class="row">-->
-                            <div class="col-sm-1"/>
                             <div class="col-sm-3">
-                                <div class="container">
+                                <!-- <div class="container"> -->
                                     <div class="row">
                                         <a href="/" style="margin-left: 59px;display: inline-block;">
                                             <img class="logos" src="/inno_web_header/static/src/img/logo.png" title="Innograph" alt="Innograph"/>
@@ -41,10 +40,10 @@
                                             <p class="text_logo">Kategori</p>
                                         </a>
                                     </div>
-                                </div>
+                                <!-- </div> -->
                             </div>
-                            <div class="col-sm-4">
-                                <div class="container">
+                            <div class="col-sm-6">
+                                <!-- <div class="container"> -->
                                     <div class="row">
                                         <form action='/shop' method="get" role="search" class="navbar-form">
                                             <div class="col-sm-12">
@@ -56,12 +55,12 @@
                                             </div>
                                         </form>
                                     </div>
-                                </div>
+                                <!-- </div> -->
                             </div>
                             <div class="col-sm-3">
-                                <div class="container">
+                                <!-- <div class="container"> -->
                                     <div class="row">
-                                        <div class="col-sm-6 menu_icon">
+                                        <div class="col-sm-4 menu_icon">
                                             <ul class="navbar-nav">
                                                 <li id="user_li"></li>
                                                 <li class="dropdown" style="font-size:17px;padding-top:14px;color:black;">
@@ -70,12 +69,12 @@
                                             </ul>
                                         </div>
                                         <div class="account-login col-sm-6">
-                                            <div class="container">
+                                            <!-- <div class="container"> -->
                                                 <div class="row">
                                                     <t t-if="not(website.user_id != user_id)">
-                                                        <div class="navbar-account" style="margin-top: 34px;margin-left: -15px;">
-                                                            <a href="/web/login" class="btn btn-blue">Masuk</a>
-                                                            <a href="/web/signup" class="btn btn-red">Daftar</a>
+                                                        <div class="navbar-account pull-right" style="margin-top: 34px;margin-left: -15px;">
+                                                            <a href="/web/login" class="btn btn-primary">Masuk</a>
+                                                            <a href="/web/signup" class="btn btn-danger">Daftar</a>
                                                         </div>
                                                     </t>
                                                     <t t-if="website.user_id != user_id">
@@ -146,15 +145,14 @@
                                                         </div>
                                                     </t>
                                                 </div>
-                                            </div>
+                                            <!-- </div> -->
                                         </div>
                                     </div>
-                                </div>
+                                <!-- </div> -->
                             </div>
-                            <div class="col-sm-1"/>
                         <!--</div>-->
                         </nav>
-                    </div>
+                    <!-- </div> -->
                 </div>
                 <div class="navbar-header-bottom">
                     <!--<nav class="navbar navbar-expand-lg">-->
