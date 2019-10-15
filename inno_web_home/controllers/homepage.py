@@ -46,6 +46,7 @@ class HomePage(Controller):
 
         for banner in master_banner_satu:
             value_satu = OrderedDict()
+            value_satu['url']   = banner.url
             value_satu['image'] = '/web/image/slider.banner_satu/'+str(banner.id)+'/image' 
             banner_satu.append(value_satu)
         
@@ -56,7 +57,8 @@ class HomePage(Controller):
 
         for banner in master_banner_dua:
             value_dua = OrderedDict()
-            value_dua['image'] = '/web/image/slider.banner_dua/'+str(banner.id)+'/image'
+            value_dua['url']    = banner.url
+            value_dua['image']  = '/web/image/slider.banner_dua/'+str(banner.id)+'/image'
             banner_dua.append(value_dua)
 
         master_banner_tiga=request.env['slider.banner_tiga'].search([],limit=5)
@@ -65,6 +67,7 @@ class HomePage(Controller):
 
         for banner in master_banner_tiga:
             value_tiga = OrderedDict()
+            value_tiga['url']   = banner.url
             value_tiga['image'] = '/web/image/slider.banner_tiga/'+str(banner.id)+'/image'
             banner_tiga.append(value_tiga)
 

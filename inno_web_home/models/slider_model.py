@@ -4,19 +4,22 @@ class SliderBannerSatu(models.Model):
     _name = 'slider.banner_satu'
     # _description = 'New Description'
 
-    image = fields.Binary(string='Image Slider')
+    image = fields.Binary(string='Image Slider', required=True)
+    url = fields.Char(string='Url')
 
 class SliderBannerDua(models.Model):
     _name = 'slider.banner_dua'
     # _description = 'New Description'
 
-    image = fields.Binary(string='Image Slider')
+    image = fields.Binary(string='Image Slider', required=True)
+    url = fields.Char(string='Url')
 
 class SliderBannerTiga(models.Model):
     _name = 'slider.banner_tiga'
     # _description = 'New Description'
 
-    image = fields.Binary(string='Image Slider')
+    image = fields.Binary(string='Image Slider', required=True)
+    url = fields.Char(string='Url')
 
 class SliderTabs(models.Model):
     _name = 'slider.tabs'

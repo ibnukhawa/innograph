@@ -170,7 +170,19 @@ function createBanner3(){
             if(index == 'banner_satu'){
                 var html_img = "";
                 $.each(value, function( image, url ) {
-                    html_img += "<div class='disable_customize box_slider_satu'><img class='disable_customize banner' src='"+url.image+"'/></div>"
+                    
+                    html_img += "<div class='disable_customize box_slider_satu'>"
+                    if(url.url != ''){
+                        html_img += "<a href='"+url.url+"'>"
+                    }
+                    html_img += "<img class='disable_customize banner' src='"+url.image+"'/>"
+                    if(url.url != ''){
+                        html_img += "</a>"
+                    }
+                    html_img += "</div>"
+
+                    
+
                 });
                 $(".header_slider_1").append(html_img);
 
@@ -179,7 +191,15 @@ function createBanner3(){
             if(index == 'banner_dua'){
                 var html_img = "";
                 $.each(value, function( image, url ) {
-                    html_img += "<div class='disable_customize box_slider_sub'><img class='disable_customize banner_sub' src='"+url.image+"'/></div>"
+                    html_img += "<div class='disable_customize box_slider_sub'>"
+                    if(url.url != ''){
+                        html_img += "<a href='"+url.url+"'>"
+                    }
+                    html_img += "<img class='disable_customize banner_sub' src='"+url.image+"'/>"
+                    if(url.url != ''){
+                        html_img += "</a>"
+                    }
+                    html_img += "</div>"
                 });
                 $(".header_slider_2").append(html_img);
             }
@@ -187,7 +207,17 @@ function createBanner3(){
             if(index == 'banner_tiga'){
                 var html_img = "";
                 $.each(value, function( image, url ) {
-                    html_img += "<div class='disable_customize box_slider_sub'><img class='disable_customize banner_sub' src='"+url.image+"'/></div>"
+
+                    html_img += "<div class='disable_customize box_slider_sub'>"
+                    if(url.url != ''){
+                        html_img += "<a href='"+url.url+"'>"
+                    }
+                    html_img += "<img class='disable_customize banner_sub' src='"+url.image+"'/>"
+                    if(url.url != ''){
+                        html_img += "</a>"
+                    }
+                    html_img += "</div>"
+
                 });
                 $(".header_slider_3").append(html_img);
             }
@@ -320,6 +350,7 @@ function createBanner3(){
         
         var width_slider = $(".header_slider_1").width();
         var width_slider_sub = $(".header_slider_2").width();
+
 
         $(".box_slider_satu").css("max-width",width_slider);
         $(".box_slider_sub").css("max-width",width_slider_sub);
