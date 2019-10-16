@@ -30,51 +30,58 @@
 <template id="theme_stoneware.blog_slider_items">
 	<div t-attf-class="item #{'active' if no_blog==len(blog_slider.blog_ids.ids) else ''}">
 		<div class="row">
-			<div class="col-md-6 col-sm-6" t-if="(no_blog-1)&gt;-1">
+
+			<div class="col-md-4 col-sm-4" t-if="(no_blog-1)&gt;-1">
 				<t t-set="blog" t-value="blog_slider.blog_ids[no_blog-1]"/>
 				<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
 				<div class="section-post">
-          <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
-					  <div class="section-post-media" t-attf-style="background-image: #{blog_cover_property.get('background-image', 'none')}">                                                       
-            </div>
-            </a>
-            <div class="section-post-body">
-                <div class="section-post-time">
-                    <span t-field="blog.write_date"/>
+                    <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
+                        <div class="section-post-media" t-attf-style="background-image: #{blog_cover_property.get('background-image', 'none')}">                                                       
+                        </div>
+                    </a>
+                    <div class="section-post-body">
+                        <div class="section-post-time">
+                            <span t-field="blog.write_date"/>
+                        </div>
+                        <h4 class="section-post-title">
+                        <a href="#" t-field="blog.name"></a>
+                        </h4>
+                        <p class="section-post-excerpt" t-field="blog.subtitle"></p>
+                        <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
+                    </div>				
                 </div>
-                <h4 class="section-post-title">
-                <a href="#" t-field="blog.name"></a>
-                </h4>
-                <p class="section-post-excerpt" t-field="blog.subtitle"></p>
-                <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
-            </div>				
-        </div></div>
-	    <t t-set="no_blog" t-value="no_blog-1"/>
-				<t t-set="blog" t-value="blog_slider.blog_ids[no_blog-1]"/>
-			<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
-      <div class="col-md-6 col-sm-6" t-if="(no_blog-1)&gt;-1">
-				<div class="section-post">
-          <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
-            <div class="section-post-media" t-attf-style="background-image: #{blog_cover_property.get('background-image', 'none')}">                                                       
             </div>
-            </a>
+
+	        <t t-set="no_blog" t-value="no_blog-1"/>
+			<t t-set="blog" t-value="blog_slider.blog_ids[no_blog-1]"/>
+			<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+
+            <div class="col-md-4 col-sm-4" t-if="(no_blog-1)&gt;-1">
+				<div class="section-post">
+                    <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
+                        <div class="section-post-media" t-attf-style="background-image: #{blog_cover_property.get('background-image', 'none')}">                                                       
+                        </div>
+                    </a>
 
 
-                            <div class="section-post-body">
-                                <div class="section-post-time">
-                                    <span t-field="blog.write_date"/>
-                                </div>
+                    <div class="section-post-body">
+                        <div class="section-post-time">
+                            <span t-field="blog.write_date"/>
+                        </div>
 
-                                <h4 class="section-post-title">
-                <a href="#" t-field="blog.name"></a>
-              </h4>
+                        <h4 class="section-post-title">
+                            <a href="#" t-field="blog.name"></a>
+                        </h4>
 
-                                <p class="section-post-excerpt" t-field="blog.subtitle"></p>
+                        <p class="section-post-excerpt" t-field="blog.subtitle"></p>
 
-                                <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
-                            </div>					
-</div></div></div>
-			<t t-set="no_blog" t-value="no_blog-1"/>
+                        <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
+                    </div>					
+                </div>
+            </div>
+            
+        </div>
+		<t t-set="no_blog" t-value="no_blog-1"/>
 	</div>
      <t t-if="no_blog-1&gt;-1">
 	 <t t-call="theme_stoneware.blog_slider_items"/>
@@ -87,21 +94,21 @@
   		<t t-if="blog_slider.name">
   			<h1 t-field="blog_slider.name"/>  			
   		</t>
-       </div>
+    </div>
   		  <t t-set="no_blog" t-value="0.0"/>
   		  <t t-if="blog_slider.blog_ids">
   		  <t t-set="no_blog" t-value="len(blog_slider.blog_ids.ids)"/>
   		  </t>
-		  <t t-set="as_latest_blog_slide" t-value="float(no_blog)/float(2)"/>
-		  <t t-if="float(no_blog)/float(2)-int(no_blog/2)!=0">
-		    <t t-set="as_latest_blog_slide" t-value="int(no_blog/2)+1"/>
+		  <t t-set="as_latest_blog_slide" t-value="float(no_blog)/float(3)"/>
+		  <t t-if="float(no_blog)/float(3)-int(no_blog/3)!=0">
+		    <t t-set="as_latest_blog_slide" t-value="int(no_blog/3)+1"/>
 		  </t>   
 		  <t t-set="as_latest_blog_slide" t-value="int(as_latest_blog_slide)"/>  		
   		<div t-att-id="'as-latest_blog-%s' % (blog_slider.id)" class="carousel slide" data-ride="carousel" t-if="blog_slider.blog_ids">
   				<t t-set="blog_slide" t-value="int(0)"/>
   				<ol class="carousel-indicators">
  					    <t t-call="theme_stoneware.blog_indicators"/>			
-        	</ol>
+        	    </ol>
     
   				<t t-set="blog_slide" t-value="0"/>       		
         		<div class="carousel-inner" role="listbox">

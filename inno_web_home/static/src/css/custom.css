@@ -171,6 +171,20 @@ hr{
     border-radius: 5px;
 }
 
+.web_blog_slider{
+    background-color: #fd6c37;
+}
+
+.title_blog{
+    color: #ffffff;
+    text-transform: uppercase;
+}
+.section-post-excerpt{
+    line-height: 1.5em;
+    height: 3em;
+    overflow: hidden;
+}
+
 @media (min-width: 320.00px)
 {
 
@@ -274,6 +288,15 @@ hr{
         padding-top: 0px;
     }
 }
+
+
+@media (min-width: 992.00px)
+{
+    .container {
+        width: 82%;
+    }
+}
+
 @media (min-width: 1024.00px)
 {
     h5{
@@ -311,4 +334,17 @@ hr{
         background-size: cover;
         align-content: center;
     }
+
+    .container {
+        width: 82%;
+    }
 }
+
+@media (min-width: 1200.00px)
+{
+    .container {
+        width: 85%;
+    }
+}
+
+
