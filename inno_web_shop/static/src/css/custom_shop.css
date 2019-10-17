@@ -1,8 +1,5 @@
 /* custom for customize theme product style option 1 */
-.as-product .asp-inner .pro-img{
-    height: 200px;
-    border: none;
-}
+
 
 .as-product .asp-inner .pro-info{
     background: #ffffff;
@@ -13,6 +10,11 @@
     bottom: auto;
     position: absolute;
     display: contents;
+}
+
+.as-product .asp-inner .pro-img{
+    height: 200px;
+    border: none;
 }
 
 .as-product:hover .asp-inner .pro-img {
@@ -53,4 +55,95 @@
     -webkit-transition: none;
     -moz-transition: none;
     -o-transition: none;
+}
+
+
+
+@media (min-width: 320.00px)
+{
+    .product_card{
+        padding-right: 5px;
+        padding-left: 5px;
+        height: 250px;
+    }
+    
+    .as-product .asp-inner .pro-img{
+        height: 150px;
+        border: none;
+    }
+    
+    .as-product:hover .asp-inner .pro-img {
+        height: 100px;
+        width: 80%;
+        margin: auto;
+    }
+    .as-product .asp-inner .pro-info{
+        padding: 10px 20px 10px;
+        font-size:x-small;
+    }
+}
+@media (min-width: 400.00px)
+{ 
+
+    .as-product .asp-inner .pro-img{
+        height: 160px;
+        border: none;
+        width: 150px;
+        margin:auto;
+    }
+    
+    .as-product:hover .asp-inner .pro-img {
+        height: 125px;
+        width: 120px;
+        margin: auto;
+    }
+    
+}
+
+@media (min-width: 768.00px)
+{
+    .product_card{
+        height: 270px;
+    }
+}
+
+@media (min-width: 1200.00px)
+{
+    .product_card{
+        height: 270px;
+    }
+
+    .as-product .asp-inner .pro-img{
+        height: 190px;
+        border: none;
+        width: 180px;
+        margin:auto;
+    }
+    
+    .as-product:hover .asp-inner .pro-img {
+        height: 125px;
+        width: 120px;
+        margin: auto;
+    }
+}
+
+
+@media (min-width: 1500.00px)
+{
+    .product_card{
+        height: 320px;
+    }
+
+    .as-product .asp-inner .pro-img{
+        height: 200px;
+        border: none;
+        width: 185px;
+        margin:auto;
+    }
+    
+    .as-product:hover .asp-inner .pro-img {
+        height: 195px;
+        width: 175px;
+        margin: auto;
+    }
 }
