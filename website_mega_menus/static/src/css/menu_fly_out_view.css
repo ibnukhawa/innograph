@@ -8,7 +8,7 @@
     padding: 20px;
     padding-right: 0px;
     min-height: 450px;
-    width: -moz-available;
+    width: 100%;
     z-index: 1;
 }
 #fly_out_view .heading{margin-top:0px;}
@@ -66,7 +66,7 @@
     margin-top: 0px;
     overflow: auto !important;
     border-radius: 0px;
-    width: 292.5%;
+    width: 303%;
     /*box-shadow: 0 -20px 20px -20px rgba(0, 0, 0, 0.3), 20px 0 20px -20px rgba(0, 0, 0, 0.3),0px 20px 20px -20px rgba(0, 0, 0, 0.3) ;*/
     border-width: 0px;
 }
