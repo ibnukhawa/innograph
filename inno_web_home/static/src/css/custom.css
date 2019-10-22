@@ -185,6 +185,21 @@ hr{
     overflow: hidden;
 }
 
+.seaction-head{
+    padding: 0px !important;
+}
+
+.as-latest-blog {
+    padding: 20px 0 !important;
+}
+
+.as-latest-blog .carousel {
+    padding: 20px 0px 30px !important;
+}
+.as-latest-blog .section-post .section-post-media{
+    height: 220px;
+}
+
 @media (min-width: 320.00px)
 {
 

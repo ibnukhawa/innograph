@@ -99,9 +99,9 @@
   		  <t t-if="blog_slider.blog_ids">
   		  <t t-set="no_blog" t-value="len(blog_slider.blog_ids.ids)"/>
   		  </t>
-		  <t t-set="as_latest_blog_slide" t-value="float(no_blog)/float(3)"/>
-		  <t t-if="float(no_blog)/float(3)-int(no_blog/3)!=0">
-		    <t t-set="as_latest_blog_slide" t-value="int(no_blog/3)+1"/>
+		  <t t-set="as_latest_blog_slide" t-value="float(no_blog)/float(4)"/>
+		  <t t-if="float(no_blog)/float(4)-int(no_blog/4)!=0">
+		    <t t-set="as_latest_blog_slide" t-value="int(no_blog/4)+1"/>
 		  </t>   
 		  <t t-set="as_latest_blog_slide" t-value="int(as_latest_blog_slide)"/>  		
   		<div t-att-id="'as-latest_blog-%s' % (blog_slider.id)" class="carousel slide" data-ride="carousel" t-if="blog_slider.blog_ids">
