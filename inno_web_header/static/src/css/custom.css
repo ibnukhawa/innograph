@@ -115,7 +115,7 @@ p.text_logo{
 button.btn_search{
     position:absolute;
     /* width:10%; */
-    left:93%;
+    /* left:93%; */
     margin-top: 25px;
 }
 
@@ -277,14 +277,80 @@ img.images{
     margin-bottom:0px;
     padding-left:45px;
 }
+.form-search{
+    width:91%;
+    position:absolute;
+    margin-top:25px;
+}
 
 @media (min-width: 360.00px)
 {
+    .navbar-default .navbar-nav{
+        border: none !important;
+        display:inline-flex;
+        vertical-align:top;
+    }
     .navbar-default .navbar-nav > li{
         background: transparent !important;
         border: none !important;
     }
+
+    .width_menu{
+        width: 100% !important;
+    }
+    .menu_icon{
+        padding: 0px;
+    }
+    .dropdown-style{
+        background: #ffffff;
+        padding: 10px;
+    }
+    .menu_icon{
+        padding-top: 27px;
+    }
+    button.btn_search{
+        position:absolute;
+        /* width:10%; */
+        float: right;
+        right: 0px;
+        margin-top: 0px;
+        z-index:1;
+        
+    }
+    .form-search{
+        width:100%;
+        position:absolute;
+        margin-top: 0px;    
+    }
+
+    .box-search{
+        padding: 55px 0px 15px 0px;
+    }
+    p.text_logo{
+        position: absolute;
+        overflow-wrap: break-word;
+        padding-left: 0px !important;
+        padding-top: 30px !important;
+        font-size: 15px;
+        vertical-align: middle;
+        display: inline-block;
+        float: right;
+        right: 0px;
+        z-index: 1;
+    }
+    .navbar-default .navbar-nav > li.dropdown:hover .dropdown-menu{
+        display: block;
+    }
+    .o_product_feature_panel .o_product_panel .o_product_panel_content{
+        min-width: 275px;
+        width: 100%;
+        left: 20% !important;
+    }
+    .o_product_feature_panel >.hidden-xs{
+        display: block !important;
+    }
 }
+
 
 
 @media (min-width: 991.00px)
