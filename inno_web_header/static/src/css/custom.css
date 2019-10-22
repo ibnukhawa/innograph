@@ -34,7 +34,8 @@ a.btn-blue{
 }
 
 .account-login{
-    ul.dropdown-account{
+    ul.dropdown-account
+    {
         min-width:250px;
         list-style: none;
     }
@@ -89,6 +90,7 @@ img.logos{
     width: 180px;
     position: absolute;
     padding:3px;
+    top:15px;
 }
 
 p.text_logo{
@@ -96,7 +98,7 @@ p.text_logo{
     overflow-wrap: break-word;
     padding-left: 220px;
     /* padding-left: 192px; */
-    padding-top: 25px;
+    padding-top: 40px;
     font-size: 15px;
     vertical-align: middle;
     display: inline-block;
@@ -107,12 +109,12 @@ p.text_logo{
 }
 
 .header_left{
-    margin-left: 70px;
+    margin-left: 130px;
 }
 
 button.btn_search{
     position:absolute;
-    width:10%;
+    /* width:10%; */
     left:93%;
     margin-top: 25px;
 }
@@ -123,7 +125,19 @@ img.images{
     max-width: 300%;
 }
 
-.cart-view-drop{
+.fixed-header .navbar-default{
+    background-color: #ffffff !important;
+}
+
+.width_menu{
+    width: 85% !important;
+    margin: auto;
+}
+.htl-social{
+    margin: 0px !important;
+}
+
+/* .cart-view-drop{
     ul.dropdown-carts-view{
         display: none;
         position: absolute;
@@ -256,5 +270,38 @@ img.images{
     ul.dropdown-carts-view .cart-actions .view-carts:hover{
         color:#009dff;
         background: white;
+    }
+} */
+.label_level{
+    font-weight: normal;
+    margin-bottom:0px;
+    padding-left:45px;
+}
+
+@media (min-width: 360.00px)
+{
+    .navbar-default .navbar-nav > li{
+        background: transparent !important;
+        border: none !important;
+    }
+}
+
+
+@media (min-width: 991.00px)
+{
+    p.text_logo{
+        padding-left: 180px;
+    }
+    
+    .label_level{
+        display: none;
+    }
+    
+
+}
+@media (min-width: 1200.00px)
+{
+    p.text_logo{
+        padding-left: 73%;
     }
 }
