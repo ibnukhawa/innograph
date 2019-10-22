@@ -75,7 +75,7 @@ font-size: 18px;
 }
 @media only screen and (max-width: 767px) {
     #fly_out_view_open{
-        padding: 0 15px;
+        padding: 0 20px;
     }
     .dropbtn{
         padding-bottom: 0px;

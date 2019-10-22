@@ -130,7 +130,6 @@ img.images{
 }
 
 .width_menu{
-    width: 85% !important;
     margin: auto;
 }
 .htl-social{
@@ -312,13 +311,13 @@ img.images{
         position:absolute;
         /* width:10%; */
         float: right;
-        right: 0px;
+        right: 19px;
         margin-top: 0px;
         z-index:1;
         
     }
     .form-search{
-        width:100%;
+        width:91%;
         position:absolute;
         margin-top: 0px;    
     }
@@ -339,7 +338,10 @@ img.images{
         z-index: 1;
     }
     .navbar-default .navbar-nav > li.dropdown:hover .dropdown-menu{
-        display: block;
+        display: block !important;
+    }
+    .navbar-default .navbar-nav > li.dropdown:hover .o_product_panel_content-menu{
+        display: none !important;
     }
     .o_product_feature_panel .o_product_panel .o_product_panel_content{
         min-width: 275px;
@@ -349,18 +351,74 @@ img.images{
     .o_product_feature_panel >.hidden-xs{
         display: block !important;
     }
+    .navbar-nav .open .dropdown-menu{
+        background-color: #ffffff;
+        position: absolute;
+    }
+    .icon{
+        line-height: normal !important;
+        padding: 0px !important;
+        float: right;
+    }
+    .o_product_feature_panel{
+        margin-top: 0px !important;
+        margin-left: 5px;
+        float: left;
+    }
+    .icon-cart{
+        font-size:17px;
+        color:black;
+    }
 }
 
+@media (min-width: 768.00px){
+    p.text_logo{
+        position: absolute;
+        overflow-wrap: break-word;
+        padding-left: 0px !important;
+        padding-top: 30px !important;
+        font-size: 15px;
+        vertical-align: middle;
+        display: inline-block;
+        float: right;
+        right: 20px;
+        z-index: 1;
+    }
 
+}
 
 @media (min-width: 991.00px)
 {
+    .width_menu{
+        width: 85% !important;
+    }
     p.text_logo{
-        padding-left: 180px;
+        margin-left: -12%;
+        right: 0px;
     }
     
     .label_level{
         display: none;
+    }
+    .box-search{
+        padding: 24px 0px 15px 0px;
+    }
+
+    #menu_item{
+        margin-top: 15px !important;
+        margin-left: 6px;
+        border-top: 1px solid #ffffff;
+        border-bottom: 1px solid #ffffff;
+    }
+
+    .navbar-default .navbar-nav > li > a{
+        padding: 0px 10px !important;
+        font-size: smaller !important;
+    }
+
+    .icon-cart{
+        font-size:16px;
+        color:black;
     }
     
 
