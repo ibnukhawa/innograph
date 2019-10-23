@@ -466,6 +466,16 @@ img.images{
         padding: 3px;
         top: 18px;
     }
+    .cart-view-drop{
+        margin-top: -2px;
+    }
+    .icon {
+        line-height: normal !important;
+        padding: 0px !important;
+        float: right;
+        margin-top: -6px
+    }
+    
 }
 
 @media (min-width: 1440.00px)
@@ -485,5 +495,19 @@ img.images{
     }
     .img.logos{
         margin-left: -15px;
+    }
+    #menu_item {
+        margin-top: 15px !important;
+        margin-left: 4px;
+        border-top: 1px solid #ffffff;
+        border-bottom: 1px solid #ffffff;
+    }
+    .box-search {
+        padding: 24px 0px 15px 0px;
+        margin-left: 0px;
+    }
+    .bottom-menu {
+        padding-top: 6px;
+        padding-bottom: 8px;
     }
 }
