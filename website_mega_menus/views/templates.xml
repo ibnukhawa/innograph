@@ -99,14 +99,15 @@
             <xpath expr="//nav/div" position="replace">
                 <t t-if="request.env['ir.values'].sudo().get_default('mega.menu.config', 'mega_menu_type')=='fly_out'">
                     <div class="col-md-3 col-sm-12 col-xs-12">
-                    <!-- <div class="row"> -->
+                    
                         <a href="/">
                             <img class="logos" src="/inno_web_header/static/src/img/logo.png" title="Innograph" alt="Innograph"/>
                         </a>
 
-                        <p class="text_logo" id="fly_out_view_open">Kategori</p>
+                        <p class="text_logo" id="fly_out_view_open">Kategori </p>
                         
-                    <!-- </div> -->
+                        
+                        
                     <div id="fly_out_view">
                         <h4 class="heading"><t t-esc="request.env['ir.values'].sudo().get_default('mega.menu.config', 'mega_menu_header_text')" /></h4>
                         <t t-set="menus" t-value="request.website.create_fly_out_menu()" />
