@@ -371,7 +371,41 @@ img.images{
         padding-top: 31px;
         padding-bottom: 8px;
     }
+    .navbar-account{
+        margin-top: 0px;
+        margin-right: 4px;
+    }
+    .icon-bars{
+        right: 7px;
+        float: right;
+        top: 6px;
+    }
+    #fly_out_view_open{
+        margin-right: 73px;
+    }
+    .dropdown-item{
+        padding: 7px;
+        font-size: 14px;
+    }
+    .box-menu{
+        left:-144px;
+    }
+    .top-menu{
+        background-color: #2196F3;
+        
+        padding-right: 32px;
+        height: 25px;
+    }
+    .menu-right{
+        float: right;
+        margin-top: 2px;
+    }
+    .menu-right > .item{
+        padding: 5px;
+        color: #ffffff;
+    }
 }
+
 
 @media (min-width: 768.00px){
     p.text_logo{
@@ -386,10 +420,16 @@ img.images{
         right: 20px;
         z-index: 1;
     }
+    .navbar-nav .open .dropdown-menu{
+        background-color: #ffffff;
+        position: absolute;
+        margin-top: 7px;
+        margin-left: 189px;
+    }
 
 }
 
-@media (min-width: 991.00px)
+@media (min-width: 992.00px)
 {
     .width_menu{
         width: 85% !important;
@@ -421,6 +461,10 @@ img.images{
     .icon-cart{
         font-size:16px;
         color:black;
+    }
+
+    .icon-bars{
+        display:none;
     }
     
 
@@ -475,7 +519,24 @@ img.images{
         float: right;
         margin-top: -6px
     }
+
+    .icon-bars{
+        display:none;
+    }
+
+    #fly_out_view_open{
+        margin-right: 0px;
+    }
     
+    .top-menu{
+        display: none;
+    }
+    #user_li{
+        min-width: 20px;
+    }
+    .label-account{
+        display: none;
+    }
 }
 
 @media (min-width: 1440.00px)
@@ -509,5 +570,12 @@ img.images{
     .bottom-menu {
         padding-top: 6px;
         padding-bottom: 8px;
+    }
+
+    .label-account{
+        display: block;
+    }
+    .menu-right{
+        margin-right: 16px;
     }
 }
