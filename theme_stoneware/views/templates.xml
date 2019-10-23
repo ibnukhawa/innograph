@@ -1102,7 +1102,11 @@
     
 <template id="category_title" inherit_id="website_sale.products_categories" name="Product Category">
   <xpath expr="//div[@id='products_grid_before']/ul" position="before">
-	<h2 t-if="categories" style="background: #cccccc61;padding:10px;border:none"><i class="fa fa-bars"></i> Product Category</h2>
+	<h2 t-if="categories" style="background: #cccccc61;padding:10px;border:none" class="btn-toggle-autocollapse-menu" data-toggle="collapse"><i class="fa fa-bars"></i> Product Category</h2>
+  </xpath>
+
+  <xpath expr="//div[@id='products_grid_before']/ul[hasclass('nav-pills')]" position="attributes">
+  	<attribute name="class">nav nav-pills nav-stacked mt16 collapse sidemenu-auto-collapsed</attribute>
   </xpath>
 </template>
 <template id="product_filter_title" inherit_id="website_sale.products_attributes" name="Product Attribute's Filters">

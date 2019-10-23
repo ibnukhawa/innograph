@@ -185,9 +185,9 @@
 				<t t-set="blog" t-value="blog_ids[no_blog-1]"/>
 				<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
 				<div class="section-post">
-                    <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
-                        <div class="section-post-media" t-attf-style="background-image: #{blog_cover_property.get('background-image', 'none')}">                                                       
-                        </div>
+                    
+                    <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" t-attf-title="#{slug(blog)}" t-attf-alt="#{slug(blog)}">
+                        <img class="section-post-media" t-att-src="blog._background_url_parser()"/>
                     </a>
                     <div class="section-post-body">
                         <div class="section-post-time">
@@ -208,12 +208,9 @@
 
             <div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
 				<div class="section-post">
-                    <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
-                        <div class="section-post-media" t-attf-style="background-image: #{blog_cover_property.get('background-image', 'none')}">                                                       
-                        </div>
+                    <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" t-attf-title="#{slug(blog)}" t-attf-alt="#{slug(blog)}">
+                        <img class="section-post-media" t-att-src="blog._background_url_parser()"/>
                     </a>
-
-
                     <div class="section-post-body">
                         <div class="section-post-time">
                             <span t-field="blog.create_date"/>
@@ -236,9 +233,9 @@
 
             <div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
 				<div class="section-post">
-                    <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
-                        <div class="section-post-media" t-attf-style="background-image: #{blog_cover_property.get('background-image', 'none')}">                                                       
-                        </div>
+                    <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" t-attf-title="#{slug(blog)}" t-attf-alt="#{slug(blog)}">
+                        <img class="section-post-media" t-att-src="blog._background_url_parser()"/>
+
                     </a>
 
                     <div class="section-post-body">
@@ -264,9 +261,8 @@
 
             <div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
 				<div class="section-post">
-                    <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
-                        <div class="section-post-media" t-attf-style="background-image: #{blog_cover_property.get('background-image', 'none')}">                                                       
-                        </div>
+                    <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" t-attf-title="#{slug(blog)}" t-attf-alt="#{slug(blog)}">
+                        <img class="section-post-media" t-att-src="blog._background_url_parser()"/>
                     </a>
 
                     <div class="section-post-body">
