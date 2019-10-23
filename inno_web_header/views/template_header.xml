@@ -62,6 +62,7 @@
                                             
                                         </a>
                                         <p class="text_logo">Kategori</p>
+                                        
                                     <!-- </div> -->
                                 <!-- </div> -->
                             </div>
@@ -69,29 +70,39 @@
                                 <!-- <div class="container"> -->
                                     <!-- <div class="row"> -->
                                         <form action='/shop' method="get" role="search">
-                                            
-                                                <div>
+                                        
+                                                <div class="box-search">
                                                     <button class="btn btn-primary btn_search">Cari</button>
-                                                    <input class="form-control" type="text" name="search" placeholder="Search" t-att-value="search"
-                                                           style="width:91%;position:absolute;margin-top:25px;"/>
+                                                    <input class="form-control form-search" type="text" name="search" placeholder="Search" t-att-value="search"/>
                                                 </div>
                                         
                                         </form>
+                                        <div id="menu_item" class="collapse navbar-collapse">
+                                            <ul class="navbar-nav">
+                                                <t t-foreach="website.menu_id.child_id" t-as="menu_id">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" t-attf-href="#{menu_id.url}">
+                                                            <t t-esc="menu_id.name"/>
+                                                        </a>
+                                                    </li>
+                                                </t>
+                                            </ul>
+                                        </div>
                                     <!-- </div> -->
                                 <!-- </div> -->
                             </div>
-                            <div class="col-md-3 col-sm-12 col-xs-12">
+                            <div class="col-md-3 col-sm-12 col-xs-12 bottom-menu">
                                 <!-- <div class="container"> -->
                                     <div class="row">
-                                        <div class="col-sm-4 menu_icon">
+                                        <div class="col-sm-6 col-xs-6 menu_icon">
                                             <ul class="nav navbar-nav">
                                                 <li class="navbar-item" id="user_li"></li>
-                                                <li class="dropdown" style="font-size:17px;padding-top:14px;color:black;">
+                                                <li class="dropdown icon-cart" >
                                                     <t t-call="inno_web_header.product_carts"/>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="account-login col-sm-6">
+                                        <div class="account-login col-sm-6 col-xs-6">
                                             <!-- <div class="container"> -->
                                                 <!-- <div class="row"> -->
                                                     <t t-if="not(website.user_id != user_id)">
@@ -101,28 +112,28 @@
                                                         </div>
                                                     </t>
                                                     <t t-if="website.user_id != user_id">
-                                                        <div style="padding-top:27px;margin-left:40px;">
+                                                        <div class="menu_icon">
                                                             <ul class="navbar-nav">
                                                                 <li>
-                                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
-                                                                        style="line-height:0px;padding:0px;">
+                                                                    <a href="#" class="dropdown-toggle icon" data-toggle="dropdown" role="button" aria-expanded="false">
                                                                         <t t-if="user_id.image">
                                                                             <span t-field="user_id.image_small" t-options='{"widget": "image", "class": "images"}' style="position:absolute;"/>
                                                                         </t>
                                                                         <t t-if="not user_id.image">
                                                                             <span align="left"/>
                                                                         </t>
-                                                                        <label style="padding-top:15px;margin-bottom:0px;padding-left:45px;">
+                                                                        <label style=";margin-bottom:0px;padding-left:45px;">
                                                                             <t t-esc="user_id.name" style="padding-top: 15px;"/>
                                                                         </label>
+                                                                        <br/>
                                                                         <label style="font-weight: normal;margin-bottom:0px;padding-left:45px;">
                                                                             Customer
                                                                         </label>
-                                                                        <ul class="dropdown-menu dropdown-account" role="menu" style="padding:10px;">
+                                                                        <ul class="dropdown-menu dropdown-account dropdown-style" role="menu">
                                                                             <li style="margin-bottom:5px;">
                                                                                 <span class="item">
                                                                                     <span class="item-left">
-                                                                                        <i class="fa fa-user" style="position:absolute;"></i>
+                                                                                        <i class="fa fa-user" style="position:absolute;float:left;left:0px;padding: 4px 5px 5px 10px;"></i>
                                                                                         <span class="item-info">
                                                                                             <a href="/my/home" t-if="website.user_id != user_id" style="padding:0px;padding-left:15px;">
                                                                                                 My Account
@@ -180,17 +191,7 @@
                 <div class="navbar-header-bottom">
                     <!--<nav class="navbar navbar-expand-lg">-->
                         <!--<div class="collapse navbar-collapse" style="margin-top: 0px !important;border-top: 1px solid #ffffff;border-bottom: 1px solid #ffffff;">-->
-                            <div id="menu_item" class="collapse navbar-collapse" style="margin-top: 0px !important;border-top: 1px solid #ffffff;border-bottom: 1px solid #ffffff;">
-                                <ul class="navbar-nav">
-                                    <t t-foreach="website.menu_id.child_id" t-as="menu_id">
-                                        <li class="nav-item">
-                                            <a class="nav-link" t-attf-href="#{menu_id.url}">
-                                                <t t-esc="menu_id.name"/>
-                                            </a>
-                                        </li>
-                                    </t>
-                                </ul>
-                            </div>
+                            
                         <!--</div>-->
                     <!--</nav>-->
                 </div>
