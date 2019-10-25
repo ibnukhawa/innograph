@@ -1,4 +1,4 @@
-odoo.define('theme_stoneware.product_wishlist', function (require) {
+odoo.define('inno_web_header.product_wishlist', function (require) {
 "use strict";
 var ajax = require('web.ajax');
 $(document).ready(function ()
