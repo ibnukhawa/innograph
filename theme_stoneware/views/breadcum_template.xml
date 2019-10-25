@@ -23,8 +23,10 @@
             </ul>
         </div>
 </template>
+
 <template id="breadcum_shop" inherit_id="website_sale.products">
-        <xpath expr="//div[@id='wrap']//div[@class='oe_structure']" position="before">
+<!-- default -->
+        <!-- <xpath expr="//div[@id='wrap']//div[@class='oe_structure']" position="before">
         <t t-if="not website.is_breadcum">
         <t t-if="website.bread_cum_image">
         <t t-set="bread_cum" t-value="website.image_url(website,'bread_cum_image')"/>
@@ -39,13 +41,13 @@
         </nav>
         </t>  
         </t>        
-        </xpath>
+        </xpath> -->
 </template>
 <template id="product_detail_page_bradcum" inherit_id="website_sale.product">
 <xpath expr="//section[@id='product_detail']" position="before">
 	    <t t-if="not website.is_breadcum">
         <t t-if="not (website.bread_cum_image)">
-		<nav class="is-breadcrumb shop-breadcrumb" role="navigation" aria-label="breadcrumbs">
+		<nav class="is-breadcrumb shop-breadcrumb" role="navigation" aria-label="breadcrumbs" style="display: none;">
 	        <div class="container">
 	            <h1>    
 	                <span t-esc="product.name"/>
@@ -59,7 +61,7 @@
         </t>
         <t t-if="website.bread_cum_image">
         <t t-set="bread_cum" t-value="website.image_url(website,'bread_cum_image')"/>
-		<nav class="is-breadcrumb shop-breadcrumb" role="navigation" aria-label="breadcrumbs" t-attf-style="background-image:url(#{bread_cum}#)">
+		<nav class="is-breadcrumb shop-breadcrumb" role="navigation" aria-label="breadcrumbs" t-attf-style="background-image:url(#{bread_cum}#)" style="display: none;">
 	                <div class="container">
 	                    <h1>    
 	                        <span t-esc="product.name"/>

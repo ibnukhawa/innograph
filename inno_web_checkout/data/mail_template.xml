@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+	<record id="email_quotation_shop" model="mail.template">
+		<field name="name">Quotation</field>
+		<field name="email_form"></field>
+		<field name="subject">${ctx['sale']}</field>
+		<field name="email_to">${ctx['email']}</field>
+		<field name="model_id" ref="sale.model_sale_order"/>
+		<field name="auto_delete" eval="False"/>
+		<field name="report_template" ref="sale.report_sale_order"/>
+		<field name="report_name">${ctx['sale_order']}</field>
+		<field name="body_html">
+			<![CDATA[
+				<p>
+				Dear ${ctx['to_user']},<br/><br/>
+				This is attachment file offering or quotation for the product as your request in Displaystore.id<br/><br/>
+				<div style="margin-left: 150px">
+					<a href="${ctx['url_link']}" type="blank" style="background-color: #1abc9c; padding: 20px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 16px;" class="o_default_snippet_text">View Order</a>
+				    <br/><br/>
+				    <span style="color:#888888">(or view attached PDF)</span>
+			    </div>
+			    <br/>
+				You can reply this email if you have question.<br/><br/>
+				Thank you<br/><br/>
+				</p>
+			]]>
+		</field>
+	</record>
+</odoo>

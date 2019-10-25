@@ -1,0 +1,316 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="assets_frontend_slick" inherit_id="web.assets_frontend" name="Website Frontend Assets">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/less" href="/inno_web_home/static/src/slick/slick.css"/>
+            <!-- <link rel="stylesheet" type="text/less" href="/inno_web_home/static/src/slick/slick.css"/> -->
+            <link rel="stylesheet" type="text/less" href="/inno_web_home/static/src/css/custom.css"/>
+        </xpath>
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/inno_web_home/static/src/slick/slick.min.js"></script>
+            <script type="text/javascript" src="/inno_web_home/static/src/js/custom.js"></script>
+            <script type="text/javascript" src="/inno_web_home/static/src/js/snippets.editor.js"></script>
+            
+            <!-- <script type="text/javascript" src="/inno_web_home/static/src/js/custom.js"></script> -->
+        </xpath> 
+    </template>
+    <template id="s_banner_home" inherit_id="website.homepage" name="Banner" >
+        <xpath expr="//div[@class='oe_structure oe_empty']" position="after">
+                <section class="disable_customize s_banner_homepage">
+                    <div class="disable_customize container">
+                        <div class="disable_customize row" id="banner_slider">
+                                <div class="disable_customize header_slider_1 col-xs-12 col-sm-8 col-md-8">
+                                    <!-- <div class="" style="background:#ffffff;"> -->
+                                        
+                                        <!-- <div>
+                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-2.jpg"/>
+                                        </div> -->
+                                        <!-- <div>
+                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-1.jpg"/>
+                                        </div>
+                                        <div>
+                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-3.jpg"/>
+                                        </div> -->
+                                    <!-- </div> -->
+                                </div>
+                            
+                                <div class="disable_customize header_slider_sub col-xs-12 col-sm-4 col-md-4 ">
+                                    <div class="disable_customize header_slider_2" style="min-height:100% !important">
+                                        
+                                        <!-- <div>
+                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-4.jpg"/>
+                                        </div>
+                                        <div>
+                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-5.jpg"/>
+                                        </div>
+                                        <div>
+                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-1.jpg"/>
+                                        </div> -->
+                                    </div>
+                                    <div class="disable_customize header_slider_3" style="min-height:100% !important">
+                                        <!-- <div>
+                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/banner1.png"/>
+                                        </div>
+                                        <div>
+                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/banner2.png"/>
+                                        </div>
+                                        <div>
+                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/banner3.jpg"/>
+                                        </div> -->
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </section>
+       
+                <section class="disable_customize s_slider_tab">
+                    <div class="disable_customize container">
+                        <div class="disable_customize row" id="slide_tab">
+                            <div class="disable_customize col-md-12">
+                                <ul class="disable_customize nav nav-tabs menu_tabs" role="tablist">
+                                   
+                                </ul>
+                                <div class="disable_customize tab-content content_slider_tabs">
+                                    
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </section>
+
+                <section class="disable_customize s_slider_category">
+                    <div class="disable_customize container">
+                        <div class="disable_customize row row_category">
+                            <div class="disable_customize col-sm-12 col-md-12 col-xs-12">
+                                <h5 class="disable_customize">Lihat Kategori Lainnya</h5>
+                                <div class="disable_customize slider_main_category">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>    
+                
+                <section class="disable_customize s_slider_multiple_category">
+                    <div class="disable_customize container">
+                        <div class="disable_customize row multiple_category">
+                            <!-- <div class="col-sm-6 col-md-6 col-xs-6">
+                                <h5></h5>
+                                <div class="slider_category_1" style="background:#ffffff;">
+                                    
+                                        <div class="card card-tab" >
+                                            <img class="banner_tab_slider" src="/web/image/product.public.category/1/image/300x300"/>
+                                            <div class="card-body">
+                                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                            </div>
+                                        </div>
+
+
+                                      
+                                        
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </section> 
+                        
+                <div class="oe_structure oe_empty">
+                </div>
+
+
+        </xpath>
+    </template>
+
+    <template id="product_list" name="Products">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Shop</t>
+            <div id="wrap" class="js_sale">
+                <div class="oe_structure" />
+                <div class="container oe_website_sale">
+                    <div class="products_pager">
+                        <div class="row" style="width: 100%;">
+                            <t t-call="website_sale.search">
+                                <t t-set="search_class" t-value="'pagination form-inline o_website_sale_search'"/>
+                            </t>
+                            <t t-call="website_sale.pricelist_list" />
+                            <t t-call="website.pager" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="hidden" id="products_grid_before"></div>
+                        <div class="col-md-12" id="products_grid">
+                            <table width="100%">
+                                <tbody>
+                                    <tr t-ignore="true">
+                                        <td t-foreach="range(0,rows)" t-as="row" t-attf-width="#{100/rows}%"></td>
+                                    </tr>
+                                    <tr t-foreach="bins" t-as="tr_product">
+                                        <t t-foreach="tr_product" t-as="td_product">
+                                            <t t-if="td_product">
+                                                <t t-set="product" t-value="td_product['product']" />
+                                                <td t-att-colspan="td_product['x'] != 1 and td_product['x']" t-att-rowspan="td_product['y'] != 1 and td_product['y']" t-attf-class="oe_product oe_grid oe-height-#{td_product['y']*2} #{ td_product['class'] }">
+                                                    <div class="oe_product_cart" t-att-data-publish="product.website_published and 'on' or 'off'">
+                                                        <t t-set="product_image_big" t-value="td_product['x']+td_product['y'] &gt; 2" />
+                                                        <t t-call="website_sale.products_item" />
+                                                    </div>
+                                                </td>
+                                            </t>
+                                            <td t-if="not td_product" class="oe-height-2" />
+                                        </t>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <t t-if="not bins">
+                                <div class="text-center text-muted oe_product">
+                                    <h3 class="css_editable_display">No product defined.</h3>
+                                    <p groups="sales_team.group_sale_manager">Click <i>'New'</i> in the top-right corner to create your first product.</p>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="products_pager">
+                        <t t-call="website.pager" />
+                    </div>
+                </div>
+                <div class="oe_structure mb32" />
+            </div>
+        </t>
+    </template>
+
+    <template id="inno_blog" inherit_id="theme_stoneware.blog_slider_items" name="Blog" >
+        <xpath expr="//div[@class='row']" position="replace">
+        <div class="row">
+            
+			<div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
+				<t t-set="blog" t-value="blog_ids[no_blog-1]"/>
+				<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+				<div class="section-post">
+                    
+                    <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
+                        <div class="section-post-media" t-attf-style="background-image: #{blog_cover_property.get('background-image', 'none')}">                                                       
+                        </div>
+                    </a>
+                    <div class="section-post-body">
+                        <div class="section-post-time">
+                            <span t-field="blog.create_date"/>
+                        </div>
+                        <h4 class="section-post-title">
+                        <a href="#" t-field="blog.name"></a>
+                        </h4>
+                        <p class="section-post-excerpt" t-field="blog.subtitle"></p>
+                        <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
+                    </div>				
+                </div>
+            </div>
+
+	        <t t-set="no_blog" t-value="no_blog-1"/>
+			<t t-set="blog" t-value="blog_ids[no_blog-1]"/>
+			<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+
+            <div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
+				<div class="section-post">
+                    <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
+                        <div class="section-post-media" t-attf-style="background-image: #{blog_cover_property.get('background-image', 'none')}">                                                       
+                        </div>
+                    </a>
+                    <div class="section-post-body">
+                        <div class="section-post-time">
+                            <span t-field="blog.create_date"/>
+                        </div>
+
+                        <h4 class="section-post-title">
+                            <a href="#" t-field="blog.name"></a>
+                        </h4>
+
+                        <p class="section-post-excerpt" t-field="blog.subtitle"></p>
+
+                        <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
+                    </div>					
+                </div>
+            </div>
+
+	        <t t-set="no_blog" t-value="no_blog-1"/>
+			<t t-set="blog" t-value="blog_ids[no_blog-1]"/>
+			<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+
+            <div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
+				<div class="section-post">
+                    <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
+                        <div class="section-post-media" t-attf-style="background-image: #{blog_cover_property.get('background-image', 'none')}">                                                       
+                        </div>
+
+                    </a>
+
+                    <div class="section-post-body">
+                        <div class="section-post-time">
+                            <span t-field="blog.create_date"/>
+                        </div>
+
+                        <h4 class="section-post-title">
+                            <a href="#" t-field="blog.name"></a>
+                        </h4>
+
+                        <p class="section-post-excerpt" t-field="blog.subtitle"></p>
+
+                        <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
+                    </div>					
+                </div>
+            </div>
+
+
+	        <t t-set="no_blog" t-value="no_blog-1"/>
+			<t t-set="blog" t-value="blog_ids[no_blog-1]"/>
+			<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+
+            <div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
+				<div class="section-post">
+                    <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
+                        <div class="section-post-media" t-attf-style="background-image: #{blog_cover_property.get('background-image', 'none')}">                                                       
+                        </div>
+                    </a>
+
+                    <div class="section-post-body">
+                        <div class="section-post-time">
+                            <span t-field="blog.create_date"/>
+                        </div>
+
+                        <h4 class="section-post-title">
+                            <a href="#" t-field="blog.name"></a>
+                        </h4>
+
+                        <p class="section-post-excerpt" t-field="blog.subtitle"></p>
+
+                        <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
+                    </div>					
+                </div>
+            </div>
+        </div>
+        </xpath>
+    </template>
+<!-- 
+    <template id="blog_indicators">
+        <t t-if="blog_slide&lt;as_latest_blog_slide">
+        <li t-att-data-target="'#as-latest_blog-%s' %(blog_slider.id)" t-attf-data-slide-to="#{int(blog_slide)}" t-att-class="'active' if blog_slide==0 else ''"></li>
+        </t>
+        <t t-set="blog_slide" t-value="blog_slide+2"/>
+        <t t-if="blog_slide&lt;as_latest_blog_slide">
+            <t t-call="inno_web_home.blog_indicators"/>
+        </t>
+    </template>
+
+    <template id="inno_blog_indicator" inherit_id="theme_stoneware.blog_slider_content" name="indicators" >
+        <xpath expr="//ol[@class='carousel-indicators']" position="replace">
+            <ol class="carousel-indicators">
+ 				<t t-call="inno_web_home.blog_indicators"/>			
+        	</ol>
+        </xpath>
+        <xpath expr="//div[@class='seaction-head']" position="replace">
+            <div class="seaction-head">
+                <t t-if="blog_slider.name">
+                    <h1 class="title_blog" t-field="blog_slider.name"/>  			
+                </t>
+            </div>
+        </xpath>
+    </template> -->
+
+</odoo>

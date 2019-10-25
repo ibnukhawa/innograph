@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="website_config_settings_view" model="ir.ui.view">
+        <field name="name">Website Settings</field>
+        <field name="model">website.config.settings</field>
+        <field name="inherit_id" ref="website.view_website_config_settings"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='social']" position="inside">
+                <label for="social_instagram"/>
+                <div name="social_instagram">
+                    <div class="oe_inline">
+                        <field name="social_instagram" placeholder="Link to Your Instagram Account"/>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

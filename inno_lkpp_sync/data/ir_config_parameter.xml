@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="lkpp_category_key" model="ir.config_parameter">
+        <field name="key">lkpp.category_key</field>
+        <field name="value">733338b7b9ce8c440aced0d62f3511e47e242538</field>
+        <field name="group_ids" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+
+    <record id="lkpp_uom_key" model="ir.config_parameter">
+        <field name="key">lkpp.uom_key</field>
+        <field name="value">733338b7b9ce8c440aced0d62f3511e47e242538</field>
+        <field name="group_ids" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+
+    <record id="lkpp_manufacture_key" model="ir.config_parameter">
+        <field name="key">lkpp.manufacture_key</field>
+        <field name="value">733338b7b9ce8c440aced0d62f3511e47e242538</field>
+        <field name="group_ids" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+
+    <record id="lkpp_currency_key" model="ir.config_parameter">
+        <field name="key">lkpp.currency_key</field>
+        <field name="value">733338b7b9ce8c440aced0d62f3511e47e242538</field>
+        <field name="group_ids" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+
+    <record id="lkpp_secretkey" model="ir.config_parameter">
+        <field name="key">lkpp.secretkey</field>
+        <field name="value">7c222fb2927d828af22f592134e8932480637c0d</field>
+        <field name="group_ids" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+
+</odoo>

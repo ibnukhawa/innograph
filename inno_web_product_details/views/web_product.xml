@@ -1,0 +1,36 @@
+<odoo>
+    <template id="product_details_inherit" inherit_id="theme_stoneware.product_details" name="Product Website">
+        <xpath expr="//div/div/div/t/div/t/div[@class='item']" position="replace">
+            <div class="item">
+                <a t-att-href="website.image_url(pimg,'image')" class="slider-popup-product"/>
+                <img class="img img-responsive sub-images" t-attf-src="/website/image/product.image/{{pimg.id}}/image/300x300" t-att-alt="pimg.name"/>
+            </div>
+        </xpath>
+        <xpath expr="//ul[@class='nav nav-tabs']/li[1]" position="after">
+            <li role="presentation">
+                 <a href="#installation_instruction" aria-controls="more_info" role="tab" data-toggle="tab" >Petunjuk Pemasangan</a>
+            </li>
+            <li role="presentation">
+                 <a href="#product_gallery" aria-controls="more_info" role="tab" data-toggle="tab">Galeri Product</a>
+            </li>
+        </xpath>
+        <xpath expr="//div[@id='more_info']" position='after'>
+            <div role="tabpanel" class="tab-pane" id="installation_instruction">
+                <div itemprop="description" t-field="product.installation_instructions" class="oe_structure mt16" id="product_full_description"/>
+            </div>
+            <div role="tabpanel" class="tab-pane acve" id="product_gallery">
+                <div itemprop="description" t-field="product.product_gallery" class="oe_structure mt16" id="product_full_description"/>
+            </div>
+        </xpath>
+        <xpath expr="//ul[@class='nav nav-tabs']/li" position="before">
+            <li role="presentation" class="active">
+                 <a href="#detail_product" aria-controls="detail_product" role="tab" data-toggle="tab">Detail Product</a>
+            </li>
+        </xpath>
+        <xpath expr="//div[@id='more_info']" position='before'>
+            <div role="tabpanel" class="tab-pane active" id="detail_product">
+                <div itemprop="description" t-field="product.product_detail" class="oe_structure mt16" id="product_full_description"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

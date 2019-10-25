@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="web.assets_frontend" name="Website Frontend Assets">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/inno_web_footer/static/css/footer.css"/>
+        </xpath>
+    </template>
+    <template id="pci_footer" inherit_id="theme_stoneware.footer_default">
+        <xpath expr="//div[@id='footer']" position="replace">
+            <div id="footer">
+                <div class="middle-footer" style="background-color: #d7d8da;">
+                    <div class="container">
+                        <div class="row" style="padding-bottom: 20px;">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="newsletter-inner">
+                                    <div class="title-new black-font">
+                                        <h3>NEWSLETTER</h3>
+                                    </div>
+                                    <div class="ftr-ns">
+                                        <div class="oe_snippet_body input-group js_subscribe"
+                                             data-list-id="0">
+                                            <input type="email" name="email" class="js_subscribe_email form-control subscribe-column" placeholder="Enter your email address"/>
+                                            <span class="input-group-btn">
+                                                <a href="#" class="btn btn-primary js_subscribe_btn">Subscribe</a>
+                                                <a href="#" class="btn btn-success js_subscribed_btn hidden" disabled="disabled">Thanks</a>
+                                            </span>
+                                            <div class="alert alert-success hidden">Thanks for your subscription!</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="title-new black-font">
+                                    <h3>Follows</h3>
+                                </div>
+                                <div class="title-new">
+                                    <t t-if="website.social_instagram">
+                                        <a t-att-href="website.social_instagram" target="_blank"><i class="fa fa-instagram instagram-icon" aria-hidden="true"/></a>
+                                    </t>
+                                    <t t-if="not website.social_instagram">
+                                        <a href="#"><i class="fa fa-instagram instagram-icon" aria-hidden="true"/></a>
+                                    </t>
+                                    <t t-if="website.social_youtube">
+                                        <a t-att-href="website.social_youtube" target="_blank"><i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/></a>
+                                    </t>
+                                    <t t-if="not website.social_youtube">
+                                        <a href="#"><i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/></a>
+                                    </t>
+                                    <t t-if="website.social_facebook">
+                                        <a t-att-href="website.social_facebook" target="_blank"><i class="fa fa-facebook facebook-icon" aria-hidden="true"/></a>
+                                    </t>
+                                    <t t-if="not website.social_facebook">
+                                        <a href="#"><i class="fa fa-facebook facebook-icon" aria-hidden="true"/></a>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" >
+                                <h3 class="block-title black-font">Bantuan</h3>
+                                <ul class="list-unstyled" id="help">
+                                    <li>
+                                        <a class="black-font" href="#">Cara membuat penawaran</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">F.A.Q</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Cara membeli</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Metode pembayaran</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Cara menjadi partner</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Pengiriman</a>
+                                    </li>
+                                </ul>
+                                <!--<section class="f-social">-->
+                                    <!--<ul>-->
+                                        <!--<li t-if="website.social_facebook"><a t-att-href="website.social_facebook" t-if="website.social_facebook"><i class="fa fa-facebook"/></a></li>-->
+                                        <!--<li t-if="website.social_twitter"><a t-att-href="website.social_twitter" t-if="website.social_twitter"><i class="fa fa-twitter"/></a></li>-->
+                                        <!--<li t-if="website.social_googleplus"><a t-att-href="website.social_googleplus" t-if="website.social_googleplus" rel="publisher"><i class="fa fa-google-plus"/></a></li>-->
+                                        <!--<li t-if="website.social_youtube"><a t-att-href="website.social_youtube" t-if="website.social_youtube"><i class="fa fa-youtube-play"/></a></li>-->
+                                    <!--</ul>-->
+                                <!--</section>-->
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 my-3">
+                                <h3 class="block-title second-title black-font">Bank Transfer</h3>
+                                <div>
+                                    <img class="bca-logo" src="/inno_web_footer/static/img/bca-logo.png" title="BCA Logo" alt="BCA"/>
+                                    <img class="bri-logo" src="/inno_web_footer/static/img/Logo_BRI.png" title="BRI Logo" alt="BRI"/>
+                                    <br/>
+                                    <img class="permata-logo" src="/inno_web_footer/static/img/PermataBank_logo.png" title="Permata Logo" alt="PermataBank"/>
+                                    <img class="danamon-logo" src="/inno_web_footer/static/img/Danamon_logo.png" title="Danamon Logo" alt="Danamon"/>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" >
+                                <h3 class="block-title black-font">Displaystore</h3>
+                                <ul class="list-unstyled" id="products">
+                                    <li>
+                                        <a class="black-font" href="#">Tentang Displaystore</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Press media</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Daftar partner</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Sitemap</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Kebijakan privasi</a>
+                                    </li>
+                                </ul>
+                                <h3 class="block-title second-title black-font">Keamanan Berbelanja</h3>
+                                <div>
+                                    <img class="bca-logo" src="/inno_web_footer/static/img/logo-idea.jpg" title="idEA" alt="idEA"/>
+                                    <img class="bri-logo" src="/inno_web_footer/static/img/comodo-secure-logo.png" title="Comodo Secure" alt="Comodo"/>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="display: none;">
+                                <h3 class="block-title black-font">Links</h3>
+                                <div id="info">
+                                <ul class="list-unstyled" style="color: black;">
+                                    <li>
+                                        <a class="black-font" href="#">Site Map</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Search Terms</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Advanced Search</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Mobile</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Contact us</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Discount Code</a>
+                                    </li>
+                                </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="display: none;">
+                                <h3 class="block-title black-font">Location</h3>
+                                <div class="fot-address">
+                                    <address itemscope="itemscope" itemtype="http://schema.org/Organization">
+                                    <!-- TODO widget contact must add itemprop attributes -->
+                                    <div t-field="res_company.partner_id" t-options='{
+                                            "widget": "contact",
+                                            "fields": ["name", "address", "phone", "mobile", "fax", "email"]}'/>
+                                    </address>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                <h3 class="block-title black-font">
+                                    Hubungi Kami
+                                </h3>
+                                <div id="contact_us">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4 inno-container">
+                                            <img class="inno-logo" src="/inno_web_footer/static/img/inno_logo.jpg" title="Inno" alt="innoGraph"/>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 black-font">
+                                            <p>(021) 7883 1023</p>
+                                            <p>Senin-Jumat: 09.00 - 17.00</p>
+                                            <p>email. cs@displaystore.id</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                <h3 class="block-title black-font">
+                                    View Maps
+                                </h3>
+                                <div id="maps">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.6734509967455!2d106.83671751471717!3d-6.306563295435727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69edf2f9a6c2e3%3A0xaca525818eec30b0!2sDisplaystore.id!5e0!3m2!1sen!2sid!4v1568691117917!5m2!1sen!2sid"
+                                            class="gmaps"
+                                            frameborder="0"
+                                            allowfullscreen=""/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="support-footer" style="display: none;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12 box1">
+                                <div class="iner-box">
+                                    <div class="icon">
+                                        <i class="fa fa-phone" />
+                                        <p><span>Do you have</span> a question?</p>
+                                    </div>
+                                    <div class="text">
+                                        <h3>+0123 456 789</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12 box2">
+                                <div class="iner-box">
+                                    <div class="icon">
+                                        <i class="fa fa-envelope-o" />
+                                        <p><span>offer</span> question?</p>
+                                    </div>
+                                    <div class="text">
+                                        <h3>contact@stoneware.com</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12 box3">
+                                <div class="iner-box">
+                                    <div class="icon">
+                                        <i class="fa fa-support" />
+                                        <p><span>Support</span> question?</p>
+                                    </div>
+                                    <div class="text">
+                                        <h3>support@stoneware.com</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-footer" style="background-color: #d7d8da;">
+                    <div class="container">
+                        <div class="copyright black-font">
+                            <h6> Copyright 2019. Displaystore</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

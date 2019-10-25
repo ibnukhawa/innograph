@@ -1,0 +1,53 @@
+<odoo>
+    <template id="product_quantity_inherit" inherit_id="website_sale.product_quantity" name="Select Quantity Inherit">
+        <xpath expr="//div[@class='css_quantity input-group oe_website_spinner']" position="after">
+        <!-- social share -->
+            <div>
+                <button type="button" class="btn btn-dark" id="btn_share" style="margin-left: 3%;">
+                    <i class="fa fa-share-alt"></i>Bagikan
+                </button>
+            </div>
+            <div class="product_share pull-right" style="position: absolute;right: 0px;">
+                
+                <div class="oe_share s_share invisible" id="social_share" style="margin-top: 10px;">
+                    <a target="_Blank" href="#facebook" class="oe_share_icon facebook-icons">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a target="_Blank" href="https://twitter.com/intent/tweet?text={title}&amp;url={url}" class="oe_share_icon twitter-icon">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a target="_Blank" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={url}&amp;title={title}&amp;" class="oe_share_icon linkedin-icon">
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:?body={url}&amp;subject={title}" class="oe_share_icon">
+                        <i class="fa fa-envelope-o"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        <!-- viewer product -->
+            <div class="det-product-info">
+                <div class="det-product-info_item">
+                    <i class="fa fa-eye"></i>
+                    <div class="va-middle">
+                        <div class="det-product-info_item_content">Dilihat</div>
+                        <div class="det-product-info_item_value">
+                            <span t-esc="qty_viewer"/><span t-esc="sat_viewer"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="det-product-info_item">
+                    <i class="fa fa-truck"></i>
+                    <div class="va-middle">
+                        <div class="det-product-info_item_content">Terkirim</div>
+                        <div class="det-product-info_item_value">
+                            <span t-esc="qty_sold"/><span t-esc="sat_sold"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

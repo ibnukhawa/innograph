@@ -1,0 +1,149 @@
+/* custom for customize theme product style option 1 */
+
+
+.as-product .asp-inner .pro-info{
+    background: #ffffff;
+}
+
+.as-product:hover .asp-inner .pro-action {
+    top: 266px;
+    bottom: auto;
+    position: absolute;
+    display: contents;
+}
+
+.as-product .asp-inner .pro-img{
+    height: 200px;
+    border: none;
+}
+
+.as-product:hover .asp-inner .pro-img {
+    height: 160px;
+}
+
+.as-product .asp-inner .pro-img:after {
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.as-product .asp-inner .pro-info h3{
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 6px;
+    padding: 0 0 10px;
+    white-space: pre-wrap;
+    width: 100%;
+    text-overflow: none;
+    border: none;
+    height: 2em;
+    overflow: hidden;
+    margin-top:-10px;
+}
+
+.as-product .asp-inner .pro-action {
+    transition: none;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+}
+
+
+
+@media (min-width: 320.00px)
+{
+    .product_card{
+        padding-right: 5px;
+        padding-left: 5px;
+        height: 250px;
+    }
+    
+    .as-product .asp-inner .pro-img{
+        height: 150px;
+        border: none;
+    }
+    
+    .as-product:hover .asp-inner .pro-img {
+        height: 100px;
+        width: 80%;
+        margin: auto;
+    }
+    .as-product .asp-inner .pro-info{
+        padding: 10px 20px 10px;
+        font-size:x-small;
+    }
+}
+@media (min-width: 400.00px)
+{ 
+
+    .as-product .asp-inner .pro-img{
+        height: 160px;
+        border: none;
+        width: 150px;
+        margin:auto;
+    }
+    
+    .as-product:hover .asp-inner .pro-img {
+        height: 125px;
+        width: 120px;
+        margin: auto;
+    }
+    
+}
+
+@media (min-width: 768.00px)
+{
+    .product_card{
+        height: 270px;
+    }
+}
+
+@media (min-width: 1200.00px)
+{
+    .product_card{
+        height: 270px;
+    }
+
+    .as-product .asp-inner .pro-img{
+        height: 190px;
+        border: none;
+        width: 180px;
+        margin:auto;
+    }
+    
+    .as-product:hover .asp-inner .pro-img {
+        height: 125px;
+        width: 120px;
+        margin: auto;
+    }
+}
+
+
+@media (min-width: 1500.00px)
+{
+    .product_card{
+        height: 320px;
+    }
+
+    .as-product .asp-inner .pro-img{
+        height: 200px;
+        border: none;
+        width: 185px;
+        margin:auto;
+    }
+    
+    .as-product:hover .asp-inner .pro-img {
+        height: 195px;
+        width: 175px;
+        margin: auto;
+    }
+}
