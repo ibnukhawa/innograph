@@ -1,7 +1,5 @@
 @media screen and (min-width: 350px){
-    .footer-content{
-        width: 50%;
-    }
+    
     .subscribe-column{
         width: 230px !important;
     }
@@ -46,20 +44,20 @@
         margin-top: 20px !important;
     }
     .bca-logo{
-        width: 50px;
+        width:45% !important;
         margin-top: -30px;
     }
     .bri-logo{
-        width: 50px;
+        width:45% !important;
         margin-top: -30px;
         margin-left: 20px;
     }
     .permata-logo{
-        width: 50px;
+        width:45% !important;
         margin-top: 10px;
     }
     .danamon-logo{
-        width: 50px;
+        width:45% !important;
         margin-top: 10px;
         margin-left: 20px;
     }
@@ -83,9 +81,7 @@
     }
 }
 @media screen and (min-width: 768px){
-    .footer-content{
-        width: 25%;
-    }
+    
     .subscribe-column{
         width: 250px !important;
     }
@@ -167,9 +163,7 @@
     }
 }
 @media screen and (min-width: 1024px){
-    .footer-content{
-        width: 25%;
-    }
+    
     .subscribe-column{
         width: 350px !important;
     }
@@ -251,9 +245,7 @@
     }
 }
 @media screen and (min-width: 1200px){
-    .footer-content{
-        width: 25%;
-    }
+    
     .subscribe-column{
         width: 450px !important;
     }
