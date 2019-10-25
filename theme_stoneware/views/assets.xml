@@ -28,6 +28,7 @@
     	<script type="text/javascript"  src="/theme_stoneware/static/src/js/custom.js"></script>  
 	   	<script type="text/javascript"  src="/theme_stoneware/static/src/js/zoom.js"></script>
 		<script type="text/javascript" src="/theme_stoneware/static/src/js/website_product_wishlist.js"></script>
+		<script type="text/javascript" src="/theme_stoneware/static/src/js/collapsed_menu.js"></script>
 
 		<!-- End -->
 	</xpath>

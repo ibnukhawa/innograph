@@ -7,9 +7,33 @@
         <field name="model">slider.banner_satu</field>
         <field name="arch" type="xml">
             <tree string="Slider Banner 1" editable='bottom'>
-                <field name="image"/>
+                <field name="image" widget="image"/>
                 <field name="url"/>
             </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="slider_banner_satu_form">
+        <field name="name">Slider Banner 1 Form</field>
+        <field name="model">slider.banner_satu</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <header></header>
+                <sheet>
+                    <h1>
+                        <field name="image" widget="image" />
+                    </h1>
+                    <group>
+                        <!-- START HERE -->
+                        <!-- YOU CAN ERASE THIS SYNTAX -->
+                        <field name="url"/>
+                    </group>
+                </sheet>
+                <!--<footer></footer>-->
+                
+                <!-- UNCOMMENT IF USING Mail Track SYSTEM -->
+            </form>
         </field>
     </record>
 
@@ -18,7 +42,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">slider.banner_satu</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,form</field>
         <field name="view_id" ref="slider_banner_satu_tree_view"/>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
@@ -42,9 +66,32 @@
         <field name="model">slider.banner_dua</field>
         <field name="arch" type="xml">
             <tree string="Slider Banner 2" editable='bottom'>
-                <field name="image"/>
+                <field name="image" widget="image"/>
                 <field name="url"/>
             </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="slider_banner_dua_form">
+        <field name="name">Slider Banner 2 Form</field>
+        <field name="model">slider.banner_dua</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <header></header>
+                <sheet>
+                    <h1>
+                        <field name="image" widget="image" />
+                    </h1>
+                    <group>
+                        <!-- START HERE -->
+                        <!-- YOU CAN ERASE THIS SYNTAX -->
+                        <field name="url"/>
+                    </group>
+                </sheet>
+                <!--<footer></footer>-->
+                
+                <!-- UNCOMMENT IF USING Mail Track SYSTEM -->
+            </form>
         </field>
     </record>
 
@@ -53,7 +100,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">slider.banner_dua</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,form</field>
         <field name="view_id" ref="slider_banner_dua_tree_view"/>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
@@ -78,9 +125,32 @@
         <field name="model">slider.banner_tiga</field>
         <field name="arch" type="xml">
             <tree string="Slider Banner 3" editable='bottom'>
-                <field name="image"/>
+                <field name="image" widget="image"/>
                 <field name="url"/>
             </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="slider_banner_tiga_form">
+        <field name="name">Slider Banner 3 Form</field>
+        <field name="model">slider.banner_tiga</field>
+        <field name="arch" type="xml">
+            <form string="Form">
+                <header></header>
+                <sheet>
+                    <h1>
+                        <field name="image" widget="image" />
+                    </h1>
+                    <group>
+                        <!-- START HERE -->
+                        <!-- YOU CAN ERASE THIS SYNTAX -->
+                        <field name="url"/>
+                    </group>
+                </sheet>
+                <!--<footer></footer>-->
+                
+                <!-- UNCOMMENT IF USING Mail Track SYSTEM -->
+            </form>
         </field>
     </record>
 
@@ -89,7 +159,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">slider.banner_tiga</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,form</field>
         <field name="view_id" ref="slider_banner_tiga_tree_view"/>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">

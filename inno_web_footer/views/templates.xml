@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 footer-content" >
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" >
                                 <h3 class="block-title black-font">Bantuan</h3>
                                 <ul class="list-unstyled" id="help">
                                     <li>
@@ -78,14 +78,6 @@
                                         <a class="black-font" href="#">Pengiriman</a>
                                     </li>
                                 </ul>
-                                <h3 class="block-title second-title black-font">Bank Transfer</h3>
-                                <div>
-                                    <img class="bca-logo" src="/inno_web_footer/static/img/bca-logo.png" title="BCA Logo" alt="BCA"/>
-                                    <img class="bri-logo" src="/inno_web_footer/static/img/Logo_BRI.png" title="BRI Logo" alt="BRI"/>
-                                    <br/>
-                                    <img class="permata-logo" src="/inno_web_footer/static/img/PermataBank_logo.png" title="Permata Logo" alt="PermataBank"/>
-                                    <img class="danamon-logo" src="/inno_web_footer/static/img/Danamon_logo.png" title="Danamon Logo" alt="Danamon"/>
-                                </div>
                                 <!--<section class="f-social">-->
                                     <!--<ul>-->
                                         <!--<li t-if="website.social_facebook"><a t-att-href="website.social_facebook" t-if="website.social_facebook"><i class="fa fa-facebook"/></a></li>-->
@@ -95,8 +87,18 @@
                                     <!--</ul>-->
                                 <!--</section>-->
                             </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 my-3">
+                                <h3 class="block-title second-title black-font">Bank Transfer</h3>
+                                <div>
+                                    <img class="bca-logo" src="/inno_web_footer/static/img/bca-logo.png" title="BCA Logo" alt="BCA"/>
+                                    <img class="bri-logo" src="/inno_web_footer/static/img/Logo_BRI.png" title="BRI Logo" alt="BRI"/>
+                                    <br/>
+                                    <img class="permata-logo" src="/inno_web_footer/static/img/PermataBank_logo.png" title="Permata Logo" alt="PermataBank"/>
+                                    <img class="danamon-logo" src="/inno_web_footer/static/img/Danamon_logo.png" title="Danamon Logo" alt="Danamon"/>
+                                </div>
+                            </div>
 
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 footer-content" >
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" >
                                 <h3 class="block-title black-font">Displaystore</h3>
                                 <ul class="list-unstyled" id="products">
                                     <li>
@@ -122,7 +124,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="display: none;">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="display: none;">
                                 <h3 class="block-title black-font">Links</h3>
                                 <div id="info">
                                 <ul class="list-unstyled" style="color: black;">
@@ -147,7 +149,7 @@
                                 </ul>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="display: none;">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="display: none;">
                                 <h3 class="block-title black-font">Location</h3>
                                 <div class="fot-address">
                                     <address itemscope="itemscope" itemtype="http://schema.org/Organization">
@@ -158,7 +160,7 @@
                                     </address>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 footer-content">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                 <h3 class="block-title black-font">
                                     Hubungi Kami
                                 </h3>
@@ -175,7 +177,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 footer-content">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                 <h3 class="block-title black-font">
                                     View Maps
                                 </h3>

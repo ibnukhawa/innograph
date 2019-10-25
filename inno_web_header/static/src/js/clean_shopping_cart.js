@@ -1,4 +1,4 @@
-odoo.define('theme_stoneware.clean', function (require) {
+odoo.define('inno_web_header.clean', function (require) {
 "use strict";
 
 var ajax = require('web.ajax');
