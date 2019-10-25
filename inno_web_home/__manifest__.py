@@ -19,7 +19,7 @@
         'website_blog',
         'website_event',
         'web','web_editor',
-        'website_slides'],
+        'website_slides','theme_stoneware'],
     'data': [
 		'security/ir.model.access.csv',                                                         
         'views/product_category_view.xml',
