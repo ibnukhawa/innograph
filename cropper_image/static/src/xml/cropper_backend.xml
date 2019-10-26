@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright 2016-2017 LasLabs Inc.
+    License LGPL-3 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+
+<templates id="cropper_templates" xml:space="preserve">
+	<t t-name="FieldCropperImage">
+		<img t-att-src="url" class="img img-responsive cropper-img" t-att-name="widget.name" style="max-width:100%;" />
+	</t>
+	<t t-name="FieldCropperImage-btn-bar">
+		<span class="fa fa-image o_fieldcropper_change_image fa-3x text-info" t-att-name="widget.name" title="Change Image"></span>
+		&amp;nbsp;
+		<span class="fa fa-check o_fieldcropper_save fa-3x text-success" t-att-name="widget.name" title="Click to Save Cropped Data"></span>
+	</t>
+	<t t-name="FieldCropperImage-readonly">
+		<img t-att-src="url" class="img img-responsive" t-att-name="widget.name" style="max-width:100%;" />
+	</t>
+</templates>

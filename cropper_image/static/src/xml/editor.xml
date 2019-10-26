@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+
+	<t t-name="web_editor.dialog.image.existing.content" t-extend="web_editor.dialog.image.existing.content">
+		<div class="existing-attachments">
+			<div class="row mt16" t-as="row" t-foreach="rows">
+				<div class="col-sm-2 o_existing_attachment_cell" t-as="attachment" t-foreach="row">
+					<i class="fa fa-print o_existing_image_to_cropping" t-att-data-id="attachment.id"/>
+					<i class="fa fa-times o_existing_attachment_remove" t-att-data-id="attachment.id"/>
+					<div class="o_attachment_border"><div t-att-data-src="attachment.src" t-att-data-url="attachment.url" t-att-alt="attachment.name" t-att-title="attachment.name" t-att-data-id="attachment.id" t-att-data-mimetype="attachment.mimetype" class="o_image"/></div>
+				</div>
+			</div>
+		</div>
+	</t>
+</templates>
