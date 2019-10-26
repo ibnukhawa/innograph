@@ -34,7 +34,7 @@ odoo.define('cropper_image.widget', function(require) {
         },
 
         init: function(field_manager, node) {
-        	console.log("INIT")
+        	
             this._super(field_manager, node)
             this.options = _.defaults(this.options, this.defaults)
 
@@ -42,12 +42,12 @@ odoo.define('cropper_image.widget', function(require) {
             if (aspectRatio){
             	this.options.aspectRatio = aspectRatio
             }
-            console.log("CALLED CROPPER JS INIT")
+            
         },
         __fetch_image_url: function() {
             var field = this.name
             var url = null
-            console.log("::::::::::::::::INIT CROPPER")
+            
             if (this.get('value') && !utils.is_bin_size(this.get('value'))) {
                 url = 'data:image/png;base64,' + this.get('value')
             } else if (this.get('value')) {
@@ -92,7 +92,7 @@ odoo.define('cropper_image.widget', function(require) {
         },
 
         destroy_content: function() {
-            console.log("RUNNING destroy_content")
+            
             this.$el.html('')
         },
         set_value: function(value) {
@@ -170,12 +170,6 @@ odoo.define('cropper_image.widget', function(require) {
         },
         _on_click_save: function(e) {
             var self = this
-            console.log("CLICKING BUTTON SAVE")
-                // console.log(e)
-                // console.log(this)
-
-            // console.log(this.$cropper_obj)
-            // console.log(this.$el.find('.cropper-img').getCropper)
             var $img = this.$cropper_obj
             var imageData = $img.cropper('getImageData')
             var croppedCanvas = $img.cropper('getCroppedCanvas')

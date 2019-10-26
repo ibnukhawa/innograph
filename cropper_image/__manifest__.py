@@ -16,7 +16,6 @@
     	'views/assets.xml',
     ],
     'qweb':[
-    	# 'static/src/xml/editor.xml',
         'static/src/xml/cropper_backend.xml',
     ],
     'installable': True,
