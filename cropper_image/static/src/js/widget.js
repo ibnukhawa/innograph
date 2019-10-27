@@ -34,20 +34,24 @@ odoo.define('cropper_image.widget', function(require) {
         },
 
         init: function(field_manager, node) {
-        	
             this._super(field_manager, node)
+
+            this.new_record = true
+            if(this.view.datarecord.id){
+                this.new_record = false
+            }
             this.options = _.defaults(this.options, this.defaults)
 
             var aspectRatio = eval(this.node.attrs.aspect_ratio)
-            if (aspectRatio){
-            	this.options.aspectRatio = aspectRatio
+            if (aspectRatio) {
+                this.options.aspectRatio = aspectRatio
             }
-            
+
         },
         __fetch_image_url: function() {
             var field = this.name
             var url = null
-            
+
             if (this.get('value') && !utils.is_bin_size(this.get('value'))) {
                 url = 'data:image/png;base64,' + this.get('value')
             } else if (this.get('value')) {
@@ -74,7 +78,7 @@ odoo.define('cropper_image.widget', function(require) {
                 widget: this,
                 url: url
             }))
-            
+
             this.$cropper_obj.cropper(this.options)
             this.$el.find('> img').remove()
 
@@ -92,7 +96,7 @@ odoo.define('cropper_image.widget', function(require) {
         },
 
         destroy_content: function() {
-            
+
             this.$el.html('')
         },
         set_value: function(value) {
@@ -117,15 +121,15 @@ odoo.define('cropper_image.widget', function(require) {
             }
         },
         _on_input_file_change: function() {
-        	var self = this
+            var self = this
             var URL = window.URL || window.webkitURL
             var uploadedImageName = 'cropped.jpg'
-			var uploadedImageType = 'image/jpeg'
-			var uploadedImageURL
+            var uploadedImageType = 'image/jpeg'
+            var uploadedImageURL
 
             var $inputImage = this.$el.find('.cropper-file-input')
             if (URL) {
-            	var $image = this.$cropper_obj
+                var $image = this.$cropper_obj
                 $inputImage.change(function() {
                     var files = this.files
                     var file
@@ -164,30 +168,66 @@ odoo.define('cropper_image.widget', function(require) {
         },
         _on_click_change_image: function(e) {
             // input file elm first
-            this._add_input_file_elm()
+            // this._add_input_file_elm()
                 // then click it to show pop up file selection
             this.$el.find('input[type="file"]').click()
         },
-        _on_click_save: function(e) {
-            var self = this
+
+
+        _get_blob_image: function() {
             var $img = this.$cropper_obj
             var imageData = $img.cropper('getImageData')
             var croppedCanvas = $img.cropper('getCroppedCanvas')
             var blob = croppedCanvas.toDataURL('image/png')
+            return blob
+        },
+
+        set_filename: function(value) {
+            var filename = this.node.attrs.filename;
+            if (filename) {
+                var field = this.field_manager.fields[filename];
+                if (field) {
+                    field.set_value(value);
+                    field._dirty_flag = true;
+                }
+            }
+        },
+        _on_click_save: function(e) {
+            var self = this
+
+            var blob = this._get_blob_image()
 
             var raw_base64 = blob.split(',')[1]
-            
 
             var rec_values = {}
             rec_values[this.node.attrs.name] = raw_base64
-            return this.view.dataset._model.call(
-                'write', [
-                    [this.view.datarecord.id],
-                    rec_values,
-                    self.view.dataset.get_context()
-                ]).done(function() {
-                self.reload_record()
-            })
+
+            if (!this.new_record) {
+                return this.view.dataset._model.call(
+                    'write', [
+                        [this.view.datarecord.id],
+                        rec_values,
+                        self.view.dataset.get_context()
+                    ]).done(function() {
+                    self.reload_record()
+                })
+
+            }else {
+                // this._add_input_file_elm()
+
+                return this.view.dataset._model.call(
+                    'create', [
+                        rec_values,
+                        self.view.dataset.get_context()
+                    ]).
+                    done(function(res) {
+                        self.reload_record()
+                    }
+                )
+            }
+
+
+
         },
         commit_value: function(blob) {
             this.set_value(blob)
