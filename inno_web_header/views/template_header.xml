@@ -101,7 +101,7 @@
                             <div class="col-md-3 col-sm-12 col-xs-12 bottom-menu">
                                 <!-- <div class="container"> -->
                                     <div class="row">
-                                        <div class="col-sm-6 col-xs-6 menu_icon">
+                                        <div class="col-sm-6 col-xs-6 col-md-4 menu_icon">
                                             <ul class="nav navbar-nav">
                                                 <li class="navbar-item" id="user_li"></li>
                                                 <li class="dropdown icon-cart" >
@@ -109,13 +109,13 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="account-login col-sm-6 col-xs-6">
+                                        <div class="account-login col-sm-6 col-xs-6 col-md-8">
                                             <!-- <div class="container"> -->
                                                 <!-- <div class="row"> -->
                                                     <t t-if="not(website.user_id != user_id)">
                                                         <div class="navbar-account pull-right">
-                                                            <a href="/web/login" class="btn btn-primary">Masuk</a>
-                                                            <a href="/web/signup" class="btn btn-danger">Daftar</a>
+                                                            <a href="/web/login" class="btn btn-primary btn-sm btn-width">Masuk</a>
+                                                            <a href="/web/signup" class="btn btn-danger btn-sm btn-width">Daftar</a>
                                                         </div>
                                                     </t>
                                                     <t t-if="website.user_id != user_id">
@@ -140,10 +140,10 @@
                                                                             <li style="margin-bottom:5px;">
                                                                                 <span class="item">
                                                                                     <span class="item-left">
-                                                                                        <i class="fa fa-user" style="position:absolute;float:left;left:0px;padding: 4px 5px 5px 10px;"></i>
+                                                                                        
                                                                                         <span class="item-info">
                                                                                             <a href="/my/home" t-if="website.user_id != user_id" style="padding:0px;padding-left:15px;">
-                                                                                                My Account
+                                                                                            <i class="fa fa-user" style="position:absolute;float:left;left:0px;padding: 4px 5px 5px 10px;"></i>    My Account
                                                                                             </a>
                                                                                         </span>
                                                                                     </span>
