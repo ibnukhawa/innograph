@@ -10,6 +10,7 @@
             <field name="list_price" position="attributes">
                 <attribute name="string">Sale Price</attribute>
             </field>
+        </field>
     </record>
     
 </odoo>
