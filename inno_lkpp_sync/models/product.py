@@ -19,17 +19,17 @@ class ProductTemplate(models.Model):
     lkpp_govt_price = fields.Float(string='Goverment Price',compute='_computed_price_goverment')
     website_price_new = fields.Float(string='Sale Price',readonly=False)
 
-    list_price = fields.Float(string='Website Price',compute='_computed_price_website')
+    # list_price = fields.Float(string='Sale Price',compute='_computed_price_website')
 
     deskripsi_lengkap = fields.Text(string="Deskripsi Lengkap")
     deskripsi_singkat = fields.Text(string="Deskripsi Singkat")
 
-    @api.depends("website_price_new")
-    def _computed_price_website(self):
-        for record in self:
-            price = record.website_price_new + (record.website_price_new * 0.1)
+    # @api.depends("website_price_new")
+    # def _computed_price_website(self):
+    #     for record in self:
+    #         price = record.website_price_new + (record.website_price_new * 0.1)
 
-            record.list_price = price
+    #         record.list_price = price
 
     @api.depends("website_price_new")
     def _computed_price_goverment(self):
