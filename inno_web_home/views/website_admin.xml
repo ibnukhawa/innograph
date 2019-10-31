@@ -6,7 +6,7 @@
         <field name="name">slider.banner_satu.tree</field>
         <field name="model">slider.banner_satu</field>
         <field name="arch" type="xml">
-            <tree string="Slider Banner 1" editable='bottom'>
+            <tree string="Slider Banner 1">
                 <field name="image" widget="image"/>
                 <field name="url"/>
             </tree>
@@ -21,12 +21,12 @@
             <form string="Form">
                 <header></header>
                 <sheet>
-                    <h1>
-                        <field name="image" widget="image" />
-                    </h1>
+                    
+                        
+                    
                     <group>
-                        <!-- START HERE -->
-                        <!-- YOU CAN ERASE THIS SYNTAX -->
+                        
+                        <field name="image" widget="cropper" aspect_ratio="156419/67500" />
                         <field name="url"/>
                     </group>
                 </sheet>
