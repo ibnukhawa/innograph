@@ -615,6 +615,7 @@ img.images{
     .menu_icon{
         padding-top: 27px;
         width: 37%;
+        z-index :1 ;
     }
     .img.logos{
         margin-left: -15px;
