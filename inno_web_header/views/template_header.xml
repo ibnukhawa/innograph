@@ -131,11 +131,12 @@
                                                                         </t>
                                                                         <label class="label-account" style=";margin-bottom:0px;padding-left:45px;">
                                                                             <t t-esc="user_id.name" style="padding-top: 15px;"/>
+                                                                            <p style="font-size:smaller;">Customer</p>
                                                                         </label>
-                                                                        <br/>
+                                                                        <!-- <br/>
                                                                         <label class="label-account" style="font-weight: normal;margin-bottom:0px;padding-left:45px;">
-                                                                            Customer
-                                                                        </label>
+                                                                            
+                                                                        </label> -->
                                                                         <ul class="dropdown-menu dropdown-account dropdown-style" role="menu">
                                                                             <li style="margin-bottom:5px;">
                                                                                 <span class="item">

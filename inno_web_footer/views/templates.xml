@@ -35,22 +35,38 @@
                                 </div>
                                 <div class="title-new">
                                     <t t-if="website.social_instagram">
-                                        <a t-att-href="website.social_instagram" target="_blank"><i class="fa fa-instagram instagram-icon" aria-hidden="true"/></a>
+                                        <a t-att-href="website.social_instagram" target="_blank">
+                                            <img class="solmed" src="/inno_web_footer/static/img/ig.png"/>
+                                        </a>
                                     </t>
                                     <t t-if="not website.social_instagram">
-                                        <a href="#"><i class="fa fa-instagram instagram-icon" aria-hidden="true"/></a>
+                                        <a href="#">
+                                            <img class="solmed" src="/inno_web_footer/static/img/ig.png"/>
+                                        </a>
                                     </t>
                                     <t t-if="website.social_youtube">
-                                        <a t-att-href="website.social_youtube" target="_blank"><i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/></a>
+                                        <a t-att-href="website.social_youtube" target="_blank">
+                                            <!-- <i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/> -->
+                                            <img class="solmed" src="/inno_web_footer/static/img/youtube.png"/>
+                                        </a>
                                     </t>
                                     <t t-if="not website.social_youtube">
-                                        <a href="#"><i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/></a>
+                                        <a href="#">
+                                            <img class="solmed" src="/inno_web_footer/static/img/youtube.png"/>
+                                            <!-- <i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/> -->
+                                        </a>
                                     </t>
                                     <t t-if="website.social_facebook">
-                                        <a t-att-href="website.social_facebook" target="_blank"><i class="fa fa-facebook facebook-icon" aria-hidden="true"/></a>
+                                        <a t-att-href="website.social_facebook" target="_blank">
+                                            <img class="solmed" src="/inno_web_footer/static/img/fb.png"/>
+                                            <!-- <i class="fa fa-facebook facebook-icon" aria-hidden="true"/> -->
+                                        </a>
                                     </t>
                                     <t t-if="not website.social_facebook">
-                                        <a href="#"><i class="fa fa-facebook facebook-icon" aria-hidden="true"/></a>
+                                        <a href="#">
+                                            <img class="solmed" src="/inno_web_footer/static/img/fb.png"/>
+                                            <!-- <i class="fa fa-facebook facebook-icon" aria-hidden="true"/> -->
+                                        </a>
                                     </t>
                                 </div>
                             </div>
@@ -164,18 +180,23 @@
                                 <h3 class="block-title black-font">
                                     Hubungi Kami
                                 </h3>
+
                                 <div id="contact_us">
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-4 inno-container">
+                                        
+                                        <div class="col-md-4 col-lg-4  inno-container">
                                             <img class="inno-logo" src="/inno_web_footer/static/img/inno_logo.jpg" title="Inno" alt="innoGraph"/>
                                         </div>
+
                                         <div class="col-lg-8 col-md-8 black-font">
                                             <p>(021) 7883 1023</p>
                                             <p>Senin-Jumat: 09.00 - 17.00</p>
                                             <p>email. cs@displaystore.id</p>
                                         </div>
+
                                     </div>
                                 </div>
+                                
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                 <h3 class="block-title black-font">

@@ -1,8 +1,10 @@
 @media screen and (min-width: 350px){
-    
-    .subscribe-column{
-        width: 230px !important;
+    .solmed{
+        max-width:40px !important;
     }
+    /* .subscribe-column{
+        width: 230px !important;
+    } */
     .youtube-icon{
         font-size: 40px;
         color: red;
@@ -82,9 +84,9 @@
 }
 @media screen and (min-width: 768px){
     
-    .subscribe-column{
+    /* .subscribe-column{
         width: 250px !important;
-    }
+    } */
     .youtube-icon{
         font-size: 40px;
         color: red;
@@ -164,9 +166,9 @@
 }
 @media screen and (min-width: 1024px){
     
-    .subscribe-column{
+    /* .subscribe-column{
         width: 350px !important;
-    }
+    } */
     .youtube-icon{
         font-size: 40px;
         color: red;
@@ -246,9 +248,9 @@
 }
 @media screen and (min-width: 1200px){
     
-    .subscribe-column{
+    /* .subscribe-column{
         width: 450px !important;
-    }
+    } */
     .youtube-icon{
         font-size: 40px;
         color: red;
@@ -327,9 +329,9 @@
     }
 }
 @media screen and (min-width: 1500px){
-    .subscribe-column{
-        width: 460px !important;
-    }
+    /* .subscribe-column{
+        width: 560px !important;
+    } */
     .youtube-icon{
         font-size: 40px;
         color: red;

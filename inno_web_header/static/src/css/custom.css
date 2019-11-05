@@ -569,7 +569,7 @@ img.images{
         margin-top: -2px;
     }
     .icon {
-        line-height: normal !important;
+        line-height: 45px !important;
         padding: 0px !important;
         float: right;
         margin-top: -6px
@@ -592,7 +592,35 @@ img.images{
     .label-account{
         display: none;
     }
+    .navbar-nav .open .dropdown-menu{
+        background-color: #ffffff;
+        position: absolute;
+        margin-top: 26px;
+        margin-left: 50px;
+    }
+
+    header .navbar-default .navbar-nav > li > a:after{
+        display: none;
+    }
 }
+@media (min-width: 1110.00px){
+    .navbar-nav .open .dropdown-menu{
+        background-color: #ffffff;
+        position: absolute;
+        margin-top: 26px;
+        margin-left: 81px;
+    }
+}
+
+@media (min-width: 1315.00px){
+    .navbar-nav .open .dropdown-menu{
+        background-color: #ffffff;
+        position: absolute;
+        margin-top: 26px;
+        margin-left: 102px;
+    }
+}
+
 @media (min-width: 1334.00px){
     .navbar-account{
         margin-top: -26px;
@@ -646,6 +674,15 @@ img.images{
     }
     .navbar-account{
         margin-top:0px;
+    }
+    .navbar-nav .open .dropdown-menu{
+        background-color: #ffffff;
+        position: absolute;
+        margin-top: 26px;
+        margin-left: 112px;
+    }
+    .icon{
+        line-height:normal !important;
     }
     
 }
