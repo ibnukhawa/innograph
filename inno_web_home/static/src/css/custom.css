@@ -200,6 +200,12 @@ hr{
     height: 220px;
 }
 
+.section-post-title{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 @media (min-width: 320.00px)
 {
 

@@ -103,20 +103,22 @@
                         <a href="/">
                             <img class="logos" src="/inno_web_header/static/src/img/logo.png" title="Innograph" alt="Innograph"/>
                         </a>
-
+                        <div class="mega-menus">
                         <p class="text_logo" id="fly_out_view_open">Kategori </p>
                         
                         
                         
-                    <div id="fly_out_view">
-                        <h4 class="heading"><t t-esc="request.env['ir.values'].sudo().get_default('mega.menu.config', 'mega_menu_header_text')" /></h4>
-                        <t t-set="menus" t-value="request.website.create_fly_out_menu()" />
-                        <ul id="dropdown_ul">
-                            <t t-foreach="menus" t-as="submenu">
-                                <t t-call="website_mega_menus.fly_out_mega_menu" />
-                            </t>
-                        </ul>
-                    </div>
+                            <div id="fly_out_view">
+                                <h4 class="heading"><t t-esc="request.env['ir.values'].sudo().get_default('mega.menu.config', 'mega_menu_header_text')" /></h4>
+                                <t t-set="menus" t-value="request.website.create_fly_out_menu()" />
+                                <ul id="dropdown_ul">
+                                    <t t-foreach="menus" t-as="submenu">
+                                        <t t-call="website_mega_menus.fly_out_mega_menu" />
+                                    </t>
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
                 </t>
             </xpath>
