@@ -199,7 +199,9 @@
                             <h4 class="section-post-title">
                             <a href="#" t-field="blog.name"></a>
                             </h4>
-                            <p class="section-post-excerpt" t-field="blog.subtitle"></p>
+                            <p class="section-post-excerpt">
+                                <t t-esc="blog.subtitle"/>
+                            </p>
                             <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
                         </div>				
                     </div>
