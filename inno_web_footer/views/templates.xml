@@ -52,7 +52,7 @@
                                     </t>
                                     <t t-if="not website.social_youtube">
                                         <a href="#">
-                                            <img class="solmed" src="/inno_web_footer/static/img/youtube.png"/>
+                                            <img class="solmed youtube-icon" src="/inno_web_footer/static/img/youtube.png"/>
                                             <!-- <i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/> -->
                                         </a>
                                     </t>
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" >
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" >
                                 <h3 class="block-title black-font">Bantuan</h3>
                                 <ul class="list-unstyled" id="help">
                                     <li>
@@ -103,8 +103,8 @@
                                     <!--</ul>-->
                                 <!--</section>-->
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 my-3">
-                                <h3 class="block-title second-title black-font">Bank Transfer</h3>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 my-3">
+                                <h3 class="block-title black-font">Bank Transfer</h3>
                                 <div>
                                     <img class="bca-logo" src="/inno_web_footer/static/img/bca-logo.png" title="BCA Logo" alt="BCA"/>
                                     <img class="bri-logo" src="/inno_web_footer/static/img/Logo_BRI.png" title="BRI Logo" alt="BRI"/>
@@ -176,7 +176,7 @@
                                     </address>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                                 <h3 class="block-title black-font">
                                     Hubungi Kami
                                 </h3>
@@ -198,7 +198,7 @@
                                 </div>
                                 
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                                 <h3 class="block-title black-font">
                                     View Maps
                                 </h3>
