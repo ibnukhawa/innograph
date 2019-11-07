@@ -12,10 +12,9 @@
     'depends': ['website',
             'theme_stoneware',
             'website_sale',
-            'website_mass_mailing',
-            'website_crm',
             'website_blog',
             'website_event',
+            'website'
     ],
     'data': [
         'views/template_header.xml',
