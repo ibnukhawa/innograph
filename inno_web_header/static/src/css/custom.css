@@ -330,7 +330,8 @@ img.images{
         padding-top: 30px !important;
         font-size: 15px;
         vertical-align: middle;
-        display: inline-block;
+        /*display: inline-block;*/
+        display: none;
         float: right;
         right: 0px;
         z-index: 1;
