@@ -52,7 +52,7 @@
                                     </t>
                                     <t t-if="not website.social_youtube">
                                         <a href="#">
-                                            <img class="solmed" src="/inno_web_footer/static/img/youtube.png"/>
+                                            <img class="solmed youtube-icon" src="/inno_web_footer/static/img/youtube.png"/>
                                             <!-- <i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/> -->
                                         </a>
                                     </t>
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" >
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" >
                                 <h3 class="block-title black-font">Bantuan</h3>
                                 <ul class="list-unstyled" id="help">
                                     <li>
@@ -103,8 +103,8 @@
                                     <!--</ul>-->
                                 <!--</section>-->
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 my-3">
-                                <h3 class="block-title second-title black-font">Bank Transfer</h3>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 my-3">
+                                <h3 class="block-title black-font">Bank Transfer</h3>
                                 <div>
                                     <img class="bca-logo" src="/inno_web_footer/static/img/bca-logo.png" title="BCA Logo" alt="BCA"/>
                                     <img class="bri-logo" src="/inno_web_footer/static/img/Logo_BRI.png" title="BRI Logo" alt="BRI"/>
@@ -115,28 +115,32 @@
                             </div>
 
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" >
-                                <h3 class="block-title black-font">Displaystore</h3>
-                                <ul class="list-unstyled" id="products">
-                                    <li>
-                                        <a class="black-font" href="#">Tentang Displaystore</a>
-                                    </li>
-                                    <li>
-                                        <a class="black-font" href="#">Press media</a>
-                                    </li>
-                                    <li>
-                                        <a class="black-font" href="#">Daftar partner</a>
-                                    </li>
-                                    <li>
-                                        <a class="black-font" href="#">Sitemap</a>
-                                    </li>
-                                    <li>
-                                        <a class="black-font" href="#">Kebijakan privasi</a>
-                                    </li>
-                                </ul>
-                                <h3 class="block-title second-title black-font">Keamanan Berbelanja</h3>
-                                <div>
-                                    <img class="bca-logo" src="/inno_web_footer/static/img/logo-idea.jpg" title="idEA" alt="idEA"/>
-                                    <img class="bri-logo" src="/inno_web_footer/static/img/comodo-secure-logo.png" title="Comodo Secure" alt="Comodo"/>
+                                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6">
+                                    <h3 class="block-title black-font">Displaystore</h3>
+                                    <ul class="list-unstyled" id="products">
+                                        <li>
+                                            <a class="black-font" href="#">Tentang Displaystore</a>
+                                        </li>
+                                        <li>
+                                            <a class="black-font" href="#">Press media</a>
+                                        </li>
+                                        <li>
+                                            <a class="black-font" href="#">Daftar partner</a>
+                                        </li>
+                                        <li>
+                                            <a class="black-font" href="#">Sitemap</a>
+                                        </li>
+                                        <li>
+                                            <a class="black-font" href="#">Kebijakan privasi</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6">
+                                    <h3 class="block-title black-font">Keamanan Berbelanja</h3>
+                                    <div>
+                                        <img class="bca-logo" src="/inno_web_footer/static/img/logo-idea.jpg" title="idEA" alt="idEA"/>
+                                        <img class="bri-logo" src="/inno_web_footer/static/img/comodo-secure-logo.png" title="Comodo Secure" alt="Comodo"/>
+                                    </div>
                                 </div>
                             </div>
 
@@ -176,7 +180,7 @@
                                     </address>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                                 <h3 class="block-title black-font">
                                     Hubungi Kami
                                 </h3>
@@ -198,7 +202,7 @@
                                 </div>
                                 
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                                 <h3 class="block-title black-font">
                                     View Maps
                                 </h3>
