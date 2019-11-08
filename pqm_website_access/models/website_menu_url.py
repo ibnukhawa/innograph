@@ -7,3 +7,4 @@ class WebsiteMenuUrl(models.Model):
 
     name = fields.Char()
     url = fields.Char()
+    logo = fields.Binary()

@@ -28,6 +28,7 @@
             <tree string="Website Menu URL" editable="bottom">
                 <field name="name" />
                 <field name="url" />
+                <field name="logo" />
             </tree>
         </field>
     </record>
