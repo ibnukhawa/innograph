@@ -9,6 +9,8 @@ class WebsiteProductCategory(models.Model):
     background_color = fields.Char(string='Background Color')
     show_in_website = fields.Boolean(string='Show in Website', translate=True)
 
+    access_url = fields.Many2one('website.menu.url')
+
 
        
 

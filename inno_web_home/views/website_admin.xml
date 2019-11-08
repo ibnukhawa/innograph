@@ -9,6 +9,7 @@
             <tree string="Slider Banner 1">
                 <field name="image" widget="image"/>
                 <field name="url"/>
+                <field name="access_url"/>
             </tree>
         </field>
     </record>
@@ -21,13 +22,10 @@
             <form string="Form">
                 <header></header>
                 <sheet>
-                    
-                        
-                    
                     <group>
-                        
                         <field name="image" widget="cropper" aspect_ratio="156419/67500" />
                         <field name="url"/>
+                        <field name="access_url"/>
                     </group>
                 </sheet>
                 <!--<footer></footer>-->
@@ -68,6 +66,7 @@
             <tree string="Slider Banner 2" editable='bottom'>
                 <field name="image" widget="image"/>
                 <field name="url"/>
+                <field name="access_url"/>
             </tree>
         </field>
     </record>
@@ -86,6 +85,7 @@
                         <!-- START HERE -->
                         <!-- YOU CAN ERASE THIS SYNTAX -->
                         <field name="url"/>
+                        <field name="access_url"/>
                     </group>
                 </sheet>
                 <!--<footer></footer>-->
@@ -127,6 +127,7 @@
             <tree string="Slider Banner 3" editable='bottom'>
                 <field name="image" widget="image"/>
                 <field name="url"/>
+                <field name="access_url"/>
             </tree>
         </field>
     </record>
@@ -145,6 +146,7 @@
                         <!-- START HERE -->
                         <!-- YOU CAN ERASE THIS SYNTAX -->
                         <field name="url"/>
+                        <field name="access_url"/>
                     </group>
                 </sheet>
                 <!--<footer></footer>-->
@@ -187,6 +189,7 @@
                 <field name="product_ids" option="{'limit':18}" widget="many2many_tags" />
                 <field name="sequence" />
                 <field name="is_active" />
+                <field name="access_url"/>
             </tree>
         </field>
     </record>
@@ -222,6 +225,7 @@
                 <field name="category_ids" widget="many2many_tags"/>
                 <field name="sequence" />
                 <field name="is_active" />
+                <field name="access_url"/>
             </tree>
         </field>
     </record>

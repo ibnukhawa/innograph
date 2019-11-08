@@ -8,6 +8,7 @@
 			<field name="sequence" position="after">
 				<field name="background_color" widget="colorpicker"/>
 				<field name="show_in_website"/>
+				<field name="access_url"/>
 			</field>
 			
         </field>

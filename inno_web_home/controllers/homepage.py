@@ -37,10 +37,18 @@ _logger = logging.getLogger(__name__)
 
 class HomePage(Controller):
 
-    @http.route(['/API/load_banner'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
-    def load_banner(self):
-
-        master_banner_satu=request.env['slider.banner_satu'].search([],limit=5)
+    @http.route(['/API/load_banner/<url>'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
+    def load_banner(self,url):
+        
+        domain_menu=[
+            ('url', '=', url)
+        ]
+        menu_url=request.env['website.menu.url'].search(domain_menu)
+        
+        domain=[
+            ('access_url', '=', menu_url.id)
+        ]
+        master_banner_satu=request.env['slider.banner_satu'].search(domain,limit=5)
 
         banner_satu=[]
 
@@ -51,7 +59,7 @@ class HomePage(Controller):
             banner_satu.append(value_satu)
         
 
-        master_banner_dua=request.env['slider.banner_dua'].search([],limit=5)
+        master_banner_dua=request.env['slider.banner_dua'].search(domain,limit=5)
 
         banner_dua=[]
 
@@ -61,7 +69,7 @@ class HomePage(Controller):
             value_dua['image']  = '/web/image/slider.banner_dua/'+str(banner.id)+'/image'
             banner_dua.append(value_dua)
 
-        master_banner_tiga=request.env['slider.banner_tiga'].search([],limit=5)
+        master_banner_tiga=request.env['slider.banner_tiga'].search(domain,limit=5)
 
         banner_tiga=[]
 
@@ -78,10 +86,16 @@ class HomePage(Controller):
 
         return Response(json.dumps(data), content_type='application/json')
     
-    @http.route(['/API/load_category'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
-    def load_category(self):
+    @http.route(['/API/load_category/<url>'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
+    def load_category(self,url):
+        domain_menu=[
+            ('url', '=', url)
+        ]
+        menu_url=request.env['website.menu.url'].search(domain_menu)
+        
         domain=[
-            ('show_in_website', '=', True)
+            ('show_in_website', '=', True),
+            ('access_url','=', menu_url.id)
         ]
 
         data_public_category =request.env['product.public.category'].search(domain,order="sequence ASC")
@@ -97,10 +111,17 @@ class HomePage(Controller):
         return Response(json.dumps(data), content_type='application/json')
 
     
-    @http.route(['/API/load_slider_tab'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
-    def load_slider_tab(self):
+    @http.route(['/API/load_slider_tab/<url>'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
+    def load_slider_tab(self, url):
+        
+        domain_menu=[
+            ('url', '=', url)
+        ]
+        menu_url=request.env['website.menu.url'].search(domain_menu)
+        
         domain=[
-            ('is_active', '=', True)
+            ('is_active', '=', True),
+            ('access_url', '=', menu_url.id)
         ]
 
         data_slider_tabs =request.env['slider.tabs'].search(domain,order="sequence ASC")
@@ -111,14 +132,14 @@ class HomePage(Controller):
             data_product = []
         
             for product in slider_tab.product_ids:
-                price =product.currency_id.symbol+' '+'{:,.2f}'.format(product.list_price)
+                price =product.currency_id.symbol+' '+'{:,.2f}'.format(product.website_price)
                 
                 name_product = re.sub('[^A-Za-z0-9]+', '', product.name)
                 a = name_product.lower()
                 url_name = a.replace(" ", "-")
                 
                 image_product = '/web/image/product.template/'+str(product.id)+'/image/300x300'
-                data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.list_price, 'currency':product.currency_id.symbol})
+                data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.website_price, 'currency':product.currency_id.symbol})
             
             data_slider['id_tab'] = slider_tab.id
             data_slider['name_tab'] = slider_tab.name
@@ -128,10 +149,17 @@ class HomePage(Controller):
         
         return Response(json.dumps(data), content_type='application/json')
 
-    @http.route(['/API/multiple_category'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
-    def multiple_category(self):
+    @http.route(['/API/multiple_category/<url>'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
+    def multiple_category(self,url):
+        domain_menu=[
+            ('url', '=', url)
+        ]
+
+        menu_url=request.env['website.menu.url'].search(domain_menu)
+        
         domain=[
-            ('is_active', '=', True)
+            ('is_active', '=', True),
+            ('access_url', '=', menu_url.id)
         ]
 
         data_slider_multiple_category =request.env['slider.multiple_category'].search(domain,limit=4)
@@ -155,12 +183,12 @@ class HomePage(Controller):
                 
                 for product in master_product:
 
-                    price =product.currency_id.symbol+' '+'{:,.0f}'.format(product.list_price)
+                    price =product.currency_id.symbol+' '+'{:,.0f}'.format(product.website_price)
                     name_product = re.sub('[^A-Za-z0-9]+', '', product.name)
                     a = name_product.lower()
                     url_name = a.replace(" ", "-")
                     url_img='/web/image/product.template/'+str(product.id)+'/image/300x300'
-                    data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':url_img, 'price_label': price, 'price': product.list_price, 'currency':product.currency_id.symbol})
+                    data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':url_img, 'price_label': price, 'price': product.website_price, 'currency':product.currency_id.symbol})
 
             data_slider['data_product']=data_product
             data_slider['title'] = title
@@ -182,14 +210,14 @@ class HomePage(Controller):
             limit = 18
             for index, product in enumerate(data_res_users.product_ids):
                 
-                price =product.currency_id.symbol+' '+'{:,.2f}'.format(product.list_price)
+                price =product.currency_id.symbol+' '+'{:,.2f}'.format(product.website_price)
                 
                 name_product = re.sub('[^A-Za-z0-9]+', '', product.name)
                 a = name_product.lower()
                 url_name = a.replace(" ", "-")
                 
                 image_product = '/web/image/product.template/'+str(product.id)+'/image/300x300'
-                data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.list_price, 'currency':product.currency_id.symbol})
+                data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.website_price, 'currency':product.currency_id.symbol})
 
                 if index == limit:
                     break

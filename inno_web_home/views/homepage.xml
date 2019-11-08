@@ -19,44 +19,18 @@
                 <section class="disable_customize s_banner_homepage">
                     <div class="disable_customize container">
                         <div class="disable_customize row" id="banner_slider">
+                                <!-- to get paramater -->
+                                <input type="hidden" class="url_root" t-att-value="request.httprequest.url_root"/>
                                 <div class="disable_customize header_slider_1 col-xs-12 col-sm-8 col-md-8">
-                                    <!-- <div class="" style="background:#ffffff;"> -->
-                                        
-                                        <!-- <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-2.jpg"/>
-                                        </div> -->
-                                        <!-- <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-1.jpg"/>
-                                        </div>
-                                        <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-3.jpg"/>
-                                        </div> -->
-                                    <!-- </div> -->
+                                    
                                 </div>
                             
                                 <div class="disable_customize header_slider_sub col-xs-12 col-sm-4 col-md-4 ">
                                     <div class="disable_customize header_slider_2" style="min-height:100% !important">
-                                        
-                                        <!-- <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-4.jpg"/>
-                                        </div>
-                                        <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-5.jpg"/>
-                                        </div>
-                                        <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-1.jpg"/>
-                                        </div> -->
+                                
                                     </div>
                                     <div class="disable_customize header_slider_3" style="min-height:100% !important">
-                                        <!-- <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/banner1.png"/>
-                                        </div>
-                                        <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/banner2.png"/>
-                                        </div>
-                                        <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/banner3.jpg"/>
-                                        </div> -->
+                                        
                                     </div>
                                 </div>
                         </div>

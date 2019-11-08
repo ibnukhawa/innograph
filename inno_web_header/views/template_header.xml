@@ -77,7 +77,6 @@
                                         </div>
                                     </div>
                                         <form action='/shop' method="get" role="search">
-                                                        <!-- <t t-esc="request.httprequest.url_root"/> -->
                                                 
                                                 <div class="box-search">
                                                     <button class="btn btn-primary btn_search">Cari</button>
