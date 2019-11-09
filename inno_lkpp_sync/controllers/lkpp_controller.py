@@ -89,7 +89,7 @@ class LKPPController(Controller):
             ('unspsc', '!=', False),
             ('lkpp_category_id', '!=', False),
             ('lkpp_manufacturer_id', '!=', False),
-            ('uom_id.lkpp_uom_id', '!=', False),
+            ('lkpp_uom_id', '!=', False),
             ('valid_date', '!=', False)
         ]
         if data_config == key:
@@ -115,7 +115,7 @@ class LKPPController(Controller):
                 product_informasi['nama_produk'] = record.name
                 product_informasi['no_produk_penyedia'] = record.default_code
                 product_informasi['id_manufaktur'] = record.lkpp_manufacturer_id
-                product_informasi['id_unit_pengukuran_lkpp'] = record.uom_id.lkpp_uom_id
+                product_informasi['id_unit_pengukuran_lkpp'] = record.lkpp_uom_id
 
                 if record.deskripsi_singkat == False:
                     deskripsi_singkat = None
@@ -187,7 +187,7 @@ class LKPPController(Controller):
                 })
 
                 data_harga = OrderedDict()
-                data_harga['harga_retail'] = record.list_price
+                data_harga['harga_retail'] = record.website_price
                 data_harga['harga_pemerintah'] = record.lkpp_govt_price
                 data_harga['ongkos_kirim'] = 0
                 data_harga['kurs_id'] = 1
@@ -277,7 +277,7 @@ class LKPPController(Controller):
                 product_informasi['nama_produk'] = record['name']
                 product_informasi['no_produk_penyedia'] = record['default_code']
                 product_informasi['id_manufaktur'] = record['lkpp_manufacturer_id']
-                product_informasi['id_unit_pengukuran_lkpp'] = result.uom_id.lkpp_uom_id
+                product_informasi['id_unit_pengukuran_lkpp'] = result.lkpp_uom_id
 
 
                 if result.deskripsi_singkat == False:
@@ -348,7 +348,7 @@ class LKPPController(Controller):
                 })
 
                 data_harga = OrderedDict()
-                data_harga['harga_retail'] = result.list_price
+                data_harga['harga_retail'] = result.website_price
                 data_harga['harga_pemerintah'] = result.lkpp_govt_price
                 data_harga['ongkos_kirim'] = 0
                 data_harga['kurs_id'] = 1
@@ -410,7 +410,7 @@ class LKPPController(Controller):
                 product_informasi['nama_produk'] = record.name
                 product_informasi['no_produk_penyedia'] = record.default_code
                 product_informasi['id_manufaktur'] = record.lkpp_manufacturer_id
-                product_informasi['id_unit_pengukuran_lkpp'] = record.uom_id.lkpp_uom_id
+                product_informasi['id_unit_pengukuran_lkpp'] = record.lkpp_uom_id
 
                 if record.deskripsi_singkat == False:
                     deskripsi_singkat = None
@@ -482,7 +482,7 @@ class LKPPController(Controller):
                 })
 
                 data_harga = OrderedDict()
-                data_harga['harga_retail'] = record.list_price
+                data_harga['harga_retail'] = record.website_price
                 data_harga['harga_pemerintah'] = record.lkpp_govt_price
                 data_harga['ongkos_kirim'] = 0
                 data_harga['kurs_id'] = 1
