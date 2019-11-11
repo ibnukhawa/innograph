@@ -364,9 +364,16 @@ function createBanner3(){
     });
 }
 
-createBanner3();
+function getLogo(){
+    $.get("/API/load_logo/"+u.host, function(data){
+        console.log('data logo ',data[0].url_logo)
+        $(".logos").attr("src", data[0].url_logo);
+        $(".inno-logo").attr("src", data[0].url_logo);
+    });
+}
 
-    
+createBanner3();
+getLogo();
 
 
     $.get("/API/load_category/"+u.host, function(data){
