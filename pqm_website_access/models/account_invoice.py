@@ -9,16 +9,6 @@ class AccountInvoice(models.Model):
 
 
 class SaleAdvancePaymentInv(models.TransientModel):
-<<<<<<< Upstream, based on origin/development
-	_inherit = "sale.advance.payment.inv"
-	
-	@api.multi
-	def _create_invoice(self, order, so_line, amount):
-		invoice = super(SaleAdvancePaymentInv, self)._create_invoice(order, so_line, amount)
-		if invoice:
-			invoice.write({'origin_url': order.origin_url})
-		return invoice
-=======
     _inherit = "sale.advance.payment.inv"
 
     @api.multi
@@ -27,4 +17,3 @@ class SaleAdvancePaymentInv(models.TransientModel):
     	if invoice:
     		invoice.write({'origin_url': order.origin_url})
     	return invoice
->>>>>>> e0e06af [IMP] Fix issue indentation
