@@ -11,8 +11,9 @@
     'data': [
         # 'data/ir_config_parameter.xml',
         # 'data/ir_cron.xml',
-        # 'views/res_config_views.xml',
-        'views/product_new.xml',
+        'views/res_config_views.xml',
+        'views/res_company_view.xml',
+        'views/product_views.xml',
     ],
     'installable': True,
     'application': True,
