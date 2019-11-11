@@ -29,6 +29,7 @@
                 <field name="name" />
                 <field name="url" />
                 <field name="logo" />
+                <field name="logo_footer" />
             </tree>
         </field>
     </record>
