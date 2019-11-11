@@ -344,7 +344,8 @@ class HomePage(Controller):
         menu_url=request.env['website.menu.url'].search(domain_menu)
 
         data_logo = OrderedDict()
-        data_logo['url_logo'] = '/web/image/website.menu.url/'+str(menu_url.id)+'/logo'
+        data_logo['url_logo'] = '/web/image/website.menu.url/'+str(menu_url.id)+'/logo/300x150'
+        data_logo['url_logo_footer'] = '/web/image/website.menu.url/'+str(menu_url.id)+'/logo_footer/300x300'
         data = []
         
         data.append(data_logo)
