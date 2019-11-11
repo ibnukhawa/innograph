@@ -438,7 +438,7 @@ img.images{
     p.text_logo{
         margin-left: -12%;
         right: 0px;
-        display: none;
+        display: block;
     }
     
     .label_level{
