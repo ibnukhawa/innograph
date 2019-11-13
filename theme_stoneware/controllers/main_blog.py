@@ -31,10 +31,7 @@ class WebsiteBlog(WebsiteBlog):
 			filter_ids = collection_data.blog_ids.filtered(lambda r: r.access_url.url == url_final)
 
 			blog_ids = filter_ids.sorted(key=lambda x: x.create_date)
-			print(blog_ids.ids)
-			print(collection_data)
-			print(collection_data)
-			print(collection_data)
+			
 			value.update({
 				'blog_slider':collection_data,
 				'blog_ids' : blog_ids

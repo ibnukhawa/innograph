@@ -21,6 +21,7 @@ import random
 
 from odoo.tools.translate import _
 from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.addons.web.controllers.main import Home
 from odoo.addons.website_sale.controllers.main import TableCompute
 from odoo.addons.website_sale.controllers.main import QueryURL
 from odoo.addons.website_sale.controllers import main
@@ -368,3 +369,34 @@ class WebsiteSale(WebsiteSale):
 
         data_user.write({'product_ids': [(6, 0, data_product)]})
         return r
+
+class AuthSignupHome(Home):
+    @http.route('/web/signup', type='http', auth='public', website=True)
+    def web_auth_signup(self, *args, **kw):
+        qcontext = self.get_auth_signup_qcontext()
+        
+        url = request.httprequest.url_root
+        url_new = url.replace("http://","")
+        url_final =  url_new[:-1]
+
+        domain_menu=[
+            ('url', '=', url_final)
+        ]
+        menu_url=request.env['website.menu.url'].search(domain_menu)
+
+        qcontext['image']='/web/image/website.menu.url/'+str(menu_url.id)+'/logo_footer/100x100'
+        if not qcontext.get('token') and not qcontext.get('signup_enabled'):
+            raise werkzeug.exceptions.NotFound()
+
+        if 'error' not in qcontext and request.httprequest.method == 'POST':
+            try:
+                self.do_signup(qcontext)
+                return super(AuthSignupHome, self).web_login(*args, **kw)
+            except (SignupError, AssertionError), e:
+                if request.env["res.users"].sudo().search([("login", "=", qcontext.get("login"))]):
+                    qcontext["error"] = _("Another user is already registered using this email address.")
+                else:
+                    _logger.error(e.message)
+                    qcontext['error'] = _("Could not create a new account.")
+
+        return request.render('auth_signup.signup', qcontext)

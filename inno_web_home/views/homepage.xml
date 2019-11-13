@@ -298,5 +298,12 @@
             </div>
         </xpath>
     </template> -->
+    <template id="login_inherit" inherit_id="web.login_layout" name="Website Login Layout">
+        <xpath expr="//div[@class='body_login']//div[2]//div[1]" position="replace">
+            <div class="text-center">
+                <img t-attf-src="{{image}}"/>
+            </div>
+        </xpath>
+    </template>
 
 </odoo>
