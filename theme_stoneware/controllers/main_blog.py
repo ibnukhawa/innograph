@@ -23,7 +23,18 @@ class WebsiteBlog(WebsiteBlog):
 		value={}
 		if post.get('blog_config_id')!='false':
 			collection_data=request.env['blog.configure'].browse(int(post.get('blog_config_id')))
-			blog_ids = collection_data.blog_ids.sorted(key=lambda x: x.create_date)
+			
+			url = request.httprequest.url_root
+			url_new = url.replace("http://","")
+			url_final =  url_new[:-1]
+			
+			filter_ids = collection_data.blog_ids.filtered(lambda r: r.access_url.url == url_final)
+
+			blog_ids = filter_ids.sorted(key=lambda x: x.create_date)
+			print(blog_ids.ids)
+			print(collection_data)
+			print(collection_data)
+			print(collection_data)
 			value.update({
 				'blog_slider':collection_data,
 				'blog_ids' : blog_ids

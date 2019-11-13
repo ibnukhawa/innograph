@@ -154,11 +154,11 @@
     <template id="inno_blog" inherit_id="theme_stoneware.blog_slider_items" name="Blog" >
         <xpath expr="//div[@class='row']" position="replace">
             <div class="row">
-                <t t-set="no_img_path" t-value="'/inno_web_home/static/src/img/no-image-icon-1.png'" />
-    			<div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
-    				<t t-set="blog" t-value="blog_ids[no_blog-1]"/>
-    				<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
-    				<div class="section-post">
+                <t t-set="no_img_path" t-value="'/inno_web_home/static/src/img/no-image-icon-1.png'"/>
+                <div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
+                    <t t-set="blog" t-value="blog_ids[no_blog-1]"/>
+                    <t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+                    <div class="section-post">
                         
                         <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
                             <t t-set="bg_img" t-value="blog_cover_property.get('background-image', no_img_path)"/>
@@ -171,22 +171,21 @@
                                 <span t-field="blog.create_date"/>
                             </div>
                             <h4 class="section-post-title">
-                            <a href="#" t-field="blog.name"></a>
+                            <a href="#" t-field="blog.name"/>
                             </h4>
-                            <p class="section-post-excerpt">
-                                <t t-esc="blog.subtitle"/>
-                            </p>
+                            <p class="section-post-excerpt" t-field="blog.subtitle"/>
                             <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
-                        </div>				
+                        </div>              
                     </div>
                 </div>
-
-    	        <t t-set="no_blog" t-value="no_blog-1"/>
-    			<t t-set="blog" t-value="blog_ids[no_blog-1]"/>
-    			<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+                <t t-if="no_blog-1>=0">
+                    <t t-set="no_blog" t-value="no_blog-1"/>
+                    <t t-set="blog" t-value="blog_ids[no_blog-1]"/>
+                    <t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+                </t>
 
                 <div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
-    				<div class="section-post">
+                    <div class="section-post">
                         <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
                             <t t-set="bg_img" t-value="blog_cover_property.get('background-image', no_img_path)"/>
                             <t t-if="bg_img=='none'" t-set="bg_img" t-value="'url('+no_img_path+')'"/>
@@ -199,23 +198,23 @@
                             </div>
 
                             <h4 class="section-post-title">
-                                <a href="#" t-field="blog.name"></a>
+                                <a href="#" t-field="blog.name"/>
                             </h4>
 
-                            <p class="section-post-excerpt">
-                                <t t-esc="blog.subtitle"/>
-                            </p>
+                            <p class="section-post-excerpt" t-field="blog.subtitle"/>
+
                             <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
-                        </div>					
+                        </div>                  
                     </div>
                 </div>
-
-    	        <t t-set="no_blog" t-value="no_blog-1"/>
-    			<t t-set="blog" t-value="blog_ids[no_blog-1]"/>
-    			<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+                <t t-if="no_blog>0">
+                    <t t-set="no_blog" t-value="no_blog-1"/>
+                    <t t-set="blog" t-value="blog_ids[no_blog-1]"/>
+                    <t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+                </t>
 
                 <div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
-    				<div class="section-post">
+                    <div class="section-post">
                         <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
                             <t t-set="bg_img" t-value="blog_cover_property.get('background-image', no_img_path)"/>
                             <t t-if="bg_img=='none'" t-set="bg_img" t-value="'url('+no_img_path+')'"/>
@@ -230,24 +229,24 @@
                             </div>
 
                             <h4 class="section-post-title">
-                                <a href="#" t-field="blog.name"></a>
+                                <a href="#" t-field="blog.name"/>
                             </h4>
 
-                            <p class="section-post-excerpt">
-                                <t t-esc="blog.subtitle"/>
-                            </p>
+                            <p class="section-post-excerpt" t-field="blog.subtitle"/>
+
                             <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
-                        </div>					
+                        </div>                  
                     </div>
                 </div>
 
-
-    	        <t t-set="no_blog" t-value="no_blog-1"/>
-    			<t t-set="blog" t-value="blog_ids[no_blog-1]"/>
-    			<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+                <t t-if="no_blog>0">
+                    <t t-set="no_blog" t-value="no_blog-1"/>
+                    <t t-set="blog" t-value="blog_ids[no_blog-1]"/>
+                    <t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+                </t>
 
                 <div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
-    				<div class="section-post">
+                    <div class="section-post">
                         <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
                             <t t-set="bg_img" t-value="blog_cover_property.get('background-image', no_img_path)"/>
                             <t t-if="bg_img=='none'" t-set="bg_img" t-value="'url('+no_img_path+')'"/>
@@ -261,19 +260,18 @@
                             </div>
 
                             <h4 class="section-post-title">
-                                <a href="#" t-field="blog.name"></a>
+                                <a href="#" t-field="blog.name"/>
                             </h4>
 
-                            <p class="section-post-excerpt">
-                                <t t-esc="blog.subtitle"/>
-                            </p>
+                            <p class="section-post-excerpt" t-field="blog.subtitle"/>
 
                             <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
-                        </div>					
+                        </div>                  
                     </div>
                 </div>
             </div>
         </xpath>
+
     </template>
 <!-- 
     <template id="blog_indicators">
