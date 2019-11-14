@@ -252,4 +252,15 @@
         parent="website_slides.menu_website_slides_root"
         action="slider_multiple_category_action"
         sequence="59"/>
+        <record model="ir.ui.view" id="view_blog_post_form">
+            <field name="name">blog.post.form</field>
+            <field name="model">blog.post</field>
+        	<field name="inherit_id" ref="website_blog.view_blog_post_form"></field>
+            <field name="arch" type="xml">
+				<field name="tag_ids" position="after">
+                    <field name="access_url"/>
+				</field>
+			</field>
+		</record>
+    
 </odoo>

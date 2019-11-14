@@ -62,6 +62,19 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
             request.uid = odoo.SUPERUSER_ID
 
         values = request.params.copy()
+
+        url = request.httprequest.url_root
+        url_new = url.replace("http://","")
+        url_final =  url_new[:-1]
+
+        domain_menu=[
+            ('url', '=', url_final)
+        ]
+        print('url ======', url_final)
+        menu_url=request.env['website.menu.url'].search(domain_menu)
+
+        values['image']='/web/image/website.menu.url/'+str(menu_url.id)+'/logo_footer/100x100'
+
         if not redirect:
             redirect = '/web?' + request.httprequest.query_string
         values['redirect'] = redirect
@@ -164,6 +177,8 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
             values['reason2'] = _('- User not allowed to have multiple logins')
             values[
                 'reason3'] = _('- User not allowed to login at this specific time or day')
+
+            
         return request.render('web.login', values)
 
     def save_session(

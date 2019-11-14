@@ -18,3 +18,8 @@ class BlogPost(models.Model):
 			return groups.group(1)
 		else:
 			return '/inno_web_home/static/src/img/no-image-icon-1.png'
+
+class BlogSlider(models.Model):
+	_inherit = 'blog.post'
+
+	access_url = fields.Many2one('website.menu.url')

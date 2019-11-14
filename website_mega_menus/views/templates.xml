@@ -16,11 +16,11 @@
         <template id="mega_menu_wk" inherit_id="pqm_website_access.submenu">
             <xpath expr="//li[1]" position="after">
                 <t t-set="is_fly_out" t-value="request.env['ir.values'].sudo().get_default('mega.menu.config', 'mega_menu_type')=='fly_out'"/>
-                <li t-if="not submenu.child_id and not submenu.is_mega_menu" t-att-class="'active' if submenu.url and submenu.url != '/' and request.httprequest.path == submenu.url.replace('/page/website.', '/page/') else None">
+                <!-- <li t-if="not submenu.child_id and not submenu.is_mega_menu" t-att-class="'active' if submenu.url and submenu.url != '/' and request.httprequest.path == submenu.url.replace('/page/website.', '/page/') else None">
                     <a t-att-href="(website.menu_id.child_id[0] == submenu) and '/' or submenu.url" t-ignore="true" t-att-target="'_blank' if submenu.new_window else None">
                         <span t-field="submenu.name"/>
                     </a>
-                </li>
+                </li> -->
                 <li t-if="submenu.is_mega_menu and not is_fly_out" t-att-class="'dropdown active' if submenu.url and submenu.url != '/' and request.httprequest.path == submenu.url.replace('/page/website.', '/page/') else 'dropdown'">
                     <t t-set="href" t-value="submenu.url if not submenu.is_mega_menu else '#mega'" />
                     <t t-set="href" t-value="'/shop/category/{}'.format(slug(submenu.root_category)) if not website.get_public_categories(submenu) and href =='#mega' and submenu.root_category else href" />
