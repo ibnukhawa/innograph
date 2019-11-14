@@ -8,6 +8,7 @@ class ProductTemplate(models.Model):
     unspsc = fields.Char(string='UNSPSC', size=8)
     active_product = fields.Boolean()
     local_product = fields.Boolean()
+    tkdn_product = fields.Boolean()
     valid_date = fields.Date(string='Valid Until')
     specification = fields.Text()
 
