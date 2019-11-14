@@ -147,6 +147,14 @@ class LKPPController(Controller):
                     local_product = 1
 
                 product_informasi['apakah_produk_lokal'] = local_product
+
+                if record.tkdn_product == False:
+                    tkdn_product = 0
+                else:
+                    tkdn_product = 1
+
+                product_informasi['tkdn_produk'] = tkdn_product
+
                 product_informasi['berlaku_sampai'] = record.valid_date
                 product_informasi['url_produk'] = url_produk
                 product_informasi['image_50x50'] = url_50
@@ -309,6 +317,14 @@ class LKPPController(Controller):
                     local_product = 1
 
                 product_informasi['apakah_produk_lokal'] = local_product
+
+                if record['tkdn_product'] == False:
+                    tkdn_product = 0
+                else:
+                    local_product = 1
+
+                product_informasi['tkdn_produk'] = tkdn_product
+
                 product_informasi['berlaku_sampai'] = record['valid_date']
                 product_informasi['url_produk'] = url_produk
                 product_informasi['image_50x50'] = url_50
@@ -442,6 +458,14 @@ class LKPPController(Controller):
                     local_product = 1
 
                 product_informasi['apakah_produk_lokal'] = local_product
+
+                if record.tkdn_product == False:
+                    tkdn_product = 0
+                else:
+                    tkdn_product = 1
+
+                product_informasi['tkdn_produk'] = tkdn_product
+
                 product_informasi['berlaku_sampai'] = record.valid_date
                 product_informasi['url_produk'] = url_produk
                 product_informasi['image_50x50'] = url_50

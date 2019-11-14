@@ -111,7 +111,7 @@
 
                     <t t-if="website.user_id != user_id">
                         <input name="product_id" t-att-value="product.product_variant_id.id" type="hidden" />	
-                        <button id="add_to_wishlist" name="add_to_wish" t-attf-class="add_to_wishlist btn btn-default btn-xs #{'fa fa-heart' if website.check_product_in_wishlist(product.product_variant_id.id) else 'fa fa-heart-o' }"/>	
+                        <button id="add_to_wishlist" name="add_to_wish" t-attf-class="add_to_wishlist btn btn-default mt8 btn-xs #{'fa fa-heart' if website.check_product_in_wishlist(product.product_variant_id.id) else 'fa fa-heart-o' }"/>	
                     </t>
 
                
@@ -126,7 +126,7 @@
         <xpath expr="//div[@class='pro-action']" position="inside">
             <t t-if="website.user_id != user_id">
             <input name="product_id" t-att-value="product.product_variant_id.id" type="hidden" />	
-            <button id="add_to_wishlist" name="add_to_wish" t-attf-class="add_to_wishlist btn btn-default btn-xs #{'fa fa-heart' if website.check_product_in_wishlist(product.product_variant_id.id) else 'fa fa-heart-o' }"/>	
+            <button id="add_to_wishlist" name="add_to_wish" t-attf-class="add_to_wishlist btn btn-default mt8 btn-xs #{'fa fa-heart' if website.check_product_in_wishlist(product.product_variant_id.id) else 'fa fa-heart-o' }"/>	
             </t>
         </xpath>
     </template>	
