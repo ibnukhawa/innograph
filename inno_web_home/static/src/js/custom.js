@@ -358,6 +358,8 @@ function createBanner3(){
 
 
         $(".box_slider_satu").css("max-width",width_slider);
+
+        $(".banner").css("min-width",width_slider);
         $(".box_slider_sub").css("max-width",width_slider_sub);
 
         
@@ -384,7 +386,7 @@ getLogo();
             // alert(value.image);
             html += "<div class='disable_customize box_category' style='background-color:"+value.background+"'>"
             html += "<a href='/shop/category/"+value.name_url+"'>"
-            html += "<img class='disable_customize banner' src='"+value.image+"'/>"
+            html += "<img class='disable_customize' src='"+value.image+"'/>"
             html += "<p class='disable_customize text-center title_product'>"+value.name+"</p>"
             html += "</a>"
             html += "</div>"
@@ -847,6 +849,8 @@ getLogo();
         var width_slider_sub = $(".header_slider_2").width();
 
         $(".box_slider_satu").css("max-width",width_slider);
+
+        $(".banner").css("min-width",width_slider);
         $(".box_slider_sub").css("max-width",width_slider_sub);
       }
 
