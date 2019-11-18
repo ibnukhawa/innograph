@@ -14,7 +14,7 @@
             <!-- <script type="text/javascript" src="/inno_web_home/static/src/js/custom.js"></script> -->
         </xpath> 
     </template>
-    <template id="s_banner_home" inherit_id="website.homepage" name="Banner" >
+    <template id="s_banner_home" inherit_id="website.homepage" name="Banner">
         <xpath expr="//div[@class='oe_structure oe_empty']" position="after">
                 <section class="disable_customize s_banner_homepage">
                     <div class="disable_customize container">
@@ -305,5 +305,15 @@
             </div>
         </xpath>
     </template>
+<!-- 
+    <template id="inherit_favicon" inherit_id="web.layout" name="Inherit favicon multiwebsite">
+        <xpath expr="//link[@rel='shortcut icon']" position="replace">
+            <t t-if="website">
+                <t t-set="x_icon" t-value="website.getFavicon()" />
+                <link rel="shortcut icon" href="/inno_web_home/static/src/img/asd.ico" type="image/x-icon"/>
+                <link rel="shortcut icon" t-att-href="x_icon" type="image/x-icon"/>
+            </t>
+        </xpath>
+    </template> -->
 
-</odoo>
+</odoo> 

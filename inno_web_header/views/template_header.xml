@@ -50,10 +50,10 @@
                             <div class="col-md-3 col-sm-12 col-xs-12">
                                 <!-- <div class="container"> -->
                                     <!-- <div class="row"> -->
+
+                                        <t t-set="logo" t-value="website.getLogoHeader()"/>
                                         <a href="/">
-                                            <img class="logos" src="" title="" alt=""/>
-                                            <!-- <p class="text_logo">Digital Signage &amp; Display Promotion Solution</p> -->
-                                            
+                                            <img class="logos" t-att-src="logo" title="1" alt="1"/>
                                         </a>
                                         <p class="text_logo">Kategori</p>
                                         
