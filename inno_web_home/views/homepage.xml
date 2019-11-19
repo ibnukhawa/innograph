@@ -304,6 +304,10 @@
                 <img t-attf-src="{{image}}"/>
             </div>
         </xpath>
+        <xpath expr="//div[@class='body_login']//div[2]//div[2]" position="replace">
+            
+        </xpath>
+        
     </template>
 <!-- 
     <template id="inherit_favicon" inherit_id="web.layout" name="Inherit favicon multiwebsite">
