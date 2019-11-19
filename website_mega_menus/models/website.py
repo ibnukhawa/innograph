@@ -81,3 +81,19 @@ class Website(models.Model):
 		mega_menu = self.env['website.menu'].search([('is_mega_menu', '=', True)])
 		return mega_menu
 
+	def getLogoHeader(self):
+		
+		url = request.httprequest.url_root
+		url_new = url.replace("http://","")
+		url_final = url_new[:-1]
+
+		domain=[
+			('url','=',url_final)
+		]
+
+		menu_url = request.env['website.menu.url'].search(domain)
+		images= '/web/image/website.menu.url/'+str(menu_url.id)+'/logo/215x70'
+		return images
+
+
+

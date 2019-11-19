@@ -57,17 +57,17 @@
         margin-left: 10px;
     }
     .copyright{
-        padding-top: 40px;
+        padding-top: 0px;
         text-align: left !important;
     }
     .inno-logo{
-        width: 60px;
-        height: 60px;
+        width: 100px;
+        height: auto;
     }
     .inno-container{
-        width: 90px;
-        height: 90px;
-        margin-right: inherit;
+        width: auto;
+        height: auto;
+        margin-right: 0px;
     }
     .gmaps{
         width: 150px;
@@ -138,17 +138,17 @@
         margin-left: 10px;
     }
     .copyright{
-        padding-top: 40px;
+        padding-top: 0px;
         text-align: left !important;
     }
     .inno-logo{
-        width: 60px;
-        height: 60px;
+        width: auto;
+        height: 110px;
     }
     .inno-container{
-        width: 90px;
-        height: 90px;
-        margin-right: inherit;
+        width: auto;
+        height: auto;
+        /* margin-right: inherit; */
     }
     .gmaps{
         width: 200px;
@@ -219,15 +219,15 @@
         margin-left: 10px;
     }
     .copyright{
-        padding-top: 40px;
+        padding-top: 0px;
         text-align: left !important;
     }
     .inno-logo{
-        width: 60px;
-        height: 60px;
+        width: auto;
+        height: auto;
     }
     .inno-container{
-        width: 90px;
+        width: 120px;
         height: 90px;
         margin-right: inherit;
     }
@@ -300,15 +300,15 @@
         margin-left: 20px;
     }
     .copyright{
-        padding-top: 40px;
+        padding-top: 0px;
         text-align: left !important;
     }
     .inno-logo{
-        width: 60px;
-        height: 60px;
+        width: auto;
+        height: auto;
     }
     .inno-container{
-        width: 90px;
+        max-width: 140px;
         height: 90px;
         margin-right: inherit;
     }
@@ -381,12 +381,12 @@
         margin-left: 20px;
     }
     .copyright{
-        padding-top: 40px;
+        padding-top: 0px;
         text-align: left !important;
     }
     .inno-logo{
-        width: 200px;
-        height: 80px;
+        width: auto;
+        height: auto;
     }
     .inno-container{
         width: 110px;
