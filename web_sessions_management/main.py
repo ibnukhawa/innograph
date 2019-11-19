@@ -70,10 +70,10 @@ class Home_tkobr(odoo.addons.web.controllers.main.Home):
         domain_menu=[
             ('url', '=', url_final)
         ]
-        print('url ======', url_final)
+        
         menu_url=request.env['website.menu.url'].search(domain_menu)
 
-        values['image']='/web/image/website.menu.url/'+str(menu_url.id)+'/logo_footer/100x100'
+        values['image']='/web/image/website.menu.url/'+str(menu_url.id)+'/logo_footer/200x130'
 
         if not redirect:
             redirect = '/web?' + request.httprequest.query_string

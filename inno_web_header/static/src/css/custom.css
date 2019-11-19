@@ -86,10 +86,10 @@ a.btn-blue{
 }
 
 img.logos{
-    height: 65px;
-    width: 180px;
+    height: auto;
+    width: 150px;
     position: absolute;
-    padding:3px;
+    padding:0px;
     top:15px;
 }
 
@@ -499,8 +499,8 @@ img.images{
         left: -166% !important;
     }
     img.logos{
-        height: 56px;
-        width: 146px;
+        height: auto;
+        width: auto;
         position: absolute;
         padding: 3px;
         top: 15px;
@@ -561,11 +561,11 @@ img.images{
     }
 
     img.logos {
-        height: 80px;
-        width: 170px;
+        height: auto;
+        width: auto;
         position: absolute;
         padding: 3px;
-        top: 18px;
+        top: 14px;
     }
     .cart-view-drop{
         margin-top: -2px;
@@ -582,7 +582,7 @@ img.images{
     }
 
     #fly_out_view_open{
-        margin-right: 0px;
+        margin-right: -6px;
     }
     
     .top-menu{
@@ -649,6 +649,9 @@ img.images{
     }
     .img.logos{
         margin-left: -15px;
+    }
+    #fly_out_view_open{
+        margin-right: -15px;
     }
     #menu_item {
         margin-top: 15px !important;

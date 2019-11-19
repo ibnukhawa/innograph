@@ -336,6 +336,8 @@ class HomePage(Controller):
             values['main_object'] = category
         return request.render("website_sale.products", values)
 
+    
+
 class WebsiteSale(WebsiteSale):
     @http.route(['/shop/product/<model("product.template"):product>'], type='http', auth="public", website=True)
     def product(self, product, category='', search='', **kwargs):
@@ -367,7 +369,7 @@ class AuthSignupHome(Home):
         ]
         menu_url=request.env['website.menu.url'].search(domain_menu)
 
-        qcontext['image']='/web/image/website.menu.url/'+str(menu_url.id)+'/logo_footer/100x100'
+        qcontext['image']='/web/image/website.menu.url/'+str(menu_url.id)+'/logo_footer/200x130'
         if not qcontext.get('token') and not qcontext.get('signup_enabled'):
             raise werkzeug.exceptions.NotFound()
 

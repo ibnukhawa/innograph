@@ -18,7 +18,7 @@ class Website(models.Model):
             ('url', '=', url_final)
         ]
         menu_url = request.env['website.menu.url'].search(domain)
-        images = '/web/image/website.menu.url/'+str(menu_url.id)+'/logo_footer/300x300'
+        images = '/web/image/website.menu.url/'+str(menu_url.id)+'/logo_footer/100x100'
         
         return images
 

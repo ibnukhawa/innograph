@@ -189,7 +189,7 @@
                                     <div class="row">
                                         
                                         <t t-set="logo" t-value="website.getLogoFooter()"/>
-                                        <div class="col-md-4 col-lg-4  inno-container">
+                                        <div class="col-md-4 col-lg-4 inno-container">
                                             <img class="inno-logo" t-att-src="logo" title="" alt=""/>
                                         </div>
 
