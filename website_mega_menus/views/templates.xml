@@ -16,11 +16,11 @@
         <template id="mega_menu_wk" inherit_id="pqm_website_access.submenu">
             <xpath expr="//li[1]" position="after">
                 <t t-set="is_fly_out" t-value="request.env['ir.values'].sudo().get_default('mega.menu.config', 'mega_menu_type')=='fly_out'"/>
-                <li t-if="not submenu.child_id and not submenu.is_mega_menu" t-att-class="'active' if submenu.url and submenu.url != '/' and request.httprequest.path == submenu.url.replace('/page/website.', '/page/') else None">
+                <!-- <li t-if="not submenu.child_id and not submenu.is_mega_menu" t-att-class="'active' if submenu.url and submenu.url != '/' and request.httprequest.path == submenu.url.replace('/page/website.', '/page/') else None">
                     <a t-att-href="(website.menu_id.child_id[0] == submenu) and '/' or submenu.url" t-ignore="true" t-att-target="'_blank' if submenu.new_window else None">
                         <span t-field="submenu.name"/>
                     </a>
-                </li>
+                </li> -->
                 <li t-if="submenu.is_mega_menu and not is_fly_out" t-att-class="'dropdown active' if submenu.url and submenu.url != '/' and request.httprequest.path == submenu.url.replace('/page/website.', '/page/') else 'dropdown'">
                     <t t-set="href" t-value="submenu.url if not submenu.is_mega_menu else '#mega'" />
                     <t t-set="href" t-value="'/shop/category/{}'.format(slug(submenu.root_category)) if not website.get_public_categories(submenu) and href =='#mega' and submenu.root_category else href" />
@@ -99,24 +99,33 @@
             <xpath expr="//nav/div" position="replace">
                 <t t-if="request.env['ir.values'].sudo().get_default('mega.menu.config', 'mega_menu_type')=='fly_out'">
                     <div class="col-md-3 col-sm-12 col-xs-12">
-                    
-                        <a href="/">
-                            <img class="logos" src="/inno_web_header/static/src/img/logo.png" title="Innograph" alt="Innograph"/>
-                        </a>
+                        <!-- <div> -->
+                            <t t-set="logo" t-value="website.getLogoHeader()"/>
+                            <a href="/">
+                                <img class="logos" t-att-src="logo" title="1" alt="1"/>
+                            </a>
+                        <!-- </div>
+                        
+                        <div> -->
+            
+                            <div class="mega-menus">
+                            <p class="text_logo" id="fly_out_view_open">Kategori </p>
+                            
+                            
+                            
+                                <div id="fly_out_view">
+                                    <h4 class="heading"><t t-esc="request.env['ir.values'].sudo().get_default('mega.menu.config', 'mega_menu_header_text')" /></h4>
+                                    <t t-set="menus" t-value="request.website.create_fly_out_menu()" />
+                                    <ul id="dropdown_ul">
+                                        <t t-foreach="menus" t-as="submenu">
+                                            <t t-call="website_mega_menus.fly_out_mega_menu" />
+                                        </t>
+                                    </ul>
+                                </div>
+                            </div>
 
-                        <p class="text_logo" id="fly_out_view_open">Kategori </p>
-                        
-                        
-                        
-                    <div id="fly_out_view">
-                        <h4 class="heading"><t t-esc="request.env['ir.values'].sudo().get_default('mega.menu.config', 'mega_menu_header_text')" /></h4>
-                        <t t-set="menus" t-value="request.website.create_fly_out_menu()" />
-                        <ul id="dropdown_ul">
-                            <t t-foreach="menus" t-as="submenu">
-                                <t t-call="website_mega_menus.fly_out_mega_menu" />
-                            </t>
-                        </ul>
-                    </div>
+                        <!-- </div> -->
+
                     </div>
                 </t>
             </xpath>

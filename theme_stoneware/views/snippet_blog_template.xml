@@ -28,9 +28,8 @@
   </t>
 </template>
 <template id="theme_stoneware.blog_slider_items">
-	<div t-attf-class="item #{'active' if no_blog==len(blog_slider.blog_ids.ids) else ''}">
+	<div t-attf-class="item #{'active' if no_blog==len(blog_ids.ids) else ''}">
 		<div class="row">
-
 			<div class="col-md-4 col-sm-4" t-if="(no_blog-1)&gt;-1">
 				<t t-set="blog" t-value="blog_slider.blog_ids[no_blog-1]"/>
 				<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
@@ -97,7 +96,7 @@
     </div>
   		  <t t-set="no_blog" t-value="0.0"/>
   		  <t t-if="blog_slider.blog_ids">
-  		  <t t-set="no_blog" t-value="len(blog_slider.blog_ids.ids)"/>
+  		  <t t-set="no_blog" t-value="len(blog_ids.ids)"/>
   		  </t>
 		  <t t-set="as_latest_blog_slide" t-value="float(no_blog)/float(4)"/>
 		  <t t-if="float(no_blog)/float(4)-int(no_blog/4)!=0">

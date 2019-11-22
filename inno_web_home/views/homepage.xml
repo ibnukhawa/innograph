@@ -14,49 +14,23 @@
             <!-- <script type="text/javascript" src="/inno_web_home/static/src/js/custom.js"></script> -->
         </xpath> 
     </template>
-    <template id="s_banner_home" inherit_id="website.homepage" name="Banner" >
+    <template id="s_banner_home" inherit_id="website.homepage" name="Banner">
         <xpath expr="//div[@class='oe_structure oe_empty']" position="after">
                 <section class="disable_customize s_banner_homepage">
                     <div class="disable_customize container">
                         <div class="disable_customize row" id="banner_slider">
+                                <!-- to get paramater -->
+                                <input type="hidden" class="url_root" t-att-value="request.httprequest.url_root"/>
                                 <div class="disable_customize header_slider_1 col-xs-12 col-sm-8 col-md-8">
-                                    <!-- <div class="" style="background:#ffffff;"> -->
-                                        
-                                        <!-- <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-2.jpg"/>
-                                        </div> -->
-                                        <!-- <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-1.jpg"/>
-                                        </div>
-                                        <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-3.jpg"/>
-                                        </div> -->
-                                    <!-- </div> -->
+                                    
                                 </div>
                             
                                 <div class="disable_customize header_slider_sub col-xs-12 col-sm-4 col-md-4 ">
                                     <div class="disable_customize header_slider_2" style="min-height:100% !important">
-                                        
-                                        <!-- <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-4.jpg"/>
-                                        </div>
-                                        <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-5.jpg"/>
-                                        </div>
-                                        <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/cat-1.jpg"/>
-                                        </div> -->
+                                
                                     </div>
                                     <div class="disable_customize header_slider_3" style="min-height:100% !important">
-                                        <!-- <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/banner1.png"/>
-                                        </div>
-                                        <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/banner2.png"/>
-                                        </div>
-                                        <div>
-                                            <img class="banner" src="/theme_stoneware/static/src/img/catbanner/banner3.jpg"/>
-                                        </div> -->
+                                        
                                     </div>
                                 </div>
                         </div>
@@ -180,11 +154,11 @@
     <template id="inno_blog" inherit_id="theme_stoneware.blog_slider_items" name="Blog" >
         <xpath expr="//div[@class='row']" position="replace">
             <div class="row">
-                <t t-set="no_img_path" t-value="'/inno_web_home/static/src/img/no-image-icon-1.png'" />
-    			<div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
-    				<t t-set="blog" t-value="blog_ids[no_blog-1]"/>
-    				<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
-    				<div class="section-post">
+                <t t-set="no_img_path" t-value="'/inno_web_home/static/src/img/no-image-icon-1.png'"/>
+                <div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
+                    <t t-set="blog" t-value="blog_ids[no_blog-1]"/>
+                    <t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+                    <div class="section-post">
                         
                         <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
                             <t t-set="bg_img" t-value="blog_cover_property.get('background-image', no_img_path)"/>
@@ -197,20 +171,21 @@
                                 <span t-field="blog.create_date"/>
                             </div>
                             <h4 class="section-post-title">
-                            <a href="#" t-field="blog.name"></a>
+                            <a href="#" t-field="blog.name"/>
                             </h4>
-                            <p class="section-post-excerpt" t-field="blog.subtitle"></p>
+                            <p class="section-post-excerpt" t-field="blog.subtitle"/>
                             <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
-                        </div>				
+                        </div>              
                     </div>
                 </div>
-
-    	        <t t-set="no_blog" t-value="no_blog-1"/>
-    			<t t-set="blog" t-value="blog_ids[no_blog-1]"/>
-    			<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+                <t t-if="no_blog-1>=0">
+                    <t t-set="no_blog" t-value="no_blog-1"/>
+                    <t t-set="blog" t-value="blog_ids[no_blog-1]"/>
+                    <t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+                </t>
 
                 <div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
-    				<div class="section-post">
+                    <div class="section-post">
                         <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
                             <t t-set="bg_img" t-value="blog_cover_property.get('background-image', no_img_path)"/>
                             <t t-if="bg_img=='none'" t-set="bg_img" t-value="'url('+no_img_path+')'"/>
@@ -223,22 +198,23 @@
                             </div>
 
                             <h4 class="section-post-title">
-                                <a href="#" t-field="blog.name"></a>
+                                <a href="#" t-field="blog.name"/>
                             </h4>
 
-                            <p class="section-post-excerpt" t-field="blog.subtitle"></p>
+                            <p class="section-post-excerpt" t-field="blog.subtitle"/>
 
                             <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
-                        </div>					
+                        </div>                  
                     </div>
                 </div>
-
-    	        <t t-set="no_blog" t-value="no_blog-1"/>
-    			<t t-set="blog" t-value="blog_ids[no_blog-1]"/>
-    			<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+                <t t-if="no_blog>0">
+                    <t t-set="no_blog" t-value="no_blog-1"/>
+                    <t t-set="blog" t-value="blog_ids[no_blog-1]"/>
+                    <t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+                </t>
 
                 <div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
-    				<div class="section-post">
+                    <div class="section-post">
                         <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
                             <t t-set="bg_img" t-value="blog_cover_property.get('background-image', no_img_path)"/>
                             <t t-if="bg_img=='none'" t-set="bg_img" t-value="'url('+no_img_path+')'"/>
@@ -253,23 +229,24 @@
                             </div>
 
                             <h4 class="section-post-title">
-                                <a href="#" t-field="blog.name"></a>
+                                <a href="#" t-field="blog.name"/>
                             </h4>
 
-                            <p class="section-post-excerpt" t-field="blog.subtitle"></p>
+                            <p class="section-post-excerpt" t-field="blog.subtitle"/>
 
                             <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
-                        </div>					
+                        </div>                  
                     </div>
                 </div>
 
-
-    	        <t t-set="no_blog" t-value="no_blog-1"/>
-    			<t t-set="blog" t-value="blog_ids[no_blog-1]"/>
-    			<t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+                <t t-if="no_blog>0">
+                    <t t-set="no_blog" t-value="no_blog-1"/>
+                    <t t-set="blog" t-value="blog_ids[no_blog-1]"/>
+                    <t t-set="blog_cover_property" t-value="json.loads(blog.cover_properties)"/>
+                </t>
 
                 <div class="col-md-3 col-sm-3" t-if="(no_blog-1)&gt;-1">
-    				<div class="section-post">
+                    <div class="section-post">
                         <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="">
                             <t t-set="bg_img" t-value="blog_cover_property.get('background-image', no_img_path)"/>
                             <t t-if="bg_img=='none'" t-set="bg_img" t-value="'url('+no_img_path+')'"/>
@@ -283,17 +260,18 @@
                             </div>
 
                             <h4 class="section-post-title">
-                                <a href="#" t-field="blog.name"></a>
+                                <a href="#" t-field="blog.name"/>
                             </h4>
 
-                            <p class="section-post-excerpt" t-field="blog.subtitle"></p>
+                            <p class="section-post-excerpt" t-field="blog.subtitle"/>
 
                             <a t-attf-href="/blog/#{slug(blog.blog_id)}/post/#{slug(blog)}" title="" class="read-more">Read more</a>
-                        </div>					
+                        </div>                  
                     </div>
                 </div>
             </div>
         </xpath>
+
     </template>
 <!-- 
     <template id="blog_indicators">
@@ -320,5 +298,26 @@
             </div>
         </xpath>
     </template> -->
+    <template id="login_inherit" inherit_id="web.login_layout" name="Website Login Layout">
+        <xpath expr="//div[@class='body_login']//div[2]//div[1]" position="replace">
+            <div class="text-center">
+                <img t-attf-src="{{image}}"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[@class='body_login']//div[2]//div[2]" position="replace">
+            
+        </xpath>
+        
+    </template>
+<!-- 
+    <template id="inherit_favicon" inherit_id="web.layout" name="Inherit favicon multiwebsite">
+        <xpath expr="//link[@rel='shortcut icon']" position="replace">
+            <t t-if="website">
+                <t t-set="x_icon" t-value="website.getFavicon()" />
+                <link rel="shortcut icon" href="/inno_web_home/static/src/img/asd.ico" type="image/x-icon"/>
+                <link rel="shortcut icon" t-att-href="x_icon" type="image/x-icon"/>
+            </t>
+        </xpath>
+    </template> -->
 
-</odoo>
+</odoo> 

@@ -172,7 +172,7 @@ hr{
 }
 
 .web_blog_slider{
-    background-color: #fd6c37;
+    background-color: #ffffff;
 }
 
 .title_blog{
@@ -198,6 +198,12 @@ hr{
 }
 .as-latest-blog .section-post .section-post-media{
     height: 220px;
+}
+
+.section-post-title{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 @media (min-width: 320.00px)

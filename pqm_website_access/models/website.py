@@ -10,7 +10,11 @@ class Website(models.Model):
 	def _prepare_sale_order_values(self, partner, pricelist):
 		vals = super(Website, self)._prepare_sale_order_values(partner, pricelist)
 		if not vals.get('origin_url'):
-			vals['origin_url'] = request.httprequest.url_root
+			
+			# vals['origin_url'] = request.httprequest.url_root
+			url_root =request.httprequest.url_root
+			url = url_root[:-1]
+			vals['origin_url'] = url
 		return vals
 
 
@@ -23,7 +27,11 @@ class SaleOrder(models.Model):
 	def get_access_action(self):
 		self.ensure_one()
 		res = super(SaleOrder, self).get_access_action()
+		print("origin 1 ", self.origin_url)
+		print("res1 :", res.get('url'))
 		if res.get('url') and self.origin_url:
+			print("origin 2 ", self.origin_url)
+			print("res 2:", res.get('url'))
 			res['url'] = "%s%s" % (self.origin_url, res.get('url'))
 		return res
 

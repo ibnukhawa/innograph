@@ -18,15 +18,17 @@
                         <group>
                             <field name="active_product"/>
                             <field name="local_product"/>
+                            <field name="tkdn_product"/>
                             <field name="deskripsi_singkat"/>
                             <field name="deskripsi_lengkap"/>
                         </group>
                         <group>
-                            <field name="unspsc"/>
-                            <field name="valid_date"/>
-                            <field name="lkpp_category_id"/>
-                            <field name="lkpp_manufacturer_id"/>
-                            <!-- <field name="lkpp_sell_price" widget='monetary' options="{'currency_field': 'currency_id'}"/> -->
+                            <field name="unspsc" attrs="{'required': [('active_product', '=', True)]}"/>
+                            <field name="valid_date" attrs="{'required': [('active_product', '=', True)]}"/>
+                            <field name="lkpp_category_id" attrs="{'required': [('active_product', '=', True)]}"/>
+                            <field name="lkpp_manufacturer_id" attrs="{'required': [('active_product', '=', True)]}"/>
+                            <field name="lkpp_uom_id" attrs="{'required': [('active_product', '=', True)]}"/>
+                            <field name="website_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                             <field name="lkpp_govt_price" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                         </group>
                     </group>

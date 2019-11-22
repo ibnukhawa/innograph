@@ -23,7 +23,7 @@ options.registry.latest_blog = options.Class.extend({
             'window_title': this.popup_title,
             'select': _t("Collection"),
             'init': function (field) {
-                return new Model('blog.configure').call('name_search', ['', []], { context: base.get_context() });
+                return new Model('blog.configure').call('name_search', ['', []], { context: base.get_context()},{domain:[("access_url","=","4")] });
             },
         });
         def.then(function (collection_id) {
@@ -31,7 +31,7 @@ options.registry.latest_blog = options.Class.extend({
             new Model('blog.configure').call('read', [[parseInt(collection_id)]], { context: base.get_context() }).then(function (data){
                 if(data && data[0] && data[0].name)
                 {
-                 self.$target.empty().append('<div class="seaction-head"><h1>'+ data[0].name+'</h1></div>');   
+                    self.$target.empty().append('<div class="seaction-head"><h1>'+ data[0].name+'</h1></div>');   
                 }
             });
             

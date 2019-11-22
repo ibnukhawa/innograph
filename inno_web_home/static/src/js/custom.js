@@ -162,8 +162,13 @@ $(window).scroll(function() {
 
 $(document).ready(function() {
 
+var url_root = $('.url_root').val();
+var u = new URL(url_root);
+
+console.log("test url root: "+u.host);
 function createBanner3(){
-    $.get("/API/load_banner", function(data){
+
+    $.get("/API/load_banner/"+u.host, function(data){
         // alfif
         // $(".result").html( data );
         $.each(data, function( index, value ) {
@@ -353,25 +358,26 @@ function createBanner3(){
 
 
         $(".box_slider_satu").css("max-width",width_slider);
+
+        $(".banner").css("min-width",width_slider);
         $(".box_slider_sub").css("max-width",width_slider_sub);
 
         
     });
 }
 
+
 createBanner3();
 
-    
 
-
-    $.get("/API/load_category", function(data){
+    $.get("/API/load_category/"+u.host, function(data){
     // alfif
         var html = "";
         $.each(data, function( index, value ) {
             // alert(value.image);
             html += "<div class='disable_customize box_category' style='background-color:"+value.background+"'>"
             html += "<a href='/shop/category/"+value.name_url+"'>"
-            html += "<img class='disable_customize banner' src='"+value.image+"'/>"
+            html += "<img class='disable_customize' src='"+value.image+"'/>"
             html += "<p class='disable_customize text-center title_product'>"+value.name+"</p>"
             html += "</a>"
             html += "</div>"
@@ -508,8 +514,9 @@ createBanner3();
     }
 
     function addTabs(){
-        $.get("/API/load_slider_tab", function(data){
+        $.get("/API/load_slider_tab/"+u.host, function(data){
             // alfif
+                // console.log("url "+u.host);
                 $.each(data, function( index, value ) {
                     
                     var html_li = "";
@@ -691,7 +698,7 @@ createBanner3();
     //     pagination: false
     // });
 
-    $.get("/API/multiple_category", function(data){
+    $.get("/API/multiple_category/"+u.host, function(data){
         // alfif
             $.each(data, function( index, value ) {
                 var html_box = "";
@@ -833,6 +840,8 @@ createBanner3();
         var width_slider_sub = $(".header_slider_2").width();
 
         $(".box_slider_satu").css("max-width",width_slider);
+
+        $(".banner").css("min-width",width_slider);
         $(".box_slider_sub").css("max-width",width_slider_sub);
       }
 

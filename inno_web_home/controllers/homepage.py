@@ -21,6 +21,7 @@ import random
 
 from odoo.tools.translate import _
 from odoo.addons.website_sale.controllers.main import WebsiteSale
+from odoo.addons.web.controllers.main import Home
 from odoo.addons.website_sale.controllers.main import TableCompute
 from odoo.addons.website_sale.controllers.main import QueryURL
 from odoo.addons.website_sale.controllers import main
@@ -37,10 +38,18 @@ _logger = logging.getLogger(__name__)
 
 class HomePage(Controller):
 
-    @http.route(['/API/load_banner'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
-    def load_banner(self):
-
-        master_banner_satu=request.env['slider.banner_satu'].search([],limit=5)
+    @http.route(['/API/load_banner/<url>'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
+    def load_banner(self,url):
+        
+        domain_menu=[
+            ('url', '=', url)
+        ]
+        menu_url=request.env['website.menu.url'].search(domain_menu)
+        
+        domain=[
+            ('access_url', '=', menu_url.id)
+        ]
+        master_banner_satu=request.env['slider.banner_satu'].search(domain,limit=5)
 
         banner_satu=[]
 
@@ -51,7 +60,7 @@ class HomePage(Controller):
             banner_satu.append(value_satu)
         
 
-        master_banner_dua=request.env['slider.banner_dua'].search([],limit=5)
+        master_banner_dua=request.env['slider.banner_dua'].search(domain,limit=5)
 
         banner_dua=[]
 
@@ -61,7 +70,7 @@ class HomePage(Controller):
             value_dua['image']  = '/web/image/slider.banner_dua/'+str(banner.id)+'/image'
             banner_dua.append(value_dua)
 
-        master_banner_tiga=request.env['slider.banner_tiga'].search([],limit=5)
+        master_banner_tiga=request.env['slider.banner_tiga'].search(domain,limit=5)
 
         banner_tiga=[]
 
@@ -78,10 +87,16 @@ class HomePage(Controller):
 
         return Response(json.dumps(data), content_type='application/json')
     
-    @http.route(['/API/load_category'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
-    def load_category(self):
+    @http.route(['/API/load_category/<url>'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
+    def load_category(self,url):
+        domain_menu=[
+            ('url', '=', url)
+        ]
+        menu_url=request.env['website.menu.url'].search(domain_menu)
+        
         domain=[
-            ('show_in_website', '=', True)
+            ('show_in_website', '=', True),
+            ('access_url','=', menu_url.id)
         ]
 
         data_public_category =request.env['product.public.category'].search(domain,order="sequence ASC")
@@ -97,10 +112,17 @@ class HomePage(Controller):
         return Response(json.dumps(data), content_type='application/json')
 
     
-    @http.route(['/API/load_slider_tab'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
-    def load_slider_tab(self):
+    @http.route(['/API/load_slider_tab/<url>'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
+    def load_slider_tab(self, url):
+        
+        domain_menu=[
+            ('url', '=', url)
+        ]
+        menu_url=request.env['website.menu.url'].search(domain_menu)
+        
         domain=[
-            ('is_active', '=', True)
+            ('is_active', '=', True),
+            ('access_url', '=', menu_url.id)
         ]
 
         data_slider_tabs =request.env['slider.tabs'].search(domain,order="sequence ASC")
@@ -111,14 +133,14 @@ class HomePage(Controller):
             data_product = []
         
             for product in slider_tab.product_ids:
-                price =product.currency_id.symbol+' '+'{:,.2f}'.format(product.list_price)
+                price =product.currency_id.symbol+' '+'{:,.2f}'.format(product.website_price)
                 
                 name_product = re.sub('[^A-Za-z0-9]+', '', product.name)
                 a = name_product.lower()
                 url_name = a.replace(" ", "-")
                 
                 image_product = '/web/image/product.template/'+str(product.id)+'/image/300x300'
-                data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.list_price, 'currency':product.currency_id.symbol})
+                data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.website_price, 'currency':product.currency_id.symbol})
             
             data_slider['id_tab'] = slider_tab.id
             data_slider['name_tab'] = slider_tab.name
@@ -128,10 +150,17 @@ class HomePage(Controller):
         
         return Response(json.dumps(data), content_type='application/json')
 
-    @http.route(['/API/multiple_category'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
-    def multiple_category(self):
+    @http.route(['/API/multiple_category/<url>'], methods=['GET', 'POST'], type='http', auth='public', csrf=False)
+    def multiple_category(self,url):
+        domain_menu=[
+            ('url', '=', url)
+        ]
+
+        menu_url=request.env['website.menu.url'].search(domain_menu)
+        
         domain=[
-            ('is_active', '=', True)
+            ('is_active', '=', True),
+            ('access_url', '=', menu_url.id)
         ]
 
         data_slider_multiple_category =request.env['slider.multiple_category'].search(domain,limit=4)
@@ -155,12 +184,12 @@ class HomePage(Controller):
                 
                 for product in master_product:
 
-                    price =product.currency_id.symbol+' '+'{:,.0f}'.format(product.list_price)
+                    price =product.currency_id.symbol+' '+'{:,.0f}'.format(product.website_price)
                     name_product = re.sub('[^A-Za-z0-9]+', '', product.name)
                     a = name_product.lower()
                     url_name = a.replace(" ", "-")
                     url_img='/web/image/product.template/'+str(product.id)+'/image/300x300'
-                    data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':url_img, 'price_label': price, 'price': product.list_price, 'currency':product.currency_id.symbol})
+                    data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':url_img, 'price_label': price, 'price': product.website_price, 'currency':product.currency_id.symbol})
 
             data_slider['data_product']=data_product
             data_slider['title'] = title
@@ -182,14 +211,14 @@ class HomePage(Controller):
             limit = 18
             for index, product in enumerate(data_res_users.product_ids):
                 
-                price =product.currency_id.symbol+' '+'{:,.2f}'.format(product.list_price)
+                price =product.currency_id.symbol+' '+'{:,.2f}'.format(product.website_price)
                 
                 name_product = re.sub('[^A-Za-z0-9]+', '', product.name)
                 a = name_product.lower()
                 url_name = a.replace(" ", "-")
                 
                 image_product = '/web/image/product.template/'+str(product.id)+'/image/300x300'
-                data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.list_price, 'currency':product.currency_id.symbol})
+                data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.website_price, 'currency':product.currency_id.symbol})
 
                 if index == limit:
                     break
@@ -307,6 +336,8 @@ class HomePage(Controller):
             values['main_object'] = category
         return request.render("website_sale.products", values)
 
+    
+
 class WebsiteSale(WebsiteSale):
     @http.route(['/shop/product/<model("product.template"):product>'], type='http', auth="public", website=True)
     def product(self, product, category='', search='', **kwargs):
@@ -323,3 +354,34 @@ class WebsiteSale(WebsiteSale):
 
         data_user.write({'product_ids': [(6, 0, data_product)]})
         return r
+
+class AuthSignupHome(Home):
+    @http.route('/web/signup', type='http', auth='public', website=True)
+    def web_auth_signup(self, *args, **kw):
+        qcontext = self.get_auth_signup_qcontext()
+        
+        url = request.httprequest.url_root
+        url_new = url.replace("http://","")
+        url_final =  url_new[:-1]
+
+        domain_menu=[
+            ('url', '=', url_final)
+        ]
+        menu_url=request.env['website.menu.url'].search(domain_menu)
+
+        qcontext['image']='/web/image/website.menu.url/'+str(menu_url.id)+'/logo_footer/200x130'
+        if not qcontext.get('token') and not qcontext.get('signup_enabled'):
+            raise werkzeug.exceptions.NotFound()
+
+        if 'error' not in qcontext and request.httprequest.method == 'POST':
+            try:
+                self.do_signup(qcontext)
+                return super(AuthSignupHome, self).web_login(*args, **kw)
+            except (SignupError, AssertionError), e:
+                if request.env["res.users"].sudo().search([("login", "=", qcontext.get("login"))]):
+                    qcontext["error"] = _("Another user is already registered using this email address.")
+                else:
+                    _logger.error(e.message)
+                    qcontext['error'] = _("Could not create a new account.")
+
+        return request.render('auth_signup.signup', qcontext)

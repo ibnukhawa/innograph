@@ -86,10 +86,10 @@ a.btn-blue{
 }
 
 img.logos{
-    height: 65px;
-    width: 180px;
+    height: auto;
+    width: 150px;
     position: absolute;
-    padding:3px;
+    padding:0px;
     top:15px;
 }
 
@@ -330,7 +330,8 @@ img.images{
         padding-top: 30px !important;
         font-size: 15px;
         vertical-align: middle;
-        display: inline-block;
+        /*display: inline-block;*/
+        display: none;
         float: right;
         right: 0px;
         z-index: 1;
@@ -415,7 +416,7 @@ img.images{
         padding-top: 30px !important;
         font-size: 15px;
         vertical-align: middle;
-        display: inline-block;
+        display: none;
         float: right;
         right: 20px;
         z-index: 1;
@@ -437,6 +438,7 @@ img.images{
     p.text_logo{
         margin-left: -12%;
         right: 0px;
+        display: block;
     }
     
     .label_level{
@@ -466,7 +468,62 @@ img.images{
     .icon-bars{
         display:none;
     }
+    .top-menu{
+        display: none;
+    }
     
+    .label-account{
+        display: none;
+    }
+    .icon {
+        line-height: 45px !important;
+        /* padding: 0px !important; */
+        float: right;
+        display: block;
+        position: absolute;
+        top: -27px;
+        right: -20px;
+        width: 24px;
+    }
+    .menu_icon{
+        min-width: 115px;
+    }
+    .navbar-nav .open .dropdown-menu{
+        background-color: #ffffff;
+        position: absolute;
+        margin-top: 26px;
+        margin-left: 27px;
+    }
+    .o_product_feature_panel .o_product_panel .o_product_panel_content{
+        min-width: 275px;
+        left: -166% !important;
+    }
+    img.logos{
+        height: auto;
+        width: auto;
+        position: absolute;
+        padding: 3px;
+        top: 15px;
+    }
+    #fly_out_view_open{
+        margin-right:-10px;
+    }
+
+    .cart-view-drop{
+        margin-top: -2px;
+    }
+    img.images{
+        height: 38px;
+    }
+    .navbar-account{
+        margin-top: -47px;
+        margin-right: -60px;
+        white-space: pre;
+    }
+    .btn-width{
+        width: 60px;
+        margin-bottom:5px;
+    }
 
 }
 
@@ -504,17 +561,17 @@ img.images{
     }
 
     img.logos {
-        height: 62px;
-        width: 170px;
+        height: auto;
+        width: auto;
         position: absolute;
         padding: 3px;
-        top: 18px;
+        top: 14px;
     }
     .cart-view-drop{
         margin-top: -2px;
     }
     .icon {
-        line-height: normal !important;
+        line-height: 45px !important;
         padding: 0px !important;
         float: right;
         margin-top: -6px
@@ -525,7 +582,7 @@ img.images{
     }
 
     #fly_out_view_open{
-        margin-right: 0px;
+        margin-right: -6px;
     }
     
     .top-menu{
@@ -536,6 +593,41 @@ img.images{
     }
     .label-account{
         display: none;
+    }
+    .navbar-nav .open .dropdown-menu{
+        background-color: #ffffff;
+        position: absolute;
+        margin-top: 26px;
+        margin-left: 50px;
+    }
+
+    header .navbar-default .navbar-nav > li > a:after{
+        display: none;
+    }
+}
+@media (min-width: 1110.00px){
+    .navbar-nav .open .dropdown-menu{
+        background-color: #ffffff;
+        position: absolute;
+        margin-top: 26px;
+        margin-left: 81px;
+    }
+}
+
+@media (min-width: 1315.00px){
+    .navbar-nav .open .dropdown-menu{
+        background-color: #ffffff;
+        position: absolute;
+        margin-top: 26px;
+        margin-left: 102px;
+    }
+}
+
+@media (min-width: 1334.00px){
+    .navbar-account{
+        margin-top: -26px;
+        margin-right: -60px;
+        white-space: normal;
     }
 }
 
@@ -553,9 +645,13 @@ img.images{
     .menu_icon{
         padding-top: 27px;
         width: 37%;
+        z-index :1 ;
     }
     .img.logos{
         margin-left: -15px;
+    }
+    #fly_out_view_open{
+        margin-right: -15px;
     }
     #menu_item {
         margin-top: 15px !important;
@@ -578,4 +674,20 @@ img.images{
     .menu-right{
         margin-right: 16px;
     }
+    .account-login{
+        top: -26px;
+    }
+    .navbar-account{
+        margin-top:0px;
+    }
+    .navbar-nav .open .dropdown-menu{
+        background-color: #ffffff;
+        position: absolute;
+        margin-top: 26px;
+        margin-left: 112px;
+    }
+    .icon{
+        line-height:normal !important;
+    }
+    
 }

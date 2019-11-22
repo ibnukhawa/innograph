@@ -6,6 +6,7 @@ class SliderBannerSatu(models.Model):
 
     image = fields.Binary(string='Image Slider', required=True)
     url = fields.Char(string='Url')
+    access_url = fields.Many2one('website.menu.url')
 
 class SliderBannerDua(models.Model):
     _name = 'slider.banner_dua'
@@ -13,6 +14,7 @@ class SliderBannerDua(models.Model):
 
     image = fields.Binary(string='Image Slider', required=True)
     url = fields.Char(string='Url')
+    access_url = fields.Many2one('website.menu.url')
 
 class SliderBannerTiga(models.Model):
     _name = 'slider.banner_tiga'
@@ -20,6 +22,7 @@ class SliderBannerTiga(models.Model):
 
     image = fields.Binary(string='Image Slider', required=True)
     url = fields.Char(string='Url')
+    access_url = fields.Many2one('website.menu.url')
 
 class SliderTabs(models.Model):
     _name = 'slider.tabs'
@@ -29,6 +32,8 @@ class SliderTabs(models.Model):
     sequence = fields.Integer(string='Sequence', translate=True)
     is_active = fields.Boolean(string='Active', translate=True)
 
+    access_url = fields.Many2one('website.menu.url')
+
 class SliderCategory(models.Model):
     _name = 'slider.category'
 
@@ -36,9 +41,13 @@ class SliderCategory(models.Model):
     Color=fields.Char(string="Color",required="true")
     image = fields.Binary(string='Icon Image',required="true")
 
+    access_url = fields.Many2one('website.menu.url')
+
 class SliderMultipleCategory(models.Model):
     _name = 'slider.multiple_category'
 
     category_ids = fields.Many2many('product.public.category',string='Cetegory')
     sequence = fields.Integer(string='Sequence', translate=True)
     is_active = fields.Boolean(string='Active', translate=True)
+
+    access_url = fields.Many2one('website.menu.url')
