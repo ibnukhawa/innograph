@@ -224,7 +224,7 @@ class LKPPController(Controller):
         return Response(json.dumps(data), content_type='application/json')
 
 
-    @route('/lkpp/updated_produk', methods=['GET', 'POST'], type='http', auth='none')
+    @route('/lkpp/updated_produk', methods=['GET', 'POST'], type='http', auth='none', csrf=False)
     def lkpp_updated_product(self, **kwargs):
         # URL Parameters
         key = kwargs.get('secretkey')
@@ -390,7 +390,7 @@ class LKPPController(Controller):
         return Response(json.dumps(data), content_type='application/json')
 
 
-    @route('/lkpp/produk', methods=['GET', 'POST'], type='http', auth='none')
+    @route('/lkpp/produk', methods=['GET', 'POST'], type='http', auth='none', csrf=False)
     def lkpp_product(self, **kwargs):
         # URL Parameters
         key = kwargs.get('secretkey')
