@@ -163,9 +163,14 @@ $(window).scroll(function() {
 $(document).ready(function() {
 
 var url_root = $('.url_root').val();
+
+
+if(!url_root){
+    url_root = "http://localhost:8089/"
+}
+
 var u = new URL(url_root);
 
-console.log("test url root: "+u.host);
 function createBanner3(){
 
     $.get("/API/load_banner/"+u.host, function(data){
