@@ -5,10 +5,13 @@
     display: inline-block;
     font-size: 12px;
     line-height: 1;
-    padding: 3px 7px;
+    padding: 3px 6px;
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
+}
+.badge {
+    padding: 3px 6px;
 }
 
 .header-top .htl-social li a{
