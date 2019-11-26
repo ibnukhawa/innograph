@@ -4,7 +4,8 @@
     background-color: white;
     /*box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);*/
     margin-top: 106px;
-    margin-left: -25px;
+    /* margin-left: -25px; */
+    margin-left: 70%;
     padding: 20px;
     padding-right: 0px;
     min-height: 450px;
@@ -66,7 +67,8 @@
     margin-top: 0px;
     overflow: auto !important;
     border-radius: 0px;
-    width: 303%;
+    /* width: 303%; */
+    width: 260%;
     /*box-shadow: 0 -20px 20px -20px rgba(0, 0, 0, 0.3), 20px 0 20px -20px rgba(0, 0, 0, 0.3),0px 20px 20px -20px rgba(0, 0, 0, 0.3) ;*/
     border-width: 0px;
 }

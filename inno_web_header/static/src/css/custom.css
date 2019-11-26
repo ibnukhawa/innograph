@@ -416,16 +416,16 @@ img.images{
         display: contents;
     }
     .masuk_button{
-        line-height: 24px;
+        line-height: 30px;
         height: 34px;
     }
     .daftar_button{
-        line-height: 24px;
+        line-height: 30px;
         height: 34px;
     }
     .menu_360_width{
         width: 50% !important;
-        margin-right: 5px !important;
+        margin-right: 3px !important;
     }
     .navbar-item{
         margin-top: 2px;

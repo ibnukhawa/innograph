@@ -64,10 +64,11 @@
         </template>
 
         <template id="categories_recursive" name="Category list">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <t t-set="root_color" t-value="request.env['ir.values'].sudo().get_default('mega.menu.config', 'root_categ_color')"/>
                 <span t-if="c.image_small and c.child_id" t-field="c.image_small" class="mega_cat_image" t-options="{'widget': 'image'}" ></span>
                 <strong> <a t-attf-href="/shop/category/#{slug(c)}"  style="padding:5px 0px; font-size:16px;" t-attf-style="color:##{root_color or '212121'}"><t t-esc="c.name"/> </a></strong>
+
                 <div t-if="c.child_id">
                     <t  t-foreach="c.child_id" t-as="c1">
                         <t t-set="level" t-value="0"/>
