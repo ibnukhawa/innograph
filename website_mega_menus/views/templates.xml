@@ -103,7 +103,7 @@
                         <!-- <div> -->
                             <t t-set="logo" t-value="website.getLogoHeader()"/>
                             <a href="/">
-                                <img class="logos" t-att-src="logo" title="1" alt="1"/>
+                                <img class="logos" t-att-src="logo"/>
                             </a>
                         <!-- </div>
                         
