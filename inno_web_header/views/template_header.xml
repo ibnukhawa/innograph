@@ -107,8 +107,8 @@
                                         </div>
                                         <div class="col-sm-3 col-xs-3 col-md-3 menu_icon view_mobile">
                                             <form action='/shop' method="get" role="search">
-                                                <button class="btn btn-primary btn_search" style="position: sticky;width:40%;">Cari</button>
-                                                <input class="form-control form-search" type="text" name="search" style="width:60%;" placeholder="Search"/>
+                                                <button class="btn btn-primary btn_search" style="position: sticky;">Cari</button>
+                                                <input class="form-control form-search" type="text" name="search" placeholder="Search"/>
                                             </form>
                                         </div>
                                         <div class="account-login col-sm-5 col-xs-5 col-md-8">
@@ -116,8 +116,8 @@
                                                 <!-- <div class="row"> -->
                                                     <t t-if="not(website.user_id != user_id)">
                                                         <div class="navbar-account pull-right">
-                                                            <a href="/web/login" class="btn btn-primary btn-sm btn-width masuk_button">Masuk</a>
-                                                            <a href="/web/signup" class="btn btn-danger btn-sm btn-width daftar_button">Daftar</a>
+                                                            <a href="/web/login" class="btn btn-primary btn-xs btn-width masuk_button">Masuk</a>
+                                                            <a href="/web/signup" class="btn btn-danger btn-xs btn-width daftar_button">Daftar</a>
                                                         </div>
                                                     </t>
                                                     <t t-if="website.user_id != user_id">
