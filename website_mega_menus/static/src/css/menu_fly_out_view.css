@@ -107,7 +107,7 @@
     #fly_out_view #dropdown_ul >li.dropdown .dropdown-menu img{ display: none; }
     #fly_out_view #dropdown_ul >li.dropdown .dropdown-menu{
         left: 0;
-        width: 100%;
+        width: 90%;
         box-shadow: none;
         position: static;
         float: none;
@@ -128,6 +128,9 @@
 }
 
 @media (min-width: 768px) {
+    #fly_out_view{
+        width: 90%;
+    }
     #top_menu .dropdown-content{
         z-index: 1001;
         overflow: unset !important;
