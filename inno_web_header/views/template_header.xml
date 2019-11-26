@@ -77,12 +77,10 @@
                                         </div>
                                     </div>
                                         <form action='/shop' method="get" role="search">
-                                                
-                                                <div class="box-search">
+                                                <div class="box-search view_pc">
                                                     <button class="btn btn-primary btn_search">Cari</button>
                                                     <input class="form-control form-search" type="text" name="search" placeholder="Search" t-att-value="search"/>
                                                 </div>
-                                        
                                         </form>
                                         <div id="menu_item" class="collapse navbar-collapse">
                                         
@@ -99,21 +97,27 @@
                             <div class="col-md-3 col-sm-12 col-xs-12 bottom-menu">
                                 <!-- <div class="container"> -->
                                     <div class="row">
-                                        <div class="col-sm-6 col-xs-6 col-md-4 menu_icon">
+                                        <div class="col-sm-4 col-xs-4 col-md-4 menu_icon">
                                             <ul class="nav navbar-nav">
                                                 <li class="navbar-item" id="user_li"></li>
-                                                <li class="dropdown icon-cart" >
+                                                <li class="dropdown icon-cart menu_360_width" >
                                                     <t t-call="inno_web_header.product_carts"/>
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="account-login col-sm-6 col-xs-6 col-md-8">
+                                        <div class="col-sm-3 col-xs-3 col-md-3 menu_icon view_mobile">
+                                            <form action='/shop' method="get" role="search">
+                                                <button class="btn btn-primary btn_search" style="position: sticky;width:40%;">Cari</button>
+                                                <input class="form-control form-search" type="text" name="search" style="width:60%;" placeholder="Search"/>
+                                            </form>
+                                        </div>
+                                        <div class="account-login col-sm-5 col-xs-5 col-md-8">
                                             <!-- <div class="container"> -->
                                                 <!-- <div class="row"> -->
                                                     <t t-if="not(website.user_id != user_id)">
                                                         <div class="navbar-account pull-right">
-                                                            <a href="/web/login" class="btn btn-primary btn-sm btn-width">Masuk</a>
-                                                            <a href="/web/signup" class="btn btn-danger btn-sm btn-width">Daftar</a>
+                                                            <a href="/web/login" class="btn btn-primary btn-sm btn-width masuk_button">Masuk</a>
+                                                            <a href="/web/signup" class="btn btn-danger btn-sm btn-width daftar_button">Daftar</a>
                                                         </div>
                                                     </t>
                                                     <t t-if="website.user_id != user_id">
@@ -222,28 +226,46 @@
                 <ul class="dropdown-menu dropdown-carts-view" role="menu">
                     <t t-foreach="website_sale_order.website_order_line" t-as="line">
                         <li t-if="line.product_id and line.product_id.product_tmpl_id">
-                            <div class="items">
-                                <span class="hci-row">
-                                    <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
-                                        <span t-field="line.product_id.image_small"
-                                              t-options='{"widget": "image", "class": "img-responsive"}'/>
-                                    </a>
-                                </span>
+                            <div class="items" style="width:300px;">
+                                <div style="background-color:#f5f5f5;">
+                                    <span class="hci-row" style="margin: 20px;line-height: 3;">
+                                        Troli Belanja
+                                        <!-- <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                                            <span t-field="line.product_id.image_small"
+                                                t-options='{"widget": "image", "class": "img-responsive"}'/>
+                                        </a> -->
+                                    </span>
+                                </div>
+                                <hr style="margin: 0px;"/>
                                 <span class="items-info">
-                                    <label class="names">
-                                        <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
-                                            <strong style="font-weight: 400;" t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
-                                        </a>
-                                    </label>
-                                    <label class="quantitys">
-                                        <t t-esc="line.product_uom_qty"/>
-                                        x
-                                    </label>
-                                    <label class="totals">
-                                        <span t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}"
-                                              t-field="line.price_unit" style="white-space: nowrap;"/>
-                                    </label>
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td style="width: 40%;margin-right: 10px;">
+                                            <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                                        <span t-field="line.product_id.image_small" t-options='{"widget": "image", "class": "img-responsive"}'/>
+                                            </a>
+                                    </td>
+                                            <td>
+                                                <label class="names">
+                                                    <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                                                        <strong style="font-weight: 400;" t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
+                                                    </a>
+                                                </label>
+                                                <label class="quantitys">
+                                                    <t t-esc="line.product_uom_qty"/>
+                                                    x
+                                                </label>
+                                                <label class="totals">
+                                                    <span t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}"
+                                                        t-field="line.price_unit" style="white-space: nowrap;"/>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    
                                 </span>
+                                <hr/>
                             </div>
                         </li>
                     </t>
@@ -254,8 +276,9 @@
                                   t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
                         </p>
                     </div>
-                    <div class="cart-actions">
-                        <a href="/shop/cart">
+                    <hr/>
+                    <div class="cart-actions" style="float: right; margin-right: 20px;margin-bottom: 20px;">
+                        <a href="/shop/cart" class= "btn btn-primary">
                             <div class="view-carts">
                                 Checkout
                             </div>
