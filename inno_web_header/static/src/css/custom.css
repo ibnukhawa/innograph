@@ -453,7 +453,7 @@ img.images{
         background-color: #ffffff;
         position: absolute;
         margin-top: 7px;
-        margin-left: 189px;
+        margin-left: auto;
     }
 
 }
@@ -728,4 +728,15 @@ img.images{
         line-height:normal !important;
     }
     
+}
+@media (max-width: 991.00px){
+    .label-account{
+        visibility: hidden;
+    }
+    .menu_icon{
+        display: grid;
+    }
+    .span_image_icon{
+        margin-left: 35px;
+    }
 }

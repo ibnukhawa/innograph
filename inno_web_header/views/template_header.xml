@@ -126,7 +126,8 @@
                                                                 <li>
                                                                     <a href="#" class="dropdown-toggle icon" data-toggle="dropdown" role="button" aria-expanded="false">
                                                                         <t t-if="user_id.image">
-                                                                            <span t-field="user_id.image_small" t-options='{"widget": "image", "class": "images"}' style="position:absolute;"/>
+                                                                            <span t-field="user_id.image_small" t-options='{"widget": "image", "class": "images"}' style="position:absolute;"
+                                                                            class="span_image_icon"/>
                                                                         </t>
                                                                         <t t-if="not user_id.image">
                                                                             <span align="left"/>
