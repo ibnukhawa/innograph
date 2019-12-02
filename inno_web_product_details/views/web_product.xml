@@ -29,7 +29,7 @@
         </xpath>
         <xpath expr="//div[@id='more_info']" position='before'>
             <div role="tabpanel" class="tab-pane active" id="detail_product">
-                <div1 itemprop="description" t-field="product.product_detail" class="oe_structure mt16" id="product_full_description"/>
+                <div itemprop="description" t-field="product.product_detail" class="oe_structure mt16" id="product_full_description"/>
             </div>
         </xpath>
     </template>
