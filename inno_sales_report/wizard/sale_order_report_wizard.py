@@ -14,15 +14,15 @@ class SaleOrderReportWizard(models.TransientModel):
 	@api.model
 	def default_get(self, fields):
 		res = super(SaleOrderReportWizard, self).default_get(fields)
-		date = datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S")
+		date = datetime.strftime(datetime.today(), "%Y-%m-%d")
 		res.update({
 			'date_from': date,
 			'date_to': date,
 		})
 		return res
 
-	date_from = fields.Datetime()
-	date_to = fields.Datetime()
+	date_from = fields.Date()
+	date_to = fields.Date()
 	categ_id = fields.Many2one('product.category', string="Category")
 	team_id = fields.Many2one('crm.team', string="Sales Team")
 	product_id = fields.Many2one('product.product', string="Product")
@@ -49,16 +49,21 @@ class SaleOrderReportWizard(models.TransientModel):
 			return categ
 
 	def action_generate_report(self):
-		report = StringIO()
-		workbook = xlsxwriter.Workbook(report)
-		filename = 'Sales Report.xlsx'
-
-		sheet1 = workbook.add_worksheet('Sheet1')
-
 		sale_obj = self.env['sale.order']
+		date_fr = self.date_from
+		date_to = self.date_to
+
+		if isinstance(self.date_from, str):
+			date_fr = datetime.strptime(self.date_from, "%Y-%m-%d")
+		if isinstance(self.date_to, str):
+			date_to = datetime.strptime(self.date_to, "%Y-%m-%d")
+
+		date_fr = datetime.strftime(date_fr, "%Y-%m-%d 00:00:00")
+		date_to = datetime.strftime(date_to, "%Y-%m-%d 23:59:59")
+
 		domain = [
-			('date_order', '>=', self.date_from),
-			('date_order', '<=', self.date_to)
+			('date_order', '>=', date_fr),
+			('date_order', '<=', date_to)
 		]
 		if self.team_id:
 			domain.append(('team_id', '=', self.team_id.id))
@@ -67,8 +72,13 @@ class SaleOrderReportWizard(models.TransientModel):
 		if self.state:
 			domain.append(('state', '=', self.state))
 		sale_src = sale_obj.search(domain)
-
 		allowed_categ_ids = self._get_category(self.categ_id)
+
+		report = StringIO()
+		workbook = xlsxwriter.Workbook(report)
+		filename = 'Sales Report.xlsx'
+
+		sheet1 = workbook.add_worksheet('Sheet1')
 
 		header = workbook.add_format({'bold': 1, 'align': 'center'})
 		header.set_align('vcenter')
@@ -141,14 +151,17 @@ class SaleOrderReportWizard(models.TransientModel):
 				taxes = {}
 				for tax in line.tax_id:
 					taxes[tax.name] = tax.amount
-				product_name = line.product_id and line.product_id.display_name or ""
-				product_name = product_name.split("[%s] " % (line.product_id and line.product_id.default_code or ""))
+				
+				product_name = line.product_id.display_name
+				if line.product_id.default_code:
+					len_default_code = len("[%s] " % line.product_id.default_code)
+					product_name = product_name[len_default_code:]
 
 				sheet1.write(row, 0, sale.name, normal_center)
 				sheet1.write(row, 1, sale.date_order, normal_center)
 				sheet1.write(row, 2, sale.partner_id.name, normal_left)
 				sheet1.write(row, 3, line.product_id.default_code, normal_left)
-				sheet1.write(row, 4, product_name and product_name[1] or line.product_id.display_name, normal_left)
+				sheet1.write(row, 4, product_name, normal_left)
 				sheet1.write(row, 5, line.product_uom_qty, normal_number)
 				sheet1.write(row, 6, line.product_uom.name, normal_left)
 				sheet1.write(row, 7, line.price_unit, normal_number)
