@@ -8,8 +8,7 @@
                 </button>
             </div>
             <div class="product_share pull-right" style="position: absolute;right: 0px;">
-                
-                <div class="oe_share s_share invisible" id="social_share" style="margin-top: 10px;">
+                <div class="oe_share s_share invisible social_share" id="social_share" style="margin-top: 10px;margin-left:10%;">
                     <a target="_Blank" href="#facebook" class="oe_share_icon facebook-icons">
                         <i class="fa fa-facebook"></i>
                     </a>
@@ -19,7 +18,7 @@
                     <a target="_Blank" href="http://www.linkedin.com/shareArticle?mini=true&amp;url={url}&amp;title={title}&amp;" class="oe_share_icon linkedin-icon">
                         <i class="fa fa-linkedin"></i>
                     </a>
-                    <a href="mailto:?body={url}&amp;subject={title}" class="oe_share_icon">
+                    <a href="mailto:?body={url}&amp;subject={title}" class="oe_share_icon" style="background: #adadea;color: white;">
                         <i class="fa fa-envelope-o"></i>
                     </a>
                 </div>

@@ -88,3 +88,41 @@
     visibility: visible;
     position: relative;
 }
+@media (min-width: 308px){
+    .social_share{
+        margin-top: 10px;
+        margin-left: 16% !important;
+    }
+}@media (min-width: 480px){
+    .social_share{
+        margin-top: 10px;
+        margin-left: 10% !important;
+    }
+}
+@media (min-width: 603px){
+    .social_share{
+        margin-top: 10px;
+        margin-left: 4% !important;
+    }
+}
+@media (min-width: 729px){
+    .social_share{
+        margin-top: 10px;
+        margin-left: 1% !important;
+    }
+}
+@media (min-width: 993px){
+    .social_share{
+        margin-top: 10px;
+        margin-left: 14% !important;
+    }
+}
+.hidden {
+    display: none;
+}
+.border_none{
+    border: none;
+}
+#cart_products{
+    border: none;
+}

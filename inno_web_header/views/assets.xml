@@ -28,7 +28,7 @@
 		<script type="text/javascript"  src="/inno_web_header/static/src/js/lib/jquery.magnific-popup.min.js"></script>
     	<script type="text/javascript"  src="/inno_web_header/static/src/js/custom.js"></script>
 	   	<script type="text/javascript"  src="/inno_web_header/static/src/js/zoom.js"></script>
-		<script type="text/javascript"  src="/inno_web_header/static/src/js/website_product_wishlist.js"></script>
+		<!-- <script type="text/javascript"  src="/inno_web_header/static/src/js/website_product_wishlist.js"></script> -->
 
 		<!-- End -->
 	</xpath>
