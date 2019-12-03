@@ -44,14 +44,17 @@
         </xpath> -->
 </template>
 <template id="product_detail_page_bradcum" inherit_id="website_sale.product">
+<xpath expr="//section[@id='product_detail']/div[1]/div[2]" position="attributes">
+	<attribute name="class">col-sm-12</attribute>
+</xpath>
 <xpath expr="//section[@id='product_detail']" position="before">
 	    <t t-if="not website.is_breadcum">
         <t t-if="not (website.bread_cum_image)">
 		<nav class="is-breadcrumb shop-breadcrumb" role="navigation" aria-label="breadcrumbs">
 	        <div class="container">
-	            <h1 class="pull-right">    
+	            <!-- <h1 class="pull-right">    
 	                <span t-esc="product.name"/>
-	            </h1>
+	            </h1> -->
 	            <ul class="breadcrumb pull-left">
 	                <li><a href="/page/homepage">Home</a></li>
 	                <li><a href="/shop/"><span t-field="product.name"/></a></li>
