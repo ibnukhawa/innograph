@@ -8,15 +8,15 @@
                 <field name="is_download" invisible="1" />
                 <group attrs="{'invisible': [('is_download', '=', True)]}">
                     <group>
-                        <field name="categ_id" required="1" />
-                        <field name="team_id" required="1" />
-                        <field name="filter_by" required="1" />
+                        <field name="categ_id" required="0" />
+                        <field name="team_id" required="0" />
+                        <field name="filter_by" required="0" />
                         <field name="date_from" />
                     </group>
                     <group>
-                        <field name="product_id" required="1" />
-                        <field name="user_id" required="1" />
-                        <field name="state" required="1" />
+                        <field name="product_id" required="0" />
+                        <field name="user_id" required="0" />
+                        <field name="state" required="0" />
                         <field name="date_to" />
                     </group>
                 </group>
