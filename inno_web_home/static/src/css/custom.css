@@ -208,6 +208,32 @@ hr{
 
 @media (min-width: 320.00px)
 {
+    .button_prev_next{
+        left: -5px;
+        float: right;
+        position: absolute;
+        display: flex;
+        margin: 5px;
+        bottom: -25px;
+    }
+
+    
+    .slick-arrow{
+        display: block;
+        text-align: center;
+        background: #e2dbdb;
+        border-radius: 10px;
+        padding: 2px;
+        height: 20px;
+        width: 20px;
+        margin: 2px;
+    }
+    .menu_tabs{
+        white-space: nowrap;
+        overflow-y: hidden;
+        /* max-height: 38px; */
+        display: flex
+    }
 
     h5{
         white-space: nowrap;
@@ -259,6 +285,15 @@ hr{
 
 @media (min-width: 768.00px)
 {   
+    .button_prev_next{
+        right: 0px;
+        float: right;
+        position: absolute;
+        top: -33px;
+        display: flex;
+        margin: 5px;
+    }
+
     .title_product{
         margin-top: 10px;
         /* white-space: nowrap;

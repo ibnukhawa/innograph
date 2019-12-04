@@ -162,6 +162,7 @@ $(window).scroll(function() {
 
 $(document).ready(function() {
 
+
 var url_root = $('.url_root').val();
 
 
@@ -472,6 +473,18 @@ createBanner3();
                 $(".product_panels_for_you").append(html_product_1);
                 
                 $("#for_you").append("<p class='disable_customize pull-right' style='padding-right:10px;'><a href='/shop/tabs/for_you'>...Lihat Semua</a></p>");
+                var btn="<div class='button_prev_next'> <a class='slick-prev slick-arrow btn-prev' aria-label='Previous' style='display: block;'>&lt;</a><a class='slick-next slick-arrow btn-next'  aria-label='Next' type='button' style='display: block;'>&gt;</a> </div>"
+                $("#for_you").append(btn);
+                
+
+                $('.btn-next').click(function() {
+                    $('.product_panels_for_you').slick('slickNext');
+                    console.log("test next");        
+                });
+                $('.btn-prev').click(function() {
+                    $('.product_panels_for_you').slick('slickPrev');
+                        console.log("test previous");
+                });
 
                 $('.product_panels_for_you').not('.slick-initialized').slick({
                     infinite: true,
@@ -581,7 +594,21 @@ createBanner3();
                     $(".product_panels"+index).append(html_product);
                     
                     $("#more_product"+index).append("<p class='disable_customize pull-right' style='padding-right:10px;'><a href='/shop/tabs/"+value.id_tab+"'>...Lihat Semua</a></p>");
+                    
+                    var btn="<div class='button_prev_next'> <a class='slick-prev slick-arrow btn-prev"+index+"' aria-label='Previous' style='display: block;'>&lt;</a><a class='slick-next slick-arrow btn-next"+index+"'  aria-label='Next' type='button' style='display: block;'>&gt;</a> </div>"
 
+                    $("#more_product"+index).append(btn);
+
+
+                    $('.btn-next'+index).click(function() {
+                        $('.product_panels'+index).slick('slickNext');
+                        console.log("test next product_panels"+index);        
+                    });
+                    
+                    $('.btn-prev'+index).click(function() {
+                        $('.product_panels'+index).slick('slickPrev');
+                        console.log("test previous product_panels"+index);
+                    });
 
                     $('.product_panels'+index).not('.slick-initialized').slick({
                         infinite: true,
