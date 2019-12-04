@@ -292,6 +292,7 @@ hr{
         top: -33px;
         display: flex;
         margin: 5px;
+        left: unset;
     }
 
     .title_product{
