@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_form_sale_order_report_wizard" model="ir.ui.view">
+        <field name="name">sale.order.report.wizard.form.view</field>
+        <field name="model">sale.order.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Sales Order Report">
+                <field name="is_download" invisible="1" />
+                <group attrs="{'invisible': [('is_download', '=', True)]}">
+                    <group>
+                        <field name="categ_id" required="0" />
+                        <field name="team_id" required="0" />
+                        <field name="filter_by" required="0" />
+                        <field name="date_from" />
+                    </group>
+                    <group>
+                        <field name="product_id" required="0" />
+                        <field name="user_id" required="0" />
+                        <field name="state" required="0" />
+                        <field name="date_to" />
+                    </group>
+                </group>
+                
+                <p attrs="{'invisible': [('is_download', '=', False)]}">
+                    Your report is ready. Please click the following link to download it.
+                </p>
+                <group attrs="{'invisible': [('is_download', '=', False)]}">
+                    <field name="name" invisible="1"/>
+                    <field name="report" nolabel="1" filename="name"/>
+                </group>
+
+                <footer>
+                    <button attrs="{'invisible': [('is_download', '=', True)]}" name="action_generate_report" 
+                        string="XLS Report" type="object" class="btn-primary"/>
+                    <button attrs="{'invisible': [('is_download', '=', True)]}" string="Cancel" 
+                        class="btn-default" special="cancel"/>
+                    <button attrs="{'invisible': [('is_download', '=', False)]}" string="Close" 
+                        class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_form_sale_order_report_wizard" model="ir.actions.act_window">
+        <field name="name">Sale Analysis</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order.report.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <!-- <field name="groups_id" eval="[(4,ref('sales_team.group_sale_salesman'))]"/> -->
+    </record>
+
+    <menuitem id="menu_view_form_sale_order_report_wizard"
+        action="action_view_form_sale_order_report_wizard"
+        parent="sales_team.menu_sale_report"
+        sequence="113"
+        name= "Sales Analysis" />
+</odoo>

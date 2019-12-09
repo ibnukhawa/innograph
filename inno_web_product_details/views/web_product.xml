@@ -33,4 +33,98 @@
             </div>
         </xpath>
     </template>
+
+    <template id="website_sale_total_inherit" inherit_id="website_sale.cart_lines" name="Total website ecommerce">
+        <xpath expr="//table[@id='cart_products']/tbody" position="after">
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="" style='border: none;'/>
+                    <td class="text-right " style='border: none;'>
+                        <span class="text-right text-muted">Subtotal:</span>
+                    </td>
+                    <td class="" style='border: none; text-align: left !important;'>
+                        <span class="text-left text-muted">
+                            <span t-field="website_sale_order.amount_untaxed" style="white-space: nowrap;" t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="" style='border: none;'/>
+                    <td class="text-right " style='border: none;'>
+                        <span class="text-right text-muted" title="Taxes may be updated after providing shipping address"> Taxes:</span>
+                    </td>
+                    <td class="" style='border: none; text-align: left !important;'>
+                        <span class="text-left text-muted">
+                            <span t-field="website_sale_order.amount_tax" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'from_currency': website_sale_order.pricelist_id.currency_id, 'display_currency': website.currency_id}" />
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="" style='border: none;'/>
+                    <td class="text-right " style='border: none;'>
+                        <span class="text-right h4">Total:</span>
+                    </td>
+                    <td style='border: none; text-align: left !important;'>
+                        <span class="text-left h4" style="white-space: nowrap;">
+                    <span t-field="website_sale_order.amount_total" style="white-space: nowrap;" t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
+                        </span>
+                    </td>
+                </tr>
+            </tfoot>
+        </xpath>
+        <xpath expr="//div[@class='js_cart_lines row']" position="replace">
+            <div class="js_cart_lines row hidden">
+                <t t-call="website_sale.total">
+                    <t t-set='extra_class' t-value='"col-sm-4 col-sm-offset-8 col-xs-12"'/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+    <template id="website_sale_total_payment_inherit" inherit_id="website_sale.payment" name="Total payment website ecommerce">
+        <xpath expr="//table[@id='cart_products']/tbody" position="after">
+            <tfoot>
+                <tr>
+                    <td colspan="2" class="" style='border: none;'/>
+                    <td class="text-right " style='border: none;'>
+                        <span class="text-right text-muted">Subtotal:</span>
+                    </td>
+                    <td class="" style='border: none; text-align: left !important;'>
+                        <span class="text-left text-muted">
+                            <span t-field="website_sale_order.amount_untaxed" style="white-space: nowrap;" t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="" style='border: none;'/>
+                    <td class="text-right " style='border: none;'>
+                        <span class="text-right text-muted" title="Taxes may be updated after providing shipping address"> Taxes:</span>
+                    </td>
+                    <td class="" style='border: none; text-align: left !important;'>
+                        <span class="text-left text-muted">
+                            <span t-field="website_sale_order.amount_tax" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'from_currency': website_sale_order.pricelist_id.currency_id, 'display_currency': website.currency_id}" />
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="" style='border: none;'/>
+                    <td class="text-right " style='border: none;'>
+                        <span class="text-right h4">Total:</span>
+                    </td>
+                    <td style='border: none; text-align: left !important;'>
+                        <span class="text-left h4" style="white-space: nowrap;">
+                    <span t-field="website_sale_order.amount_total" style="white-space: nowrap;" t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
+                        </span>
+                    </td>
+                </tr>
+            </tfoot>
+        </xpath>
+        <xpath expr="//div[@id='wrap']/div[1]/div/div[2]/div[1]" position="replace">
+            <div class="hidden">
+                <t t-call="website_sale.total">
+                    <t t-set='extra_class' t-value='"col-sm-4 col-sm-offset-8 col-xs-12"'/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+    
 </odoo>

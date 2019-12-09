@@ -20,6 +20,11 @@ odoo.define('website_mega_menus.website_mega_menus', function (require) {
             if (width > 767)
                 fly_out_view_open(e);
         });
+        $('.navbar-default').mouseleave(function(e){
+            $('#fly_out_view').hide();
+            console.log("test");
+            
+        }).mouseleave();
         $('#fly_out_view').on('click', function(e){
             $('#fly_out_view').show();
             e.stopPropagation();

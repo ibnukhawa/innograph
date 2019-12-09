@@ -41,10 +41,16 @@
                     <div class="disable_customize container">
                         <div class="disable_customize row" id="slide_tab">
                             <div class="disable_customize col-md-12">
+                                <!-- <div>
+                                    <button class="slick-prev slick-arrow btn btn-prev" aria-label="Previous" type="button" style="display: block;">dw</button>
+                                    <button class="slick-next slick-arrow btn btn-next"  aria-label="Previous" type="button" style="display: block;">as</button>
+                                </div> -->
                                 <ul class="disable_customize nav nav-tabs menu_tabs" role="tablist">
                                    
                                 </ul>
                                 <div class="disable_customize tab-content content_slider_tabs">
+                                
+
                                     
                                 </div>
                             </div> 
