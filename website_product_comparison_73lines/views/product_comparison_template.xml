@@ -27,7 +27,7 @@
     <template id="product_add_to_compare" inherit_id="website_sale.product">
         <xpath expr="//a[@id='add_to_cart']" position="after">
             <t t-if="product.env.ref('website_product_comparison_73lines.add_to_compare_shortlist').active">
-                <a class="btn btn-primary btn-md mt8 hidden-xs o_add_compare" title="Add to Compare" t-att-data-template-id="product.id" data-action="o_comparelist"><span class="fa fa-exchange"/></a>
+                <a class="btn btn-primary btn-lg mt8 hidden-xs o_add_compare" title="Add to Compare" t-att-data-template-id="product.id" data-action="o_comparelist"><span class="fa fa-exchange"/></a>
             </t>
         </xpath>
     </template>
