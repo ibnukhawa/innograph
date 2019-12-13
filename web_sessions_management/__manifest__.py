@@ -15,6 +15,7 @@
     'auto_install': False,
     'depends': [
                 'base',
+                'pqm_website_access',
                 'resource',
                 'web',
     ],
