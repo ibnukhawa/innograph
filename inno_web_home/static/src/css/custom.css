@@ -209,12 +209,12 @@ hr{
 @media (min-width: 320.00px)
 {
     .button_prev_next{
-        left: -5px;
+        left: -12px;
         float: right;
         position: absolute;
         display: flex;
         margin: 5px;
-        bottom: -25px;
+        bottom: -35px;
     }
 
     
@@ -222,11 +222,10 @@ hr{
         display: block;
         text-align: center;
         background: #e2dbdb;
-        border-radius: 10px;
-        padding: 2px;
-        height: 20px;
-        width: 20px;
-        margin: 2px;
+        padding: 5px;
+        height: 30px;
+        width: 30px;
+        margin: 5px;
     }
     .menu_tabs{
         white-space: nowrap;
@@ -289,7 +288,7 @@ hr{
         right: 0px;
         float: right;
         position: absolute;
-        top: -33px;
+        top: -45px;
         display: flex;
         margin: 5px;
         left: unset;
