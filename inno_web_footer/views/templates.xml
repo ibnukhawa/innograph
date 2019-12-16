@@ -103,47 +103,62 @@
                                     <!--</ul>-->
                                 <!--</section>-->
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 my-3">
-                                <h3 class="block-title black-font">Bank Transfer</h3>
-                                <div>
-                                    <img class="bca-logo" src="/inno_web_footer/static/img/bca-logo.png" title="BCA Logo" alt="BCA"/>
-                                    <img class="bri-logo" src="/inno_web_footer/static/img/Logo_BRI.png" title="BRI Logo" alt="BRI"/>
-                                    <br/>
-                                    <img class="permata-logo" src="/inno_web_footer/static/img/PermataBank_logo.png" title="Permata Logo" alt="PermataBank"/>
-                                    <img class="danamon-logo" src="/inno_web_footer/static/img/Danamon_logo.png" title="Danamon Logo" alt="Danamon"/>
-                                </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" >
+                                <h3 class="block-title black-font">Displaystore</h3>
+                                <ul class="list-unstyled" id="products">
+                                    <li>
+                                        <a class="black-font" href="#">Tentang Displaystore</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Press media</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Daftar partner</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Sitemap</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Kebijakan privasi</a>
+                                    </li>
+                                </ul>
                             </div>
 
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" >
-                                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6">
-                                    <h3 class="block-title black-font">Displaystore</h3>
-                                    <ul class="list-unstyled" id="products">
-                                        <li>
-                                            <a class="black-font" href="#">Tentang Displaystore</a>
-                                        </li>
-                                        <li>
-                                            <a class="black-font" href="#">Press media</a>
-                                        </li>
-                                        <li>
-                                            <a class="black-font" href="#">Daftar partner</a>
-                                        </li>
-                                        <li>
-                                            <a class="black-font" href="#">Sitemap</a>
-                                        </li>
-                                        <li>
-                                            <a class="black-font" href="#">Kebijakan privasi</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6">
-                                    <h3 class="block-title black-font">Keamanan Berbelanja</h3>
-                                    <div>
-                                        <img class="bca-logo" src="/inno_web_footer/static/img/logo-idea.jpg" title="idEA" alt="idEA"/>
-                                        <img class="bri-logo" src="/inno_web_footer/static/img/comodo-secure-logo.png" title="Comodo Secure" alt="Comodo"/>
+
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                <h3 class="block-title black-font">
+                                    Hubungi Kami
+                                </h3>
+
+                                <div id="contact_us">
+                                    <div class="row">
+                                        <t t-set="logo" t-value="website.getLogoFooter()"/>
+                                        <div class="col-md-4 col-lg-4 inno-container">
+                                            <img class="inno-logo" t-att-src="logo" title="" alt=""/>
+                                        </div>
+
+                                        <div class="col-lg-8 col-md-8 black-font">
+                                            <p>(021) 7883 1023</p>
+                                            <p>Senin-Jumat: 09.00 - 17.00</p>
+                                            <p>email. cs@displaystore.id</p>
+                                        </div>
                                     </div>
                                 </div>
+                                
                             </div>
-
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                <h3 class="block-title black-font">
+                                    View Maps
+                                </h3>
+                                <div id="maps">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.6734509967455!2d106.83671751471717!3d-6.306563295435727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69edf2f9a6c2e3%3A0xaca525818eec30b0!2sDisplaystore.id!5e0!3m2!1sen!2sid!4v1568691117917!5m2!1sen!2sid"
+                                            class="gmaps"
+                                            frameborder="0"
+                                            allowfullscreen=""/>
+                                </div>
+                            </div>
+                            <!-- not show -->
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="display: none;">
                                 <h3 class="block-title black-font">Links</h3>
                                 <div id="info">
@@ -169,6 +184,7 @@
                                 </ul>
                                 </div>
                             </div>
+
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="display: none;">
                                 <h3 class="block-title black-font">Location</h3>
                                 <div class="fot-address">
@@ -180,38 +196,26 @@
                                     </address>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                                <h3 class="block-title black-font">
-                                    Hubungi Kami
-                                </h3>
+                            <!-- end -->
 
-                                <div id="contact_us">
-                                    <div class="row">
-                                        
-                                        <t t-set="logo" t-value="website.getLogoFooter()"/>
-                                        <div class="col-md-4 col-lg-4 inno-container">
-                                            <img class="inno-logo" t-att-src="logo" title="" alt=""/>
-                                        </div>
+                        </div>
 
-                                        <div class="col-lg-8 col-md-8 black-font">
-                                            <p>(021) 7883 1023</p>
-                                            <p>Senin-Jumat: 09.00 - 17.00</p>
-                                            <p>email. cs@displaystore.id</p>
-                                        </div>
-
-                                    </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 my-3">
+                                <h3 class="block-title black-font">Bank Transfer</h3>
+                                <div>
+                                    <img class="bca-logo" src="/inno_web_footer/static/img/bca-logo.png" title="BCA Logo" alt="BCA"/>
+                                    <img class="bri-logo" src="/inno_web_footer/static/img/Logo_BRI.png" title="BRI Logo" alt="BRI"/>
+                                    <br/>
+                                    <img class="permata-logo" src="/inno_web_footer/static/img/PermataBank_logo.png" title="Permata Logo" alt="PermataBank"/>
+                                    <img class="danamon-logo" src="/inno_web_footer/static/img/Danamon_logo.png" title="Danamon Logo" alt="Danamon"/>
                                 </div>
-                                
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                                <h3 class="block-title black-font">
-                                    View Maps
-                                </h3>
-                                <div id="maps">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.6734509967455!2d106.83671751471717!3d-6.306563295435727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69edf2f9a6c2e3%3A0xaca525818eec30b0!2sDisplaystore.id!5e0!3m2!1sen!2sid!4v1568691117917!5m2!1sen!2sid"
-                                            class="gmaps"
-                                            frameborder="0"
-                                            allowfullscreen=""/>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 my-3">
+                                <h3 class="block-title black-font">Keamanan Berbelanja</h3>
+                                <div>
+                                    <img class="bca-logo" src="/inno_web_footer/static/img/logo-idea.jpg" title="idEA" alt="idEA"/>
+                                    <img class="bri-logo" src="/inno_web_footer/static/img/comodo-secure-logo.png" title="Comodo Secure" alt="Comodo"/>
                                 </div>
                             </div>
                         </div>

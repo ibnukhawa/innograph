@@ -682,10 +682,10 @@
 	</div>
 		
 	<div class="row product_more_info" id="product_more_info">
-		<div class="col-md-9 pd_info">
+		<div class="col-md-12 pd_info">
 				<ul class="nav nav-tabs" role="tablist">
 					<li role="presentation">
-							<a href="#more_info" aria-controls="more_info" role="tab" data-toggle="tab">Specification</a>
+							<a href="#more_info" aria-controls="more_info" role="tab" data-toggle="tab">Specifiation</a>
 					</li>
   			</ul>
 				<div class="tab-content">
