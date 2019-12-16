@@ -1,3 +1,11 @@
+@media screen and (max-width: 385px){
+     .col-xs-6, .col-sm-6{
+        position: relative;
+        min-height: 1px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}
 @media screen and (min-width: 350px){
     .solmed{
         max-width:30px !important;

@@ -1,4 +1,9 @@
 /* custome style for task [113568] Adjust interface ecommerce homepage */
+
+.o_my_status_table{
+    /* for adjustment table at my order */
+    table-layout: auto;
+}
 header .navbar-default .navbar-collapse {
     width: 100%;
     float: left;
