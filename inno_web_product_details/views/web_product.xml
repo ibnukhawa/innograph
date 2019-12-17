@@ -6,12 +6,12 @@
                 <img class="img img-responsive sub-images" t-attf-src="/website/image/product.image/{{pimg.id}}/image/300x300" t-att-alt="pimg.name"/>
             </div>
         </xpath>
-        <xpath expr="//ul[@class='nav nav-tabs']/li[1]" position="after">
+        <xpath expr="//ul[@class='nav nav-tabs product-tabs']/li[1]" position="after">
             <li role="presentation">
-                 <a href="#installation_instruction" aria-controls="more_info" role="tab" data-toggle="tab" >Petunjuk Pemasangan</a>
+                 <a href="#installation_instruction" class="background-gray" aria-controls="more_info" role="tab" data-toggle="tab" >Petunjuk Pemasangan</a>
             </li>
             <li role="presentation">
-                 <a href="#product_gallery" aria-controls="more_info" role="tab" data-toggle="tab">Galeri Product</a>
+                 <a href="#product_gallery" class="background-gray" aria-controls="more_info" role="tab" data-toggle="tab">Galeri Product</a>
             </li>
         </xpath>
         <xpath expr="//div[@id='more_info']" position='after'>
@@ -22,9 +22,9 @@
                 <div itemprop="description" t-field="product.product_gallery" class="oe_structure mt16" id="product_full_description"/>
             </div>
         </xpath>
-        <xpath expr="//ul[@class='nav nav-tabs']/li" position="before">
+        <xpath expr="//ul[@class='nav nav-tabs product-tabs']/li" position="before">
             <li role="presentation" class="active">
-                 <a href="#detail_product" aria-controls="detail_product" role="tab" data-toggle="tab">Detail Product</a>
+                 <a href="#detail_product" class="background-gray" aria-controls="detail_product" role="tab" data-toggle="tab">Detail Product</a>
             </li>
         </xpath>
         <xpath expr="//div[@id='more_info']" position='before'>
