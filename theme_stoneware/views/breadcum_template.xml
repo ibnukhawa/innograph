@@ -57,7 +57,9 @@
 	            </h1> -->
 	            <ul class="breadcrumb pull-left">
 	                <li><a href="/page/homepage">Home</a></li>
-	                <li><a href="/shop/(category.display_name)"><span t-field="category.display_name"/></a></li>
+					<t t-if="category">
+	                	<li><a href="/shop/"><span t-field="category.display_name"/></a></li>
+					</t>
 	                <li><a href="/shop/"><strong><span t-field="product.name"/></strong></a></li>
 	            </ul>
 	    	</div>
