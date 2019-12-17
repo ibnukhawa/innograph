@@ -21,6 +21,7 @@
     height: 160px;
 }
 
+
 .as-product .asp-inner .pro-img:after {
     transition: all 0.5s ease;
     -webkit-transition: all 0.5s ease;
@@ -55,6 +56,11 @@
     -webkit-transition: none;
     -moz-transition: none;
     -o-transition: none;
+}
+
+.adjusment_height{
+    height: 34px !important;
+    padding: 0px 5px !important;
 }
 
 
