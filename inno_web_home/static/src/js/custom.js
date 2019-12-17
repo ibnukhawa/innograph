@@ -439,7 +439,7 @@ createBanner3();
                 
                 html_li_1 += "<li role='presentation' id='menu_for_you' class='disable_customize'>";
 
-                html_li_1 += "<a href='#for_you' aria-controls='more_product' role='tab' data-toggle='tab'>";
+                html_li_1 += "<a href='#for_you' class='background-blue' aria-controls='more_product' role='tab' data-toggle='tab'>";
                 html_li_1 += "<p class='disable_customize text_tabs'>For You</p>";
                 html_li_1 += "</a>";
                 html_li_1 += "</li>";
@@ -543,14 +543,14 @@ createBanner3();
                     if(index == 0){
                         html_li += "<li role='presentation'  id='"+value.id_tab+"' class='disable_customize'>";
 
-                        html_li += "<a href='#more_product"+index+"' aria-controls='more_product' role='tab' data-toggle='tab'>";
+                        html_li += "<a href='#more_product"+index+"' class='background-blue' aria-controls='more_product' role='tab' data-toggle='tab'>";
                         html_li += "<p class='disable_customize text_tabs'>"+value.name_tab+"</p>";
                     }
                     else
                     {
                         html_li += "<li role='presentation' id='"+value.id_tab+"'>";
 
-                        html_li += "<a href='#more_product"+index+"' id='text_tabs' aria-controls='more_product' role='tab' data-toggle='tab'>";
+                        html_li += "<a href='#more_product"+index+"' class='background-blue' id='text_tabs' aria-controls='more_product' role='tab' data-toggle='tab'>";
                         html_li += "<p class='disable_customize text_tabs'>"+value.name_tab+"</p>";
                     }
 
