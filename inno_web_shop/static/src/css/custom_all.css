@@ -8,3 +8,16 @@
 #products_grid .as-product-list{
     letter-spacing: 0em;
 }
+
+
+div.carousel .carousel-indicators li {
+    border-radius: 180px !important;
+}
+
+#as-latest_blog-2 .row div:not(:first-child) {
+    display: none;
+}
+
+.mb32 .fa.fa-long-arrow-left {
+    display: none;
+}
