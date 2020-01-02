@@ -473,10 +473,12 @@ createBanner3();
                 $(".product_panels_for_you").append(html_product_1);
                 
                 $("#for_you").append("<p class='disable_customize pull-right' style='padding-right:10px;'><a href='/shop/tabs/for_you'>...Lihat Semua</a></p>");
-                var btn="<div class='button_prev_next'> <a class='slick-prev slick-arrow btn-prev' aria-label='Previous' style='display: block;'><i class='fa fa-chevron-left'></i></a><a class='slick-next slick-arrow btn-next'  aria-label='Next' type='button' style='display: block;'><i class='fa fa-chevron-right'></i></a> </div>"
+                var btn="<div class='button_prev_next'></div>"
                 $("#for_you").append(btn);
+                var btnInside=" <a class='slick-prev slick-arrow btn-prev' aria-label='Previous' style='display: block;'><i class='fa fa-chevron-left'></i></a><a class='slick-next slick-arrow btn-next'  aria-label='Next' type='button' style='display: block;'><i class='fa fa-chevron-right'></i></a> </div>"
+                $(".button_prev_next").html(btnInside);
                 
-
+                alert();
                 $('.btn-next').click(function() {
                     $('.product_panels_for_you').slick('slickNext');
                     console.log("test next");        

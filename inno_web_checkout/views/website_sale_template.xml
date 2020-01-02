@@ -199,8 +199,7 @@
 	
 	<template id="cart" inherit_id="website_sale.cart">
 		<xpath expr="//div[@id='wrap']/div[1]/div/div[contains(@class, 'oe_cart')]/a[1]" position="after">
-			<br/>
-			<a t-if="website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32" style="width: 157px" href="/shop/quotation">
+			<a t-if="website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32" href="/shop/quotation">
                 <span class="hidden-xs">Quotation</span>
                 <span class="visible-xs-inline">Quotation</span>	
                 <span class="fa fa-long-arrow-right" />
