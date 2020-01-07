@@ -140,7 +140,7 @@ class HomePage(Controller):
                 url_name = a.replace(" ", "-")
                 
                 image_product = '/web/image/product.template/'+str(product.id)+'/image/300x300'
-                data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.website_price, 'currency':product.currency_id.symbol})
+                data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.website_price, 'currency':product.currency_id.symbol,'id_category':product.public_categ_ids.ids[0]})
             
             data_slider['id_tab'] = slider_tab.id
             data_slider['name_tab'] = slider_tab.name
@@ -189,7 +189,7 @@ class HomePage(Controller):
                     a = name_product.lower()
                     url_name = a.replace(" ", "-")
                     url_img='/web/image/product.template/'+str(product.id)+'/image/300x300'
-                    data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':url_img, 'price_label': price, 'price': product.website_price, 'currency':product.currency_id.symbol})
+                    data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':url_img, 'price_label': price, 'price': product.website_price, 'currency':product.currency_id.symbol,'id_category':product.public_categ_ids.ids[0]})
 
             data_slider['data_product']=data_product
             data_slider['title'] = title
@@ -216,9 +216,8 @@ class HomePage(Controller):
                 name_product = re.sub('[^A-Za-z0-9]+', '', product.name)
                 a = name_product.lower()
                 url_name = a.replace(" ", "-")
-                
                 image_product = '/web/image/product.template/'+str(product.id)+'/image/300x300'
-                data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.website_price, 'currency':product.currency_id.symbol})
+                data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':image_product, 'price_label': price, 'price': product.website_price, 'currency':product.currency_id.symbol, 'id_category':product.public_categ_ids.ids[0]})
 
                 if index == limit:
                     break
