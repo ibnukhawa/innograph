@@ -1,292 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- double header -->
-    <template id="replace_menu" inherit_id="website.layout">
-        <xpath expr="//div[@class='collapse navbar-collapse navbar-top-collapse']"  position="replace">
-            <div class="collapse navbar-collapse navbar-top-collapse invisible" style="width:100%;float:left;background:#ffffff;margin-top:0px !important;">
-                <ul class="nav navbar-nav navbar-right" id="top_menu">
-                </ul>
-            </div>
-        </xpath> 
-    </template> 
-    <!-- end -->
-    <template id="layout_header" inherit_id="website.layout">
-        <xpath expr="//div[@class='header-top']" position="replace">
-            <div class="header-top collapse navbar-collapse" style="background:#2196F3;border-bottom: 1px solid #2196F3;margin-top: 0px !important;">
-                
-                <div class="width_menu">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12">
-                            <div class="menu-right">
-                                <a class="item" href="#">Menu 1</a>
-                                <a class="item" href="#">Menu 2</a>
-                                <a class="item" href="#">Menu 3</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </xpath>
-        <xpath expr="//div[@class='container']/div[@class='navbar-header']" position="replace">
-            <!-- <div class="navbar-header fixed-header collapse navbar-collapse" style="margin-top: 0px !important;width:100%;padding:0px !important"> -->
-                
-                <div class="col-sm-12 col-md-12 top-menu">
-                    <div class="row">
-                        <div class="menu-right">
-                            <a class="item" href="#">Menu 1</a>
-                            <a class="item" href="#">Menu 2</a>
-                            <a class="item" href="#">Menu 3</a>
-                        </div>
-                    </div>
-                </div>
-                    
-                
-            
-                <div class="navbar-header-top width_menu">
-                    <!-- <div class="container"> -->
-                        <nav class="navbar navbar-expand-lg navbar-light" style="margin-bottom: 0px !important;">
-                        <!--<div class="row">-->
-                            <div class="col-md-3 col-sm-12 col-xs-12">
-                                <!-- <div class="container"> -->
-                                    <!-- <div class="row"> -->
+  <!-- double header -->
+  <template id="replace_menu" inherit_id="website.layout">
+    <xpath expr="//div[@class='collapse navbar-collapse navbar-top-collapse']" position="replace">
+      <div class="collapse navbar-collapse navbar-top-collapse invisible" style="width:100%;float:left;background:#ffffff;margin-top:0px !important;">
+        <ul class="nav navbar-nav navbar-right" id="top_menu"></ul>
+      </div>
+    </xpath>
+  </template>
+  <!-- end -->
+  <template id="layout_header" inherit_id="website.layout">
+    <xpath expr="//div[@class='header-top']" position="replace">
+      <div class="header-top collapse navbar-collapse" style="background:#2196F3;border-bottom: 1px solid #2196F3;margin-top: 0px !important;">
 
-                                        <t t-set="logo" t-value="website.getLogoHeader()"/>
-                                        <a href="/">
-                                            <img class="logos" t-att-src="logo"/>
-                                        </a>
-                                        <p class="text_logo">Kategori</p>
-                                        
-                                        
-                                    <!-- </div> -->
-                                <!-- </div> -->
-                            </div>
-                            
+        <div class="width_menu">
+          <div class="row">
+            <div class="col-sm-12 col-md-12">
+              <div class="menu-right">
+                <a class="item" href="#">Menu 1</a>
+                <a class="item" href="#">Menu 2</a>
+                <a class="item" href="#">Menu 3</a>
+              </div>
+            </div>
+          </div>
 
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                                <!-- <div class="container"> -->
-                                    <!-- <div class="row"> -->
-                                    <div class="dropdown icon-bars">
-                                        <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
-                                        
-                                        <div class="dropdown-menu box-menu">
-                                            <t t-foreach="website.menu_id.child_id" t-as="menu_id">
-                                                <a class="dropdown-item" t-attf-href="#{menu_id.url}"><t t-esc="menu_id.name"/></a>
-                                                <div class="dropdown-divider"></div>
-                                            </t>
-                                        </div>
-                                    </div>
-                                        <form action='/shop' method="get" role="search">
-                                                <div class="box-search view_pc">
-                                                    <button class="btn btn-primary btn_search">Cari</button>
-                                                    <input class="form-control form-search" type="text" name="search" placeholder="Search" t-att-value="search"/>
-                                                </div>
-                                        </form>
-                                        <div id="menu_item" class="collapse navbar-collapse">
-                                        
-                                            <ul class="navbar-nav">
-                                                <t t-foreach="website.menu_id.child_id" t-as="submenu">
-                                                    <!-- <t t-esc="submenu"/> -->
-                                                    <t t-call="website.submenu"/>
-                                                </t>
-                                            </ul>
-                                        </div>
-                                    <!-- </div> -->
-                                <!-- </div> -->
-                            </div>
-                            <div class="col-md-3 col-sm-12 col-xs-12 bottom-menu">
-                                <!-- <div class="container"> -->
-                                    <div class="row">
-                                        <div class="col-sm-4 col-xs-4 col-md-4 menu_icon">
-                                            <ul class="nav navbar-nav">
-                                                <li class="navbar-item" id="user_li"></li>
-                                                <li class="dropdown icon-cart menu_360_width" >
-                                                    <t t-call="inno_web_header.product_carts"/>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-3 col-xs-3 col-md-3 menu_icon view_mobile">
-                                            <form action='/shop' method="get" role="search">
-                                                <button class="btn btn-primary btn_search" style="position: sticky;">Cari</button>
-                                                <input class="form-control form-search" type="text" name="search" placeholder="Search"/>
-                                            </form>
-                                        </div>
-                                        <div class="account-login col-sm-5 col-xs-5 col-md-8">
-                                            <!-- <div class="container"> -->
-                                                <!-- <div class="row"> -->
-                                                    <t t-if="not(website.user_id != user_id)">
-                                                        <div class="navbar-account pull-right">
-                                                            <a href="/web/login" class="btn btn-primary btn-xs btn-width masuk_button">Masuk</a>
-                                                            <a href="/web/signup" class="btn btn-danger btn-xs btn-width daftar_button">Daftar</a>
-                                                        </div>
-                                                    </t>
-                                                    <t t-if="website.user_id != user_id">
-                                                        <div class="menu_icon">
-                                                            <ul class="navbar-nav">
-                                                                <li>
-                                                                    <a href="#" class="dropdown-toggle icon" data-toggle="dropdown" role="button" aria-expanded="false">
-                                                                        <t t-if="user_id.image">
-                                                                            <span t-field="user_id.image_small" t-options='{"widget": "image", "class": "images"}' style="position:absolute;"
-                                                                            class="span_image_icon"/>
-                                                                        </t>
-                                                                        <t t-if="not user_id.image">
-                                                                            <span align="left"/>
-                                                                        </t>
-                                                                        <label class="label-account" style=";margin-bottom:0px;padding-left:45px;">
-                                                                            <t t-esc="user_id.name" style="padding-top: 15px;"/>
-                                                                            <p style="font-size:smaller;">Customer</p>
-                                                                        </label>
-                                                                        <!-- <br/>
-                                                                        <label class="label-account" style="font-weight: normal;margin-bottom:0px;padding-left:45px;">
-                                                                            
-                                                                        </label> -->
-                                                                        <ul class="dropdown-menu dropdown-account dropdown-style" role="menu">
-                                                                            <li style="margin-bottom:5px;">
-                                                                                <span class="item">
-                                                                                    <span class="item-left">
-                                                                                        
-                                                                                        <span class="item-info">
-                                                                                            <a href="/my/home" t-if="website.user_id != user_id" style="padding:0px;padding-left:15px;">
-                                                                                            <i class="fa fa-user" style="position:absolute;float:left;left:0px;padding: 4px 5px 5px 10px;"></i>    My Account
-                                                                                            </a>
-                                                                                        </span>
-                                                                                    </span>
-                                                                                    <span class="item-right">
-                                                                                    </span>
-                                                                                </span>
-                                                                            </li>
-                                                                            <li style="margin-bottom:5px;">
-                                                                                <span class="item">
-                                                                                    <span class="item-left">
-                                                                                        <i class="fa fa-heart-o"></i>
-                                                                                        <span class="item-info">
-                                                                                            <a href="/shop/product/whishlists">
-                                                                                                Wishlist
-                                                                                            </a>
-                                                                                        </span>
-                                                                                    </span>
-                                                                                    <span class="item-right">
-                                                                                    </span>
-                                                                                </span>
-                                                                            </li>
-                                                                            <li style="margin-bottom:5px;">
-                                                                                <span class="item">
-                                                                                    <span class="item-left">
-                                                                                        <i class="fa fa-sign-out"></i>
-                                                                                        <span class="item-info">
-                                                                                            <a t-attf-href="/web/session/logout?redirect=/" t-if="website.user_id != user_id">
-                                                                                                Logout
-                                                                                            </a>
-                                                                                        </span>
-                                                                                    </span>
-                                                                                    <span class="item-right">
-                                                                                    </span>
-                                                                                </span>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </t>
-                                                <!-- </div> -->
-                                            <!-- </div> -->
-                                        </div>
-                                    </div>
-                                <!-- </div> -->
-                            </div>
-                        <!--</div>-->
-                        </nav>
-                    <!-- </div> -->
-                </div>
-                <div class="navbar-header-bottom">
-                    <!--<nav class="navbar navbar-expand-lg">-->
-                        <!--<div class="collapse navbar-collapse" style="margin-top: 0px !important;border-top: 1px solid #ffffff;border-bottom: 1px solid #ffffff;">-->
-                            
-                        <!--</div>-->
-                    <!--</nav>-->
-                </div>
-            <!-- </div> -->
-        </xpath>
-    </template>
-    <!-- Product Cart -->
-    <template id="product_carts">
-        <div class="cart-view-drop">
-            <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
-            <i class="fa fa-shopping-cart"></i>
-            <span class="cart_quantity badges" t-esc="website_sale_order and website_sale_order.cart_quantity or '0'"
-            style="background-color: #2196f3;"/>
-            <t t-if="not website_sale_order or not website_sale_order.website_order_line" class="">
-                <ul class="dropdown-menu dropdown-carts-view" role="menu">
-                    <li class="empty">
-                        <span>Your cart is empty!</span>
-                    </li>
-                </ul>
-            </t>
-            <t t-if="website_sale_order and website_sale_order.website_order_line">
-                <ul class="dropdown-menu dropdown-carts-view" role="menu">
-                    <t t-foreach="website_sale_order.website_order_line" t-as="line">
-                        <li t-if="line.product_id and line.product_id.product_tmpl_id">
-                            <div class="items" style="width:300px;">
-                                <div style="background-color:#f5f5f5;">
-                                    <span class="hci-row" style="margin: 20px;line-height: 3;">
-                                        Troli Belanja
-                                        <!-- <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
-                                            <span t-field="line.product_id.image_small"
-                                                t-options='{"widget": "image", "class": "img-responsive"}'/>
-                                        </a> -->
-                                    </span>
-                                </div>
-                                <hr style="margin: 0px;"/>
-                                <span class="items-info">
-                                    <table style="width:100%;">
-                                        <tr>
-                                            <td style="width: 40%;margin-right: 10px;">
-                                            <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
-                                        <span t-field="line.product_id.image_small" t-options='{"widget": "image", "class": "img-responsive"}'/>
-                                            </a>
-                                    </td>
-                                            <td>
-                                                <label class="names">
-                                                    <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
-                                                        <strong style="font-weight: 400;" t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
-                                                    </a>
-                                                </label>
-                                                <label class="quantitys">
-                                                    <t t-esc="line.product_uom_qty"/>
-                                                    x
-                                                </label>
-                                                <label class="totals">
-                                                    <span t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}"
-                                                        t-field="line.price_unit" style="white-space: nowrap;"/>
-                                                </label>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    
-                                    
-                                </span>
-                                <hr/>
-                            </div>
-                        </li>
-                    </t>
-                    <div class="cart-summary">
-                        <p class="cart-total">
-                            <span class="label" style="color:#000;">Total:</span>
-                            <span class="price" t-field="website_sale_order.amount_total" style="white-space: nowrap;"
-                                  t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
-                        </p>
-                    </div>
-                    <hr/>
-                    <div class="cart-actions" style="float: right; margin-right: 20px;margin-bottom: 20px;">
-                        <a href="/shop/cart" class= "btn btn-primary">
-                            <div class="view-carts">
-                                Checkout
-                            </div>
-                        </a>
-                    </div>
-                </ul>
-            </t>
         </div>
-    </template>
+      </div>
+    </xpath>
+    <xpath expr="//div[@class='container']/div[@class='navbar-header']" position="replace">
+      <!-- <div class="navbar-header fixed-header collapse navbar-collapse" style="margin-top: 0px !important;width:100%;padding:0px !important"> -->
+
+      <div class="col-sm-12 col-md-12 top-menu">
+        <div class="row">
+          <div class="menu-right">
+            <a class="item" href="#">Menu 1</a>
+            <a class="item" href="#">Menu 2</a>
+            <a class="item" href="#">Menu 3</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="navbar-header-top width_menu">
+        <!-- <div class="container"> -->
+        <nav class="navbar navbar-expand-lg navbar-light" style="margin-bottom: 0px !important;">
+          <!--<div class="row">-->
+          <div class="col-md-3 col-sm-12 col-xs-12">
+            <!-- <div class="container"> -->
+            <!-- <div class="row"> -->
+
+            <t t-set="logo" t-value="website.getLogoHeader()"/>
+            <a href="/">
+              <img class="logos" t-att-src="logo"/>
+            </a>
+            <p class="text_logo">Kategori</p>
+
+            <!-- </div> -->
+            <!-- </div> -->
+          </div>
+
+          <div class="col-md-6 col-sm-12 col-xs-12">
+            <!-- <div class="container"> -->
+            <!-- <div class="row"> -->
+            <div class="dropdown icon-bars">
+              <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
+
+              <div class="dropdown-menu box-menu">
+                <t t-foreach="website.menu_id.child_id" t-as="menu_id">
+                  <a class="dropdown-item" t-attf-href="#{menu_id.url}"><t t-esc="menu_id.name"/></a>
+                  <div class="dropdown-divider"></div>
+                </t>
+              </div>
+            </div>
+            <form action='/shop' method="get" role="search">
+              <div class="box-search view_pc">
+                <button class="btn btn-primary btn_search">Cari</button>
+                <input class="form-control form-search" type="text" name="search" placeholder="Search" t-att-value="search"/>
+              </div>
+            </form>
+            <div id="menu_item" class="collapse navbar-collapse">
+
+              <ul class="navbar-nav">
+                <t t-foreach="website.menu_id.child_id" t-as="submenu">
+                  <!-- <t t-esc="submenu"/> -->
+                  <t t-call="website.submenu"/>
+                </t>
+              </ul>
+            </div>
+            <!-- </div> -->
+            <!-- </div> -->
+          </div>
+          <div class="col-md-3 col-sm-12 col-xs-12 bottom-menu">
+            <!-- <div class="container"> -->
+            <div class="row">
+              <div class="col-sm-4 col-xs-4 col-md-4 menu_icon">
+                <ul class="nav navbar-nav">
+                  <li class="navbar-item" id="user_li"></li>
+                  <li class="dropdown icon-cart menu_360_width">
+                    <t t-call="inno_web_header.product_carts"/>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-sm-3 col-xs-3 col-md-3 menu_icon view_mobile">
+                <form action='/shop' method="get" role="search">
+                  <button class="btn btn-primary btn_search" style="position: sticky;">Cari</button>
+                  <input class="form-control form-search" type="text" name="search" placeholder="Search"/>
+                </form>
+              </div>
+              <div class="account-login col-sm-5 col-xs-5 col-md-8">
+                <!-- <div class="container"> -->
+                <!-- <div class="row"> -->
+                <t t-if="not(website.user_id != user_id)">
+                  <div class="navbar-account pull-right">
+                    <a href="/web/login" class="btn btn-primary btn-xs btn-width masuk_button">Masuk</a>
+                    <a href="/web/signup" class="btn btn-danger btn-xs btn-width daftar_button">Daftar</a>
+                  </div>
+                </t>
+                <t t-if="website.user_id != user_id">
+                  <div class="menu_icon">
+                    <ul class="navbar-nav">
+                      <li>
+                        <a href="#" class="dropdown-toggle icon" data-toggle="dropdown" role="button" aria-expanded="false">
+                          <t t-if="user_id.image">
+                            <span t-field="user_id.image_small" t-options='{"widget": "image", "class": "images"}' style="position:absolute;" class="span_image_icon"/>
+                          </t>
+                          <t t-if="not user_id.image">
+                            <span align="left"/>
+                          </t>
+                          <label class="label-account" style=";margin-bottom:0px;padding-left:45px;">
+                            <t t-esc="user_id.name" style="padding-top: 15px;"/>
+                            <p style="font-size:smaller;">Customer</p>
+                          </label>
+                          <!-- <br/> <label class="label-account" style="font-weight: normal;margin-bottom:0px;padding-left:45px;"> </label> -->
+                          <ul class="dropdown-menu dropdown-account dropdown-style" role="menu">
+                            <li style="margin-bottom:5px;">
+                              <span class="item">
+                                <span class="item-left">
+
+                                  <span class="item-info">
+                                    <a href="/my/home" t-if="website.user_id != user_id" style="padding:0px;padding-left:15px;">
+                                      <i class="fa fa-user" style="position:absolute;float:left;left:0px;padding: 4px 5px 5px 10px;"></i>
+                                      My Account
+                                    </a>
+                                  </span>
+                                </span>
+                                <span class="item-right"></span>
+                              </span>
+                            </li>
+                            <li style="margin-bottom:5px;">
+                              <span class="item">
+                                <span class="item-left">
+                                  <i class="fa fa-heart-o"></i>
+                                  <span class="item-info">
+                                    <a href="/shop/product/whishlists">
+                                      Wishlist
+                                    </a>
+                                  </span>
+                                </span>
+                                <span class="item-right"></span>
+                              </span>
+                            </li>
+                            <li style="margin-bottom:5px;">
+                              <span class="item">
+                                <span class="item-left">
+                                  <i class="fa fa-sign-out"></i>
+                                  <span class="item-info">
+                                    <a t-attf-href="/web/session/logout?redirect=/" t-if="website.user_id != user_id">
+                                      Logout
+                                    </a>
+                                  </span>
+                                </span>
+                                <span class="item-right"></span>
+                              </span>
+                            </li>
+                          </ul>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </t>
+                <!-- </div> -->
+                <!-- </div> -->
+              </div>
+            </div>
+            <!-- </div> -->
+          </div>
+          <!--</div>-->
+        </nav>
+        <!-- </div> -->
+      </div>
+      <div class="navbar-header-bottom">
+        <!--<nav class="navbar navbar-expand-lg">-->
+        <!--<div class="collapse navbar-collapse" style="margin-top: 0px !important;border-top: 1px solid #ffffff;border-bottom: 1px solid #ffffff;">-->
+
+        <!--</div>-->
+        <!--</nav>-->
+      </div>
+      <!-- </div> -->
+    </xpath>
+  </template>
+  <!-- Product Cart -->
+  <template id="product_carts">
+    <div class="cart-view-drop">
+      <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+      <i class="fa fa-shopping-cart"></i>
+      <span class="cart_quantity badges" t-esc="website_sale_order and website_sale_order.cart_quantity or '0'" style="background-color: #2196f3;"/>
+      <t t-if="not website_sale_order or not website_sale_order.website_order_line" class="">
+        <ul class="dropdown-menu dropdown-carts-view" role="menu">
+          <li class="empty">
+            <span>Your cart is empty!</span>
+          </li>
+        </ul>
+      </t>
+      <t t-if="website_sale_order and website_sale_order.website_order_line">
+        <ul class="dropdown-menu dropdown-carts-view" role="menu">
+          <div style="background-color:#f5f5f5;">
+            <span class="hci-row" style="margin: 20px;line-height: 3;">
+              Troli Belanja
+              <!-- <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }"> <span t-field="line.product_id.image_small" t-options='{"widget": "image", "class": "img-responsive"}'/> </a> -->
+            </span>
+          </div>
+          <div style="overflow: scroll; height: 300px;">
+            <t t-foreach="website_sale_order.website_order_line" t-as="line">
+            <li t-if="line.product_id and line.product_id.product_tmpl_id">
+              <div class="items" style="width:300px;">
+                <hr style="margin: 0px;"/>
+                <span class="items-info">
+                  <table style="width:100%;">
+                    <tr>
+                      <td style="width: 40%;margin-right: 10px;">
+                        <center>
+                          <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                            <span t-field="line.product_id.image_small" t-options='{"widget": "image", "class": "img-responsive"}'/>
+                          </a>
+                        </center>
+                      </td>
+                      <td>
+                        <label class="names">
+                          <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                            <strong style="font-weight: 400;" t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
+                          </a>
+                        </label>
+                        <label class="quantitys">
+                          <t t-esc="line.product_uom_qty"/>
+                          x
+                        </label>
+                        <label class="totals">
+                          <span t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" t-field="line.price_unit" style="white-space: nowrap;"/>
+                        </label>
+                      </td>
+                    </tr>
+                  </table>
+
+                </span>
+                <hr/>
+              </div>
+            </li>
+          </t>
+          </div>
+          <div class="cart-summary">
+            <p class="cart-total">
+              <span class="label" style="color:#000;">Total:</span>
+              <span class="price" t-field="website_sale_order.amount_total" style="white-space: nowrap;" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
+            </p>
+          </div>
+          <hr/>
+          <div class="cart-actions" style="float: right; margin-right: 20px;margin-bottom: 20px;">
+            <a href="/shop/cart" class="btn btn-primary">
+              <div class="view-carts">
+                Checkout
+              </div>
+            </a>
+          </div>
+        </ul>
+      </t>
+    </div>
+  </template>
 </odoo>
