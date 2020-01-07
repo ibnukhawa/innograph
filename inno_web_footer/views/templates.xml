@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" style="padding-bottom: 20px;">
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" >
                                 <h3 class="block-title black-font">Bantuan</h3>
                                 <ul class="list-unstyled" id="help">
@@ -141,7 +141,7 @@
                                         <div class="col-lg-8 col-md-8 black-font">
                                             <p>(021) 7883 1023</p>
                                             <p>Senin-Jumat: 09.00 - 17.00</p>
-                                            <p>email. cs@displaystore.id</p>
+                                            <p>email: cs@displaystore.id</p>
                                         </div>
                                     </div>
                                 </div>
