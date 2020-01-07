@@ -18,7 +18,7 @@ header .navbar-default .navbar-collapse {
 .banner_sub{
     width: 100%;
     height: 100%;
-} 
+}
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > {
     color: #555555;
     background-color: #fff;
@@ -74,7 +74,7 @@ header .navbar-default .navbar-collapse {
 }
 
 .slick-slider .slick-slide{
-   
+
     justify-content: center;
     align-items: center;
 }
@@ -213,6 +213,9 @@ hr{
 
 @media (min-width: 320.00px)
 {
+    .troli{
+      margin-left: -40px;
+    }
     .button_prev_next{
         left: -12px;
         float: right;
@@ -222,7 +225,7 @@ hr{
         bottom: -35px;
     }
 
-    
+
     .slick-arrow{
         display: block;
         text-align: center;
@@ -259,7 +262,7 @@ hr{
         font-size: xx-small;
         color:red;
     }
-    
+
     .box_slider_satu{
         height: 220px !important;
         /* max-width: 793px; */
@@ -279,7 +282,7 @@ hr{
         padding-right: 3px;
         padding-top: 6px;
     }
-    
+
     .header_slider_3{
         padding-right: 0px;
         padding-left: 3px;
@@ -288,7 +291,7 @@ hr{
 }
 
 @media (min-width: 768.00px)
-{   
+{
     .button_prev_next{
         right: 0px;
         float: right;
@@ -342,7 +345,7 @@ hr{
         padding-top: 0px;
         padding-bottom: 5px;
     }
-    
+
     .header_slider_3{
         padding-right: 0px;
         padding-left: 0px;
@@ -416,5 +419,3 @@ hr{
     padding: 0 5px;
     color: #cccccc;
 }
-
-

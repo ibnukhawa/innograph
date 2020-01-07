@@ -212,7 +212,7 @@
         </ul>
       </t>
       <t t-if="website_sale_order and website_sale_order.website_order_line">
-        <ul class="dropdown-menu dropdown-carts-view" role="menu">
+        <ul class="dropdown-menu dropdown-carts-view troli" role="menu">
           <div style="background-color:#f5f5f5;">
             <span class="hci-row" style="margin: 20px;line-height: 3;">
               Troli Belanja
@@ -223,7 +223,6 @@
             <t t-foreach="website_sale_order.website_order_line" t-as="line">
             <li t-if="line.product_id and line.product_id.product_tmpl_id">
               <div class="items" style="width:300px;">
-                <hr style="margin: 0px;"/>
                 <span class="items-info">
                   <table style="width:100%;">
                     <tr>
@@ -259,7 +258,7 @@
           </div>
           <div class="cart-summary">
             <p class="cart-total">
-              <span class="label" style="color:#000;">Total:</span>
+              <span class="label" style="color:#000; font-weight: 400; font-size: 12px;">Total:</span>
               <span class="price" t-field="website_sale_order.amount_total" style="white-space: nowrap;" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
             </p>
           </div>
