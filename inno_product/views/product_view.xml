@@ -34,5 +34,21 @@
 	    		</field>
 	    	</field>
 	    </record>
+
+	    <record model="ir.ui.view" id="product_normal_form_view_whfg_button">
+            <field name="name">product.product.form.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+            	<button name="toggle_active" position="after">
+            		<button type="object"
+                        name="action_open_finished_quants"
+                        attrs="{'invisible':['|', ('type', '!=', 'product'), ('inv_part_type', '!=', 'finished_goods')]}"
+                        class="oe_stat_button" icon="fa-truck fa-flip-horizontal">
+                        <field name="qty_ready" widget="statinfo" string="Siap Kirim"/>
+                    </button>
+            	</button>
+            </field>
+        </record>
     </data>
 </odoo>
