@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
+from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
 
 class ProductTemplate(models.Model):
@@ -15,6 +16,7 @@ class ProductTemplate(models.Model):
 
 
 
+
 class ProductProduct(models.Model):
 	_inherit = "product.product"
 
@@ -26,3 +28,29 @@ class ProductProduct(models.Model):
 									  ('service', 'Service')
 									 ], string="Inventory Part Type",
 									 related="product_tmpl_id.inv_part_type")
+
+	qty_ready = fields.Float('Quantity Ready to Ship', compute='_compute_qty_ready', 
+		digits=dp.get_precision('Product Unit of Measure'))
+
+	@api.depends('stock_quant_ids', 'stock_move_ids')
+	def _compute_qty_ready(self):
+		for product in self:
+			finished_loc = product.get_finished_good_location()
+			product.qty_ready = product.with_context(location=finished_loc).qty_available
+	
+	@api.multi
+	def action_open_finished_quants(self):
+		whfg_loc = self.get_finished_good_location()
+		action = self.env.ref('stock.product_open_quants').read()[0]
+		domain = [
+			('product_id', 'in', self.ids), 
+			('location_id', 'in', whfg_loc)
+		]
+		action['domain'] = domain
+		action['context'] = {'search_default_locationgroup': 0, 'search_default_internal_loc': 0}
+		return action
+		
+	def get_finished_good_location(self):
+		company_id = self.env.user.company_id
+		location = company_id.default_finished_product_location or self.env.ref('stock.stock_location_stock')
+		return location and location.id or False
