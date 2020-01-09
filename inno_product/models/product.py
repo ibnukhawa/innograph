@@ -51,9 +51,6 @@ class ProductProduct(models.Model):
 		return action
 		
 	def get_finished_good_location(self):
-		res = self.env.ref('stock.stock_location_stock')
-		location_obj = self.env['stock.location']
-		whfg_loc = location_obj.search([('name', '=', 'WHFG'), ('usage', '=', 'view')], limit=1)
-		if whfg_loc:
-			res = location_obj.search([('location_id', '=', whfg_loc.id), ('usage', '=', 'internal')])
-		return res.ids
+		company_id = self.env.user.company_id
+		location = company_id.default_finished_product_location or self.env.ref('stock.stock_location_stock')
+		return location and location.id or False
