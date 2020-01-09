@@ -7,6 +7,23 @@
     }
 }
 @media screen and (min-width: 350px){
+
+    .icon-follows {
+        font: normal normal normal 40px/1 FontAwesome;
+    }
+    .icon-twitter{
+        color: #4099FF !important;
+    }
+    .icon-facebook{
+        color: #3b5998 !important;
+    }
+    .icon-linkedin{
+        color:#0E76A8 !important;
+    }
+    .icon-google{
+        color: #DD4B39 !important;
+    }
+
     .solmed{
         max-width:30px !important;
     }

@@ -33,42 +33,51 @@
                                 <div class="title-new black-font">
                                     <h3>Follows</h3>
                                 </div>
-                                <div class="title-new">
-                                    <t t-if="website.social_instagram">
+                                <div class="icon-follows">
+                                    <div class="o_blog_post_complete o_sharing_links">
+                                        <a class="fa fa-twitter-square icon-twitter"></a>
+                                        <a class="fa fa-facebook-square icon-facebook"></a>
+                                        <a class="fa fa-linkedin-square icon-linkedin"></a>
+                                        <a class="fa fa-google-plus-square icon-google"></a>
+                                    </div>
+                                </div>
+                                <!-- <div class="title-new"> -->
+                                    
+                                    <!-- <t t-if="website.social_instagram">
                                         <a t-att-href="website.social_instagram" target="_blank">
                                             <img class="solmed" src="/inno_web_footer/static/img/ig.png"/>
                                         </a>
-                                    </t>
-                                    <t t-if="not website.social_instagram">
+                                    </t> -->
+                                    <!-- <t t-if="not website.social_instagram">
                                         <a href="#">
                                             <img class="solmed" src="/inno_web_footer/static/img/ig.png"/>
                                         </a>
-                                    </t>
-                                    <t t-if="website.social_youtube">
-                                        <a t-att-href="website.social_youtube" target="_blank">
+                                    </t> -->
+                                    <!-- <t t-if="website.social_youtube">
+                                        <a t-att-href="website.social_youtube" target="_blank"> -->
                                             <!-- <i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/> -->
-                                            <img class="solmed" src="/inno_web_footer/static/img/youtube.png"/>
+                                            <!-- <img class="solmed" src="/inno_web_footer/static/img/youtube.png"/>
                                         </a>
-                                    </t>
-                                    <t t-if="not website.social_youtube">
-                                        <a href="#">
-                                            <img class="solmed youtube-icon" src="/inno_web_footer/static/img/youtube.png"/>
+                                    </t> -->
+                                    <!-- <t t-if="not website.social_youtube">
+                                        <a href="#"> -->
+                                            <!-- <img class="solmed youtube-icon" src="/inno_web_footer/static/img/youtube.png"/> -->
                                             <!-- <i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/> -->
-                                        </a>
-                                    </t>
-                                    <t t-if="website.social_facebook">
+                                        <!-- </a>
+                                    </t> -->
+                                    <!-- <t t-if="website.social_facebook">
                                         <a t-att-href="website.social_facebook" target="_blank">
-                                            <img class="solmed" src="/inno_web_footer/static/img/fb.png"/>
+                                            <img class="solmed" src="/inno_web_footer/static/img/fb.png"/> -->
                                             <!-- <i class="fa fa-facebook facebook-icon" aria-hidden="true"/> -->
-                                        </a>
-                                    </t>
-                                    <t t-if="not website.social_facebook">
+                                        <!-- </a>
+                                    </t> -->
+                                    <!-- <t t-if="not website.social_facebook">
                                         <a href="#">
-                                            <img class="solmed" src="/inno_web_footer/static/img/fb.png"/>
+                                            <img class="solmed" src="/inno_web_footer/static/img/fb.png"/> -->
                                             <!-- <i class="fa fa-facebook facebook-icon" aria-hidden="true"/> -->
-                                        </a>
-                                    </t>
-                                </div>
+                                        <!-- </a>
+                                    </t> -->
+                                <!-- </div> -->
                             </div>
                         </div>
                         <div class="row" style="padding-bottom: 20px;">
