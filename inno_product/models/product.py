@@ -44,7 +44,7 @@ class ProductProduct(models.Model):
 		action = self.env.ref('stock.product_open_quants').read()[0]
 		domain = [
 			('product_id', 'in', self.ids), 
-			('location_id', 'in', whfg_loc)
+			('location_id', '=', whfg_loc)
 		]
 		action['domain'] = domain
 		action['context'] = {'search_default_locationgroup': 0, 'search_default_internal_loc': 0}
