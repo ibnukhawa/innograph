@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="customize_breadcrumb" inherit_id="website_portal_sale.orders_followup">
+    <xpath expr="//div[@id='wrap']/div[@class='container']/div[@class='oe_structure']/div[@class='row']/div[@class='col-sm-4']" position="replace">
+      <div class="col-12">
+          <ol class="breadcrumb mt8">
+              <li><a href="/my/home"><i class="fa fa-home"/></a></li>
+              <li>
+                <a t-attf-href="/my/#{'quotes' if order.state == 'sent' else 'orders'}?{{ keep_query()}}">
+                  <t t-if="order.state == 'sent'">
+                      My Quotes
+                  </t>
+                  <t t-if="order.state != 'sent'">
+                      My Orders
+                  </t>
+                </a>
+              </li>
+              <li>
+                <t t-if="order.state == 'sent'">
+                    Quotation
+                </t>
+                <t t-if="order.state != 'sent'">
+                    Order
+                </t>
+                <t t-esc="order.name"/>
+              </li>
+          </ol>
+      </div>
+    </xpath>
+  </template>
+</odoo>
