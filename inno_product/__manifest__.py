@@ -15,7 +15,7 @@
                         'security/ir.model.access.csv',
                         'views/product_category_view.xml',
                         'views/product_view.xml',
-                        'views/stock_config_setting_view.xml',
+                        'views/res_company_view.xml',
                       ],
     'installable'   : True,
     'application'   : True,
