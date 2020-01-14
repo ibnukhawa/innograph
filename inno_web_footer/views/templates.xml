@@ -35,10 +35,10 @@
                                 </div>
                                 <div class="icon-follows">
                                     <div class="o_blog_post_complete o_sharing_links">
-                                        <a class="fa fa-twitter-square icon-twitter"></a>
-                                        <a class="fa fa-facebook-square icon-facebook"></a>
-                                        <a class="fa fa-linkedin-square icon-linkedin"></a>
-                                        <a class="fa fa-google-plus-square icon-google"></a>
+                                        <a class="fa fa-twitter-square icon-twitter" id="o_twitter_complete"></a>
+                                        <a class="fa fa-facebook-square icon-facebook" id="o_facebook_complete"></a>
+                                        <a class="fa fa-linkedin-square icon-linkedin" id="o_linkedin_complete"></a>
+                                        <a class="fa fa-google-plus-square icon-google" id="o_google_complete"></a>
                                     </div>
                                 </div>
                                 <!-- <div class="title-new"> -->
