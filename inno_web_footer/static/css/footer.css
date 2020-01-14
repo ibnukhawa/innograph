@@ -95,9 +95,11 @@
         margin-right: 0px;
     }
     .gmaps{
-        width: 150px;
+        width: auto;
         height: 150px;
         border: 0;
+        display: block;
+        position: absolute;
     }
     .black-font{
         color: black !important;
@@ -176,9 +178,11 @@
         /* margin-right: inherit; */
     }
     .gmaps{
-        width: 200px;
+        width: auto;
         height: 200px;
         border: 0;
+        display: block;
+        position: absolute;
     }
     .black-font{
         color: black !important;
@@ -257,9 +261,11 @@
         margin-right: inherit;
     }
     .gmaps{
-        width: 250px;
+        width: auto;
         height: 250px;
         border: 0;
+        display: block;
+        position: absolute;
     }
     .black-font{
         color: black !important;
@@ -338,9 +344,11 @@
         margin-right: inherit;
     }
     .gmaps{
-        width: 250px;
-        height: 250px;
+        width: auto;
+        height: 305px;
         border: 0;
+        display: block;
+        position: absolute;
     }
     .black-font{
         color: black !important;
@@ -418,10 +426,12 @@
         height: 100px;
         margin-right: inherit;
     }
-    .gmaps{
-        width: 250px;
-        height: 250px;
+    .gmaps{    
+        width: auto;
+        height: 305px;
         border: 0;
+        display: block;
+        position: absolute;
     }
     .black-font{
         color: black !important;
