@@ -21,6 +21,14 @@
 	        	<div name="standard_price_uom" position="attributes">
 	        		<attribute name="groups">account.group_account_invoice,purchase.group_purchase_manager,sales_team.group_sale_manager,base.group_system</attribute>
 	        	</div>
+	        	<button name="toggle_active" position="after">
+            		<button type="object"
+                        name="action_open_finished_quants"
+                        attrs="{'invisible':['|', ('type', '!=', 'product'), ('inv_part_type', '!=', 'finished_goods')]}"
+                        class="oe_stat_button" icon="fa-truck fa-flip-horizontal">
+                        <field name="qty_ready" widget="statinfo" string="Siap Kirim"/>
+                    </button>
+            	</button>
 	        </field>
 	    </record>
 
