@@ -8,13 +8,13 @@
         <div class="col-sm-4 col-md-6 text-center">
           <strong>Product</strong>
         </div>
-        <div class="col-xs-3 col-md-2 text-right">
+        <div class="col-xs-3 col-md-2 text-center">
           <strong>Unit Price</strong>
         </div>
-        <div class="col-xs-2 col-md-2 text-right">
+        <div class="col-xs-2 col-md-2 text-center">
           <strong>Quantity</strong>
         </div>
-        <div class="col-xs-3 col-md-2 text-right">
+        <div class="col-xs-3 col-md-2 text-center">
           <strong>Subtotal</strong>
         </div>
       </div>
