@@ -1,5 +1,5 @@
 {
-    'name': 'Innograph Custom Website Breadcrumb',
+    'name': 'Innograph Custom Accounting View',
     'version': '1.0',
     'category': 'Website',
     'summary': "Customizing eCommerce website breadcrumb",
@@ -15,10 +15,12 @@
             'website_sale',
             'website_blog',
             'website_event',
-            'website'
+            'website',
+            'website_portal_sale'
     ],
     'data': [
         'views/custom_breadcrumb.xml',
+        'views/custom_product_list.xml',
     ],
     'application': False,
     'installable': True,
