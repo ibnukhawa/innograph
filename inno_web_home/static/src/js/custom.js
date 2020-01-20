@@ -478,7 +478,6 @@ createBanner3();
                 var btnInside=" <a class='slick-prev slick-arrow btn-prev' aria-label='Previous' style='display: block;'><i class='fa fa-chevron-left'></i></a><a class='slick-next slick-arrow btn-next'  aria-label='Next' type='button' style='display: block;'><i class='fa fa-chevron-right'></i></a> </div>"
                 $(".button_prev_next").html(btnInside);
                 
-                alert();
                 $('.btn-next').click(function() {
                     $('.product_panels_for_you').slick('slickNext');
                     console.log("test next");        
@@ -597,7 +596,7 @@ createBanner3();
                     
                     $("#more_product"+index).append("<p class='disable_customize pull-right' style='padding-right:10px;'><a href='/shop/tabs/"+value.id_tab+"'>...Lihat Semua</a></p>");
                     
-                    var btn="<div class='button_prev_next'> <a class='slick-prev slick-arrow btn-prev"+index+"' aria-label='Previous' style='display: block;'>&lt;</a><a class='slick-next slick-arrow btn-next"+index+"'  aria-label='Next' type='button' style='display: block;'>&gt;</a> </div>"
+                    var btn="<div class='button_prev_next'> <a class='slick-prev slick-arrow btn-prev"+index+"' aria-label='Previous' style='display: block;'><i class='fa fa-chevron-left'></i></a><a class='slick-next slick-arrow btn-next"+index+"'  aria-label='Next' type='button' style='display: block;'><i class='fa fa-chevron-right'></i></a> </div>"
 
                     $("#more_product"+index).append(btn);
 

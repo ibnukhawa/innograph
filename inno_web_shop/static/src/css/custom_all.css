@@ -13,9 +13,12 @@
 div.carousel .carousel-indicators li {
     border-radius: 180px !important;
 }
-
-#as-latest_blog-2 .row div:not(:first-child) {
-    display: none;
+/* penambahan media screen untuk fix error pada blog yang muncul cuman satu card di website view */
+@media (max-width: 767.00px)
+{
+    #as-latest_blog-2 .row div:not(:first-child) {
+        display: none;
+    }
 }
 
 .btn.mb32 {
