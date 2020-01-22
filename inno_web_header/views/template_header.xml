@@ -27,6 +27,7 @@
         </div>
       </div>
     </xpath>
+    
     <xpath expr="//div[@class='container']/div[@class='navbar-header']" position="replace">
       <!-- <div class="navbar-header fixed-header collapse navbar-collapse" style="margin-top: 0px !important;width:100%;padding:0px !important"> -->
 
@@ -42,7 +43,46 @@
 
       <div class="navbar-header-top width_menu">
         <!-- <div class="container"> -->
-        <nav class="navbar navbar-expand-lg navbar-light" style="margin-bottom: 0px !important;">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-mobile" style="margin-bottom: 0px !important;">
+            
+            <div class="col-md-12 content-logo">
+              <t t-set="logo" t-value="website.getLogoHeader()"/>
+              <a href="/">
+                <img class="logo-center" t-att-src="logo"/>
+              </a>
+            </div>
+            <div class="col-md-12 menu-header">
+                <div class="dropdown icon-bars pull-left ul-box">
+                  
+                  <i class="fa fa-bars dropdown-toggle bars-mobile_view" data-toggle="dropdown"></i>
+
+                  <ul class="dropdown-menu box-menu">
+                    <t t-foreach="website.menu_id.child_id" t-as="menu_id">
+                        <li>
+                          <a class="dropdown-item" t-attf-href="#{menu_id.url}"><t t-esc="menu_id.name"/></a>
+                        </li>
+                        
+                    </t>
+                    
+                  </ul>
+
+                </div>
+
+
+              <div class="cart-box">
+                <ul class="nav navbar-nav">
+                  <li class="dropdown icon-cart menu_360_width">
+                    <t t-call="inno_web_header.product_carts_mobile_view"/>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+            
+
+        </nav>
+
+        <nav class="navbar navbar-expand-lg navbar-light navbar-website" style="margin-bottom: 0px !important; display:none;">
           <!--<div class="row">-->
           <div class="col-md-3 col-sm-12 col-xs-12">
             <!-- <div class="container"> -->
@@ -274,4 +314,83 @@
       </t>
     </div>
   </template>
+
+
+    <template id="product_carts_mobile_view">
+    <div class="cart-view-drop">
+      <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+      <span class="btn btn-success span-cart">
+        <i class="fa fa-shopping-cart"></i>
+      </span>
+      <t t-if="not website_sale_order or not website_sale_order.website_order_line" class="">
+        <ul class="dropdown-menu dropdown-carts-view" role="menu">
+          <li class="empty">
+            <span>Your cart is empty!</span>
+          </li>
+        </ul>
+      </t>
+      <t t-if="website_sale_order and website_sale_order.website_order_line">
+        <ul class="dropdown-menu dropdown-carts-view troli" role="menu">
+          <div style="background-color:#f5f5f5;">
+            <span class="hci-row" style="margin: 20px;line-height: 3;">
+              Troli Belanja
+              <!-- <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }"> <span t-field="line.product_id.image_small" t-options='{"widget": "image", "class": "img-responsive"}'/> </a> -->
+            </span>
+          </div>
+          <div style="overflow: scroll; height: 300px;">
+            <t t-foreach="website_sale_order.website_order_line" t-as="line">
+            <li t-if="line.product_id and line.product_id.product_tmpl_id">
+              <div class="items" style="width:300px;">
+                <span class="items-info">
+                  <table style="width:100%;">
+                    <tr>
+                      <td style="width: 40%;margin-right: 10px;">
+                        <center>
+                          <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                            <span t-field="line.product_id.image_small" t-options='{"widget": "image", "class": "img-responsive"}'/>
+                          </a>
+                        </center>
+                      </td>
+                      <td>
+                        <label class="names">
+                          <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                            <strong style="font-weight: 400;" t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
+                          </a>
+                        </label>
+                        <label class="quantitys">
+                          <t t-esc="line.product_uom_qty"/>
+                          x
+                        </label>
+                        <label class="totals">
+                          <span t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" t-field="line.price_unit" style="white-space: nowrap;"/>
+                        </label>
+                      </td>
+                    </tr>
+                  </table>
+
+                </span>
+                <hr/>
+              </div>
+            </li>
+          </t>
+          </div>
+          <div class="cart-summary">
+            <p class="cart-total">
+              <span class="label" style="color:#000; font-weight: 400; font-size: 12px;">Total:</span>
+              <span class="price" t-field="website_sale_order.amount_total" style="white-space: nowrap;" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
+            </p>
+          </div>
+          <hr/>
+          <div class="cart-actions" style="float: right; margin-right: 20px;margin-bottom: 20px;">
+            <a href="/shop/cart" class="btn btn-primary">
+              <div class="view-carts">
+                Checkout
+              </div>
+            </a>
+          </div>
+        </ul>
+      </t>
+    </div>
+  </template>
+
 </odoo>
