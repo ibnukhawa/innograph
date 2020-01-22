@@ -6,12 +6,12 @@
     'website': 'http://www.portcities.net',
     'summary': "",
     'description': """
-
+        change number pf decimal digit on currencies
     """,
-    'category': '',
+    'category': 'account',
     'sequence': 1,
     'license': 'AGPL-3',
-    'depends': ['base',],
+    'depends': ['base'],
     'data': [
         #
     ],
