@@ -130,4 +130,21 @@
             </t>
         </xpath>
     </template>	
+
+    <template id="product_ribbon" inherit_id="theme_stoneware.product_details" name="Ribbon">
+        <xpath expr="//div[@id='product_information']/div[@class='col-md-4']/div[@class='product-img-box']" position="inside">
+            
+            <t t-if="product.qty_available > 0">
+                <div class="ribbon ribbon-top-left">
+                    <span class="ribbon-in-stock"> In Stock </span>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="ribbon ribbon-top-left">
+                    <span class="ribbon-out-stock"> Out Of Stock </span>
+                </div>
+            </t>
+
+        </xpath>
+    </template>
 </odoo>
