@@ -1,1 +1,2 @@
 import res_currency
+import res_currency_rate
