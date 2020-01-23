@@ -24,7 +24,7 @@
 	        	<button name="toggle_active" position="after">
             		<button type="object"
                         name="action_open_finished_quants"
-                        attrs="{'invisible':['|', ('type', '!=', 'product'), ('inv_part_type', '!=', 'finished_goods')]}"
+                        attrs="{'invisible':[('type', '!=', 'product')]}"
                         class="oe_stat_button" icon="fa-truck fa-flip-horizontal">
                         <field name="qty_ready" widget="statinfo" string="Siap Kirim"/>
                     </button>
@@ -51,7 +51,7 @@
             	<button name="toggle_active" position="after">
             		<button type="object"
                         name="action_open_finished_quants"
-                        attrs="{'invisible':['|', ('type', '!=', 'product'), ('inv_part_type', '!=', 'finished_goods')]}"
+                        attrs="{'invisible':[('type', '!=', 'product')]}"
                         class="oe_stat_button" icon="fa-truck fa-flip-horizontal">
                         <field name="qty_ready" widget="statinfo" string="Siap Kirim"/>
                     </button>
