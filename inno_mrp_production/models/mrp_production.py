@@ -187,7 +187,8 @@ class MrpProduction(models.Model):
 
     def _generate_raw_move(self, bom_line, line_data):
         res = super(MrpProduction, self)._generate_raw_move(bom_line, line_data)
-        res.qty_initial = line_data['qty']
+        if res:
+            res.qty_initial = line_data['qty']
         return res
 
 
