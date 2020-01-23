@@ -50,26 +50,26 @@
       <div class="col-sm-8 col-sm-push-4">
         <table width="100%">
           <tr>
-            <td class="text-left">
+            <td class="text-right" width="70%">
               Untaxed Amount:
             </td>
-            <td class="text-right">
+            <td class="text-right" width="30%">
               <span t-field="order.amount_untaxed" t-options='{"widget": "monetary", "display_currency": order.pricelist_id.currency_id}'/>
             </td>
           </tr>
           <tr>
-            <td class="text-left">
+            <td class="text-right" width="70%">
               Taxes:
             </td>
-            <td class="text-right">
+            <td class="text-right" width="30%">
               <span t-field="order.amount_tax" t-options='{"widget": "monetary", "display_currency": order.pricelist_id.currency_id}'/>
             </td>
           </tr>
           <tr>
-            <td class="text-left">
+            <td class="text-right" width="70%">
               <strong>Total:</strong>
             </td>
-            <td class="text-right">
+            <td class="text-right" width="30%">
               <strong><span t-field="order.amount_total" t-options='{"widget": "monetary", "display_currency": order.pricelist_id.currency_id}'/></strong>
             </td>
           </tr>
