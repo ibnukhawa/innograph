@@ -116,12 +116,8 @@ class MrpProduction(models.Model):
             loc_obj = self.env['stock.location']
             loc_dst_id = False
             # Get WHFG Location
-            parent_src = loc_obj.search([('usage', '=', 'view'), 
-                ('name', '=', 'WHFG')], limit=1)
-            if parent_src:
-                location_src = loc_obj.search([('location_id', '=', parent_src.id), ('name', 'like', 'Stock')], limit=1)
-                if location_src:
-                    loc_dst_id = location_src
+            whfg_loc = self.env.user.company_id.default_finished_product_location
+            loc_dst_id = whfg_loc or self.env.ref('stock.stock_location_stock')
 
             if loc_dst_id:
                 # get source location
