@@ -116,8 +116,12 @@ class MrpProduction(models.Model):
             loc_obj = self.env['stock.location']
             loc_dst_id = False
             # Get WHFG Location
-            whfg_loc = self.env.user.company_id.default_finished_product_location
-            loc_dst_id = whfg_loc or self.env.ref('stock.stock_location_stock')
+            parent_src = loc_obj.search([('usage', '=', 'view'), 
+                ('name', '=', 'WHFG')], limit=1)
+            if parent_src:
+                location_src = loc_obj.search([('location_id', '=', parent_src.id), ('name', 'like', 'Stock')], limit=1)
+                if location_src:
+                    loc_dst_id = location_src
 
             if loc_dst_id:
                 # get source location
@@ -183,7 +187,8 @@ class MrpProduction(models.Model):
 
     def _generate_raw_move(self, bom_line, line_data):
         res = super(MrpProduction, self)._generate_raw_move(bom_line, line_data)
-        res.qty_initial = line_data['qty']
+        if res:
+            res.qty_initial = line_data['qty']
         return res
 
 
