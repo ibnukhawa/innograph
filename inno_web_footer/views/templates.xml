@@ -85,22 +85,22 @@
                                 <h3 class="block-title black-font">Bantuan</h3>
                                 <ul class="list-unstyled" id="help">
                                     <li>
-                                        <a class="black-font" href="#">Cara membuat penawaran</a>
+                                        <a class="black-font" href="/page/cara-membuat-penawaran" target="blank">Cara membuat penawaran</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">F.A.Q</a>
+                                        <a class="black-font" href="/page/faq" target="blank">F.A.Q</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Cara membeli</a>
+                                        <a class="black-font" href="/page/cara-membeli" target="blank">Cara membeli</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Metode pembayaran</a>
+                                        <a class="black-font" href="/page/metode-pembayaran" target="blank">Metode pembayaran</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Cara menjadi partner</a>
+                                        <a class="black-font" href="/page/cara-menjadi-partner" target="blank">Cara menjadi partner</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Pengiriman</a>
+                                        <a class="black-font" href="/page/pengiriman" target="blank">Pengiriman</a>
                                     </li>
                                 </ul>
                                 <!--<section class="f-social">-->
@@ -117,19 +117,19 @@
                                 <h3 class="block-title black-font">Displaystore</h3>
                                 <ul class="list-unstyled" id="products">
                                     <li>
-                                        <a class="black-font" href="#">Tentang Displaystore</a>
+                                        <a class="black-font" href="/page/tentang-displaystore" target="blank">Tentang Displaystore</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Press media</a>
+                                        <a class="black-font" href="/page/media" target="blank">Press media</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Daftar partner</a>
+                                        <a class="black-font" href="/page/daftar-partner" target="blank">Daftar partner</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Sitemap</a>
+                                        <a class="black-font" href="/page/site-map" target="blank">Sitemap</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Kebijakan privasi</a>
+                                        <a class="black-font" href="/page/kebijakan-privasi" target="blank">Kebijakan privasi</a>
                                     </li>
                                 </ul>
                             </div>
@@ -173,22 +173,22 @@
                                 <div id="info">
                                 <ul class="list-unstyled" style="color: black;">
                                     <li>
-                                        <a class="black-font" href="#">Site Map</a>
+                                        <a class="black-font" href="/page/site-map" target="blank">Site Map</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Search Terms</a>
+                                        <a class="black-font" href="/page/search-terms" target="blank">Search Terms</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Advanced Search</a>
+                                        <a class="black-font" href="/page/advanced-search" target="blank">Advanced Search</a>
                                     </li>
                                     <li>
                                         <a class="black-font" href="#">Mobile</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Contact us</a>
+                                        <a class="black-font" href="/page/contactus" target="blank">Contact us</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Discount Code</a>
+                                        <a class="black-font" href="/page/discount-code" target="blank">Discount Code</a>
                                     </li>
                                 </ul>
                                 </div>
