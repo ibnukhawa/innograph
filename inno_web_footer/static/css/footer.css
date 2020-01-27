@@ -95,7 +95,7 @@
         margin-right: 0px;
     }
     .gmaps{
-        width: auto;
+        width: 90%;
         height: 150px;
         border: 0;
         display: block;
@@ -178,7 +178,7 @@
         /* margin-right: inherit; */
     }
     .gmaps{
-        width: auto;
+        /* width: auto; */
         height: 200px;
         border: 0;
         display: block;
@@ -261,7 +261,7 @@
         margin-right: inherit;
     }
     .gmaps{
-        width: auto;
+        /* width: auto; */
         height: 250px;
         border: 0;
         display: block;
@@ -344,7 +344,7 @@
         margin-right: inherit;
     }
     .gmaps{
-        width: auto;
+        /* width: auto; */
         height: 305px;
         border: 0;
         display: block;
@@ -427,7 +427,7 @@
         margin-right: inherit;
     }
     .gmaps{    
-        width: auto;
+        /* width: auto; */
         height: 305px;
         border: 0;
         display: block;
