@@ -1,3 +1,9 @@
+.horizontal_scroll {
+    overflow-x: scroll;
+}
+.o_portal_submenu{
+  padding: 15px;
+}
 .badges {
     background-color: #2196f3;
     border-radius: 10px;
@@ -318,7 +324,7 @@ img.images{
         position: absolute;
         right: 14px;
     }
-    
+
     .menu-header{
         background: #41ade2;
         color: #ffffff;
@@ -385,12 +391,12 @@ img.images{
         right: 19px;
         margin-top: 0px;
         z-index:1;
-        
+
     }
     .form-search{
         width:91%;
         position:absolute;
-        margin-top: 0px;    
+        margin-top: 0px;
     }
 
     .box-search{
@@ -466,7 +472,7 @@ img.images{
     }
     .top-menu{
         background-color: #2196F3;
-        
+
         padding-right: 32px;
         height: 25px;
     }
@@ -527,7 +533,7 @@ img.images{
         margin-left: auto;
     }
 
-    
+
 
 }
 @media (min-width: 992.00px)
@@ -546,7 +552,7 @@ img.images{
         right: 0px;
         display: block;
     }
-    
+
     .label_level{
         display: none;
     }
@@ -577,7 +583,7 @@ img.images{
     .top-menu{
         display: none;
     }
-    
+
     .label-account{
         display: none;
     }
@@ -669,7 +675,7 @@ img.images{
         right: 0px;
         margin-top: 0px;
         z-index:1;
-        
+
     }
 
     #menu_item {
@@ -703,7 +709,7 @@ img.images{
     #fly_out_view_open{
         margin-right: -6px;
     }
-    
+
     .top-menu{
         display: none;
     }
@@ -751,7 +757,7 @@ img.images{
 }
 
 @media (min-width: 1440.00px)
-{ 
+{
     p.text_logo{
         margin-left: -12%;
         right: 33px;
@@ -808,7 +814,7 @@ img.images{
     .icon{
         line-height:normal !important;
     }
-    
+
 }
 @media (max-width: 991.00px){
     .label-account{
