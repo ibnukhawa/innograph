@@ -5,7 +5,7 @@
     <!-- PRODUCT LIST HEADER -->
     <xpath expr="//div[@id='wrap']/div[@class='container']/div[@class='container']/div[@class='panel panel-default']/div[@class='panel-body']/div[@class='row'][2]" position="replace">
       <div class="row orders_vertical_align">
-        <div class="col-sm-4 col-md-6 text-center">
+        <div class="col-xs-4 col-md-6 text-center">
           <strong>Product</strong>
         </div>
         <div class="col-xs-3 col-md-2 text-center">
@@ -25,10 +25,10 @@
     <!-- PRODUCT LIST -->
     <xpath expr="//div[@class='col-md-1 text-center']" position="attributes">
       <attribute name="class" remove="text-center" separator=" "/>
-      <attribute name="class" add="col-sm-2 text-center" separator=" "/>
+      <attribute name="class" add="col-xs-1 text-center" separator=" "/>
     </xpath>
     <xpath expr="//div[@id='product_name']" position="attributes">
-      <attribute name="class" add="col-sm-2" separator=" "/>
+      <attribute name="class" add="col-xs-3" separator=" "/>
     </xpath>
     <xpath expr="//div[@class='row orders_vertical_align']/div[@class='col-md-2 text-right']" position="attributes">
       <attribute name="class" remove="text-right"/>
@@ -40,7 +40,7 @@
     </xpath>
     <xpath expr="//div[@class='row orders_vertical_align']/div[@class='col-md-2 text-right']" position="attributes">
       <attribute name="class" remove="text-right"/>
-      <attribute name="class" add="col-xs-4 text-right" separator=" "/>
+      <attribute name="class" add="col-xs-3 text-right" separator=" "/>
     </xpath>
     <!-- END OF PRODUCT LIST -->
 
@@ -50,26 +50,26 @@
       <div class="col-sm-8 col-sm-push-4">
         <table width="100%">
           <tr>
-            <td class="text-left">
+            <td class="text-right" width="70%">
               Untaxed Amount:
             </td>
-            <td class="text-right">
+            <td class="text-right" width="30%">
               <span t-field="order.amount_untaxed" t-options='{"widget": "monetary", "display_currency": order.pricelist_id.currency_id}'/>
             </td>
           </tr>
           <tr>
-            <td class="text-left">
+            <td class="text-right" width="70%">
               Taxes:
             </td>
-            <td class="text-right">
+            <td class="text-right" width="30%">
               <span t-field="order.amount_tax" t-options='{"widget": "monetary", "display_currency": order.pricelist_id.currency_id}'/>
             </td>
           </tr>
           <tr>
-            <td class="text-left">
+            <td class="text-right" width="70%">
               <strong>Total:</strong>
             </td>
-            <td class="text-right">
+            <td class="text-right" width="30%">
               <strong><span t-field="order.amount_total" t-options='{"widget": "monetary", "display_currency": order.pricelist_id.currency_id}'/></strong>
             </td>
           </tr>
