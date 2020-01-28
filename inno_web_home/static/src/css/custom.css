@@ -213,9 +213,7 @@ hr{
 
 @media (min-width: 320.00px)
 {
-    .troli{
-      margin-left: -40px;
-    }
+    
     .button_prev_next{
         left: -12px;
         float: right;
