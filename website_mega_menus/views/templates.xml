@@ -97,7 +97,7 @@
             </li>
         </template>
         <template id="fly_out_mega_menu_button" inherit_id="inno_web_header.layout_header">
-            <xpath expr="//nav/div" position="replace">
+            <xpath expr="//nav[@class='navbar navbar-expand-lg navbar-light navbar-website']/div[@class='col-md-3 col-sm-12 col-xs-12']" position="replace">
                 <t t-if="request.env['ir.values'].sudo().get_default('mega.menu.config', 'mega_menu_type')=='fly_out'">
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <!-- <div> -->

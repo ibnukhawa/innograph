@@ -439,7 +439,7 @@ createBanner3();
                 
                 html_li_1 += "<li role='presentation' id='menu_for_you' class='disable_customize'>";
 
-                html_li_1 += "<a href='#for_you' aria-controls='more_product' role='tab' data-toggle='tab'>";
+                html_li_1 += "<a href='#for_you' class='background-blue' aria-controls='more_product' role='tab' data-toggle='tab'>";
                 html_li_1 += "<p class='disable_customize text_tabs'>For You</p>";
                 html_li_1 += "</a>";
                 html_li_1 += "</li>";
@@ -457,7 +457,7 @@ createBanner3();
                 $.each(data[0].data_products, function( index_product, product ) {
 
                     html_product_1 += "<div class='disable_customize card card-tab'>";
-                    html_product_1 += "<a href='/shop/product/"+product.url_name+"-"+product.id+"'>";
+                    html_product_1 += "<a href='/shop/product/"+product.url_name+"-"+product.id+"?category="+product.id_category+"'>";
                     html_product_1 += "<div class='disable_customize card-header'>";
                     html_product_1 += "<img class='disable_customize banner_tab_slider' src='"+product.image+"' />";
                     html_product_1 += "</div>";
@@ -473,10 +473,11 @@ createBanner3();
                 $(".product_panels_for_you").append(html_product_1);
                 
                 $("#for_you").append("<p class='disable_customize pull-right' style='padding-right:10px;'><a href='/shop/tabs/for_you'>...Lihat Semua</a></p>");
-                var btn="<div class='button_prev_next'> <a class='slick-prev slick-arrow btn-prev' aria-label='Previous' style='display: block;'>&lt;</a><a class='slick-next slick-arrow btn-next'  aria-label='Next' type='button' style='display: block;'>&gt;</a> </div>"
+                var btn="<div class='button_prev_next'></div>"
                 $("#for_you").append(btn);
+                var btnInside=" <a class='slick-prev slick-arrow btn-prev' aria-label='Previous' style='display: block;'><i class='fa fa-chevron-left'></i></a><a class='slick-next slick-arrow btn-next'  aria-label='Next' type='button' style='display: block;'><i class='fa fa-chevron-right'></i></a> </div>"
+                $(".button_prev_next").html(btnInside);
                 
-
                 $('.btn-next').click(function() {
                     $('.product_panels_for_you').slick('slickNext');
                     console.log("test next");        
@@ -543,14 +544,14 @@ createBanner3();
                     if(index == 0){
                         html_li += "<li role='presentation'  id='"+value.id_tab+"' class='disable_customize'>";
 
-                        html_li += "<a href='#more_product"+index+"' aria-controls='more_product' role='tab' data-toggle='tab'>";
+                        html_li += "<a href='#more_product"+index+"' class='background-blue' aria-controls='more_product' role='tab' data-toggle='tab'>";
                         html_li += "<p class='disable_customize text_tabs'>"+value.name_tab+"</p>";
                     }
                     else
                     {
                         html_li += "<li role='presentation' id='"+value.id_tab+"'>";
 
-                        html_li += "<a href='#more_product"+index+"' id='text_tabs' aria-controls='more_product' role='tab' data-toggle='tab'>";
+                        html_li += "<a href='#more_product"+index+"' class='background-blue' id='text_tabs' aria-controls='more_product' role='tab' data-toggle='tab'>";
                         html_li += "<p class='disable_customize text_tabs'>"+value.name_tab+"</p>";
                     }
 
@@ -578,7 +579,7 @@ createBanner3();
                     $.each(value.data_products, function( index_product, product ) {
 
                         html_product += "<div class='disable_customize card card-tab'>";
-                        html_product += "<a href='/shop/product/"+product.url_name+"-"+product.id+"'>";
+                        html_product += "<a href='/shop/product/"+product.url_name+"-"+product.id+"?category="+product.id_category+"'>";
                         html_product += "<div class='disable_customize card-header'>";
                         html_product += "<img class='disable_customize banner_tab_slider' src='"+product.image+"' />";
                         html_product += "</div>";
@@ -595,7 +596,7 @@ createBanner3();
                     
                     $("#more_product"+index).append("<p class='disable_customize pull-right' style='padding-right:10px;'><a href='/shop/tabs/"+value.id_tab+"'>...Lihat Semua</a></p>");
                     
-                    var btn="<div class='button_prev_next'> <a class='slick-prev slick-arrow btn-prev"+index+"' aria-label='Previous' style='display: block;'>&lt;</a><a class='slick-next slick-arrow btn-next"+index+"'  aria-label='Next' type='button' style='display: block;'>&gt;</a> </div>"
+                    var btn="<div class='button_prev_next'> <a class='slick-prev slick-arrow btn-prev"+index+"' aria-label='Previous' style='display: block;'><i class='fa fa-chevron-left'></i></a><a class='slick-next slick-arrow btn-next"+index+"'  aria-label='Next' type='button' style='display: block;'><i class='fa fa-chevron-right'></i></a> </div>"
 
                     $("#more_product"+index).append(btn);
 
@@ -745,7 +746,7 @@ createBanner3();
 
                 $.each(value.data_product, function( index, product) {
                     html_card += "<div class='disable_customize card card-tab'>";
-                    html_card += "<a href='/shop/product/"+product.url_name+"-"+product.id+"' title='"+product.name+"'>";
+                    html_card += "<a href='/shop/product/"+product.url_name+"-"+product.id+"?category="+product.id_category+"' title='"+product.name+"'>";
                     html_card += "<div class='disable_customize card-header'>";
                     html_card += "<img class='disable_customize banner_tab_slider' src='"+product.image+"' />";
                     html_card += "</div>";

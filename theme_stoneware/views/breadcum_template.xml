@@ -57,7 +57,12 @@
 	            </h1> -->
 	            <ul class="breadcrumb pull-left">
 	                <li><a href="/page/homepage">Home</a></li>
-	                <li><a href="/shop/"><span t-field="product.name"/></a></li>
+	                <li><a href="/shop/">Shop</a></li>
+					<t t-if="category">
+						<t t-set="url_category" t-value="website.getUrlCategory(category.display_name,category.id)"/>
+	                	<li><a t-att-href="url_category"><span t-field="category.display_name"/></a></li>
+					</t>
+	                <li><a href=""><strong><span t-field="product.name"/></strong></a></li>
 	            </ul>
 	    	</div>
         </nav>
@@ -71,7 +76,7 @@
 	                    </h1>
 	                    <ul class="breadcrumb">
 	                        <li><a href="/page/homepage">Home</a></li>
-	                        <li><a href="/shop/"><span t-field="product.name"/></a></li>
+	                        <li><a href="/shop/"><strong><span t-field="product.name"/></strong></a></li>
 	                    </ul>
                 	</div> 
 		

@@ -674,7 +674,7 @@
 					<t t-call="website_sale.product_price"/>
                     <p t-if="len(product.product_variant_ids) > 1" class="css_not_available_msg bg-danger" style="padding: 15px;">Product not available</p>
 
-                    <a id="add_to_cart" class="btn btn-primary btn-md mt8 js_check_product a-submit" href="#">Add to Cart</a>
+                    <a id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product a-submit" href="#">Add to Cart</a>
                   </div>
                 </form>           		 
             </div> 
@@ -682,10 +682,10 @@
 	</div>
 		
 	<div class="row product_more_info" id="product_more_info">
-		<div class="col-md-9 pd_info">
-				<ul class="nav nav-tabs" role="tablist">
+		<div class="col-md-12 pd_info">
+				<ul class="nav nav-tabs product-tabs" role="tablist">
 					<li role="presentation">
-							<a href="#more_info" aria-controls="more_info" role="tab" data-toggle="tab">Specification</a>
+							<a href="#more_info" class="background-gray" aria-controls="more_info" role="tab" data-toggle="tab">Specifiation</a>
 					</li>
   			</ul>
 				<div class="tab-content">
@@ -759,7 +759,7 @@
 
 
 <template id="product_comment_3" inherit_id="theme_stoneware.product_details" active="False" customize_show="True" name="Discussion and Rating">
-  <xpath expr="//div[@id='product_more_info']/div[1]/ul[@class='nav nav-tabs']" position="inside">
+  <xpath expr="//div[@id='product_more_info']/div[1]/ul[@class='nav nav-tabs product-tabs']" position="inside">
      <li role="presentation"><a href="#review" aria-controls="review" role="tab" data-toggle="tab">Review</a></li>
      </xpath>
      <xpath expr="//div[@id='product_more_info']/div[1]/div[@class='tab-content']" position="inside">

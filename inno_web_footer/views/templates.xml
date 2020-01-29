@@ -33,65 +33,74 @@
                                 <div class="title-new black-font">
                                     <h3>Follows</h3>
                                 </div>
-                                <div class="title-new">
-                                    <t t-if="website.social_instagram">
+                                <div class="icon-follows">
+                                    <div class="o_blog_post_complete o_sharing_links">
+                                        <a t-att-href="website.social_twitter" target="_blank" class="fa fa-twitter-square icon-twitter" id="o_twitter_complete"></a>
+                                        <a t-att-href="website.social_facebook" class="fa fa-facebook-square icon-facebook" id="o_facebook_complete"></a>
+                                        <a t-att-href="website.social_linkedin" class="fa fa-linkedin-square icon-linkedin" id="o_linkedin_complete"></a>
+                                        <a t-att-href="website.social_googleplus" class="fa fa-google-plus-square icon-google" id="o_google_complete"></a>
+                                    </div>
+                                </div>
+                                <!-- <div class="title-new"> -->
+                                    
+                                    <!-- <t t-if="website.social_instagram">
                                         <a t-att-href="website.social_instagram" target="_blank">
                                             <img class="solmed" src="/inno_web_footer/static/img/ig.png"/>
                                         </a>
-                                    </t>
-                                    <t t-if="not website.social_instagram">
+                                    </t> -->
+                                    <!-- <t t-if="not website.social_instagram">
                                         <a href="#">
                                             <img class="solmed" src="/inno_web_footer/static/img/ig.png"/>
                                         </a>
-                                    </t>
-                                    <t t-if="website.social_youtube">
-                                        <a t-att-href="website.social_youtube" target="_blank">
+                                    </t> -->
+                                    <!-- <t t-if="website.social_youtube">
+                                        <a t-att-href="website.social_youtube" target="_blank"> -->
                                             <!-- <i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/> -->
-                                            <img class="solmed" src="/inno_web_footer/static/img/youtube.png"/>
+                                            <!-- <img class="solmed" src="/inno_web_footer/static/img/youtube.png"/>
                                         </a>
-                                    </t>
-                                    <t t-if="not website.social_youtube">
-                                        <a href="#">
-                                            <img class="solmed youtube-icon" src="/inno_web_footer/static/img/youtube.png"/>
+                                    </t> -->
+                                    <!-- <t t-if="not website.social_youtube">
+                                        <a href="#"> -->
+                                            <!-- <img class="solmed youtube-icon" src="/inno_web_footer/static/img/youtube.png"/> -->
                                             <!-- <i class="fa fa-youtube-play youtube-icon" aria-hidden="true"/> -->
-                                        </a>
-                                    </t>
-                                    <t t-if="website.social_facebook">
+                                        <!-- </a>
+                                    </t> -->
+                                    <!-- <t t-if="website.social_facebook">
                                         <a t-att-href="website.social_facebook" target="_blank">
-                                            <img class="solmed" src="/inno_web_footer/static/img/fb.png"/>
+                                            <img class="solmed" src="/inno_web_footer/static/img/fb.png"/> -->
                                             <!-- <i class="fa fa-facebook facebook-icon" aria-hidden="true"/> -->
-                                        </a>
-                                    </t>
-                                    <t t-if="not website.social_facebook">
+                                        <!-- </a>
+                                    </t> -->
+                                    <!-- <t t-if="not website.social_facebook">
                                         <a href="#">
-                                            <img class="solmed" src="/inno_web_footer/static/img/fb.png"/>
+                                            <img class="solmed" src="/inno_web_footer/static/img/fb.png"/> -->
                                             <!-- <i class="fa fa-facebook facebook-icon" aria-hidden="true"/> -->
-                                        </a>
-                                    </t>
-                                </div>
+                                        <!-- </a>
+                                    </t> -->
+                                <!-- </div> -->
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" style="padding-bottom: 20px;">
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" >
                                 <h3 class="block-title black-font">Bantuan</h3>
                                 <ul class="list-unstyled" id="help">
                                     <li>
-                                        <a class="black-font" href="#">Cara membuat penawaran</a>
+                                        <a class="black-font" href="/page/cara-membuat-penawaran" target="blank">Cara membuat penawaran</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">F.A.Q</a>
+                                        <a class="black-font" href="/page/faq" target="blank">F.A.Q</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Cara membeli</a>
+                                        <a class="black-font" href="/page/cara-membeli" target="blank">Cara membeli</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Metode pembayaran</a>
+                                        <a class="black-font" href="/page/metode-pembayaran" target="blank">Metode pembayaran</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Cara menjadi partner</a>
+                                        <a class="black-font" href="/page/cara-menjadi-partner" target="blank">Cara menjadi partner</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Pengiriman</a>
+                                        <a class="black-font" href="/page/pengiriman" target="blank">Pengiriman</a>
                                     </li>
                                 </ul>
                                 <!--<section class="f-social">-->
@@ -103,83 +112,29 @@
                                     <!--</ul>-->
                                 <!--</section>-->
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 my-3">
-                                <h3 class="block-title black-font">Bank Transfer</h3>
-                                <div>
-                                    <img class="bca-logo" src="/inno_web_footer/static/img/bca-logo.png" title="BCA Logo" alt="BCA"/>
-                                    <img class="bri-logo" src="/inno_web_footer/static/img/Logo_BRI.png" title="BRI Logo" alt="BRI"/>
-                                    <br/>
-                                    <img class="permata-logo" src="/inno_web_footer/static/img/PermataBank_logo.png" title="Permata Logo" alt="PermataBank"/>
-                                    <img class="danamon-logo" src="/inno_web_footer/static/img/Danamon_logo.png" title="Danamon Logo" alt="Danamon"/>
-                                </div>
-                            </div>
 
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" >
-                                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6">
-                                    <h3 class="block-title black-font">Displaystore</h3>
-                                    <ul class="list-unstyled" id="products">
-                                        <li>
-                                            <a class="black-font" href="#">Tentang Displaystore</a>
-                                        </li>
-                                        <li>
-                                            <a class="black-font" href="#">Press media</a>
-                                        </li>
-                                        <li>
-                                            <a class="black-font" href="#">Daftar partner</a>
-                                        </li>
-                                        <li>
-                                            <a class="black-font" href="#">Sitemap</a>
-                                        </li>
-                                        <li>
-                                            <a class="black-font" href="#">Kebijakan privasi</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-6">
-                                    <h3 class="block-title black-font">Keamanan Berbelanja</h3>
-                                    <div>
-                                        <img class="bca-logo" src="/inno_web_footer/static/img/logo-idea.jpg" title="idEA" alt="idEA"/>
-                                        <img class="bri-logo" src="/inno_web_footer/static/img/comodo-secure-logo.png" title="Comodo Secure" alt="Comodo"/>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="display: none;">
-                                <h3 class="block-title black-font">Links</h3>
-                                <div id="info">
-                                <ul class="list-unstyled" style="color: black;">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" >
+                                <h3 class="block-title black-font">Displaystore</h3>
+                                <ul class="list-unstyled" id="products">
                                     <li>
-                                        <a class="black-font" href="#">Site Map</a>
+                                        <a class="black-font" href="/page/tentang-displaystore" target="blank">Tentang Displaystore</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Search Terms</a>
+                                        <a class="black-font" href="/page/media" target="blank">Press media</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Advanced Search</a>
+                                        <a class="black-font" href="/page/daftar-partner" target="blank">Daftar partner</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Mobile</a>
+                                        <a class="black-font" href="/page/site-map" target="blank">Sitemap</a>
                                     </li>
                                     <li>
-                                        <a class="black-font" href="#">Contact us</a>
-                                    </li>
-                                    <li>
-                                        <a class="black-font" href="#">Discount Code</a>
+                                        <a class="black-font" href="/page/kebijakan-privasi" target="blank">Kebijakan privasi</a>
                                     </li>
                                 </ul>
-                                </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="display: none;">
-                                <h3 class="block-title black-font">Location</h3>
-                                <div class="fot-address">
-                                    <address itemscope="itemscope" itemtype="http://schema.org/Organization">
-                                    <!-- TODO widget contact must add itemprop attributes -->
-                                    <div t-field="res_company.partner_id" t-options='{
-                                            "widget": "contact",
-                                            "fields": ["name", "address", "phone", "mobile", "fax", "email"]}'/>
-                                    </address>
-                                </div>
-                            </div>
+
+
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
                                 <h3 class="block-title black-font">
                                     Hubungi Kami
@@ -187,7 +142,6 @@
 
                                 <div id="contact_us">
                                     <div class="row">
-                                        
                                         <t t-set="logo" t-value="website.getLogoFooter()"/>
                                         <div class="col-md-4 col-lg-4 inno-container">
                                             <img class="inno-logo" t-att-src="logo" title="" alt=""/>
@@ -196,9 +150,8 @@
                                         <div class="col-lg-8 col-md-8 black-font">
                                             <p>(021) 7883 1023</p>
                                             <p>Senin-Jumat: 09.00 - 17.00</p>
-                                            <p>email. cs@displaystore.id</p>
+                                            <p>email: cs@displaystore.id</p>
                                         </div>
-
                                     </div>
                                 </div>
                                 
@@ -212,6 +165,66 @@
                                             class="gmaps"
                                             frameborder="0"
                                             allowfullscreen=""/>
+                                </div>
+                            </div>
+                            <!-- not show -->
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="display: none;">
+                                <h3 class="block-title black-font">Links</h3>
+                                <div id="info">
+                                <ul class="list-unstyled" style="color: black;">
+                                    <li>
+                                        <a class="black-font" href="/page/site-map" target="blank">Site Map</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="/page/search-terms" target="blank">Search Terms</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="/page/advanced-search" target="blank">Advanced Search</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="#">Mobile</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="/page/contactus" target="blank">Contact us</a>
+                                    </li>
+                                    <li>
+                                        <a class="black-font" href="/page/discount-code" target="blank">Discount Code</a>
+                                    </li>
+                                </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="display: none;">
+                                <h3 class="block-title black-font">Location</h3>
+                                <div class="fot-address">
+                                    <address itemscope="itemscope" itemtype="http://schema.org/Organization">
+                                    <!-- TODO widget contact must add itemprop attributes -->
+                                    <div t-field="res_company.partner_id" t-options='{
+                                            "widget": "contact",
+                                            "fields": ["name", "address", "phone", "mobile", "fax", "email"]}'/>
+                                    </address>
+                                </div>
+                            </div>
+                            <!-- end -->
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 my-3">
+                                <h3 class="block-title black-font">Bank Transfer</h3>
+                                <div>
+                                    <img class="bca-logo" src="/inno_web_footer/static/img/bca-logo.png" title="BCA Logo" alt="BCA"/>
+                                    <img class="bri-logo" src="/inno_web_footer/static/img/Logo_BRI.png" title="BRI Logo" alt="BRI"/>
+                                    <br/>
+                                    <img class="permata-logo" src="/inno_web_footer/static/img/PermataBank_logo.png" title="Permata Logo" alt="PermataBank"/>
+                                    <img class="danamon-logo" src="/inno_web_footer/static/img/Danamon_logo.png" title="Danamon Logo" alt="Danamon"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 my-3">
+                                <h3 class="block-title black-font">Keamanan Berbelanja</h3>
+                                <div>
+                                    <img class="bca-logo" src="/inno_web_footer/static/img/logo-idea.jpg" title="idEA" alt="idEA"/>
+                                    <img class="bri-logo" src="/inno_web_footer/static/img/comodo-secure-logo.png" title="Comodo Secure" alt="Comodo"/>
                                 </div>
                             </div>
                         </div>
