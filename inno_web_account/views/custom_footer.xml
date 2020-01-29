@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="custom_product_header" inherit_id="website_portal_sale.orders_followup">
+    <xpath expr="//div[@id='wrap']/div[@class='container']/div[@class='container']/div[@class='panel panel-default']/div[@class='panel-body']/div[@class='row'][2]" position="replace">
+      <div class="row orders_vertical_align">
+        <div class="col-xs-4 col-md-6 text-center">
+          <strong>Product</strong>
+        </div>
+        <div class="col-xs-3 col-md-2 text-right">
+          <strong>Unit Price</strong>
+        </div>
+        <div class="col-xs-2 col-md-2 text-right">
+          <strong>Quantity</strong>
+        </div>
+        <div class="col-xs-3 col-md-2 text-right">
+          <strong>Subtotal</strong>
+        </div>
+      </div>
+    </xpath>
+    <xpath expr="//div[@class='col-md-1 text-center']" position="attributes">
+      <attribute name="class" remove="text-center" separator=" "/>
+      <attribute name="class" add="col-xs-3 text-center" separator=" "/>
+    </xpath>
+    <xpath expr="//div[@id='product_name']" position="attributes">
+      <attribute name="class" add="col-xs-1" separator=" "/>
+    </xpath>
+    <xpath expr="//div[@class='row orders_vertical_align']/div[@class='col-md-2 text-right']" position="attributes">
+      <attribute name="class" remove="text-right"/>
+      <attribute name="class" add="col-xs-3 text-right" separator=" "/>
+    </xpath>
+    <xpath expr="//div[@class='row orders_vertical_align']/div[@class='col-md-2 text-right']" position="attributes">
+      <attribute name="class" remove="text-right"/>
+      <attribute name="class" add="col-xs-2 text-right" separator=" "/>
+    </xpath>
+    <xpath expr="//div[@class='row orders_vertical_align']/div[@class='col-md-2 text-right']" position="attributes">
+      <attribute name="class" remove="text-right"/>
+      <attribute name="class" add="col-xs-4 text-right" separator=" "/>
+    </xpath>
+  </template>
+</odoo>

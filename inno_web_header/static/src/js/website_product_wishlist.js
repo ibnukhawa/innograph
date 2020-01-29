@@ -16,7 +16,7 @@ $(document).ready(function ()
 	.then(function (data) {
                     $(ev.currentTarget).toggleClass("fa-heart-o");
                     $(ev.currentTarget).toggleClass("fa-heart");
-					alert("Your Product is successfully added in wishlist");
+					// alert("Your Product is successfully added in wishlist");
                     return false;
 			});
         return false;

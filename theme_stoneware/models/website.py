@@ -2,10 +2,9 @@
 
 from openerp import api, fields, models, _
 from openerp.exceptions import UserError
-import openerp
+import openerp, re
 from openerp.http import request
 from openerp.addons.website.models.website import slugify
-
 
 class website(models.Model):
 
@@ -97,6 +96,13 @@ class website(models.Model):
             })
             return page_xmlid
         return res
+
+    def getUrlCategory(self, name, prod_id):
+        
+        name_without_special = re.sub('[^A-Za-z0-9]+','-',name)
+        return_url = "/shop/category/"+name_without_special+"-"+str(prod_id)
+        
+        return return_url
 
 class WebsiteConfigSettings(models.TransientModel):
 
