@@ -32,6 +32,14 @@
                 <div itemprop="description" t-field="product.product_detail" class="oe_structure mt16" id="product_full_description"/>
             </div>
         </xpath>
+        <xpath expr="//div[@class='pd-more-info']" position='after'>
+          <t t-if="product.public_categ_ids">
+            <div class="pd-more-info">
+              <span t-field="product.public_categ_ids[0].description"/>
+            </div>
+          </t>
+        </xpath>
+
     </template>
 
     <template id="website_sale_total_inherit" inherit_id="website_sale.cart_lines" name="Total website ecommerce">
@@ -126,5 +134,5 @@
             </div>
         </xpath>
     </template>
-    
+
 </odoo>
