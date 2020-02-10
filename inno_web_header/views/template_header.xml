@@ -246,7 +246,7 @@
   </template>
   <!-- Product Cart -->
   <template id="product_carts">
-    <div class="cart-view-drop">
+    <div class="cart-view-drop" t-name="cart-view-drop">
       <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
       <i class="fa fa-shopping-cart"></i>
       <span class="cart_quantity badges" t-esc="website_sale_order and website_sale_order.cart_quantity or '0'" style="background-color: #2196f3;"/>
@@ -265,7 +265,7 @@
               <!-- <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }"> <span t-field="line.product_id.image_small" t-options='{"widget": "image", "class": "img-responsive"}'/> </a> -->
             </span>
           </div>
-          <div style="overflow: scroll; height: 300px;">
+          <div style="overflow: scroll; height: 300px;" class="item-dropdown-cart">
             <t t-foreach="website_sale_order.website_order_line" t-as="line">
             <li t-if="line.product_id and line.product_id.product_tmpl_id">
               <div class="items" style="width:300px;">
@@ -285,7 +285,7 @@
                             <strong style="font-weight: 400;" t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
                           </a>
                         </label>
-                        <label class="quantitys">
+                        <label t-attf-class="quantitys #{line.product_id.ids[0]}" t-attf-id="#{line.product_uom_qty}">
                           <t t-esc="line.product_uom_qty"/>
                           x
                         </label>
@@ -301,6 +301,7 @@
               </div>
             </li>
           </t>
+
           </div>
           <div class="cart-summary">
             <p class="cart-total">

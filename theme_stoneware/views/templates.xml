@@ -685,7 +685,7 @@
 		<div class="col-md-12 pd_info">
 				<ul class="nav nav-tabs product-tabs" role="tablist">
 					<li role="presentation">
-							<a href="#more_info" class="background-gray" aria-controls="more_info" role="tab" data-toggle="tab">Specifiation</a>
+							<a href="#more_info" class="background-gray" aria-controls="more_info" role="tab" data-toggle="tab">Specification</a>
 					</li>
   			</ul>
 				<div class="tab-content">
