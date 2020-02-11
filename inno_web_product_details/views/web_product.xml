@@ -40,6 +40,14 @@
           </t>
         </xpath>
 
+
+        <xpath expr="//a[@id='add_to_cart']" position='replace'>
+            <a id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product btn-add-to-cart" t-att-id="product.product_variant_id.id">Add to Cart</a>
+        </xpath>
+
+        <!-- xpath untuk menganti class add_to_cart agar tidak redirect -->
+
+
     </template>
 
     <template id="website_sale_total_inherit" inherit_id="website_sale.cart_lines" name="Total website ecommerce">

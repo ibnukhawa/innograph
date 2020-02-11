@@ -190,12 +190,17 @@ class HomePage(Controller):
                 
                 for product in master_product:
 
+                    id_category = ""
+
+                    if(product.public_categ_ids):
+                        id_category = product.public_categ_ids.ids[0]
+
                     price =product.currency_id.symbol+' '+'{:,.0f}'.format(product.website_price)
                     name_product = re.sub('[^A-Za-z0-9]+', '', product.name)
                     a = name_product.lower()
                     url_name = a.replace(" ", "-")
                     url_img='/web/image/product.template/'+str(product.id)+'/image/300x300'
-                    data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':url_img, 'price_label': price, 'price': product.website_price, 'currency':product.currency_id.symbol,'id_category':product.public_categ_ids.ids[0]})
+                    data_product.append({'id':product.id, 'name':product.name,'url_name': url_name, 'image':url_img, 'price_label': price, 'price': product.website_price, 'currency':product.currency_id.symbol,'id_category':id_category})
 
             data_slider['data_product']=data_product
             data_slider['title'] = title
