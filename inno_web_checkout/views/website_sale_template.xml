@@ -204,6 +204,15 @@
                 <span class="visible-xs-inline">Quotation</span>	
                 <span class="fa fa-long-arrow-right" />
             </a>
+		</xpath>		
+
+		<xpath expr="//div[@id='wrap']/div[1]/div/div[contains(@class, 'oe_cart')]" position="attributes">    
+			<attribute name="class">col-sm-9 oe_cart</attribute>
+		</xpath>
+
+		
+		<xpath expr="//div[@id='wrap']/div[1]/div/div[contains(@class, 'text-muted')]" position="attributes">    
+			<attribute name="class">col-sm-3 text-muted</attribute>
 		</xpath>
 	</template>
 	

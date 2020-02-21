@@ -27,16 +27,6 @@
 		<xpath expr="//div[@id='wrap']/div[1]/div[contains(@class, 'row')]" position="before">
 			<h1 class="mb32">Shopping Cart</h1>
 		</xpath>
-
-		<xpath expr="//div[@class='oe_cart']" position="attributes">    
-			<attribute name="class">col-sm-9 oe_cart</attribute>  </xpath>
-		</xpath>
-
-		
-		<xpath expr="//div[@class='text-muted']" position="attributes">    
-			<attribute name="class">col-lg-3 text-muted</attribute>  </xpath>
-		</xpath>
-
 		<!-- Inherited by other template, so better to hide it -->
 		<xpath expr="//div[@id='wrap']/div[1]/div/div[contains(@class, 'oe_cart')]/a[1]" position="attributes">
 			<attribute name="class">hidden</attribute>
