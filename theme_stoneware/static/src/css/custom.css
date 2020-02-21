@@ -1,0 +1,9 @@
+
+@media (max-width: 768px) {
+    .oe_cart .btn.mb32 {
+        display: block;
+        width: calc(50% - 5px);
+        float: left !important;
+        margin: 0 2px;
+    }
+}
