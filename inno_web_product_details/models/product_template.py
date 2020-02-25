@@ -12,6 +12,7 @@ class ProductTemplate(models.Model):
 	product_detail = fields.Html(string='Detail Produk')
 	installation_instructions = fields.Html(string='Petunjuk Pemasangan')
 	product_gallery = fields.Html(string='Galery Produk')
+	tab_ids = fields.One2many('product.tab', 'product_id')
 
 	api.multi
 	def get_sold_qty(self,qty):
@@ -28,7 +29,7 @@ class ProductTemplate(models.Model):
 			result['qty'] = self.get_data_koma(str(math.floor(qty)/1000000000))
 			result['satuan'] = ' m'
 		return result
-	
+
 	api.multi
 	def get_view_product(self,qty):
 		result = {'qty': '', 'satuan': ''}

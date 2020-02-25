@@ -2,51 +2,83 @@
     <template id="product_details_inherit" inherit_id="theme_stoneware.product_details" name="Product Website">
         <xpath expr="//div/div/div/t/div/t/div[@class='item']" position="replace">
             <div class="item">
-                <a t-att-href="website.image_url(pimg,'image')" class="slider-popup-product"/>
-                <img class="img img-responsive sub-images" t-attf-src="/website/image/product.image/{{pimg.id}}/image/300x300" t-att-alt="pimg.name"/>
+                <a t-att-href="website.image_url(pimg,'image')" class="slider-popup-product" />
+                <img class="img img-responsive sub-images"
+                    t-attf-src="/website/image/product.image/{{pimg.id}}/image/300x300" t-att-alt="pimg.name" />
             </div>
         </xpath>
         <xpath expr="//ul[@class='nav nav-tabs product-tabs']/li[1]" position="after">
             <li role="presentation">
-                 <a href="#installation_instruction" class="background-gray" aria-controls="more_info" role="tab" data-toggle="tab" >Petunjuk Pemasangan</a>
+                <a href="#installation_instruction" class="background-gray" aria-controls="more_info" role="tab"
+                    data-toggle="tab">Petunjuk Pemasangan</a>
             </li>
             <li role="presentation">
-                 <a href="#product_gallery" class="background-gray" aria-controls="more_info" role="tab" data-toggle="tab">Galeri Product</a>
+                <a href="#product_gallery" class="background-gray" aria-controls="more_info" role="tab"
+                    data-toggle="tab">Galeri Product</a>
             </li>
         </xpath>
         <xpath expr="//div[@id='more_info']" position='after'>
             <div role="tabpanel" class="tab-pane" id="installation_instruction">
-                <div itemprop="description" t-field="product.installation_instructions" class="oe_structure mt16" id="product_full_description"/>
+                <div itemprop="description" t-field="product.installation_instructions" class="oe_structure mt16"
+                    id="product_full_description" />
             </div>
             <div role="tabpanel" class="tab-pane acve" id="product_gallery">
-                <div itemprop="description" t-field="product.product_gallery" class="oe_structure mt16" id="product_full_description"/>
+                <div itemprop="description" t-field="product.product_gallery" class="oe_structure mt16"
+                    id="product_full_description" />
             </div>
         </xpath>
         <xpath expr="//ul[@class='nav nav-tabs product-tabs']/li" position="before">
             <li role="presentation" class="active">
-                 <a href="#detail_product" class="background-gray" aria-controls="detail_product" role="tab" data-toggle="tab">Detail Product</a>
+                <a href="#detail_product" class="background-gray" aria-controls="detail_product" role="tab"
+                    data-toggle="tab">Detail Product</a>
             </li>
         </xpath>
         <xpath expr="//div[@id='more_info']" position='before'>
             <div role="tabpanel" class="tab-pane active" id="detail_product">
-                <div itemprop="description" t-field="product.product_detail" class="oe_structure mt16" id="product_full_description"/>
+                <div itemprop="description" t-field="product.product_detail" class="oe_structure mt16"
+                    id="product_full_description" />
             </div>
         </xpath>
         <xpath expr="//div[@class='pd-more-info']" position='after'>
-          <t t-if="product.public_categ_ids">
-            <div class="pd-more-info">
-              <span t-field="product.public_categ_ids[0].description"/>
-            </div>
-          </t>
+            <t t-if="product.public_categ_ids">
+                <div class="pd-more-info">
+                    <span t-field="product.public_categ_ids[0].description" />
+                </div>
+            </t>
         </xpath>
 
 
         <xpath expr="//a[@id='add_to_cart']" position='replace'>
-            <a id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product btn-add-to-cart" t-att-id="product.product_variant_id.id">Add to Cart</a>
+            <a id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product btn-add-to-cart"
+                t-att-id="product.product_variant_id.id">Add to Cart</a>
         </xpath>
 
         <!-- xpath untuk menganti class add_to_cart agar tidak redirect -->
 
+        <!-- menambahkan product tabs -->
+        <xpath expr="//div[@id='product_more_info']/div/ul" position="inside">
+            <t t-foreach="product.tab_ids" t-as="tab">
+                <li role="presentation">
+                    <!-- <t t-esc="tab.name"/> -->
+                    <a t-attf-href="#_{{tab.name}}" class="background-gray" role="tab" data-toggle="tab">
+                        <t t-esc="tab.name" />
+                    </a>
+                </li>
+            </t>
+        </xpath>
+        <!-- Menambahkan detail tiap product tabs -->
+        <xpath expr="//div[@id='product_more_info']/div/div[@class='tab-content']" position="inside">
+            <t t-foreach="product.tab_ids" t-as="tab">
+                <div role="tabpanel" class="tab-pane" t-attf-id="_{{tab.name}}">
+                    <div class="pd-more-info">
+                        <h4 class="text-center"><t t-esc="tab.name"/> <span t-field="product.name" /></h4>
+                    </div>
+                    <div class="pd-more-info">
+                        <div itemprop="description" t-field="tab.description" class="oe_structure mt16" t-attf-id="{{tab.name}}" />
+                    </div>
+                </div>
+            </t>
+        </xpath>
 
     </template>
 
@@ -54,35 +86,39 @@
         <xpath expr="//table[@id='cart_products']/tbody" position="after">
             <tfoot>
                 <tr>
-                    <td colspan="3" class="" style='border: none;'/>
+                    <td colspan="3" class="" style='border: none;' />
                     <td class="text-right " style='border: none;'>
                         <span class="text-right text-muted">Subtotal:</span>
                     </td>
                     <td class="" style='border: none; text-align: left !important;'>
                         <span class="text-left text-muted">
-                            <span t-field="website_sale_order.amount_untaxed" style="white-space: nowrap;" t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
+                            <span t-field="website_sale_order.amount_untaxed" style="white-space: nowrap;"
+                                t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
                         </span>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3" class="" style='border: none;'/>
+                    <td colspan="3" class="" style='border: none;' />
                     <td class="text-right " style='border: none;'>
-                        <span class="text-right text-muted" title="Taxes may be updated after providing shipping address"> Taxes:</span>
+                        <span class="text-right text-muted"
+                            title="Taxes may be updated after providing shipping address"> Taxes:</span>
                     </td>
                     <td class="" style='border: none; text-align: left !important;'>
                         <span class="text-left text-muted">
-                            <span t-field="website_sale_order.amount_tax" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'from_currency': website_sale_order.pricelist_id.currency_id, 'display_currency': website.currency_id}" />
+                            <span t-field="website_sale_order.amount_tax" style="white-space: nowrap;"
+                                t-options="{'widget': 'monetary', 'from_currency': website_sale_order.pricelist_id.currency_id, 'display_currency': website.currency_id}" />
                         </span>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3" class="" style='border: none;'/>
+                    <td colspan="3" class="" style='border: none;' />
                     <td class="text-right " style='border: none;'>
                         <span class="text-right h4">Total:</span>
                     </td>
                     <td style='border: none; text-align: left !important;'>
                         <span class="text-left h4" style="white-space: nowrap;">
-                    <span t-field="website_sale_order.amount_total" style="white-space: nowrap;" t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
+                            <span t-field="website_sale_order.amount_total" style="white-space: nowrap;"
+                                t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
                         </span>
                     </td>
                 </tr>
@@ -91,44 +127,49 @@
         <xpath expr="//div[@class='js_cart_lines row']" position="replace">
             <div class="js_cart_lines row hidden">
                 <t t-call="website_sale.total">
-                    <t t-set='extra_class' t-value='"col-sm-4 col-sm-offset-8 col-xs-12"'/>
+                    <t t-set='extra_class' t-value='"col-sm-4 col-sm-offset-8 col-xs-12"' />
                 </t>
             </div>
         </xpath>
     </template>
-    <template id="website_sale_total_payment_inherit" inherit_id="website_sale.payment" name="Total payment website ecommerce">
+    <template id="website_sale_total_payment_inherit" inherit_id="website_sale.payment"
+        name="Total payment website ecommerce">
         <xpath expr="//table[@id='cart_products']/tbody" position="after">
             <tfoot>
                 <tr>
-                    <td colspan="2" class="" style='border: none;'/>
+                    <td colspan="2" class="" style='border: none;' />
                     <td class="text-right " style='border: none;'>
                         <span class="text-right text-muted">Subtotal:</span>
                     </td>
                     <td class="" style='border: none; text-align: left !important;'>
                         <span class="text-left text-muted">
-                            <span t-field="website_sale_order.amount_untaxed" style="white-space: nowrap;" t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
+                            <span t-field="website_sale_order.amount_untaxed" style="white-space: nowrap;"
+                                t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
                         </span>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="" style='border: none;'/>
+                    <td colspan="2" class="" style='border: none;' />
                     <td class="text-right " style='border: none;'>
-                        <span class="text-right text-muted" title="Taxes may be updated after providing shipping address"> Taxes:</span>
+                        <span class="text-right text-muted"
+                            title="Taxes may be updated after providing shipping address"> Taxes:</span>
                     </td>
                     <td class="" style='border: none; text-align: left !important;'>
                         <span class="text-left text-muted">
-                            <span t-field="website_sale_order.amount_tax" style="white-space: nowrap;" t-options="{'widget': 'monetary', 'from_currency': website_sale_order.pricelist_id.currency_id, 'display_currency': website.currency_id}" />
+                            <span t-field="website_sale_order.amount_tax" style="white-space: nowrap;"
+                                t-options="{'widget': 'monetary', 'from_currency': website_sale_order.pricelist_id.currency_id, 'display_currency': website.currency_id}" />
                         </span>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="" style='border: none;'/>
+                    <td colspan="2" class="" style='border: none;' />
                     <td class="text-right " style='border: none;'>
                         <span class="text-right h4">Total:</span>
                     </td>
                     <td style='border: none; text-align: left !important;'>
                         <span class="text-left h4" style="white-space: nowrap;">
-                    <span t-field="website_sale_order.amount_total" style="white-space: nowrap;" t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
+                            <span t-field="website_sale_order.amount_total" style="white-space: nowrap;"
+                                t-options="{'widget': 'monetary','from_currency': website_sale_order.pricelist_id.currency_id,'display_currency': website.currency_id}" />
                         </span>
                     </td>
                 </tr>
@@ -137,7 +178,7 @@
         <xpath expr="//div[@id='wrap']/div[1]/div/div[2]/div[1]" position="replace">
             <div class="hidden">
                 <t t-call="website_sale.total">
-                    <t t-set='extra_class' t-value='"col-sm-4 col-sm-offset-8 col-xs-12"'/>
+                    <t t-set='extra_class' t-value='"col-sm-4 col-sm-offset-8 col-xs-12"' />
                 </t>
             </div>
         </xpath>
