@@ -136,8 +136,8 @@ class HomePage(Controller):
                 price =product.currency_id.symbol+' '+'{:,.2f}'.format(product.website_price)
                 
                 name_product = re.sub('[^A-Za-z0-9]+', '', product.name)
-                a = name_product.lower()
-                url_name = a.replace(" ", "-")
+                make_a_lower_char = name_product.lower()
+                url_name = make_a_lower_char.replace(" ", "-")
 
                 id_category = ""
 
