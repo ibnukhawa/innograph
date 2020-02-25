@@ -140,6 +140,9 @@
     height: 42px;
     text-align: left;
     width:inherit !important;
+    white-space: nowrap;
+    overflow-y: hidden;
+    display: flex;
 }
 
 .product-tabs li{
