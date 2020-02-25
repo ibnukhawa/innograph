@@ -53,14 +53,12 @@
                 t-att-id="product.product_variant_id.id">Add to Cart</a>
         </xpath>
 
-        <!-- xpath untuk menganti class add_to_cart agar tidak redirect -->
-
         <!-- menambahkan product tabs -->
         <xpath expr="//div[@id='product_more_info']/div/ul" position="inside">
             <t t-foreach="product.tab_ids" t-as="tab">
                 <li role="presentation">
                     <!-- <t t-esc="tab.name"/> -->
-                    <a t-attf-href="#_{{tab.name}}" class="background-gray" role="tab" data-toggle="tab">
+                    <a t-attf-href="#_{{tab.id}}" class="background-gray" role="tab" data-toggle="tab">
                         <t t-esc="tab.name" />
                     </a>
                 </li>
@@ -69,10 +67,7 @@
         <!-- Menambahkan detail tiap product tabs -->
         <xpath expr="//div[@id='product_more_info']/div/div[@class='tab-content']" position="inside">
             <t t-foreach="product.tab_ids" t-as="tab">
-                <div role="tabpanel" class="tab-pane" t-attf-id="_{{tab.name}}">
-                    <div class="pd-more-info">
-                        <h4 class="text-center"><t t-esc="tab.name"/> <span t-field="product.name" /></h4>
-                    </div>
+                <div role="tabpanel" class="tab-pane" t-attf-id="_{{tab.id}}">
                     <div class="pd-more-info">
                         <div itemprop="description" t-field="tab.description" class="oe_structure mt16" t-attf-id="{{tab.name}}" />
                     </div>
