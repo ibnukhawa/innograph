@@ -6,3 +6,9 @@ access_slider_banner_tiga,access_slider_banner_tiga,inno_web_home.model_slider_b
 access_slider_tabs,access_slider_tabs,inno_web_home.model_slider_tabs,,1,0,0,0
 access_slider_multiple_category,access_slider_multiple_category,inno_web_home.model_slider_multiple_category,,1,0,0,0
 access_res_users,access_res_users,model_res_users,,1,1,0,0
+access_stock_warehouse_website,stock.warehouse.website,stock.model_stock_warehouse,,1,0,0,0
+access_stock_location_website,stock.location.website,stock.model_stock_location,,1,0,0,0
+access_stock_move_website,stock.move.website,stock.model_stock_move,,1,0,0,0
+access_stock_quant_website,stock.quant.website,stock.model_stock_quant,,1,0,0,0
+access_product_uom_stock_website,product.uom stock_website,product.model_product_uom,,1,0,0,0
+access_product_tab_website,product.tab.website,inno_web_product_details.model_product_tab,,1,0,0,0
