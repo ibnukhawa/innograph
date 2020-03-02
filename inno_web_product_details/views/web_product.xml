@@ -49,8 +49,13 @@
 
 
         <xpath expr="//a[@id='add_to_cart']" position='replace'>
-            <a id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product btn-add-to-cart"
-                t-att-id="product.product_variant_id.id">Add to Cart</a>
+            <t t-if="product.qty_available > 0">
+                <a id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product btn-add-to-cart"
+                    t-att-id="product.product_variant_id.id">Add to Cart</a>
+            </t>
+            <t t-else="">
+                <a class="btn btn-danger btn-lg mt8 disabled">Add to Cart</a>
+            </t>
         </xpath>
 
         <!-- menambahkan product tabs -->
