@@ -10,6 +10,7 @@
   </template>
   <!-- end -->
   <template id="layout_header" inherit_id="website.layout">
+
     <xpath expr="//div[@class='header-top']" position="replace">
       <div class="header-top collapse navbar-collapse" style="background:#2196F3;border-bottom: 1px solid #2196F3;margin-top: 0px !important;">
 
@@ -63,14 +64,17 @@
                   <i class="fa fa-bars dropdown-toggle bars-mobile_view" data-toggle="dropdown"></i>
 
                   <ul class="dropdown-menu box-menu">
-                    <t t-foreach="website.menu_id.child_id" t-as="menu_id">
-                        <li>
-                          <a class="dropdown-item" t-attf-href="#{menu_id.url}"><t t-esc="menu_id.name"/></a>
-                        </li>
-                        
+                    <t t-foreach="website.menu_id.child_id" t-as="submenu">
+                        <t t-if="submenu.display_menu(request.env.user, request.httprequest.url_root)">
+                            <li>
+                               <a class="dropdown-item" t-attf-href="#{submenu.url}"><t t-esc="submenu.name"/></a>
+                            </li>
+                        </t>
                     </t>
                     
                   </ul>
+
+                  
 
                 </div>
 
@@ -330,7 +334,7 @@
         <i class="fa fa-shopping-cart"></i>
       </span>
       <t t-if="not website_sale_order or not website_sale_order.website_order_line" class="">
-        <ul class="dropdown-menu dropdown-carts-view" role="menu">
+        <ul class="dropdown-menu dropdown-carts-view troli-empty" role="menu">
           <li class="empty">
             <span>Your cart is empty!</span>
           </li>
@@ -344,7 +348,7 @@
               <!-- <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }"> <span t-field="line.product_id.image_small" t-options='{"widget": "image", "class": "img-responsive"}'/> </a> -->
             </span>
           </div>
-          <div style="overflow: scroll; height: 300px;">
+          <div style="overflow: scroll; height: 300px;" class="item-dropdown-cart">
             <t t-foreach="website_sale_order.website_order_line" t-as="line">
             <li t-if="line.product_id and line.product_id.product_tmpl_id">
               <div class="items" style="width:300px;">
@@ -364,7 +368,7 @@
                             <strong style="font-weight: 400;" t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
                           </a>
                         </label>
-                        <label class="quantitys">
+                        <label t-attf-class="quantitys #{line.product_id.ids[0]}" t-attf-id="#{line.product_uom_qty}">
                           <t t-esc="line.product_uom_qty"/>
                           x
                         </label>

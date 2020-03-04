@@ -213,7 +213,10 @@ hr{
 
 @media (min-width: 320.00px)
 {
-    
+    .well-lg{
+        display: flex;
+    }
+
     .button_prev_next{
         left: -12px;
         float: right;
@@ -257,7 +260,7 @@ hr{
         font-size: xx-small;
     }
     .price{
-        font-size: xx-small;
+        font-size: inherit;
         color:red;
     }
 
@@ -290,6 +293,7 @@ hr{
 
 @media (min-width: 768.00px)
 {
+    
     .button_prev_next{
         right: 0px;
         float: right;

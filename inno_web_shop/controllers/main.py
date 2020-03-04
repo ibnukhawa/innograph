@@ -65,6 +65,7 @@ class WebsiteSale(WebsiteSale):
 
         value = {
             "product_id" : data_product.product_tmpl_id.id,
+            "product_id_awal" : product_id,
             "display_name" : data_product.with_context(display_default_code=False).display_name,
             "image_small" : "/web/image/product.product/"+str(product_id)+"/image_small",
             "qty" : product_id_qty,
