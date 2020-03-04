@@ -1,19 +1,52 @@
-
-
-
 odoo.define('inno_web_shop.add_to_cart', function (require) {
     "use strict";
 var core = require('web.core');
 var qweb = core.qweb;
 
     $(document).ready(function() {
-        $(".btn-add-to-cart").click(function(){
+
+        $(".btn-add-to-cart").click(function(event){
             var product_id = $(this).attr("id");
             
             $.get("/shop/cart/update_click/"+product_id, function( data ) {
                 var append_item = ""
                 $(".cart_quantity").html(data.jumlah_qty);
+
+                var window_width =$( window ).width();
+                var class_name = "cart_quantity";
+
+                if(window_width < 992){
+                    class_name = "span-cart";
+                }
+
+
+                $('.'+class_name).addClass('o_shadow_animation_cart').delay(700).queue(function(){
+                    $(this).removeClass("o_shadow_animation_cart").dequeue();
+                });
                 
+
+
+                var imgtodrag = $(event.target).closest('form').find('img').eq(0);
+                if (imgtodrag.length) {
+                    var imgclone = imgtodrag.clone()
+                    .offset({
+                        top: imgtodrag.offset().top,
+                        left: imgtodrag.offset().left
+                    })
+                    .addClass('o_product_comparison_animate')
+                    .appendTo($('body'))
+                    .animate({
+                        'top': $("."+class_name).offset().top,
+                        'left': $("."+class_name).offset().left,
+                        'width': 75,
+                        'height': 75
+                    }, 1000, 'easeInOutExpo');
+
+                    imgclone.animate({
+                        'width': 0,
+                        'height': 0
+                    });
+                }
                 if (data.jumlah_data_awal < 1){
                     append_item += "<div style='background-color:#f5f5f5;'>";
                     append_item += "<span class='hci-row' style='margin: 20px;line-height: 3;'> Troli Belanja";
@@ -46,7 +79,7 @@ var qweb = core.qweb;
                     append_item += "</a>";
                     append_item += "</label>";
 
-                    append_item += "<label class='quantitys "+data.product_id+"' id='"+data.qty+"'> "+data.qty+" x   ";
+                    append_item += "<label class='quantitys "+data.product_id_awal+"' id='"+data.qty+"'> "+data.qty+" x   ";
                     append_item += "</label>";
                     append_item += "<label class='totals'>";
                     append_item += "<span style='white-space: nowrap;'> "+data.price;
@@ -59,7 +92,7 @@ var qweb = core.qweb;
                     append_item += "</table>";
                     append_item += "</span>";
                     append_item += "</div>";
-                    append_item += "</hr>";
+                    append_item += "<hr/>";
                     append_item += "</li>";
 
                     append_item += "</div>";
@@ -73,7 +106,7 @@ var qweb = core.qweb;
                     append_item += "</p>";
                     append_item += "</div>";
                     
-                    append_item += "</hr>";
+                    append_item += "<hr/>";
 
                     append_item += "<div class='cart-actions' style='float:right; margin-right: 20px; margin-bottom: 20px;'>";
                     append_item += "<a href='/shop/cart' class='btn btn-primary'>";
@@ -82,6 +115,8 @@ var qweb = core.qweb;
                     append_item += "</a>";
                     append_item += "</div>";
                     
+                    $(".dropdown-carts-view").removeClass("troli-empty");
+                    $(".dropdown-carts-view").addClass("troli");
                     $(".dropdown-carts-view").html(append_item);
                 }
                 else{
@@ -121,7 +156,7 @@ var qweb = core.qweb;
                         append_item += "</a>";
                         append_item += "</label>";
     
-                        append_item += "<label class='quantitys "+data.product_id+"'> "+data.qty+" x &nbsp;	";
+                        append_item += "<label class='quantitys "+data.product_id_awal+"' id='"+data.qty+"'> "+data.qty+" x &nbsp;	";
                         append_item += "</label>";
                         append_item += "<label class='totals'>";
                         append_item += "<span style='white-space: nowrap;'> "+data.price;
@@ -134,14 +169,12 @@ var qweb = core.qweb;
                         append_item += "</table>";
                         append_item += "</span>";
                         append_item += "</div>";
-                        append_item += "</hr>";
+                        append_item += "<hr/>";
                         append_item += "</li>";
     
                         $(".item-dropdown-cart").append(append_item);
                         
                 }
-
-                
 
                 }
                 

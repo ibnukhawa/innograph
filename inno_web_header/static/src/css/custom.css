@@ -296,6 +296,9 @@ img.images{
     .troli{
         margin-left: -261px;
     }
+    .troli-empty{
+        margin-left: -122px;
+    }
 
     .navbar-mobile{
         display: block;
