@@ -119,7 +119,10 @@
                                     <t t-set="menus" t-value="request.website.create_fly_out_menu()" />
                                     <ul id="dropdown_ul">
                                         <t t-foreach="menus" t-as="submenu">
-                                            <t t-call="website_mega_menus.fly_out_mega_menu" />
+                                            <!-- Alfif penambahan t-if untuk filter berdasarkan access url -->
+                                            <t t-if="submenu.display_menu(request.env.user, request.httprequest.url_root)">
+                                                <t t-call="website_mega_menus.fly_out_mega_menu" />
+                                            </t>
                                         </t>
                                     </ul>
                                 </div>
