@@ -31,20 +31,26 @@ class PurchaseOrder(models.Model):
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
-    @api.depends('discount')
+    @api.depends('product_qty', 'price_unit', 'taxes_id', 'discount')
     def _compute_amount(self):
         for line in self:
             price_unit = False
+            value = 0
             # This is always executed for allowing other modules to use this
             # with different conditions than discount != 0
-            price = line._get_discounted_price_unit()
-            if price != line.price_unit:
-                # Only change value if it's different
-                price_unit = line.price_unit
-                line.price_unit = price
+            # price = line._get_discounted_price_unit()
+            # if price != line.price_unit:
+            #     # Only change value if it's different
+            #     price_unit = line.price_unit
+            #     line.price_unit = price
             super(PurchaseOrderLine, line)._compute_amount()
-            if price_unit:
-                line.price_unit = price_unit
+            # if price_unit:
+            #     line.price_unit = price_unit
+            if line.product_qty and line.price_unit and line.discount:
+                price = line.product_qty*line.price_unit
+                price = price*(1 - line.discount / 100)
+                line.price_subtotal = price
+                line.price_tax = (line.taxes_id.amount * price) / 100
 
     discount = fields.Float(
         string='Discount (%)', digits=dp.get_precision('Discount'),
@@ -62,10 +68,11 @@ class PurchaseOrderLine(models.Model):
         :rtype: float
         :return: Unit price after discount(s).
         """
+        price = self.price_unit
         self.ensure_one()
         if self.discount:
-            return self.price_unit * (1 - self.discount / 100)
-        return self.price_unit
+            price = self.price_unit * (1 - self.discount / 100)
+        return price
 
     @api.multi
     def _get_stock_move_price_unit(self):

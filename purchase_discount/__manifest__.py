@@ -15,7 +15,7 @@
     "depends": ["purchase"],
     "data": [
         "views/purchase_discount_view.xml",
-        # "views/report_purchaseorder.xml",
+        "views/report_purchaseorder.xml",
     ],
     "license": 'AGPL-3',
     'installable': True,
