@@ -28,17 +28,34 @@
             </div>
         </xpath>
         <xpath expr="//ul[@class='nav nav-tabs product-tabs']/li" position="before">
-            <li role="presentation" class="active">
+            <li role="presentation">
                 <a href="#detail_product" class="background-gray" aria-controls="detail_product" role="tab"
-                    data-toggle="tab">Detail Product</a>
+                    data-toggle="tab">Detail Produk</a>
             </li>
         </xpath>
+
+
         <xpath expr="//div[@id='more_info']" position='before'>
-            <div role="tabpanel" class="tab-pane active" id="detail_product">
+            <div role="tabpanel" class="tab-pane" id="detail_product">
                 <div itemprop="description" t-field="product.product_detail" class="oe_structure mt16"
                     id="product_full_description" />
             </div>
         </xpath>
+
+        <xpath expr="//ul[@class='nav nav-tabs product-tabs']/li" position="before">
+            <li role="presentation" class="active">
+                <a href="#deskripsi_singkat" class="background-gray" aria-controls="deskripsi_singkat" role="tab"
+                    data-toggle="tab">Deskripsi Singkat</a>
+            </li>
+        </xpath>
+
+        <xpath expr="//div[@id='more_info']" position='before'>
+            <div role="tabpanel" class="tab-pane active" id="deskripsi_singkat">
+                <div itemprop="description" t-field="product.short_description" class="oe_structure mt16"
+                    id="product_full_description" />
+            </div>
+        </xpath>
+        
         <xpath expr="//div[@class='pd-more-info']" position='after'>
             <t t-if="product.public_categ_ids">
                 <div class="pd-more-info">
