@@ -685,14 +685,14 @@
 		<div class="col-md-12 pd_info">
 				<ul class="nav nav-tabs product-tabs" role="tablist">
 					<li role="presentation">
-							<a href="#more_info" class="background-gray" aria-controls="more_info" role="tab" data-toggle="tab">Specification</a>
+							<a href="#more_info" class="background-gray" aria-controls="more_info" role="tab" data-toggle="tab">Spesifikasi</a>
 					</li>
   			</ul>
 				<div class="tab-content">
 					
 					<div role="tabpanel" class="tab-pane" id="more_info">
 							<div class="pd-more-info">
-									<h4 class="text-center">Specification <span t-field="product.name"/></h4>        
+									<h4 class="text-center">Spesifikasi <span t-field="product.name"/></h4>        
 							</div>
 							<t t-name="website_sale.variants_new">
 												<!-- <t t-set="attribute_value_ids" t-value="get_attribute_value_ids(product)"/> -->
