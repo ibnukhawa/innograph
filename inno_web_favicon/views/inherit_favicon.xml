@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="layout" inherit_id="web.layout">
+            
+            <xpath expr="//link[@rel='icon']" position="replace">
+                <!-- <link rel="icon" t-att-href="getFavicon()" /> -->
+                <t t-if="website">
+        
+                    <t t-set="x_icon" t-value="website.getFavicon()" />
+                
+                    <link rel="icon" t-att-href="x_icon" type="image/x-icon"/>
+                
+                </t>
+                <t t-else="">
+                    <link rel="icon" href="/web_favicon/favicon" />
+                </t>
+
+            </xpath>
+        
+    </template>
+</odoo>

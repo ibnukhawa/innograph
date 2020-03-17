@@ -36,9 +36,9 @@
                                 <div class="icon-follows">
                                     <div class="o_blog_post_complete o_sharing_links">
                                         <a t-att-href="website.social_twitter" target="_blank" class="fa fa-twitter-square icon-twitter" id="o_twitter_complete"></a>
-                                        <a t-att-href="website.social_facebook" class="fa fa-facebook-square icon-facebook" id="o_facebook_complete"></a>
-                                        <a t-att-href="website.social_linkedin" class="fa fa-linkedin-square icon-linkedin" id="o_linkedin_complete"></a>
-                                        <a t-att-href="website.social_googleplus" class="fa fa-google-plus-square icon-google" id="o_google_complete"></a>
+                                        <a t-att-href="website.social_facebook" target="_blank" class="fa fa-facebook-square icon-facebook" id="o_facebook_complete"></a>
+                                        <a t-att-href="website.social_linkedin" target="_blank" class="fa fa-linkedin-square icon-linkedin" id="o_linkedin_complete"></a>
+                                        <a t-att-href="website.social_googleplus" target="_blank" class="fa fa-google-plus-square icon-google" id="o_google_complete"></a>
                                     </div>
                                 </div>
                                 <!-- <div class="title-new"> -->
