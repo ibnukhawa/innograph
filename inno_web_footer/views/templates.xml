@@ -115,7 +115,10 @@
 
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6" >
                                 <h3 class="block-title black-font">Displaystore</h3>
-                                <ul class="list-unstyled" id="products">
+                                <ul class="list-unstyled no_display" id="products">
+
+                                </ul>
+                                <ul class="list-unstyled" id="displaystore">
                                     <li>
                                         <a class="black-font" href="/page/tentang-displaystore" target="blank">Tentang Displaystore</a>
                                     </li>

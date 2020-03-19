@@ -184,7 +184,7 @@ function createBanner3(){
                     
                     html_img += "<div class='disable_customize box_slider_satu'>"
                     if(url.url != ''){
-                        html_img += "<a href='"+url.url+"'>"
+                        html_img += "<a href='"+url.url+"' target='blank'>"
                     }
                     html_img += "<img class='disable_customize banner' src='"+url.image+"'/>"
                     if(url.url != ''){
@@ -204,7 +204,7 @@ function createBanner3(){
                 $.each(value, function( image, url ) {
                     html_img += "<div class='disable_customize box_slider_sub'>"
                     if(url.url != ''){
-                        html_img += "<a href='"+url.url+"'>"
+                        html_img += "<a href='"+url.url+"' target='blank'>"
                     }
                     html_img += "<img class='disable_customize banner_sub' src='"+url.image+"'/>"
                     if(url.url != ''){
@@ -221,7 +221,7 @@ function createBanner3(){
 
                     html_img += "<div class='disable_customize box_slider_sub'>"
                     if(url.url != ''){
-                        html_img += "<a href='"+url.url+"'>"
+                        html_img += "<a href='"+url.url+"' target='blank'>"
                     }
                     html_img += "<img class='disable_customize banner_sub' src='"+url.image+"'/>"
                     if(url.url != ''){
