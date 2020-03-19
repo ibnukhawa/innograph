@@ -7,7 +7,9 @@
     }
 }
 @media screen and (min-width: 350px){
-
+    .no_display{
+        display: none;
+    }
     .icon-follows {
         font: normal normal normal 40px/1 FontAwesome;
     }
