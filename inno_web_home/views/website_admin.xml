@@ -2,6 +2,17 @@
 <!-- Alfif -->
 <odoo>
 
+    <record model="ir.ui.view" id="product_template_form_view_style">
+        <field name="name">product.template.product.website.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="website_sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="website_style_ids" position="attributes">
+                <attribute name='groups'></attribute>
+            </field>
+        </field>
+    </record>
+
      <record id="slider_banner_satu_tree_view" model="ir.ui.view">
         <field name="name">slider.banner_satu.tree</field>
         <field name="model">slider.banner_satu</field>

@@ -39,12 +39,19 @@
             <a class="item" href="#">Menu 2</a>
             <a class="item" href="#">Menu 3</a>
           </div>
-
-          <div class="menu-left">
-            <a class="item" href="/my/home" title="My Account"><i class="fa fa-user"></i></a>
-            <a class="item" href="/shop/product/whishlists" title="Wishlist"><i class="fa fa-heart-o"></i></a>
-            <a class="item" t-attf-href="/web/session/logout?redirect=/" t-if="website.user_id != user_id" title="Logout"><i class="fa fa-sign-out"></i></a>
-          </div>
+          <t t-if="website.user_id != user_id">
+            <div class="menu-left">
+              <a class="item" href="/my/home" title="My Account"><i class="fa fa-user"></i></a>
+              <a class="item" href="/shop/product/whishlists" title="Wishlist"><i class="fa fa-heart-o"></i></a>
+              <a class="item" t-attf-href="/web/session/logout?redirect=/" t-if="website.user_id != user_id" title="Logout"><i class="fa fa-sign-out"></i></a>
+            </div>
+          </t>
+          <t t-if="not(website.user_id != user_id)">
+            <div class="menu-left">
+              <a class="item" href="/web/login" title="Login"><i class="fa fa-sign-in"></i></a>
+              <a class="item" href="/web/signup" title="Daftar"><i class="fa fa-sign-out"></i></a>
+            </div>
+          </t>
         </div>
       </div>
 
@@ -59,25 +66,34 @@
               </a>
             </div>
             <div class="col-md-12 menu-header">
-                <div class="dropdown icon-bars pull-left ul-box">
-                  
-                  <i class="fa fa-bars dropdown-toggle bars-mobile_view" data-toggle="dropdown"></i>
+              
+              <div class="dropdown icon-bars pull-left ul-box">
+                
+                <i class="fa fa-bars dropdown-toggle bars-mobile_view" data-toggle="dropdown"></i>
 
-                  <ul class="dropdown-menu box-menu">
-                    <t t-foreach="website.menu_id.child_id" t-as="submenu">
-                        <t t-if="submenu.display_menu(request.env.user, request.httprequest.url_root)">
-                            <li>
-                               <a class="dropdown-item" t-attf-href="#{submenu.url}"><t t-esc="submenu.name"/></a>
-                            </li>
-                        </t>
-                    </t>
-                    
-                  </ul>
+                <ul class="dropdown-menu box-menu">
+                 
+                   <li>
+                      <div class="search-box">
+                      <form action='/shop' method="get" role="search">
+                        
+                          <button class="btn btn-primary btn_search">Cari</button>
+                          <input class="form-control" type="text" name="search" placeholder="Search" t-att-value="search"/>
+                     
+                      </form>
+                      </div>
+                  </li>
+                  <t t-foreach="website.menu_id.child_id" t-as="submenu">
+                      <t t-if="submenu.display_menu(request.env.user, request.httprequest.url_root)">
+                          <li>
+                              <a class="dropdown-item" t-attf-href="#{submenu.url}"><t t-esc="submenu.name"/></a>
+                          </li>
+                      </t>
+                  </t>
+                </ul>
 
-                  
-
-                </div>
-
+              </div>
+  
 
               <div class="cart-box">
                 <ul class="nav navbar-nav">
