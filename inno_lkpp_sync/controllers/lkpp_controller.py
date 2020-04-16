@@ -12,7 +12,7 @@ from datetime import datetime, date, timedelta
 from collections import OrderedDict
 
 API = 'https://e-katalog.lkpp.go.id/api/'
-URL = 'http://demo.innograph.com'
+# URL = 'http://demo.innograph.com'
 
 
 class LKPPController(Controller):
@@ -70,6 +70,9 @@ class LKPPController(Controller):
     @route('/lkpp/all_produk', methods=['GET', 'POST'], type='http', auth='none', csrf=False)
     def lkpp_all_product(self, **kwargs):
         # URL Parameters
+        
+        url = request.httprequest.url_root
+
         key = kwargs.get('secretkey')
         per_page_url = kwargs.get('per_page', '500')
         per_page = int(per_page_url)
@@ -101,11 +104,11 @@ class LKPPController(Controller):
 
 
                 data_product = OrderedDict()
-                url_produk=URL+'/shop/product/'+str(record.id)
-                url_50=URL+'/web/image/product.template/'+str(record.id)+'/image/50x50'
-                url_100=URL+'/web/image/product.template/'+str(record.id)+'/image/100x100'
-                url_300=URL+'/web/image/product.template/'+str(record.id)+'/image/300x300'
-                url_800=URL+'/web/image/product.template/'+str(record.id)+'/image/800x800'
+                url_produk=url+'shop/product/'+str(record.id)
+                url_50=url+'web/image/product.template/'+str(record.id)+'/image/50x50'
+                url_100=url+'web/image/product.template/'+str(record.id)+'/image/100x100'
+                url_300=url+'web/image/product.template/'+str(record.id)+'/image/300x300'
+                url_800=url+'web/image/product.template/'+str(record.id)+'/image/800x800'
 
                 product_informasi = OrderedDict()
                 
@@ -227,6 +230,9 @@ class LKPPController(Controller):
     @route('/lkpp/updated_produk', methods=['GET', 'POST'], type='http', auth='none', csrf=False)
     def lkpp_updated_product(self, **kwargs):
         # URL Parameters
+
+        url = request.httprequest.url_root
+
         key = kwargs.get('secretkey')
         per_page_url = kwargs.get('per_page', '500')
         per_page = int(per_page_url)
@@ -271,11 +277,11 @@ class LKPPController(Controller):
                 data_product = OrderedDict()
                 result=request.env['product.template'].sudo().search([('id', '=', record['id'])])
                 
-                url_produk=URL+'/shop/product/'+str(record['id'])
-                url_50=URL+'/web/image/product.template/'+str(record['id'])+'/image/50x50'
-                url_100=URL+'/web/image/product.template/'+str(record['id'])+'/image/100x100'
-                url_300=URL+'/web/image/product.template/'+str(record['id'])+'/image/300x300'
-                url_800=URL+'/web/image/product.template/'+str(record['id'])+'/image/800x800'
+                url_produk=url+'shop/product/'+str(record['id'])
+                url_50=url+'web/image/product.template/'+str(record['id'])+'/image/50x50'
+                url_100=url+'web/image/product.template/'+str(record['id'])+'/image/100x100'
+                url_300=url+'web/image/product.template/'+str(record['id'])+'/image/300x300'
+                url_800=url+'web/image/product.template/'+str(record['id'])+'/image/800x800'
                 
                 product_informasi = OrderedDict()
 
@@ -321,7 +327,7 @@ class LKPPController(Controller):
                 if record['tkdn_product'] == False:
                     tkdn_product = 0
                 else:
-                    local_product = 1
+                    tkdn_product = 1
 
                 product_informasi['tkdn_produk'] = tkdn_product
 
@@ -393,6 +399,9 @@ class LKPPController(Controller):
     @route('/lkpp/produk', methods=['GET', 'POST'], type='http', auth='none', csrf=False)
     def lkpp_product(self, **kwargs):
         # URL Parameters
+        url = request.httprequest.url_root
+
+
         key = kwargs.get('secretkey')
         no_produk_penyedia = kwargs.get('no_produk_penyedia')
 
@@ -412,11 +421,11 @@ class LKPPController(Controller):
             
             for record in records:
 
-                url_produk=URL+'/shop/product/'+str(record.id)
-                url_50=URL+'/web/image/product.template/'+str(record.id)+'/image/50x50'
-                url_100=URL+'/web/image/product.template/'+str(record.id)+'/image/100x100'
-                url_300=URL+'/web/image/product.template/'+str(record.id)+'/image/300x300'
-                url_800=URL+'/web/image/product.template/'+str(record.id)+'/image/800x800'
+                url_produk=url+'shop/product/'+str(record.id)
+                url_50=url+'web/image/product.template/'+str(record.id)+'/image/50x50'
+                url_100=url+'web/image/product.template/'+str(record.id)+'/image/100x100'
+                url_300=url+'web/image/product.template/'+str(record.id)+'/image/300x300'
+                url_800=url+'web/image/product.template/'+str(record.id)+'/image/800x800'
 
                 product_informasi = OrderedDict()
 
