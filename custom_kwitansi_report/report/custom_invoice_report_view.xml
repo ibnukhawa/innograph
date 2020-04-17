@@ -382,8 +382,8 @@
                                         <td t-if="o.type == 'out_invoice'" colspan="2" style="padding:8px 0px;border-left:0px;font-size:10px;vertical-align:top">
                                             <div style="margin-left:-20px">
                                                 <div style="font-weight:bold;display:inline-block;width:110px">Office</div>: Jl. Lenteng Agung Raya No. 15 (Jl. Baung No. 2) Jakarta Selatan 12610 <br/>
-                                                <div style="font-weight:bold;display:inline-block;width:110px">Phone</div>: (62) 21 7883 1075 <br/>
-                                                <div style="font-weight:bold;display:inline-block;width:110px">Fax</div>: (62) 21 7883 1692 <br/>
+                                                <div style="font-weight:bold;display:inline-block;width:110px">Phone</div>: <span t-field="o.company_id.phone" />  <br/>
+                                                <div style="font-weight:bold;display:inline-block;width:110px">Fax</div>: <span t-field="o.company_id.fax" /> <br/>
                                                 <div style="font-weight:bold;display:inline-block;width:110px">Website</div>: http://innograph.com <br/>
                                             </div>
                                         </td>
@@ -457,8 +457,8 @@
                                         <td colspan="3" style="padding:8px 0px;border-left:0px;font-size:10px;vertical-align:top">
                                             <div style="margin-left:24px">
                                                 <div style="font-weight:bold;display:inline-block;width:110px">Office</div>: Jl. Lenteng Agung Raya No. 15 (Jl. Baung No. 2) Jakarta Selatan 12610 <br/>
-                                                <div style="font-weight:bold;display:inline-block;width:110px">Phone</div>: (62) 21 7883 1075 <br/>
-                                                <div style="font-weight:bold;display:inline-block;width:110px">Fax</div>: (62) 21 7883 1692 <br/>
+                                                <div style="font-weight:bold;display:inline-block;width:110px">Phone</div>: <span t-field="o.company_id.phone" /> <br/>
+                                                <div style="font-weight:bold;display:inline-block;width:110px">Fax</div>: <span t-field="o.company_id.fax" /> <br/>
                                                 <div style="font-weight:bold;display:inline-block;width:110px">Website</div>: http://innograph.com <br/>
                                             </div>
                                         </td>
