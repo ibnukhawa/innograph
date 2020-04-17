@@ -99,7 +99,7 @@ var qweb = core.qweb;
                     
                     append_item += "<div class='cart-summary'>";
                     append_item += "<p class='cart-total'>";
-                    append_item += "<span class='label' style='color:#000;font-weight:400; font-size:12px;'> Total:";
+                    append_item += "<span class='label' style='color:#000;font-weight:400; font-size:12px;'> Subtotal:";
                     append_item += "</span>";
                     append_item += "<span class='price' style='white-space: nowrap'> "+data.amount_total;
                     append_item += "</span>";

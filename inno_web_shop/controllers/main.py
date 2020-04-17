@@ -44,8 +44,8 @@ class WebsiteSale(WebsiteSale):
         
         data_product=request.env['product.product'].search(domain)
         qty = sale_order.website_order_line.mapped("product_uom_qty")
-        price = data_product.currency_id.symbol+' '+'{:,.0f}'.format(data_product.list_price)
-        amount_total = data_product.currency_id.symbol+' '+'{:,.0f}'.format(sale_order.amount_total)
+        price = data_product.currency_id.symbol+' '+'{:,.0f}'.format(data_product.product_tmpl_id.website_price)
+        amount_total = data_product.currency_id.symbol+' '+'{:,.0f}'.format(sale_order.amount_untaxed)
         product_id_qty = "1.0"
         name_product = re.sub('[^A-Za-z0-9]+', '', data_product.name)
         make_a_lower_char = name_product.lower()

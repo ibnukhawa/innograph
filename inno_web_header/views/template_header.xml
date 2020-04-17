@@ -325,8 +325,8 @@
           </div>
           <div class="cart-summary">
             <p class="cart-total">
-              <span class="label" style="color:#000; font-weight: 400; font-size: 12px;">Total:</span>
-              <span class="price" t-field="website_sale_order.amount_total" style="white-space: nowrap;" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
+              <span class="label" style="color:#000; font-weight: 400; font-size: 12px;">Subtotal:</span>
+              <span class="price" t-field="website_sale_order.amount_untaxed" style="white-space: nowrap;" t-options='{"widget": "monetary", "display_currency": website_sale_order.pricelist_id.currency_id}'/>
             </p>
           </div>
           <hr/>
