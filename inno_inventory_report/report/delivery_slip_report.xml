@@ -175,7 +175,7 @@
 			    				Disiapkan Oleh :<br/><br/><br/><br/><br/>
 			    				<t>
 			    					<span style="text-decoration:underline" t-esc="user.name"/>
-			    					<br/>  Tgl. : <span t-field="o.date" t-field-options="{'format': 'dd-MM-yyyy'}"/> 
+			    					<br/>  Tgl. : <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"/>   
 			    				</t>
 			    			</div>
 			    			<div class="col-xs-4">
