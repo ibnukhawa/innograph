@@ -249,8 +249,8 @@
                                     <td colspan="2" style="padding:15px 0px;font-size:9px;vertical-align:top;">
                                         <div style="margin-left: 220px;">
                                             <div style="font-weight:bold;display:inline-block;width:70px">Office</div>: Jl. Lenteng Agung Raya No. 15 (Jl. Baung No. 2) Jakarta Selatan 12610 <br/>
-                                            <div style="font-weight:bold;display:inline-block;width:70px">Phone</div>: <span t-field="o.company_id.phone" /><br/>
-                                            <div style="font-weight:bold;display:inline-block;width:70px">Fax</div>:<span t-field="o.company_id.fax" /> <br/>
+                                            <div style="font-weight:bold;display:inline-block;width:70px">Phone</div>: <span t-field="doc.company_id.phone" /><br/>
+                                            <div style="font-weight:bold;display:inline-block;width:70px">Fax</div>:<span t-field="doc.company_id.fax" /> <br/>
                                             <div style="font-weight:bold;display:inline-block;width:70px">Website</div>: http://innograph.com <br/>
                                         </div>
                                     </td>
