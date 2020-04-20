@@ -335,6 +335,7 @@ hr{
 
     .header_slider_1{
         padding-right: 1px;
+        height: -webkit-fill-available;
     }
 
     .header_slider_sub{
