@@ -684,13 +684,13 @@
 	<div class="row product_more_info" id="product_more_info">
 		<div class="col-md-12 pd_info">
 				<ul class="nav nav-tabs product-tabs" role="tablist">
-					<li role="presentation">
+					<li role="presentation" class="active">
 							<a href="#more_info" class="background-gray" aria-controls="more_info" role="tab" data-toggle="tab">Spesifikasi</a>
 					</li>
   			</ul>
 				<div class="tab-content">
 					
-					<div role="tabpanel" class="tab-pane" id="more_info">
+					<div role="tabpanel" class="tab-pane active" id="more_info">
 							<div class="pd-more-info">
 									<h4 class="text-center">Spesifikasi <span t-field="product.name"/></h4>        
 							</div>
@@ -703,46 +703,46 @@
 											<t t-foreach="product.attribute_line_ids.sorted(key=lambda x: x.attribute_id.category_id.name)" t-as="variant_id">
 															
 											<t t-if="variant_id.attribute_id.category_id != category_before">
-													<tr>
-																	<td><strong t-field="variant_id.attribute_id.category_id"/></td>
-																	<td><strong t-field="variant_id.attribute_id.name"/></td>
-																	<td>
-																			<t t-set="inc" t-value="0"/>
-																			<t t-foreach="variant_id.value_ids" t-as="value_id">
-																				
-																				<label t-field="value_id.name" />
+												<tr>
+													<!-- <td class="specification_name"><strong t-field="variant_id.attribute_id.category_id"/></td> -->
+													<td class="specification_name"><strong t-field="variant_id.attribute_id.name"/></td>
+													<td class="specification_content">
+															<t t-set="inc" t-value="0"/>
+															<t t-foreach="variant_id.value_ids" t-as="value_id">
+																
+																<label t-field="value_id.name" /> <br/>
 
-																				<t t-set="inc" t-value="inc+1"/>
-																			</t>
-																	</td>
-													</tr>
-												</t>
+																<t t-set="inc" t-value="inc+1"/>
+															</t>
+													</td>
+												</tr>
+											</t>
 
-												<t t-if="variant_id.attribute_id.category_id == category_before">
-													<tr>
-																			<td></td>
-																			<td><strong t-field="variant_id.attribute_id.name"/></td>
-																			<td>
-																					<t t-set="inc" t-value="0"/>
-																					<t t-foreach="variant_id.value_ids" t-as="value_id">
-																						
-																						<label t-field="value_id.name" />
+											<t t-if="variant_id.attribute_id.category_id == category_before">
+												<tr>
+													<!-- <td></td> -->
+													<td class="specification_name"><strong t-field="variant_id.attribute_id.name"/></td>
+													<td class="specification_content">
+															<t t-set="inc" t-value="0"/>
+															<t t-foreach="variant_id.value_ids" t-as="value_id">
+																
+																<label t-field="value_id.name" /> <br/>
 
-																						<t t-set="inc" t-value="inc+1"/>
-																				
-																					</t>
-																			</td>
-													</tr>
-												</t>
+																<t t-set="inc" t-value="inc+1"/>
+														
+															</t>
+													</td>
+												</tr>
+											</t>
 
-												<t t-set="category_before" t-value="variant_id.attribute_id.category_id"/>
+											<t t-set="category_before" t-value="variant_id.attribute_id.category_id"/>
 
-												</t>
+											</t>
 										</table>
 
 								</t>
 											<div itemprop="description" t-field="product.website_description" class="oe_structure mt16" id="product_full_description"/>
-									</div>
+					</div>
 				</div>
 		</div>
 	</div>

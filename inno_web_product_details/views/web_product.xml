@@ -14,7 +14,7 @@
             </li>
             <li role="presentation">
                 <a href="#product_gallery" class="background-gray" aria-controls="more_info" role="tab"
-                    data-toggle="tab">Galeri Product</a>
+                    data-toggle="tab">Galeri Produk</a>
             </li>
         </xpath>
         <xpath expr="//div[@id='more_info']" position='after'>
@@ -35,13 +35,13 @@
         </xpath>
 
 
-        <xpath expr="//div[@id='more_info']" position='before'>
+        <xpath expr="//div[@id='more_info']" position='after'>
             <div role="tabpanel" class="tab-pane" id="detail_product">
                 <div itemprop="description" t-field="product.product_detail" class="oe_structure mt16"
                     id="product_full_description" />
             </div>
         </xpath>
-
+<!-- 
         <xpath expr="//ul[@class='nav nav-tabs product-tabs']/li" position="before">
             <li role="presentation" class="active">
                 <a href="#deskripsi_singkat" class="background-gray" aria-controls="deskripsi_singkat" role="tab"
@@ -54,7 +54,7 @@
                 <div itemprop="description" t-field="product.short_description" class="oe_structure mt16"
                     id="product_full_description" />
             </div>
-        </xpath>
+        </xpath> -->
         
         <xpath expr="//div[@class='pd-more-info']" position='after'>
             <t t-if="product.public_categ_ids">
@@ -206,6 +206,13 @@
         <xpath expr="//div[@class='product_price mt16']/h4[1]/b[@class='oe_price']" position="replace">
 
              <b class="oe_price" style="white-space: nowrap;" t-esc="compute_currency(product.price)" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+
+        </xpath>
+
+
+        <xpath expr="//div[@class='product_price mt16']" position="after">
+
+            <p t-field="product.short_description" class="text-muted"></p>
 
         </xpath>
 
