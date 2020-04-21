@@ -1,0 +1,12 @@
+.specification_content{
+    background-color: #ffffff;
+}
+.specification_name{
+    background-color: #f5f5f5;
+}
+.pro-desc{
+    display: none !important;
+}
+#product_detail .product-shop-info .product_price{
+    padding-bottom: 0px;
+}
