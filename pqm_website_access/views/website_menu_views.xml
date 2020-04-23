@@ -27,7 +27,7 @@
         <field name="arch" type="xml">
             <tree string="Website Menu URL" editable="bottom">
                 <field name="name" />
-                <field name="website_title" />
+                <!-- <field name="website_title" /> -->
                 <field name="url" />
                 <field name="logo" />
                 <field name="logo_footer" />
