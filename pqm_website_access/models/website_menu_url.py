@@ -9,3 +9,5 @@ class WebsiteMenuUrl(models.Model):
     url = fields.Char()
     logo = fields.Binary(string="Logo Header")
     logo_footer = fields.Binary(string="Logo Footer")
+    favicon = fields.Binary(string="Favicon")
+    website_title = fields.Char(string="Title")
