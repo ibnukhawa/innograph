@@ -19,12 +19,12 @@
         </xpath>
         <xpath expr="//div[@id='more_info']" position='after'>
             <div role="tabpanel" class="tab-pane" id="installation_instruction">
-                <div itemprop="description" t-field="product.installation_instructions" class="oe_structure mt16"
-                    id="product_full_description" />
+                <div t-field="product.installation_instructions" class="oe_structure mt16"
+                    id="product_full_description" style="font-size:13px;"/>
             </div>
             <div role="tabpanel" class="tab-pane acve" id="product_gallery">
                 <div itemprop="description" t-field="product.product_gallery" class="oe_structure mt16"
-                    id="product_full_description" />
+                    id="product_full_description" style="font-size:13px;"/>
             </div>
         </xpath>
         <xpath expr="//ul[@class='nav nav-tabs product-tabs']/li" position="before">
@@ -37,8 +37,10 @@
 
         <xpath expr="//div[@id='more_info']" position='after'>
             <div role="tabpanel" class="tab-pane" id="detail_product">
-                <div itemprop="description" t-field="product.product_detail" class="oe_structure mt16"
-                    id="product_full_description" />
+                
+                <div t-field="product.product_detail" class="oe_structure mt16"
+                    id="product_full_description" style="font-size:13px;"/>
+                
             </div>
         </xpath>
 <!-- 
@@ -58,7 +60,7 @@
         
         <xpath expr="//div[@class='pd-more-info']" position='after'>
             <t t-if="product.public_categ_ids">
-                <div class="pd-more-info">
+                <div class="pd-more-info" id="display_none">
                     <span t-field="product.public_categ_ids[0].description" />
                 </div>
             </t>
@@ -91,7 +93,7 @@
             <t t-foreach="product.tab_ids" t-as="tab">
                 <div role="tabpanel" class="tab-pane" t-attf-id="_{{tab.id}}">
                     <div class="pd-more-info">
-                        <div itemprop="description" t-field="tab.description" class="oe_structure mt16" t-attf-id="{{tab.name}}" />
+                        <div itemprop="description" t-field="tab.description" class="oe_structure mt16" t-attf-id="{{tab.name}}" style="font-size:13px"/>
                     </div>
                 </div>
             </t>

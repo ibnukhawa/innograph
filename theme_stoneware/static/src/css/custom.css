@@ -1,12 +1,17 @@
 .specification_content{
     background-color: #ffffff;
+    font-size:13px;
 }
 .specification_name{
     background-color: #f5f5f5;
+    font-size:13px;
 }
 .pro-desc{
     display: none !important;
 }
 #product_detail .product-shop-info .product_price{
     padding-bottom: 0px;
+}
+#display_none{
+    display: none;
 }
