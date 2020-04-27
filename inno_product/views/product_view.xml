@@ -58,5 +58,17 @@
             	</button>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="attribute_tree_view">
+            <field name="name">product.attribute.tree</field>
+            <field name="model">product.attribute</field>
+            <field name="inherit_id" ref="product.attribute_tree_view" />
+            <field name="arch" type="xml">
+                <field name="create_variant" position="attributes">
+                    <attribute name="groups"></attribute>
+                </field>
+            </field>
+        </record>
+        
     </data>
 </odoo>
