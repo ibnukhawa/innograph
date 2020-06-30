@@ -152,8 +152,8 @@ class MrpPartRequest(models.Model):
 						'description': move.product_id.display_name,
 						'uom_id': move.product_uom.id,
 						'quantity': qty,
-						'item_size': line and line.item_size or False,
-						'item_qty': line and line.item_qty or 0
+						'item_size': line and line[0].item_size or False,
+						'item_qty': line and line[0].item_qty or 0
 					}
 					new_line = part_line_obj.create(vals)
 					new_line_ids.append(new_line.id)
