@@ -36,6 +36,16 @@ class MrpProduction(models.Model):
                 res['location_src_id'] = pick_type.default_location_src_id.id
                 res['location_dest_id'] = pick_type.default_location_dest_id.id
         return res
+    
+    @api.model
+    def create(self, vals):
+        if 'picking_type_id' in vals:
+            picking_type_id = self.env['stock.picking.type'].browse(vals.get('picking_type_id'))
+            if picking_type_id.default_location_src_id:
+                vals['location_src_id'] = picking_type_id.default_location_src_id.id
+            if picking_type_id.default_location_dest_id:
+                vals['location_dest_id'] = picking_type_id.default_location_dest_id.id
+        return super(MrpProduction, self).create(vals)
 
     @api.multi
     @api.depends('move_raw_ids')
