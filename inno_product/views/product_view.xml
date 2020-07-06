@@ -43,21 +43,21 @@
 	    	</field>
 	    </record>
 
-	    <record model="ir.ui.view" id="product_normal_form_view_whfg_button">
+	    <!-- <record model="ir.ui.view" id="product_normal_form_view_whfg_button">
             <field name="name">product.product.form.inherit</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
             	<button name="toggle_active" position="after">
             		<button type="object"
-                        name="action_open_finished_quants"
+                        name="action_open_finished_quants_variant"
                         attrs="{'invisible':[('type', '!=', 'product')]}"
                         class="oe_stat_button" icon="fa-truck fa-flip-horizontal">
-                        <field name="qty_ready" widget="statinfo" string="Siap Kirim"/>
+                        <field name="qty_ready" widget="statinfo" string="Siap Kirim X"/>
                     </button>
             	</button>
             </field>
-        </record>
+        </record> -->
 
         <record model="ir.ui.view" id="attribute_tree_view">
             <field name="name">product.attribute.tree</field>
