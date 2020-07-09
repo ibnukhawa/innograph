@@ -92,6 +92,8 @@ class MrpPartRequest(models.Model):
 					'product_uom': line.uom_id.id,
 					'location_id': src_loc.id,
 					'location_dest_id': dst_loc.id,
+					'production_id': False,
+					'raw_material_production_id': False,
 				}
 				move = self.env['stock.move'].create(vals)
 				if move:
